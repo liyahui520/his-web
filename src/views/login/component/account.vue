@@ -77,7 +77,7 @@
 </template>
 
 <script lang="ts" setup name="loginAccount">
-import { reactive, computed, ref, onMounted, defineAsyncComponent, onUnmounted } from 'vue';
+import { reactive, computed, ref, onMounted, defineAsyncComponent, onUnmounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ElMessage, InputInstance } from 'element-plus';
 import { useI18n } from 'vue-i18n';
@@ -156,20 +156,40 @@ onMounted(async () => {
   		if(Local.get('isCloud'))
 		  state.ruleForm.isCloud = true;
 		
-	// 获取登录配置
-	state.secondVerEnabled = themeConfig.value.secondVer ?? true;
-	state.captchaEnabled = themeConfig.value.captcha ?? true;
+	// // 获取登录配置
+	// state.secondVerEnabled = themeConfig.value.secondVer ?? true;
+	// state.captchaEnabled = themeConfig.value.captcha ?? true;
 
-	// 获取验证码
-	getCaptcha();
+	// // 获取验证码
+	// getCaptcha();
 
-	// 注册验证码过期计时器
-	if (state.captchaEnabled) {
-		timer = setInterval(() => {
-			if (state.expirySeconds > 0) state.expirySeconds -= 1;
-		}, 1000);
-	}
+	// // 注册验证码过期计时器
+	// if (state.captchaEnabled) {
+	// 	timer = setInterval(() => {
+	// 		if (state.expirySeconds > 0) state.expirySeconds -= 1;
+	// 	}, 1000);
+	// }
+	watch(
+		() => themeConfig.value.isLoaded,
+		(isLoaded) => {
+			if (isLoaded) {
+				// 获取登录配置
+				state.secondVerEnabled = themeConfig.value.secondVer ?? true;
+				state.captchaEnabled = themeConfig.value.captcha ?? true;
 
+				// 获取验证码
+				getCaptcha();
+
+				// 注册验证码过期计时器
+				if (state.captchaEnabled) {
+					timer = setInterval(() => {
+						if (state.expirySeconds > 0) state.expirySeconds -= 1;
+					}, 1000);
+				}
+			}
+		},
+		{ immediate: true }
+	);
 	// 检测大小写按键/CapsLK
 	document.addEventListener('keyup', handleKeyPress);
 });

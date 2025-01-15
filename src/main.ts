@@ -39,7 +39,7 @@ import 'vform3-builds/dist/designer.style.css';
  
 // import {hiPrintPlugin} from '/@/plugins/plugin-hiprint'
 // hiPrintPlugin.disAutoConnect(); 
-const app = createApp(App);
+const app = createApp(App); 
 directive(app);
 other.elSvg(app);
 

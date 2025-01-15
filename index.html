@@ -6,8 +6,8 @@
 		<meta name="ICP" content="豫ICP备2024067131号">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
-		<link rel="stylesheet" type="text/css" media="print" href="/print-lock.css" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="stylesheet" type="text/css" media="print" href="/print-lock.css" /> 
+		<link rel="icon" href="/favicon.ico" />  
 		<title>医疗管理系统</title>
 	</head>
 	<body>
@@ -22,5 +22,27 @@
 			translate.execute(); // 执行翻译初始化操作，显示出select语言选择
 		</script> -->
 </body>
+<script>  
+    document.oncontextmenu = function() {
+        //alert('右键被禁用');
+        return false;
+    }
+    document.onkeydown = function() {
+        var e = window.event || arguments[0];
+        if (e.keyCode == 123) {
+            //alert("F12被禁用");
+            return false;
+        }else if ((e.ctrlKey) && (e.keyCode == 83)) {
+            //alert("ctrl+s被禁用");
+            return false;
+        }else if ((e.ctrlKey) && (e.keyCode == 85)) {
+            //alert("ctrl+u被禁用");
+            return false;
+        }else if ((e.ctrlKey) && (e.shiftKey) && (e.keyCode == 73)) {
+			//alert('禁止Ctrl+Shift+I');
+			return false;
+		}
+    }
+</script>
 
 </html>

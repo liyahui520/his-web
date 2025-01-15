@@ -10,6 +10,7 @@ import {Configuration} from '../api-services';
 import {BaseAPI, BASE_PATH} from '../api-services/base';
 import {ElMessage} from 'element-plus';
 import {Local, Session} from '../utils/storage';
+import { sm2 } from 'sm-crypto-v2';
 // import {sm2} from 'sm-crypto';
 // import { SM4, SM3, SM2 } from 'gm-crypto';
 
@@ -118,15 +119,14 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
     (r) => {
         let res = r;
-        // if (window.__env__.VITE_ENV === 'development') {
-        //     let aa = SM2.decrypt(r.data, '3690655E33D5EA3D9A4AE1A1ADD766FDEA045CDEAA43A9206FB8C430CEFE0D94', {
-        //         inputEncoding: 'base64',
-        //         outputEncoding: 'utf8'
-        //     });
-        //
-        //     const a = sm2.doDecrypt(r.data.substring(2), '3690655E33D5EA3D9A4AE1A1ADD766FDEA045CDEAA43A9206FB8C430CEFE0D94', 1);
-        //     res.data = JSON.parse(a);
+        const priveKey = window.__env__.VITE_SM_PRIVE_KEY;
+        // if (window.__env__.VITE_ENV === 'development') { 
+        //     const a = sm2.doDecrypt(r.data.substring(2), publicKey, 1);
+        //     res.data = JSON.parse(a as any);
         // }
+
+        const a = sm2.doDecrypt(r.data.substring(2), priveKey, 1);
+        res.data = JSON.parse(a as any); 
         // 获取状态码和返回数据
         var status = res.status;
         var serve = res.data;

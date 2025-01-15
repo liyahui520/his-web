@@ -18,10 +18,8 @@ const alias: Record<string, string> = {
 	'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
 };
 
-const viteConfig = defineConfig((mode: ConfigEnv) => {
-	console.log('mode.mode',mode.mode)
-	const env = loadEnv(mode.mode, process.cwd());
-	console.log('mode.mode',env)
+const viteConfig = defineConfig((mode: ConfigEnv) => { 
+	const env = loadEnv(mode.mode, process.cwd()); 
 	fs.writeFileSync('./public/config.js', `window.__env__ = ${JSON.stringify(env, null, 2)} `);
 	return {
 		plugins: [
@@ -76,7 +74,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 			assetsInlineLimit: 0, // 小于此阈值的导入或引用资源将内联为 base64 编码
 			assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.gif'],
 			sourcemap: false, // 构建后是否生成 source map 文件
-			extractComments: false, // 移除注释
+			extractComments: true, // 移除注释
 			minify: 'terser', // 启用后 terserOptions 配置才有效
 			terserOptions: {
 				compress: {
@@ -99,7 +97,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 			},
 		},
 		// css: { preprocessorOptions: { css: { charset: false } } },
-		css: { preprocessorOptions: { css: { charset: false }, scss: { silenceDeprecations: ['legacy-js-api'] } } },
+		css: { preprocessorOptions: { css: { charset: false }, scss: { silenceDeprecations: ['legacy-js-api'],api:'modern-compiler'  } } },
 		define: {
 			__VUE_I18N_LEGACY_API__: JSON.stringify(false),
 			__VUE_I18N_FULL_INSTALL__: JSON.stringify(false),

@@ -12,7 +12,6 @@ import {autoConnect, disAutoConnect, hiprint, defaultElementTypeProvider} from '
     import { ElMessageBox, ElMessage } from 'element-plus';
 import { getToken } from '/@/utils/axios-utils';
 
-console.log('getToken()',getToken())
      
 // 引入组件
 const layouts: any = {

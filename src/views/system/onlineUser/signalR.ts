@@ -18,11 +18,11 @@ connection.serverTimeoutInMilliseconds = 30 * 60 * 1000; // 超时时间30m
 
 // 启动连接
 connection.start().then(() => {
-	console.log('启动连接');
+	//console.log('启动连接');
 });
 // 断开连接
 connection.onclose(async () => {
-	console.log('断开连接');
+	//console.log('断开连接');
 });
 // 重连中
 connection.onreconnecting(() => {

@@ -81,7 +81,7 @@
 		<printDialog ref="printDialogRef" :title="state.dialogTitle" @reloadTable="handleQuery" />
 		<editDialog ref="editDialogRef" :title="state.dialogTitle" @reloadTable="handleQuery" />
 		<editFormDialog ref="editFormDialogRef" :title="state.dialogTitle" @reloadTable="handleQuery" />
-		<editFlowDialog ref="editFlowDialogRef" :title="state.dialogTitle" @updateFlow="handleFlow" @reloadTable="handleQuery" />
+		<!-- <editFlowDialog ref="editFlowDialogRef" :title="state.dialogTitle" @updateFlow="handleFlow" @reloadTable="handleQuery" /> -->
 	</div>
 </template>
 
@@ -93,7 +93,7 @@ import { ElMessageBox, ElMessage } from 'element-plus';
 import printDialog from '/@/views/system/print/component/hiprint/preview.vue';
 import editFormDialog from './component/editFormDialog.vue';
 import detailDialog from './component/detailDialog.vue';
-import editFlowDialog from './component/editFlowDialog.vue';
+// import editFlowDialog from './component/editFlowDialog.vue';
 import editDialog from './component/editDialog.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
 

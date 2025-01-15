@@ -69,7 +69,7 @@ export * from './admin-result-sql-sugar-paged-list-job-detail-output';
 export * from './admin-result-sql-sugar-paged-list-open-access-output';
 export * from './admin-result-sql-sugar-paged-list-sys-code-gen';
 export * from './admin-result-sql-sugar-paged-list-sys-config';
-export * from './admin-result-sql-sugar-paged-list-sys-dict-data';
+// export * from './admin-result-sql-sugar-paged-list-sys-dict-data';
 export * from './admin-result-sql-sugar-paged-list-sys-dict-type';
 export * from './admin-result-sql-sugar-paged-list-sys-file';
 export * from './admin-result-sql-sugar-paged-list-sys-job-trigger-record';

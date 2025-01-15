@@ -399,7 +399,7 @@ defineExpose({
     }
 
     .table-footer {
-        // display: flex;
+        display: flex;
         height: 48px;
         min-height: 48px;
         justify-content: flex-end;

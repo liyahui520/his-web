@@ -108,7 +108,7 @@ onMounted(() => {
     // 获取缓存中的全屏配置
     if (Session.get('isTagsViewCurrenFull')) {
       stores.setCurrenFullscreen(Session.get('isTagsViewCurrenFull'));
-    }
+    } 
   });
 });
 // 页面销毁时，关闭监听布局配置/i18n监听
@@ -153,7 +153,8 @@ const loadSysInfo = () => {
 			// 登录验证
 			themeConfig.value.secondVer = data.sysSecondVer;
 			themeConfig.value.captcha = data.sysCaptcha;
-
+			//更新配置加载状态
+			themeConfig.value.isLoaded = true;
 			// 更新 favicon
 			updateFavicon(data.sysLogo);
 

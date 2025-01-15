@@ -11,233 +11,37 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-
 import globalAxios, { AxiosResponse, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { AdminResultBoolean } from '../models';
+import { AddSysAppInput } from '../models';
+import { AdminResultInt64 } from '../models';
+import { AdminResultListInt64 } from '../models';
 import { AdminResultLoginOutput } from '../models';
-import { AdminResultLoginUserOutput } from '../models';
 import { AdminResultObject } from '../models';
-import { AdminResultString } from '../models';
-import { LoginInput } from '../models';
-import { LoginPhoneInput } from '../models';
+import { AdminResultSqlSugarPagedListSysAppOutput } from '../models';
+import { BaseIdInput } from '../models';
+import { BasePageInput } from '../models';
+import { ChangeAppInput } from '../models';
+import { UpdateAppMenuInput } from '../models';
+import { UpdateSysAppInput } from '../models';
 /**
- * SysAuthApi - axios parameter creator
+ * SysAppApi - axios parameter creator
  * @export
  */
-export const SysAuthApiAxiosParamCreator = function (configuration?: Configuration) {
+export const SysAppApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Swagger登录检查
-         * @summary Swagger登录检查 🔖
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiSwaggerCheckUrlPost: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/swagger/checkUrl`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Swagger登录提交
-         * @summary Swagger登录提交 🔖
-         * @param {string} [userName] 
-         * @param {string} [password] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiSwaggerSubmitUrlPostForm: async (userName?: string, password?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/swagger/submitUrl`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-            const localVarFormParams = new FormData();
-
-            // authentication Bearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-
-            if (userName !== undefined) { 
-                localVarFormParams.append('UserName', userName as any);
-            }
-
-            if (password !== undefined) { 
-                localVarFormParams.append('Password', password as any);
-            }
-
-            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = localVarFormParams;
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * 
-         * @summary 获取验证码 🔖
+         * @summary 增加应用 🔖
+         * @param {AddSysAppInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysAuthCaptchaGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysAuth/captcha`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary 手机号登录 🔖
-         * @param {LoginPhoneInput} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiSysAuthLoginPhonePost: async (body: LoginPhoneInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling apiSysAuthLoginPhonePost.');
-            }
-            const localVarPath = `/api/sysAuth/loginPhone`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 用户名/密码：superadmin/123456
-         * @summary 账号密码登录 🔖
-         * @param {LoginInput} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiSysAuthLoginPost: async (body: LoginInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling apiSysAuthLoginPost.');
-            }
-            const localVarPath = `/api/sysAuth/login`;
+        apiSysAppAddPost: async (body?: AddSysAppInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysApp/add`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -279,155 +83,12 @@ export const SysAuthApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 退出系统 🔖
+         * @summary 获取切换应用数据 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysAuthLogoutPost: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysAuth/logout`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary 获取刷新Token 🔖
-         * @param {string} [accessToken] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiSysAuthRefreshTokenGet: async (accessToken?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysAuth/refreshToken`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-            if (accessToken !== undefined) {
-                localVarQueryParameter['accessToken'] = accessToken;
-            }
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary 验证锁屏密码 🔖
-         * @param {string} password 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiSysAuthUnLockScreenPost: async (password: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'password' is not null or undefined
-            if (password === null || password === undefined) {
-                throw new RequiredError('password','Required parameter password was null or undefined when calling apiSysAuthUnLockScreenPost.');
-            }
-            const localVarPath = `/api/sysAuth/unLockScreen`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-            if (password !== undefined) {
-                localVarQueryParameter['password'] = password;
-            }
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary 获取登录账号 🔖
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiSysAuthUserInfoGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysAuth/userInfo`;
+        apiSysAppChangeAppGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysApp/changeApp`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -463,38 +124,312 @@ export const SysAuthApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary 切换应用 🔖
+         * @param {ChangeAppInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysAppChangeAppPost: async (body?: ChangeAppInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysApp/changeApp`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 删除应用 🔖
+         * @param {BaseIdInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysAppDeletePost: async (body?: BaseIdInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysApp/delete`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取授权菜单 🔖
+         * @param {number} [id] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysAppGrantMenuGet: async (id?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysApp/grantMenu`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 授权菜单 🔖
+         * @param {UpdateAppMenuInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysAppGrantMenuPost: async (body?: UpdateAppMenuInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysApp/grantMenu`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 分页查询应用 🔖
+         * @param {BasePageInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysAppPagePost: async (body?: BasePageInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysApp/page`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 更新应用 🔖
+         * @param {UpdateSysAppInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysAppUpdatePost: async (body?: UpdateSysAppInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysApp/update`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
 /**
- * SysAuthApi - functional programming interface
+ * SysAppApi - functional programming interface
  * @export
  */
-export const SysAuthApiFp = function(configuration?: Configuration) {
+export const SysAppApiFp = function(configuration?: Configuration) {
     return {
         /**
-         * Swagger登录检查
-         * @summary Swagger登录检查 🔖
+         * 
+         * @summary 增加应用 🔖
+         * @param {AddSysAppInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSwaggerCheckUrlPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<number>>> {
-            const localVarAxiosArgs = await SysAuthApiAxiosParamCreator(configuration).apiSwaggerCheckUrlPost(options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * Swagger登录提交
-         * @summary Swagger登录提交 🔖
-         * @param {string} [userName] 
-         * @param {string} [password] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSwaggerSubmitUrlPostForm(userName?: string, password?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<number>>> {
-            const localVarAxiosArgs = await SysAuthApiAxiosParamCreator(configuration).apiSwaggerSubmitUrlPostForm(userName, password, options);
+        async apiSysAppAddPost(body?: AddSysAppInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultInt64>>> {
+            const localVarAxiosArgs = await SysAppApiAxiosParamCreator(configuration).apiSysAppAddPost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -502,12 +437,12 @@ export const SysAuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取验证码 🔖
+         * @summary 获取切换应用数据 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysAuthCaptchaGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultObject>>> {
-            const localVarAxiosArgs = await SysAuthApiAxiosParamCreator(configuration).apiSysAuthCaptchaGet(options);
+        async apiSysAppChangeAppGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultObject>>> {
+            const localVarAxiosArgs = await SysAppApiAxiosParamCreator(configuration).apiSysAppChangeAppGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -515,27 +450,13 @@ export const SysAuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 手机号登录 🔖
-         * @param {LoginPhoneInput} body 
+         * @summary 切换应用 🔖
+         * @param {ChangeAppInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysAuthLoginPhonePost(body: LoginPhoneInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultLoginOutput>>> {
-            const localVarAxiosArgs = await SysAuthApiAxiosParamCreator(configuration).apiSysAuthLoginPhonePost(body, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 用户名/密码：superadmin/123456
-         * @summary 账号密码登录 🔖
-         * @param {LoginInput} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysAuthLoginPost(body: LoginInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultLoginOutput>>> {
-            const localVarAxiosArgs = await SysAuthApiAxiosParamCreator(configuration).apiSysAuthLoginPost(body, options);
+        async apiSysAppChangeAppPost(body?: ChangeAppInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultLoginOutput>>> {
+            const localVarAxiosArgs = await SysAppApiAxiosParamCreator(configuration).apiSysAppChangeAppPost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -543,12 +464,13 @@ export const SysAuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 退出系统 🔖
+         * @summary 删除应用 🔖
+         * @param {BaseIdInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysAuthLogoutPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysAuthApiAxiosParamCreator(configuration).apiSysAuthLogoutPost(options);
+        async apiSysAppDeletePost(body?: BaseIdInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysAppApiAxiosParamCreator(configuration).apiSysAppDeletePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -556,13 +478,13 @@ export const SysAuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取刷新Token 🔖
-         * @param {string} [accessToken] 
+         * @summary 获取授权菜单 🔖
+         * @param {number} [id] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysAuthRefreshTokenGet(accessToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultString>>> {
-            const localVarAxiosArgs = await SysAuthApiAxiosParamCreator(configuration).apiSysAuthRefreshTokenGet(accessToken, options);
+        async apiSysAppGrantMenuGet(id?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListInt64>>> {
+            const localVarAxiosArgs = await SysAppApiAxiosParamCreator(configuration).apiSysAppGrantMenuGet(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -570,13 +492,13 @@ export const SysAuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 验证锁屏密码 🔖
-         * @param {string} password 
+         * @summary 授权菜单 🔖
+         * @param {UpdateAppMenuInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysAuthUnLockScreenPost(password: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultBoolean>>> {
-            const localVarAxiosArgs = await SysAuthApiAxiosParamCreator(configuration).apiSysAuthUnLockScreenPost(password, options);
+        async apiSysAppGrantMenuPost(body?: UpdateAppMenuInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysAppApiAxiosParamCreator(configuration).apiSysAppGrantMenuPost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -584,12 +506,27 @@ export const SysAuthApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取登录账号 🔖
+         * @summary 分页查询应用 🔖
+         * @param {BasePageInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysAuthUserInfoGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultLoginUserOutput>>> {
-            const localVarAxiosArgs = await SysAuthApiAxiosParamCreator(configuration).apiSysAuthUserInfoGet(options);
+        async apiSysAppPagePost(body?: BasePageInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListSysAppOutput>>> {
+            const localVarAxiosArgs = await SysAppApiAxiosParamCreator(configuration).apiSysAppPagePost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 更新应用 🔖
+         * @param {UpdateSysAppInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysAppUpdatePost(body?: UpdateSysAppInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysAppApiAxiosParamCreator(configuration).apiSysAppUpdatePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -599,202 +536,185 @@ export const SysAuthApiFp = function(configuration?: Configuration) {
 };
 
 /**
- * SysAuthApi - factory interface
+ * SysAppApi - factory interface
  * @export
  */
-export const SysAuthApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+export const SysAppApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     return {
         /**
-         * Swagger登录检查
-         * @summary Swagger登录检查 🔖
+         * 
+         * @summary 增加应用 🔖
+         * @param {AddSysAppInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSwaggerCheckUrlPost(options?: AxiosRequestConfig): Promise<AxiosResponse<number>> {
-            return SysAuthApiFp(configuration).apiSwaggerCheckUrlPost(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Swagger登录提交
-         * @summary Swagger登录提交 🔖
-         * @param {string} [userName] 
-         * @param {string} [password] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSwaggerSubmitUrlPostForm(userName?: string, password?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<number>> {
-            return SysAuthApiFp(configuration).apiSwaggerSubmitUrlPostForm(userName, password, options).then((request) => request(axios, basePath));
+        async apiSysAppAddPost(body?: AddSysAppInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultInt64>> {
+            return SysAppApiFp(configuration).apiSysAppAddPost(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary 获取验证码 🔖
+         * @summary 获取切换应用数据 🔖
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysAuthCaptchaGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
-            return SysAuthApiFp(configuration).apiSysAuthCaptchaGet(options).then((request) => request(axios, basePath));
+        async apiSysAppChangeAppGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
+            return SysAppApiFp(configuration).apiSysAppChangeAppGet(options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary 手机号登录 🔖
-         * @param {LoginPhoneInput} body 
+         * @summary 切换应用 🔖
+         * @param {ChangeAppInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysAuthLoginPhonePost(body: LoginPhoneInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultLoginOutput>> {
-            return SysAuthApiFp(configuration).apiSysAuthLoginPhonePost(body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 用户名/密码：superadmin/123456
-         * @summary 账号密码登录 🔖
-         * @param {LoginInput} body 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysAuthLoginPost(body: LoginInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultLoginOutput>> {
-            return SysAuthApiFp(configuration).apiSysAuthLoginPost(body, options).then((request) => request(axios, basePath));
+        async apiSysAppChangeAppPost(body?: ChangeAppInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultLoginOutput>> {
+            return SysAppApiFp(configuration).apiSysAppChangeAppPost(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary 退出系统 🔖
+         * @summary 删除应用 🔖
+         * @param {BaseIdInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysAuthLogoutPost(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysAuthApiFp(configuration).apiSysAuthLogoutPost(options).then((request) => request(axios, basePath));
+        async apiSysAppDeletePost(body?: BaseIdInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysAppApiFp(configuration).apiSysAppDeletePost(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary 获取刷新Token 🔖
-         * @param {string} [accessToken] 
+         * @summary 获取授权菜单 🔖
+         * @param {number} [id] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysAuthRefreshTokenGet(accessToken?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultString>> {
-            return SysAuthApiFp(configuration).apiSysAuthRefreshTokenGet(accessToken, options).then((request) => request(axios, basePath));
+        async apiSysAppGrantMenuGet(id?: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListInt64>> {
+            return SysAppApiFp(configuration).apiSysAppGrantMenuGet(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary 验证锁屏密码 🔖
-         * @param {string} password 
+         * @summary 授权菜单 🔖
+         * @param {UpdateAppMenuInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysAuthUnLockScreenPost(password: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultBoolean>> {
-            return SysAuthApiFp(configuration).apiSysAuthUnLockScreenPost(password, options).then((request) => request(axios, basePath));
+        async apiSysAppGrantMenuPost(body?: UpdateAppMenuInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysAppApiFp(configuration).apiSysAppGrantMenuPost(body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @summary 获取登录账号 🔖
+         * @summary 分页查询应用 🔖
+         * @param {BasePageInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysAuthUserInfoGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultLoginUserOutput>> {
-            return SysAuthApiFp(configuration).apiSysAuthUserInfoGet(options).then((request) => request(axios, basePath));
+        async apiSysAppPagePost(body?: BasePageInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListSysAppOutput>> {
+            return SysAppApiFp(configuration).apiSysAppPagePost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 更新应用 🔖
+         * @param {UpdateSysAppInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysAppUpdatePost(body?: UpdateSysAppInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysAppApiFp(configuration).apiSysAppUpdatePost(body, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * SysAuthApi - object-oriented interface
+ * SysAppApi - object-oriented interface
  * @export
- * @class SysAuthApi
+ * @class SysAppApi
  * @extends {BaseAPI}
  */
-export class SysAuthApi extends BaseAPI {
+export class SysAppApi extends BaseAPI {
     /**
-     * Swagger登录检查
-     * @summary Swagger登录检查 🔖
+     * 
+     * @summary 增加应用 🔖
+     * @param {AddSysAppInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysAuthApi
+     * @memberof SysAppApi
      */
-    public async apiSwaggerCheckUrlPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<number>> {
-        return SysAuthApiFp(this.configuration).apiSwaggerCheckUrlPost(options).then((request) => request(this.axios, this.basePath));
-    }
-    /**
-     * Swagger登录提交
-     * @summary Swagger登录提交 🔖
-     * @param {string} [userName] 
-     * @param {string} [password] 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SysAuthApi
-     */
-    public async apiSwaggerSubmitUrlPostForm(userName?: string, password?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<number>> {
-        return SysAuthApiFp(this.configuration).apiSwaggerSubmitUrlPostForm(userName, password, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysAppAddPost(body?: AddSysAppInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultInt64>> {
+        return SysAppApiFp(this.configuration).apiSysAppAddPost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
-     * @summary 获取验证码 🔖
+     * @summary 获取切换应用数据 🔖
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysAuthApi
+     * @memberof SysAppApi
      */
-    public async apiSysAuthCaptchaGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultObject>> {
-        return SysAuthApiFp(this.configuration).apiSysAuthCaptchaGet(options).then((request) => request(this.axios, this.basePath));
+    public async apiSysAppChangeAppGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultObject>> {
+        return SysAppApiFp(this.configuration).apiSysAppChangeAppGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
-     * @summary 手机号登录 🔖
-     * @param {LoginPhoneInput} body 
+     * @summary 切换应用 🔖
+     * @param {ChangeAppInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysAuthApi
+     * @memberof SysAppApi
      */
-    public async apiSysAuthLoginPhonePost(body: LoginPhoneInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultLoginOutput>> {
-        return SysAuthApiFp(this.configuration).apiSysAuthLoginPhonePost(body, options).then((request) => request(this.axios, this.basePath));
-    }
-    /**
-     * 用户名/密码：superadmin/123456
-     * @summary 账号密码登录 🔖
-     * @param {LoginInput} body 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SysAuthApi
-     */
-    public async apiSysAuthLoginPost(body: LoginInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultLoginOutput>> {
-        return SysAuthApiFp(this.configuration).apiSysAuthLoginPost(body, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysAppChangeAppPost(body?: ChangeAppInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultLoginOutput>> {
+        return SysAppApiFp(this.configuration).apiSysAppChangeAppPost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
-     * @summary 退出系统 🔖
+     * @summary 删除应用 🔖
+     * @param {BaseIdInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysAuthApi
+     * @memberof SysAppApi
      */
-    public async apiSysAuthLogoutPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysAuthApiFp(this.configuration).apiSysAuthLogoutPost(options).then((request) => request(this.axios, this.basePath));
+    public async apiSysAppDeletePost(body?: BaseIdInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysAppApiFp(this.configuration).apiSysAppDeletePost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
-     * @summary 获取刷新Token 🔖
-     * @param {string} [accessToken] 
+     * @summary 获取授权菜单 🔖
+     * @param {number} [id] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysAuthApi
+     * @memberof SysAppApi
      */
-    public async apiSysAuthRefreshTokenGet(accessToken?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultString>> {
-        return SysAuthApiFp(this.configuration).apiSysAuthRefreshTokenGet(accessToken, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysAppGrantMenuGet(id?: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListInt64>> {
+        return SysAppApiFp(this.configuration).apiSysAppGrantMenuGet(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
-     * @summary 验证锁屏密码 🔖
-     * @param {string} password 
+     * @summary 授权菜单 🔖
+     * @param {UpdateAppMenuInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysAuthApi
+     * @memberof SysAppApi
      */
-    public async apiSysAuthUnLockScreenPost(password: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultBoolean>> {
-        return SysAuthApiFp(this.configuration).apiSysAuthUnLockScreenPost(password, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysAppGrantMenuPost(body?: UpdateAppMenuInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysAppApiFp(this.configuration).apiSysAppGrantMenuPost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
-     * @summary 获取登录账号 🔖
+     * @summary 分页查询应用 🔖
+     * @param {BasePageInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysAuthApi
+     * @memberof SysAppApi
      */
-    public async apiSysAuthUserInfoGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultLoginUserOutput>> {
-        return SysAuthApiFp(this.configuration).apiSysAuthUserInfoGet(options).then((request) => request(this.axios, this.basePath));
+    public async apiSysAppPagePost(body?: BasePageInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListSysAppOutput>> {
+        return SysAppApiFp(this.configuration).apiSysAppPagePost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 更新应用 🔖
+     * @param {UpdateSysAppInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysAppApi
+     */
+    public async apiSysAppUpdatePost(body?: UpdateSysAppInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysAppApiFp(this.configuration).apiSysAppUpdatePost(body, options).then((request) => request(this.axios, this.basePath));
     }
 }

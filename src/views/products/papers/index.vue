@@ -72,7 +72,7 @@ const tb = reactive<TableDemoState>({
             {
                 prop: 'categoryName',
                 width: '120',
-                label: '目录',
+                label: '所属目录',
                 headerAlign: 'center',
                 toolTip: true,
                 sortable: 'custom',

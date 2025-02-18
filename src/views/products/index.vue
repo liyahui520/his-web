@@ -3,11 +3,14 @@
         <el-card shadow="never" :body-style="{ paddingBottom: '0', border: '0px' }">
             <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="70px">
                 <el-form-item label="产品类型">
-                    <el-select v-model="productTypesValue" default-first-option placeholder="请选择一级目录"
+                    <!-- <el-select v-model="productTypesValue" default-first-option placeholder="请选择一级目录"
                         @change="productTypeChange">
                         <el-option v-for="item in productTypesData" :key="item.id" :label="item.name"
                             :value="item.itemCode"></el-option>
-                    </el-select>
+                    </el-select> -->
+                    <el-radio-group v-model="productTypesValue" @change="productTypeChange">
+						<el-radio-button v-for="item in productTypesData" :key="item.id" :label="item.name" :value="item.itemCode" />
+					</el-radio-group>
                 </el-form-item>
                 <el-form-item label="目录" aria-invalid="true">
                     <el-cascader ref="categoryRef" :props="carcerProp" :options="productCategorysData" filterable

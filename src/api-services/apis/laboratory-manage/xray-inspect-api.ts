@@ -27,7 +27,7 @@ export const XrayInspectApiAxiosParamCreator = function (configuration?: Configu
     return {
         /**
          * 
-         * @summary 获取X光检查项目结果
+         * @summary 获取摄影检查检查项目结果
          * @param {number} cEMRecordTestItemId 检验项目明细表id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -76,7 +76,7 @@ export const XrayInspectApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
-         * @summary 保存X光检查项目结果
+         * @summary 保存摄影检查检查项目结果
          * @param {SaveXrayInspectInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -133,7 +133,7 @@ export const XrayInspectApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 获取X光检查项目结果
+         * @summary 获取摄影检查检查项目结果
          * @param {number} cEMRecordTestItemId 检验项目明细表id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -147,7 +147,7 @@ export const XrayInspectApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 保存X光检查项目结果
+         * @summary 保存摄影检查检查项目结果
          * @param {SaveXrayInspectInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -170,7 +170,7 @@ export const XrayInspectApiFactory = function (configuration?: Configuration, ba
     return {
         /**
          * 
-         * @summary 获取X光检查项目结果
+         * @summary 获取摄影检查检查项目结果
          * @param {number} cEMRecordTestItemId 检验项目明细表id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -180,7 +180,7 @@ export const XrayInspectApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
-         * @summary 保存X光检查项目结果
+         * @summary 保存摄影检查检查项目结果
          * @param {SaveXrayInspectInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -200,7 +200,7 @@ export const XrayInspectApiFactory = function (configuration?: Configuration, ba
 export class XrayInspectApi extends BaseAPI {
     /**
      * 
-     * @summary 获取X光检查项目结果
+     * @summary 获取摄影检查检查项目结果
      * @param {number} cEMRecordTestItemId 检验项目明细表id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -211,7 +211,7 @@ export class XrayInspectApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 保存X光检查项目结果
+     * @summary 保存摄影检查检查项目结果
      * @param {SaveXrayInspectInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

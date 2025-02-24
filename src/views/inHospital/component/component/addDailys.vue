@@ -114,6 +114,7 @@ const openDialog = async (data: any) => {
 	isShowDialog.value = true;
 	ruleForm.value = data;
 	uploadFiles.value = [];
+	imageRef.value?.clearFiles();
 };
 /**
  *

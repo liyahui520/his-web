@@ -75,7 +75,7 @@
 								</el-col> 
 								<el-col :span="12"> 
 									<el-text truncated style="font-size: 12px;"> 待结金额： </el-text>
-									<el-text truncated style="font-size: 14px;">{{ verifyNumberComma(props?.item?.totalAmount??0 )}}</el-text> 
+									<el-text truncated style="font-size: 14px;">{{ verifyNumberComma(props?.item?.totalAmount ?? 0 )}}</el-text> 
 								</el-col> 
                             </el-row>
 							<el-row style="font-size: 12px;margin-top: 5px;" align="middle">
@@ -114,7 +114,7 @@
 								<el-col :span="6">
 									<div class="item-footer-class" @click="openNurses(props.item)">
 										<el-avatar :size="25" style="background-color: white" shape="square" src="src/assets/in-hospitals/huli.png" />
-										<div><el-text>更换护理</el-text></div>
+										<div><el-text>护理项目</el-text></div>
 									</div>
 								</el-col>
 								<!-- <el-col :span="4">
@@ -138,7 +138,7 @@
 								<!-- <el-col :span="5">
 									<div class="item-footer-class" @click="outHospital(props.item)" v-loading="item?.outHospitalLoading">
 										<el-avatar :size="28" style="background-color: white" shape="square" src="src/assets/in-hospitals/chuyuan.png" />
-										<div><el-text>结束寄养</el-text></div>
+										<div><el-text>结束留观</el-text></div>
 									</div>
 								</el-col> -->
 							</el-row>

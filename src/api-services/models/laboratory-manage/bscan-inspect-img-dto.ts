@@ -13,7 +13,7 @@
  */
 
  /**
- * 诊疗B超检查图像
+ * 诊疗超声检查检查图像
  *
  * @export
  * @interface BscanInspectImgDto
@@ -21,7 +21,7 @@
 export interface BscanInspectImgDto {
 
     /**
-     * 诊疗B超检查图像Id
+     * 诊疗超声检查检查图像Id
      *
      * @type {number}
      * @memberof BscanInspectImgDto
@@ -37,7 +37,7 @@ export interface BscanInspectImgDto {
     petId?: number;
 
     /**
-     * 诊疗B超检查项目结果id(BscanInspectResult.id)
+     * 诊疗超声检查检查项目结果id(BscanInspectResult.id)
      *
      * @type {number}
      * @memberof BscanInspectImgDto
@@ -45,7 +45,7 @@ export interface BscanInspectImgDto {
     bscanInspectResultId?: number;
 
     /**
-     * B超检查图像Url
+     * 超声检查检查图像Url
      *
      * @type {string}
      * @memberof BscanInspectImgDto
@@ -53,7 +53,7 @@ export interface BscanInspectImgDto {
     bscanImageUrl?: string | null;
 
     /**
-     * B超检查图像部位
+     * 超声检查检查图像部位
      *
      * @type {string}
      * @memberof BscanInspectImgDto
@@ -61,7 +61,7 @@ export interface BscanInspectImgDto {
     bscanImagePartName?: string | null;
 
     /**
-     * B超检查图像描述
+     * 超声检查检查图像描述
      *
      * @type {string}
      * @memberof BscanInspectImgDto

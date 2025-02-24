@@ -21,7 +21,7 @@
  * 驱虫费用 QuChong = 4<br />&nbsp;
  * 疫苗费用 YiMiao = 5<br />&nbsp;
  * 住院费用 ZhuYuan = 6<br />&nbsp;
- * 寄养费用 JiYang = 7<br />&nbsp;
+ * 留观费用 JiYang = 7<br />&nbsp;
  * 检验费用 Tests = 8<br />&nbsp;
  * 影像费用 Image = 9<br />&nbsp;
  * 耗材费用 Consumables = 10<br />&nbsp;
@@ -61,7 +61,7 @@ export enum ProductCostTypeEnums {
      */
     NUMBER_6 = 6,
     /**
-     * 寄养费用 JiYang = 7
+     * 留观费用 JiYang = 7
      */
     NUMBER_7 = 7,
     /**

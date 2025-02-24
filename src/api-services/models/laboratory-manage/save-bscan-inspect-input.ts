@@ -14,7 +14,7 @@
 
 import { SaveBscanInspectImgInput } from './save-bscan-inspect-img-input';
  /**
- * 保存诊疗B超检查项目结果
+ * 保存诊疗超声检查检查项目结果
  *
  * @export
  * @interface SaveBscanInspectInput
@@ -117,7 +117,7 @@ export interface SaveBscanInspectInput {
      */
     assistantName?: string | null;
     /**
-     * 诊疗B超检查图像
+     * 诊疗超声检查检查图像
      *
      * @type {Array<SaveBscanInspectImgInput>}
      * @memberof SaveBscanInspectInput

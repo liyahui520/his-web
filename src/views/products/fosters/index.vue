@@ -194,7 +194,7 @@ const tb = reactive<TableDemoState>({
             showSelection: true, //是否显示表格多选
             pageSize: 20, // 每页条数
             hideExport: false, //是否隐藏导出按钮
-            exportFileName: '寄养信息', //导出报表的文件名，不填写取应用名称
+            exportFileName: '留观信息', //导出报表的文件名，不填写取应用名称
             isDisabled:false,
             hidePrint: true
         },
@@ -251,7 +251,7 @@ const handleQuery = async (data: any) => {
 
 // 打开新增页面
 const openAddProductFosters = (data: any) => {
-    editProductFostersTitle.value = '添加寄养';
+    editProductFostersTitle.value = '添加留观';
     editDialogRef.value.openDialog({
         categoryName: data.categoryName,
         categoryArr: data.categoryId == -1 ? [] : [data.categoryId],
@@ -264,7 +264,7 @@ const openAddProductFosters = (data: any) => {
 
 // 打开编辑页面
 const openEditProductFosters = (row: any) => {
-    editProductFostersTitle.value = '编辑寄养';
+    editProductFostersTitle.value = '编辑留观';
     row.categoryArr = row.categoryId == -1 ? [] : [row.categoryId]
     editDialogRef.value.openDialog({ ...row });
 };

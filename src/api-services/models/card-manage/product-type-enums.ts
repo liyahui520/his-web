@@ -13,7 +13,7 @@
  */
 
 /**
- * <br />&nbsp;商品 Goods = 10001<br />&nbsp;药品 Drugs = 20001<br />&nbsp;美容 Cosmetologys = 30001<br />&nbsp;洗澡 Washs = 40001<br />&nbsp;驱虫 Defaunations = 50001<br />&nbsp;疫苗 Vaccines = 60001<br />&nbsp;住院 Hospitals = 70001<br />&nbsp;寄养 Fosters = 80001<br />&nbsp;B超 BModes = 90001<br />&nbsp;X光 XRays = 100001<br />&nbsp;化验 Tests = 110001<br />&nbsp;处置 Disposals = 120001<br />&nbsp;显微镜 Microscopes = 130001<br />&nbsp;消耗品 Consumables = 140001<br />&nbsp;试纸 Papers = 150001<br />
+ * <br />&nbsp;商品 Goods = 10001<br />&nbsp;药品 Drugs = 20001<br />&nbsp;美容 Cosmetologys = 30001<br />&nbsp;洗澡 Washs = 40001<br />&nbsp;驱虫 Defaunations = 50001<br />&nbsp;疫苗 Vaccines = 60001<br />&nbsp;住院 Hospitals = 70001<br />&nbsp;留观 Fosters = 80001<br />&nbsp;超声检查 BModes = 90001<br />&nbsp;摄影检查 XRays = 100001<br />&nbsp;化验 Tests = 110001<br />&nbsp;处置 Disposals = 120001<br />&nbsp;显微镜 Microscopes = 130001<br />&nbsp;消耗品 Consumables = 140001<br />&nbsp;试纸 Papers = 150001<br />
  * @export
  * @enum {string}
  */

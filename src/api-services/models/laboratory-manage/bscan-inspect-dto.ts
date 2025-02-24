@@ -14,7 +14,7 @@
 
 import { BscanInspectImgDto } from './bscan-inspect-img-dto';
  /**
- * 诊疗B超检查项目结果
+ * 诊疗超声检查检查项目结果
  *
  * @export
  * @interface BscanInspectDto
@@ -126,7 +126,7 @@ export interface BscanInspectDto {
     reportTime?: Date | null;
 
     /**
-     * 诊疗B超检查图像列表
+     * 诊疗超声检查检查图像列表
      *
      * @type {Array<BscanInspectImgDto>}
      * @memberof BscanInspectDto

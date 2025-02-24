@@ -9,7 +9,7 @@
 					<el-radio-group v-model="inHospitalType">
 						<el-radio border :value="-1">全部</el-radio>
 						<el-radio border :value="0">住院</el-radio>
-						<el-radio border :value="1">寄养</el-radio>
+						<el-radio border :value="1">留观</el-radio>
 					</el-radio-group>
 				</el-form-item>
 

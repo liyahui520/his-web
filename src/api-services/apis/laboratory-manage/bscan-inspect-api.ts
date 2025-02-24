@@ -27,7 +27,7 @@ export const BscanInspectApiAxiosParamCreator = function (configuration?: Config
     return {
         /**
          * 
-         * @summary 获取B超检查项目结果
+         * @summary 获取超声检查检查项目结果
          * @param {number} cEMRecordTestItemId 检验项目明细表id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -76,7 +76,7 @@ export const BscanInspectApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @summary 保存B超检查项目结果
+         * @summary 保存超声检查检查项目结果
          * @param {SaveBscanInspectInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -133,7 +133,7 @@ export const BscanInspectApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 获取B超检查项目结果
+         * @summary 获取超声检查检查项目结果
          * @param {number} cEMRecordTestItemId 检验项目明细表id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -147,7 +147,7 @@ export const BscanInspectApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 保存B超检查项目结果
+         * @summary 保存超声检查检查项目结果
          * @param {SaveBscanInspectInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -170,7 +170,7 @@ export const BscanInspectApiFactory = function (configuration?: Configuration, b
     return {
         /**
          * 
-         * @summary 获取B超检查项目结果
+         * @summary 获取超声检查检查项目结果
          * @param {number} cEMRecordTestItemId 检验项目明细表id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -180,7 +180,7 @@ export const BscanInspectApiFactory = function (configuration?: Configuration, b
         },
         /**
          * 
-         * @summary 保存B超检查项目结果
+         * @summary 保存超声检查检查项目结果
          * @param {SaveBscanInspectInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -200,7 +200,7 @@ export const BscanInspectApiFactory = function (configuration?: Configuration, b
 export class BscanInspectApi extends BaseAPI {
     /**
      * 
-     * @summary 获取B超检查项目结果
+     * @summary 获取超声检查检查项目结果
      * @param {number} cEMRecordTestItemId 检验项目明细表id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -211,7 +211,7 @@ export class BscanInspectApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 保存B超检查项目结果
+     * @summary 保存超声检查检查项目结果
      * @param {SaveBscanInspectInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

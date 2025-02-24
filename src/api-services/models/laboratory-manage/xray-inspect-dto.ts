@@ -14,7 +14,7 @@
 
 import { XrayInspectImgDto } from './xray-inspect-img-dto';
  /**
- * X光检查结果
+ * 摄影检查检查结果
  *
  * @export
  * @interface XrayInspectDto
@@ -22,7 +22,7 @@ import { XrayInspectImgDto } from './xray-inspect-img-dto';
 export interface XrayInspectDto {
 
     /**
-     * X光检查结果Id
+     * 摄影检查检查结果Id
      *
      * @type {number}
      * @memberof XrayInspectDto
@@ -62,7 +62,7 @@ export interface XrayInspectDto {
     petId?: number;
 
     /**
-     * X光描述
+     * 摄影检查描述
      *
      * @type {string}
      * @memberof XrayInspectDto
@@ -70,7 +70,7 @@ export interface XrayInspectDto {
     xrayDescribe?: string | null;
 
     /**
-     * X光提示
+     * 摄影检查提示
      *
      * @type {string}
      * @memberof XrayInspectDto
@@ -78,7 +78,7 @@ export interface XrayInspectDto {
     xrayTips?: string | null;
 
     /**
-     * X光建议
+     * 摄影检查建议
      *
      * @type {string}
      * @memberof XrayInspectDto
@@ -134,7 +134,7 @@ export interface XrayInspectDto {
     reportTime?: Date | null;
 
     /**
-     * 诊疗X光检查图像
+     * 诊疗摄影检查检查图像
      *
      * @type {Array<XrayInspectImgDto>}
      * @memberof XrayInspectDto

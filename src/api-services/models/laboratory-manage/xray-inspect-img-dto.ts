@@ -13,7 +13,7 @@
  */
 
  /**
- * X光检查图像
+ * 摄影检查检查图像
  *
  * @export
  * @interface XrayInspectImgDto
@@ -21,7 +21,7 @@
 export interface XrayInspectImgDto {
 
     /**
-     * X光检查图像Id
+     * 摄影检查检查图像Id
      *
      * @type {number}
      * @memberof XrayInspectImgDto
@@ -37,7 +37,7 @@ export interface XrayInspectImgDto {
     petId?: number;
 
     /**
-     * 诊疗X光检查项目结果id(XrayInspectResult.id)
+     * 诊疗摄影检查检查项目结果id(XrayInspectResult.id)
      *
      * @type {number}
      * @memberof XrayInspectImgDto
@@ -45,7 +45,7 @@ export interface XrayInspectImgDto {
     xrayInspectResultId?: number;
 
     /**
-     * X光检查图像Url
+     * 摄影检查检查图像Url
      *
      * @type {string}
      * @memberof XrayInspectImgDto
@@ -53,7 +53,7 @@ export interface XrayInspectImgDto {
     xrayImageUrl: string ;
 
     /**
-     * X光检查图像部位
+     * 摄影检查检查图像部位
      *
      * @type {string}
      * @memberof XrayInspectImgDto
@@ -61,7 +61,7 @@ export interface XrayInspectImgDto {
     xrayImagePartName?: string | null;
 
     /**
-     * X光检查图像描述
+     * 摄影检查检查图像描述
      *
      * @type {string}
      * @memberof XrayInspectImgDto

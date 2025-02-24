@@ -14,7 +14,7 @@
 
 import { SaveXrayInspectImgInput } from './save-xray-inspect-img-input';
  /**
- * 保存X光检查结果
+ * 保存摄影检查检查结果
  *
  * @export
  * @interface SaveXrayInspectInput
@@ -30,7 +30,7 @@ export interface SaveXrayInspectInput {
     cemRecordTestItemId?: number;
 
     /**
-     * X光描述
+     * 摄影检查描述
      *
      * @type {string}
      * @memberof SaveXrayInspectInput
@@ -38,7 +38,7 @@ export interface SaveXrayInspectInput {
     xrayDescribe?: string | null;
 
     /**
-     * X光提示
+     * 摄影检查提示
      *
      * @type {string}
      * @memberof SaveXrayInspectInput
@@ -46,7 +46,7 @@ export interface SaveXrayInspectInput {
     xrayTips?: string | null;
 
     /**
-     * X光建议
+     * 摄影检查建议
      *
      * @type {string}
      * @memberof SaveXrayInspectInput
@@ -118,7 +118,7 @@ export interface SaveXrayInspectInput {
      */
     assistantName?: string | null;
     /**
-     * X光检查图像
+     * 摄影检查检查图像
      *
      * @type {Array<SaveXrayInspectImgInput>}
      * @memberof SaveXrayInspectInput

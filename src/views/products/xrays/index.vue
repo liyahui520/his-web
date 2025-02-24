@@ -184,7 +184,7 @@ const tb = reactive<TableDemoState>({
             pageSize: 20, // 每页条数
             hideExport: false, //是否隐藏导出按钮
             isDisabled:false,
-            exportFileName: 'X光信息', //导出报表的文件名，不填写取应用名称
+            exportFileName: '摄影检查信息', //导出报表的文件名，不填写取应用名称
             hidePrint: true
         },
         // 搜索表单，动态生成（传空数组时，将不显示搜索，type有3种类型：input,date,select）
@@ -246,7 +246,7 @@ const handleQuery = async (data: any) => {
 
 // 打开新增页面
 const openAddProductXRays = (data: any) => {
-    editProductXRaysTitle.value = '添加X光';
+    editProductXRaysTitle.value = '添加摄影检查';
     editDialogRef.value.openDialog({
         categoryName: data.categoryName,
         categoryArr: data.categoryId == -1 ? [] : [data.categoryId],
@@ -260,7 +260,7 @@ const openAddProductXRays = (data: any) => {
 
 // 打开编辑页面
 const openEditProductXRays = (row: any) => {
-    editProductXRaysTitle.value = '编辑X光';
+    editProductXRaysTitle.value = '编辑摄影检查';
     row.categoryArr = row.categoryId == -1 ? [] : [row.categoryId]
     editDialogRef.value.openDialog({ ...row });
 };

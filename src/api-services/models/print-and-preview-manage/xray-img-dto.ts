@@ -13,7 +13,7 @@
  */
 
  /**
- * 诊疗B超检查图像
+ * 诊疗超声检查检查图像
  *
  * @export
  * @interface XRayImgDto
@@ -21,7 +21,7 @@
 export interface XRayImgDto {
 
     /**
-     * 诊疗B超检查图像Id
+     * 诊疗超声检查检查图像Id
      *
      * @type {number}
      * @memberof XRayImgDto
@@ -29,7 +29,7 @@ export interface XRayImgDto {
     id?: number;
 
     /**
-     * B超检查图像Url
+     * 超声检查检查图像Url
      *
      * @type {string}
      * @memberof XRayImgDto
@@ -37,7 +37,7 @@ export interface XRayImgDto {
     xrayImageUrl?: string | null;
 
     /**
-     * X光检查图像部位
+     * 摄影检查检查图像部位
      *
      * @type {string}
      * @memberof XRayImgDto
@@ -45,7 +45,7 @@ export interface XRayImgDto {
     xrayImagePartName?: string | null;
 
     /**
-     * X光检查图像描述
+     * 摄影检查检查图像描述
      *
      * @type {string}
      * @memberof XRayImgDto

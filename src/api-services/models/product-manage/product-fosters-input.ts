@@ -15,7 +15,7 @@
 import { Filter } from './filter';
 import { Search } from './search';
  /**
- * 寄养输入参数
+ * 留观输入参数
  *
  * @export
  * @interface ProductFostersInput

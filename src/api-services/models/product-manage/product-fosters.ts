@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 /**
- * 寄养表
+ * 留观表
  * @export
  * @interface ProductFosters
  */

@@ -29,7 +29,7 @@ export const ProductFostersApiAxiosParamCreator = function (configuration?: Conf
     return {
         /**
          * 
-         * @summary 增加寄养
+         * @summary 增加留观
          * @param {AddProductFostersInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -77,7 +77,7 @@ export const ProductFostersApiAxiosParamCreator = function (configuration?: Conf
         },
         /**
          * 
-         * @summary 删除寄养
+         * @summary 删除留观
          * @param {DeleteProductFostersInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -125,7 +125,7 @@ export const ProductFostersApiAxiosParamCreator = function (configuration?: Conf
         },
         /**
          * 
-         * @summary 获取寄养
+         * @summary 获取留观
          * @param {number} id 主键Id
          * @param {Date} [createTime] 创建时间
          * @param {Date} [updateTime] 更新时间
@@ -211,7 +211,7 @@ export const ProductFostersApiAxiosParamCreator = function (configuration?: Conf
         },
         /**
          * 
-         * @summary 更新寄养
+         * @summary 更新留观
          * @param {UpdateProductFostersInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -259,7 +259,7 @@ export const ProductFostersApiAxiosParamCreator = function (configuration?: Conf
         },
         /**
          * 
-         * @summary 获取寄养列表
+         * @summary 获取留观列表
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -302,7 +302,7 @@ export const ProductFostersApiAxiosParamCreator = function (configuration?: Conf
         },
         /**
          * 
-         * @summary 分页查询寄养
+         * @summary 分页查询留观
          * @param {AddProductFostersInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -349,7 +349,7 @@ export const ProductFostersApiAxiosParamCreator = function (configuration?: Conf
         },
         /**
          *
-         * @summary 批量删除B超
+         * @summary 批量删除超声检查
          * @param {IdInput} [body]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -406,7 +406,7 @@ export const ProductFostersApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 增加寄养
+         * @summary 增加留观
          * @param {AddProductFostersInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -420,7 +420,7 @@ export const ProductFostersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 删除寄养
+         * @summary 删除留观
          * @param {DeleteProductFostersInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -434,7 +434,7 @@ export const ProductFostersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取寄养
+         * @summary 获取留观
          * @param {number} id 主键Id
          * @param {Date} [createTime] 创建时间
          * @param {Date} [updateTime] 更新时间
@@ -454,7 +454,7 @@ export const ProductFostersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 更新寄养
+         * @summary 更新留观
          * @param {UpdateProductFostersInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -468,7 +468,7 @@ export const ProductFostersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取寄养列表
+         * @summary 获取留观列表
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -481,7 +481,7 @@ export const ProductFostersApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 分页查询寄养
+         * @summary 分页查询留观
          * @param {AddProductFostersInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -495,7 +495,7 @@ export const ProductFostersApiFp = function(configuration?: Configuration) {
         },
         /**
          *
-         * @summary 批量删除B超
+         * @summary 批量删除超声检查
          * @param {IdInput} [body]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -518,7 +518,7 @@ export const ProductFostersApiFactory = function (configuration?: Configuration,
     return {
         /**
          * 
-         * @summary 增加寄养
+         * @summary 增加留观
          * @param {AddProductFostersInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -528,7 +528,7 @@ export const ProductFostersApiFactory = function (configuration?: Configuration,
         },
         /**
          * 
-         * @summary 删除寄养
+         * @summary 删除留观
          * @param {DeleteProductFostersInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -538,7 +538,7 @@ export const ProductFostersApiFactory = function (configuration?: Configuration,
         },
         /**
          * 
-         * @summary 获取寄养
+         * @summary 获取留观
          * @param {number} id 主键Id
          * @param {Date} [createTime] 创建时间
          * @param {Date} [updateTime] 更新时间
@@ -554,7 +554,7 @@ export const ProductFostersApiFactory = function (configuration?: Configuration,
         },
         /**
          * 
-         * @summary 更新寄养
+         * @summary 更新留观
          * @param {UpdateProductFostersInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -564,7 +564,7 @@ export const ProductFostersApiFactory = function (configuration?: Configuration,
         },
         /**
          * 
-         * @summary 获取寄养列表
+         * @summary 获取留观列表
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -573,7 +573,7 @@ export const ProductFostersApiFactory = function (configuration?: Configuration,
         },
         /**
          * 
-         * @summary 分页查询寄养
+         * @summary 分页查询留观
          * @param {AddProductFostersInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -583,7 +583,7 @@ export const ProductFostersApiFactory = function (configuration?: Configuration,
         },
         /**
          *
-         * @summary 批量删除B超
+         * @summary 批量删除超声检查
          * @param {IdInput} [body]
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -603,7 +603,7 @@ export const ProductFostersApiFactory = function (configuration?: Configuration,
 export class ProductFostersApi extends BaseAPI {
     /**
      * 
-     * @summary 增加寄养
+     * @summary 增加留观
      * @param {AddProductFostersInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -614,7 +614,7 @@ export class ProductFostersApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 删除寄养
+     * @summary 删除留观
      * @param {DeleteProductFostersInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -625,7 +625,7 @@ export class ProductFostersApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取寄养
+     * @summary 获取留观
      * @param {number} id 主键Id
      * @param {Date} [createTime] 创建时间
      * @param {Date} [updateTime] 更新时间
@@ -642,7 +642,7 @@ export class ProductFostersApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 更新寄养
+     * @summary 更新留观
      * @param {UpdateProductFostersInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -653,7 +653,7 @@ export class ProductFostersApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取寄养列表
+     * @summary 获取留观列表
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProductFostersApi
@@ -663,7 +663,7 @@ export class ProductFostersApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 分页查询寄养
+     * @summary 分页查询留观
      * @param {AddProductFostersInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -674,7 +674,7 @@ export class ProductFostersApi extends BaseAPI {
     }
     /**
      *
-     * @summary 批量删除B超
+     * @summary 批量删除超声检查
      * @param {IdInput} [body]
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

@@ -1,14 +1,14 @@
 <template>
 	<div class="inHospital-dailyView">
-		<el-dialog v-model="isShowDialog" title="住院日常" width="50%" draggable :close-on-click-modal="false">
+		<el-dialog v-model="isShowDialog" :title="inHospitalTypeValue == 0 ? '住院日常' : '留观日常'" width="50%" draggable :close-on-click-modal="false">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
-					<span>住院日常</span>
+					<span>{{ inHospitalTypeValue == 0 ? '住院日常' : '留观日常' }}</span>
 				</div>
 			</template>
 
-			<el-card shadow="never" style="height: 500px" :body-style="{padding:0}">
+			<el-card shadow="never" style="height: 500px" :body-style="{ padding: 0 }">
 				<el-button type="primary" style="margin: 0px 0px 10px 0px" @click="openDailys">添加日常</el-button>
 				<el-table :data="tableData" style="height: 450px" v-loading="loading" tooltip-effect="light" row-key="id" border>
 					<el-table-column type="index" label="序号" width="55" align="center" fixed="" />
@@ -19,7 +19,7 @@
 								<el-image
 									v-for="(imgItem, index) in scope.row.dailyImages"
 									:key="index"
-									style="width: 50px; height: 50px;margin-right: 10px;"
+									style="width: 50px; height: 50px; margin-right: 10px"
 									:src="imgItem.fileUrl"
 									:zoom-rate="1.2"
 									:max-scale="7"
@@ -27,7 +27,7 @@
 									:preview-src-list="scope.row.imageUrl"
 									:initial-index="index"
 									fit="cover"
-									preview-teleported="true"
+									:preview-teleported="true"
 								/>
 							</div>
 						</template>
@@ -81,11 +81,10 @@ const openDialog = async (row: any, inHospitalType: number) => {
  * 删除日常
  */
 const delInHospitalDailys = async (row: any) => {
-	ElMessageBox.confirm('确认要删除此日常项目吗?','提示',
-	{
-	  confirmButtonText: '确定',
-	  cancelButtonText: '取消',
-	  type: 'warning',
+	ElMessageBox.confirm('确认要删除此日常项目吗?', '提示', {
+		confirmButtonText: '确定',
+		cancelButtonText: '取消',
+		type: 'warning',
 	})
 		.then(async () => {
 			await getAPI(InHospitalApi)
@@ -101,19 +100,17 @@ const delInHospitalDailys = async (row: any) => {
  * 添加日常
  */
 const openDailys = () => {
-	addDailysRef.value.openDialog(
-		{
-			inHospitalId: currentRowInfo.value.id,
-			content: '',
-			remark: '',
-			id: 0,
-			imagesUrlArrays: [],
-			customerid: currentRowInfo.value.customerId,
-			customerName: currentRowInfo.value.customerName,
-			petId: currentRowInfo.value.petId,
-			petName: currentRowInfo.value.petName,
-		}
-	);
+	addDailysRef.value.openDialog({
+		inHospitalId: currentRowInfo.value.id,
+		content: '',
+		remark: '',
+		id: 0,
+		imagesUrlArrays: [],
+		customerid: currentRowInfo.value.customerId,
+		customerName: currentRowInfo.value.customerName,
+		petId: currentRowInfo.value.petId,
+		petName: currentRowInfo.value.petName,
+	});
 };
 
 /**
@@ -133,8 +130,8 @@ const loadDailysData = async () => {
 		.then((res) => {
 			tableData.value = res.data?.result ?? [];
 			tableData.value.forEach((item: any) => {
-			    item.imageUrl=item.dailyImages?.map((m)=>m.fileUrl);
-			})
+				item.imageUrl = item.dailyImages?.map((m) => m.fileUrl);
+			});
 			loading.value = false;
 		});
 	loading.value = false;

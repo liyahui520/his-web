@@ -19,10 +19,10 @@
 							<el-tab-pane label="试纸" name="second" style="overflow: auto">
 								<CategroyProducts ref="categroyProductsRef" :getData="getDataPaper" :addAuth="false" @handleNodeClick="handleNodeClick" :updateAuth="false" :deleteAuth="false" />
 							</el-tab-pane>
-							<el-tab-pane label="X光" name="third" style="overflow: auto">
+							<el-tab-pane label="摄影检查" name="third" style="overflow: auto">
 								<CategroyProducts ref="categroyProductsRef" :getData="getDataX" :addAuth="false" @handleNodeClick="handleNodeClick" :updateAuth="false" :deleteAuth="false" />
 							</el-tab-pane>
-							<el-tab-pane label="B超" name="fourth" style="overflow: auto">
+							<el-tab-pane label="超声检查" name="fourth" style="overflow: auto">
 								<CategroyProducts ref="categroyProductsRef" :getData="getDataB" :addAuth="false" @handleNodeClick="handleNodeClick" :updateAuth="false" :deleteAuth="false" />
 							</el-tab-pane>
 							<el-tab-pane label="显微镜" name="fourth1" style="overflow: auto">
@@ -634,7 +634,7 @@ const getDataMicroscope = async () => {
 };
 
 /**
- * X光
+ * 摄影检查
  */
 const getDataX = async () => {
 	var a = await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_100001);
@@ -642,7 +642,7 @@ const getDataX = async () => {
 };
 
 /**
- * B超
+ * 超声检查
  */
 const getDataB = async () => {
 	var a = await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_90001);

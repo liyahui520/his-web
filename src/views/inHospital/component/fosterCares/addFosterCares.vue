@@ -35,7 +35,7 @@
 								</el-col>
 								<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 									<el-form-item label="开始时间" prop="startTime">
-										<el-date-picker v-model="ruleForm.startTime" type="date" placeholder="请选择开始寄养时间" />
+										<el-date-picker v-model="ruleForm.startTime" type="date" placeholder="请选择开始留观时间" />
 									</el-form-item>
 								</el-col>
 								<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
@@ -112,7 +112,7 @@ import other from '/@/utils/other';
 var props = defineProps({
 	title: {
 		type: String,
-		default: '添加寄养',
+		default: '添加留观',
 	},
 });
 //父级传递来的函数，用于回调
@@ -132,7 +132,7 @@ const { userList } = storeToRefs(stores);
 const rules = ref<FormRules>({
 	customerName: [{ required: true, message: '请选择用户！', trigger: 'blur' }],
 	headId: [{ required: true, message: '请选择负责人！', trigger: 'change' }],
-	startTime: [{ required: true, message: '请选择开始寄养时间！', trigger: 'change' }],
+	startTime: [{ required: true, message: '请选择开始留观时间！', trigger: 'change' }],
 });
 // 打开弹窗
 const openDialog = async (row: any) => {
@@ -141,6 +141,7 @@ const openDialog = async (row: any) => {
 	getUserList();
 	ruleForm.value.startTime= formatDate(new Date(), 'YYYY-mm-dd'),
 	isShowDialog.value = true;
+	console.log("六管的类型",ruleForm.value)
 	await loadRoomsData();
 };
 /**
@@ -183,6 +184,7 @@ const loadRoomsData = async () => {
 		.apiInHospitalGetRoomsListPost({ inHospitalType: ruleForm.value.inHospitalType })
 		.then((res) => {
 			let result = res.data.result ?? [];
+			console.log("result",result)
 			result.forEach((item: any) => {
 				if (item.isEnable && !item.isOccupy) tableData.value.push(item);
 			});
@@ -226,7 +228,7 @@ const submit = async () => {
 			await getAPI(InHospitalApi)
 				.apiInHospitalAddInHospitalsPost(values)
 				.then(() => {
-					ElMessage.success('寄养成功');
+					ElMessage.success('留观成功');
 					closeDialog();
 				});
 		}

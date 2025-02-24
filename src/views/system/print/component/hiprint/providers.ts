@@ -2686,7 +2686,7 @@ export const CEMRecord = function () {
 		addElementTypes: addElementTypes,
 	};
 };
-//B超
+//超声检查
 export const BSCanProvider = function () {
 	var addElementTypes = function (context: any) {
 		context.removePrintElementTypes('BSCanModule');
@@ -3152,7 +3152,7 @@ export const BSCanProvider = function () {
 		addElementTypes: addElementTypes,
 	};
 };
-//X光
+//摄影检查
 export const XRayProvider = function () {
 	var addElementTypes = function (context: any) {
 		context.removePrintElementTypes('XRayModule');
@@ -4163,13 +4163,13 @@ export default [
 		extendCss: extendCss,
 	},
 	{
-		name: 'B超打印模板',
+		name: '超声检查打印模板',
 		value: 'BSCanModule',
 		type: 8,
 		f: BSCanProvider(),
 	},
 	{
-		name: 'X光打印模板',
+		name: '摄影检查打印模板',
 		value: 'XRayModule',
 		type: 9,
 		f: XRayProvider(),

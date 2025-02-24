@@ -159,7 +159,7 @@ const productTypes = [
 	{ id: 1300000000105, name: '驱虫' },
 	{ id: 1300000000106, name: '疫苗' },
 	{ id: 1300000000107, name: '住院' },
-	{ id: 1300000000108, name: '寄养' },
+	{ id: 1300000000108, name: '留观' },
 ]
 // 打开弹窗
 const openDialog = (row: any) => {

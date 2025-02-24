@@ -7,7 +7,7 @@
 			<el-tab-pane label="洗美服务" name="Units"><ProductDrug :productTypes="[30001, 40001]" /></el-tab-pane>
 			<el-tab-pane label="免疫驱虫" name="Brands"><ProductDrug :productTypes="[50001, 60001]" /></el-tab-pane>
 			<el-tab-pane label="操作/处置" name="Units1"><ProductDrug :productTypes="[120001]" /></el-tab-pane>
-			<!-- <el-tab-pane label="住院寄养" name="Units2" ><ProductDrug :productTypes="[70001,80001]"/></el-tab-pane> -->
+			<!-- <el-tab-pane label="住院留观" name="Units2" ><ProductDrug :productTypes="[70001,80001]"/></el-tab-pane> -->
 			<el-tab-pane label="检验管理" name="Manufacturers"><ProductDrug :productTypes="[110001]" /></el-tab-pane>
 			<el-tab-pane label="影像管理" name="Providers"><ProductDrug :productTypes="[90001, 100001, 130001]" /></el-tab-pane>
 			<el-tab-pane label="挂号" name="Providers1"><Registers /></el-tab-pane>

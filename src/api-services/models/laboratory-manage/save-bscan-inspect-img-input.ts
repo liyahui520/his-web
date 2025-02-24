@@ -13,7 +13,7 @@
  */
 
  /**
- * 保存诊疗B超检查项目结果
+ * 保存诊疗超声检查检查项目结果
  *
  * @export
  * @interface SaveBscanInspectImgInput
@@ -21,7 +21,7 @@
 export interface SaveBscanInspectImgInput {
 
     /**
-     * 诊疗B超检查图像Id
+     * 诊疗超声检查检查图像Id
      *
      * @type {number}
      * @memberof SaveBscanInspectImgInput
@@ -29,7 +29,7 @@ export interface SaveBscanInspectImgInput {
     id?: number | null;
 
     /**
-     * B超检查图像Url
+     * 超声检查检查图像Url
      *
      * @type {string}
      * @memberof SaveBscanInspectImgInput
@@ -37,7 +37,7 @@ export interface SaveBscanInspectImgInput {
     bscanImageUrl: string;
 
     /**
-     * B超检查图像部位
+     * 超声检查检查图像部位
      *
      * @type {string}
      * @memberof SaveBscanInspectImgInput
@@ -45,7 +45,7 @@ export interface SaveBscanInspectImgInput {
     bscanImagePartName?: string | null;
 
     /**
-     * B超检查图像描述
+     * 超声检查检查图像描述
      *
      * @type {string}
      * @memberof SaveBscanInspectImgInput

@@ -13,7 +13,7 @@
  */
 
  /**
- * 保存X光检查图像
+ * 保存摄影检查检查图像
  *
  * @export
  * @interface SaveXrayInspectImgInput
@@ -21,7 +21,7 @@
 export interface SaveXrayInspectImgInput {
 
     /**
-     * X光检查图像Id
+     * 摄影检查检查图像Id
      *
      * @type {number}
      * @memberof SaveXrayInspectImgInput
@@ -29,7 +29,7 @@ export interface SaveXrayInspectImgInput {
     id: number;
 
     /**
-     * X光检查图像Url
+     * 摄影检查检查图像Url
      *
      * @type {string}
      * @memberof SaveXrayInspectImgInput
@@ -37,7 +37,7 @@ export interface SaveXrayInspectImgInput {
     xrayImageUrl: string ;
 
     /**
-     * X光检查图像部位
+     * 摄影检查检查图像部位
      *
      * @type {string}
      * @memberof SaveXrayInspectImgInput
@@ -45,7 +45,7 @@ export interface SaveXrayInspectImgInput {
     xrayImagePartName?: string | null;
 
     /**
-     * X光检查图像描述
+     * 摄影检查检查图像描述
      *
      * @type {string}
      * @memberof SaveXrayInspectImgInput

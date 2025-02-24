@@ -13,7 +13,7 @@
  */
 
 /**
- * <br />&nbsp;商品零售费 ShangPin = 0<br />&nbsp;处方药品费用 ChuChang = 1<br />&nbsp;美容费用 MeiRong = 2<br />&nbsp;洗澡费用 XiZao = 3<br />&nbsp;驱虫费用 QuChong = 4<br />&nbsp;疫苗费用 YiMiao = 5<br />&nbsp;住院费用 ZhuYuan = 6<br />&nbsp;寄养费用 JiYang = 7<br />&nbsp;检验费用 Tests = 8<br />&nbsp;影像费用 Image = 9<br />&nbsp;耗材费用 Consumables = 10<br />&nbsp;处置费用 Disposals = 11<br />&nbsp;其他费用 Other = 12<br />
+ * <br />&nbsp;商品零售费 ShangPin = 0<br />&nbsp;处方药品费用 ChuChang = 1<br />&nbsp;美容费用 MeiRong = 2<br />&nbsp;洗澡费用 XiZao = 3<br />&nbsp;驱虫费用 QuChong = 4<br />&nbsp;疫苗费用 YiMiao = 5<br />&nbsp;住院费用 ZhuYuan = 6<br />&nbsp;留观费用 JiYang = 7<br />&nbsp;检验费用 Tests = 8<br />&nbsp;影像费用 Image = 9<br />&nbsp;耗材费用 Consumables = 10<br />&nbsp;处置费用 Disposals = 11<br />&nbsp;其他费用 Other = 12<br />
  * @export
  * @enum {string}
  */

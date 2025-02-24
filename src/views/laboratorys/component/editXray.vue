@@ -78,7 +78,7 @@
 				</div>
 				<div style="padding-left: 20px; border-top: 1px solid var(--el-card-border-color); padding-top: 20px; padding-bottom: 20px; padding-right: 5px">
 					<el-form v-loading="drawerLoading" :model="saveXrayInspectForm" label-width="auto" label-position="left" size="large">
-						<el-form-item label="X光图像：">
+						<el-form-item label="摄影检查图像：">
 							<div class="report-image" v-for="item in saveXrayInspectForm.xrayInspectImgList" :key="item.id" v-show="item.isDelete === false">
 								<div v-if="item.isDelete === false">
 									<el-image :src="item.xrayImageUrl" :preview-src-list="previewImage.imgs"></el-image>
@@ -116,14 +116,14 @@
 								</el-upload>
 							</div>
 						</el-form-item>
-						<el-form-item label="X光描述：">
-							<el-input v-model="saveXrayInspectForm.xrayDescribe" placeholder="请填写X光描述" :rows="2" type="textarea" />
+						<el-form-item label="摄影检查描述：">
+							<el-input v-model="saveXrayInspectForm.xrayDescribe" placeholder="请填写摄影检查描述" :rows="2" type="textarea" />
 						</el-form-item>
-						<el-form-item label="X光提示：">
-							<el-input v-model="saveXrayInspectForm.xrayTips" placeholder="请填写X光提示" :rows="2" type="textarea" />
+						<el-form-item label="摄影检查提示：">
+							<el-input v-model="saveXrayInspectForm.xrayTips" placeholder="请填写摄影检查提示" :rows="2" type="textarea" />
 						</el-form-item>
-						<el-form-item label="X光建议：">
-							<el-input v-model="saveXrayInspectForm.xrayPropose" placeholder="请填写X光建议" :rows="2" type="textarea" />
+						<el-form-item label="摄影检查建议：">
+							<el-input v-model="saveXrayInspectForm.xrayPropose" placeholder="请填写摄影检查建议" :rows="2" type="textarea" />
 						</el-form-item>
 						<el-form-item label="检查医生：">
 							<div>
@@ -251,7 +251,7 @@ const iconStyle = computed(() => {
 });
 // 描述列表样式结束
 
-// x光检查结果表单
+// 摄影检查检查结果表单
 const saveXrayInspectForm = reactive({
 	cemRecordTestItemId: 0,
 	xrayDescribe: null,
@@ -268,7 +268,7 @@ const saveXrayInspectForm = reactive({
 	xrayInspectImgList: [] as Array<SaveXrayInspectImgInput>,
 } as SaveXrayInspectInput);
 
-// 获取x光结果
+// 获取摄影检查结果
 const getXrayInspectResult = async (cEMRecordTestItemId: number) => {
 	drawerLoading.value = true;
 
@@ -313,7 +313,7 @@ const getXrayInspectResult = async (cEMRecordTestItemId: number) => {
 	drawerLoading.value = false;
 };
 
-// 保存x光检查结果
+// 保存摄影检查检查结果
 const saveLoading = ref(false);
 const save = async () => {
 	saveLoading.value = true;

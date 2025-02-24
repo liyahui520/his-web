@@ -9,8 +9,8 @@
 				<el-form-item label="类型">
 					<el-radio-group v-model="checkType">
 						<el-radio border :value="-1">全部</el-radio>
-						<el-radio border :value="ProductTypeEnums.NUMBER_90001">B超</el-radio>
-						<el-radio border :value="ProductTypeEnums.NUMBER_100001">X光</el-radio>
+						<el-radio border :value="ProductTypeEnums.NUMBER_90001">超声检查</el-radio>
+						<el-radio border :value="ProductTypeEnums.NUMBER_100001">摄影检查</el-radio>
 						<el-radio border :value="ProductTypeEnums.NUMBER_130001">显微镜</el-radio>
 					</el-radio-group>
 				</el-form-item>
@@ -30,8 +30,8 @@
 					<el-button icon="ele-Edit" size="small" text="" type="success" @click="openEditReportResult(scope.row)"> 填写结果 </el-button>
 				</template>
 			</Table>
-			<editXray ref="editXrayRef" :title="'编辑X光影像报告'" @reloadTable="handleQuery" />
-			<editBscan ref="editBscanRef" :title="'编辑B超影像报告'" @reloadTable="handleQuery" />
+			<editXray ref="editXrayRef" :title="'编辑摄影检查影像报告'" @reloadTable="handleQuery" />
+			<editBscan ref="editBscanRef" :title="'编辑超声检查影像报告'" @reloadTable="handleQuery" />
 			<editMicro ref="editMicroRef" :title="'编辑显微镜影像报告'" @reloadTable="handleQuery" />
 			<PrintView ref="printViewRef" />
 		</el-card>

@@ -82,6 +82,7 @@ var props = defineProps({
         default: [] as any
     }
 });
+
 const categoryRef = ref();
 const productTypesData = ref<any>([]);
 const productCategorysData = ref<any>([]);
@@ -168,32 +169,33 @@ const componentObject = {
             mittBus.emit("vaccinesQueryMthods", queryParams.value);
         }
     },
-    70001: {
-        name: defineAsyncComponent(() => import('./hospitals/index.vue')),
-        add: () => {
-            mittBus.emit("hospitalsAddMthods", {
-                categoryName: productCategoryLabel.value,
-                categoryId: queryParams.value.categoryId
-            });
-        },
-        query: () => {
-            if (!queryParams.value.categoryId) queryParams.value.categoryId = -1;
-            mittBus.emit("hospitalsQueryMthods", queryParams.value);
-        }
-    },
-    80001: {
-        name: defineAsyncComponent(() => import('./fosters/index.vue')),
-        add: () => {
-            mittBus.emit("fostersAddMthods", {
-                categoryName: productCategoryLabel.value,
-                categoryId: queryParams.value.categoryId
-            });
-        },
-        query: () => {
-            if (!queryParams.value.categoryId) queryParams.value.categoryId = -1;
-            mittBus.emit("fostersQueryMthods", queryParams.value);
-        }
-    },
+    //移除住院留观内容
+    // 70001: {
+    //     name: defineAsyncComponent(() => import('./hospitals/index.vue')),
+    //     add: () => {
+    //         mittBus.emit("hospitalsAddMthods", {
+    //             categoryName: productCategoryLabel.value,
+    //             categoryId: queryParams.value.categoryId
+    //         });
+    //     },
+    //     query: () => {
+    //         if (!queryParams.value.categoryId) queryParams.value.categoryId = -1;
+    //         mittBus.emit("hospitalsQueryMthods", queryParams.value);
+    //     }
+    // },
+    // 80001: {
+    //     name: defineAsyncComponent(() => import('./fosters/index.vue')),
+    //     add: () => {
+    //         mittBus.emit("fostersAddMthods", {
+    //             categoryName: productCategoryLabel.value,
+    //             categoryId: queryParams.value.categoryId
+    //         });
+    //     },
+    //     query: () => {
+    //         if (!queryParams.value.categoryId) queryParams.value.categoryId = -1;
+    //         mittBus.emit("fostersQueryMthods", queryParams.value);
+    //     }
+    // },
     90001: {
         name: defineAsyncComponent(() => import('./bmodes/index.vue')),
         add: () => {

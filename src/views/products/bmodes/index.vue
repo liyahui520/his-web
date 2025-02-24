@@ -279,7 +279,7 @@ const handleQuery = async (data: any) => {
 
 // 打开新增页面
 const openAddProductBModes = (data: any) => {
-    editProductBModesTitle.value = '添加B超';
+    editProductBModesTitle.value = '添加超声检查';
     editDialogRef.value.openDialog({
         categoryName: data.categoryName,
         categoryArr: data.categoryId == -1 ? [] : [data.categoryId],
@@ -293,7 +293,7 @@ const openAddProductBModes = (data: any) => {
 
 // 打开编辑页面
 const openEditProductBModes = (row: any) => {
-    editProductBModesTitle.value = '编辑B超';
+    editProductBModesTitle.value = '编辑超声检查';
     row.categoryArr = row.categoryId == -1 ? [] : [row.categoryId]
     editDialogRef.value.openDialog({ ...row });
 };

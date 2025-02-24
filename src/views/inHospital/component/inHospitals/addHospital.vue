@@ -147,6 +147,7 @@ const openDialog = async (row: any) => {
 	getUserList();
 	ruleForm.value.startTime = formatDate(new Date(), 'YYYY-mm-dd');
 	isShowDialog.value = true;
+	console.log("123",row)
 	await loadRoomsData();
 };
 /**

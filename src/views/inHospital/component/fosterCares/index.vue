@@ -107,7 +107,7 @@
 								<el-col :span="6">
 									<div class="item-footer-class" @click="outHospital(item)" v-loading="item.outHospitalLoading">
 										<el-avatar :size="40" style="background-color: white" shape="square" src="src/assets/in-hospitals/chuyuan.png" />
-										<div><el-text>结束寄养</el-text></div>
+										<div><el-text>结束留观</el-text></div>
 									</div>
 								</el-col>
 							</el-row>
@@ -115,7 +115,7 @@
 					</el-card> -->
 				<!-- </el-col>
 			</el-row> -->
-			<!-- <el-empty v-else  description="暂无寄养信息"> </el-empty> -->
+			<!-- <el-empty v-else  description="暂无留观信息"> </el-empty> -->
 		</el-card>
 		<nurses ref="nursesRef"></nurses>
 		<rooms ref="roomsRef"></rooms>
@@ -160,11 +160,12 @@ const handleQuery = async () => {
 		.then((res) => {
 			cardLoading.value = false;
 			inHospitalData.value = res.data.result?.items ?? [];
+			console.log("inHospitalData.value",inHospitalData.value)
 		});
 	cardLoading.value = false;
 };
 /**
- * 添加寄养
+ * 添加留观
  */
 const openAddInHospital = () => {
 	addFosterCaresRef.value.openDialog({

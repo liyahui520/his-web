@@ -93,7 +93,7 @@ export const PrintAndPreviewApiAxiosParamCreator = function (configuration?: Con
         },
         /**
          * 
-         * @summary 获取B超报告预览及打印
+         * @summary 获取超声检查报告预览及打印
          * @param {BscanReportInput} [body] 请求参数
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -333,7 +333,7 @@ export const PrintAndPreviewApiAxiosParamCreator = function (configuration?: Con
         },
         /**
          * 
-         * @summary 获取X光报告预览及打印
+         * @summary 获取摄影检查报告预览及打印
          * @param {XrayReportInput} [body] 请求参数
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -459,7 +459,7 @@ export const PrintAndPreviewApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取B超报告预览及打印
+         * @summary 获取超声检查报告预览及打印
          * @param {BscanReportInput} [body] 请求参数
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -529,7 +529,7 @@ export const PrintAndPreviewApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 获取X光报告预览及打印
+         * @summary 获取摄影检查报告预览及打印
          * @param {XrayReportInput} [body] 请求参数
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -578,7 +578,7 @@ export const PrintAndPreviewApiFactory = function (configuration?: Configuration
         },
         /**
          * 
-         * @summary 获取B超报告预览及打印
+         * @summary 获取超声检查报告预览及打印
          * @param {BscanReportInput} [body] 请求参数
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -628,7 +628,7 @@ export const PrintAndPreviewApiFactory = function (configuration?: Configuration
         },
         /**
          * 
-         * @summary 获取X光报告预览及打印
+         * @summary 获取摄影检查报告预览及打印
          * @param {XrayReportInput} [body] 请求参数
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -671,7 +671,7 @@ export class PrintAndPreviewApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取B超报告预览及打印
+     * @summary 获取超声检查报告预览及打印
      * @param {BscanReportInput} [body] 请求参数
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -726,7 +726,7 @@ export class PrintAndPreviewApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取X光报告预览及打印
+     * @summary 获取摄影检查报告预览及打印
      * @param {XrayReportInput} [body] 请求参数
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

@@ -30,7 +30,7 @@ export interface SysProductTypeOutput {
      */
     name?: string | null;
     /**
-     * 编码  商品 Goods  药品 Drugs  美容 Cosmetologys   洗澡 Washs  驱虫 Defaunations  疫苗 Vaccines   住院 Hospitals  寄养 Fosters
+     * 编码  商品 Goods  药品 Drugs  美容 Cosmetologys   洗澡 Washs  驱虫 Defaunations  疫苗 Vaccines   住院 Hospitals  留观 Fosters
      * @type {string}
      * @memberof SysProductTypeOutput
      */

@@ -78,7 +78,7 @@
 				</div>
 				<div style="padding-left: 20px; border-top: 1px solid var(--el-card-border-color); padding-top: 20px; padding-bottom: 20px; padding-right: 5px">
 					<el-form v-loading="drawerLoading" :model="saveBscanInspectForm" label-width="auto" label-position="left" size="large">
-						<el-form-item label="B超图像：">
+						<el-form-item label="超声检查图像：">
 							<div class="report-image" v-for="item in saveBscanInspectForm.bscanInspectImgList" :key="item.id!" v-show="item.isDelete === false">
 								<div v-if="item.isDelete === false">
 									<el-image :src="item.bscanImageUrl" :preview-src-list="previewImage.imgs"></el-image>
@@ -116,14 +116,14 @@
 								</el-upload>
 							</div>
 						</el-form-item>
-						<el-form-item label="B超描述：">
-							<el-input v-model="saveBscanInspectForm.bscanDescribe" placeholder="请填写B超描述" :rows="2" type="textarea" />
+						<el-form-item label="超声检查描述：">
+							<el-input v-model="saveBscanInspectForm.bscanDescribe" placeholder="请填写超声检查描述" :rows="2" type="textarea" />
 						</el-form-item>
-						<el-form-item label="B超提示：">
-							<el-input v-model="saveBscanInspectForm.bscanTips" placeholder="请填写B超提示" :rows="2" type="textarea" />
+						<el-form-item label="超声检查提示：">
+							<el-input v-model="saveBscanInspectForm.bscanTips" placeholder="请填写超声检查提示" :rows="2" type="textarea" />
 						</el-form-item>
-						<el-form-item label="B超建议：">
-							<el-input v-model="saveBscanInspectForm.bscanPropose" placeholder="请填写B超建议" :rows="2" type="textarea" />
+						<el-form-item label="超声检查建议：">
+							<el-input v-model="saveBscanInspectForm.bscanPropose" placeholder="请填写超声检查建议" :rows="2" type="textarea" />
 						</el-form-item>
 						<el-form-item label="检查医生：">
 							<div>
@@ -253,7 +253,7 @@ const iconStyle = computed(() => {
 });
 // 描述列表样式结束
 
-// B超检查结果表单
+// 超声检查检查结果表单
 const saveBscanInspectForm = reactive({
 	cemRecordTestItemId: 0,
 	bscanDescribe: null,
@@ -270,7 +270,7 @@ const saveBscanInspectForm = reactive({
 	bscanInspectImgList: [] as Array<SaveBscanInspectImgInput>,
 } as SaveBscanInspectInput);
 
-// 获取B超结果
+// 获取超声检查结果
 const getBscanInspectResult = async (cEMRecordTestItemId: number) => {
 	drawerLoading.value = true;
 
@@ -315,7 +315,7 @@ const getBscanInspectResult = async (cEMRecordTestItemId: number) => {
 	drawerLoading.value = false;
 };
 
-// 保存B超检查结果
+// 保存超声检查检查结果
 const saveLoading = ref(false);
 const save = async () => {
 	saveLoading.value = true;

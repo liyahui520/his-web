@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * 住院寄养
+ * 住院留观
  * <br/><u><b><font color='FF0000'> 内部接口文档</font></b></u>
  *
  * OpenAPI spec version: 1.0.0

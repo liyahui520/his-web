@@ -15,7 +15,7 @@
 						<template #description>
 							<span style="color: black; font-weight: 500; font-size: 14px">下载会员导入模版，并按要求填写内容。</span>
 							<span style="color: black; font-weight: 500; font-size: 14px">点击下载</span>
-							<el-button type="primary" link> 《会员宠物导入模版》 </el-button>
+							<el-button type="primary" link @click="downloadTemplate"> 《会员宠物导入模版》 </el-button>
 						</template>
 					</el-step>
 					<el-step title="上传文件数据，确认信息无误">
@@ -58,6 +58,9 @@ import { UploadFilled } from '@element-plus/icons-vue';
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus';
 import importTemp from '/@/views/main/pcustomer/component/importTemp.vue';
 import error from '/@/components/message/error.vue';
+import { downloadByData, getFileName } from '/@/utils/download';
+import { genFileId } from 'element-plus';
+
 const file = ref<any>();
 const fileList = ref([]);
 const importTempRef = ref();
@@ -65,7 +68,6 @@ const errorRef = ref();
 const upload = ref();
 const message = ref('');
 const btnloading=ref(false);
-import { genFileId } from 'element-plus';
 //父级传递来的参数
 var props = defineProps({
 	title: {
@@ -105,12 +107,20 @@ const cancel = () => {
 	isShowDialog.value = false;
 };
 
+/**
+ * 下载会员宠物导入模板
+ */
+const downloadTemplate=async ()=>{
+	let res = await getAPI(ImportPcuPetApi).apiImportPcuPetDownPcuTemplatePost({ responseType: 'blob' });
+    let fileName = getFileName(res.headers);
+    downloadByData(res.data as any, fileName);
+}
+
 const UploadFile = async () => {
 	if (fileList.value.length > 0) {
 		btnloading.value=true;
 		message.value='';
 		var r = await getAPI(ImportPcuPetApi).apiImportPcuPetUploadPcuPostForm(fileList.value[0]?.raw);
-		console.log('r', r);
 		if (!r.data?.result?.scuess) {
 			r.data?.result?.data.forEach(element => {
 				message.value+=`第`+element.rowIndex+'行：';

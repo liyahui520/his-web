@@ -14,7 +14,7 @@
 			</el-card>
 			<template #footer>
 				<span class="dialog-footer">
-					<el-text class="mx-1" type="primary" style="margin-right: 10px;">待导入总条数：{{PropVirtTableS.tables.length}}条</el-text>
+					<el-text class="mx-1" type="primary" style="margin-right: 10px">待导入总条数：{{ PropVirtTableS.tables.length }}条</el-text>
 					<el-button @click="cancel" size="default">取 消</el-button>
 					<el-button type="primary" @click="submit" size="default">数据上传</el-button>
 				</span>
@@ -221,7 +221,7 @@ const openDialog = async (row: any) => {
 };
 
 // 关闭弹窗
-const closeDialog = (row) => {
+const closeDialog = () => {
 	isShowDialog.value = false;
 };
 
@@ -232,12 +232,15 @@ const cancel = () => {
 
 // 提交
 const submit = async () => {
-	if(PropVirtTableS.tables.length>0)
-	{
-		await getAPI(ImportPcuPetApi).apiImportPcuPetUploadServePcuPost(PropVirtTableS.tables);
-		ElMessage.success("导入成功");
-	}else{
-		ElMessage.warning("未识别到有效数据");
+	if (PropVirtTableS.tables.length > 0) {
+		await getAPI(ImportPcuPetApi)
+			.apiImportPcuPetUploadServePcuPost(PropVirtTableS.tables)
+			.then(() => {
+				ElMessage.success('导入成功');
+				closeDialog();
+			});
+	} else {
+		ElMessage.warning('未识别到有效数据');
 	}
 };
 
@@ -257,9 +260,9 @@ defineExpose({ openDialog });
 // }
 // :deep(.el-dialog__body) {
 // 	// height: calc(100vh - 85px) !important;
-// } 
-	:deep(.el-dialog__footer) {
-		padding-top: 0 !important;
-		text-align: center !important;
-	} 
+// }
+:deep(.el-dialog__footer) {
+	padding-top: 0 !important;
+	text-align: center !important;
+}
 </style>

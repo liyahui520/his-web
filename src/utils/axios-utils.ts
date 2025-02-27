@@ -119,14 +119,17 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
     (r) => {
         let res = r;
-        const priveKey = window.__env__.VITE_SM_PRIVE_KEY;
-        // if (window.__env__.VITE_ENV === 'development') { 
-        //     const a = sm2.doDecrypt(r.data.substring(2), publicKey, 1);
-        //     res.data = JSON.parse(a as any);
-        // }
-
-        const a = sm2.doDecrypt(r.data.substring(2), priveKey, 1);
-        res.data = JSON.parse(a as any); 
+        if(res.data.type!='application/octet-stream'){
+            const priveKey = window.__env__.VITE_SM_PRIVE_KEY;
+            // if (window.__env__.VITE_ENV === 'development') { 
+            //     const a = sm2.doDecrypt(r.data.substring(2), publicKey, 1);
+            //     res.data = JSON.parse(a as any);
+            // }
+    
+            const a = sm2.doDecrypt(r.data.substring(2), priveKey, 1);
+            res.data = JSON.parse(a as any); 
+        }
+        
         // 获取状态码和返回数据
         var status = res.status;
         var serve = res.data;

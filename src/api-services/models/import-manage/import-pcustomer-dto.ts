@@ -21,6 +21,14 @@
 export interface ImportPcustomerDto {
 
     /**
+     * 会员编号
+     *
+     * @type {string}
+     * @memberof ImportPcustomerDto
+     */
+    cardNumber?: string | null;
+
+    /**
      * 会员名称
      *
      * @type {string}
@@ -117,44 +125,12 @@ export interface ImportPcustomerDto {
     birthdate?: Date | null;
 
     /**
-     * 会员编号
+     * 病历号码
      *
      * @type {string}
      * @memberof ImportPcustomerDto
      */
-    cardNumber?: string | null;
-
-    /**
-     * 年龄
-     *
-     * @type {number}
-     * @memberof ImportPcustomerDto
-     */
-    age?: number;
-
-    /**
-     * 地址
-     *
-     * @type {string}
-     * @memberof ImportPcustomerDto
-     */
-    address?: string | null;
-
-    /**
-     * 详细地址
-     *
-     * @type {string}
-     * @memberof ImportPcustomerDto
-     */
-    addressDetails?: string | null;
-
-    /**
-     * 邮箱
-     *
-     * @type {string}
-     * @memberof ImportPcustomerDto
-     */
-    email?: string | null;
+    petRecordNumber?: string | null;
 
     /**
      * 宠物名称
@@ -189,20 +165,20 @@ export interface ImportPcustomerDto {
     petBirthDate?: Date | null;
 
     /**
+     * 宠物种类
+     *
+     * @type {number}
+     * @memberof ImportPcustomerDto
+     */
+    petKind?: number;
+
+    /**
      * 宠物种类别名
      *
      * @type {string}
      * @memberof ImportPcustomerDto
      */
     petKindText?: string | null;
-
-    /**
-     * 宠物种类
-     *
-     * @type {number}
-     * @memberof ImportPcustomerDto
-     */
-    petKind?: number | null;
 
     /**
      * 宠物品种别名
@@ -237,18 +213,12 @@ export interface ImportPcustomerDto {
     petColor?: string | null;
 
     /**
+     * 宠物体重
+     *
      * @type {number}
      * @memberof ImportPcustomerDto
      */
-    petWeight?: number;
-
-    /**
-     * 病历号码
-     *
-     * @type {string}
-     * @memberof ImportPcustomerDto
-     */
-    petRecordNumber?: string | null;
+    petWeight?: number | null;
 
     /**
      * 宠物状态 默认饲养中

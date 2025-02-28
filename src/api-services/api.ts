@@ -126,6 +126,7 @@ export * from './apis/laboratory-manage/micro-inspect-api';
 export * from './apis/laboratory-manage/bscan-inspect-api';
 
 export * from './apis/import-manage/import-pcu-pet-api'
+export * from './apis/import-manage/import-product-api';
 
 export * from './apis/pcu-pet-config/pcu-pet-config-api'
 export * from './apis/sys-app-api';

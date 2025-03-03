@@ -200,8 +200,7 @@ const rules = ref<FormRules>({
 });
 
 // 打开弹窗
-const openDialog = async (row: PPets) => {
-	console.log("row",row)
+const openDialog = async (row: PPets) => { 
 	getEditpetGenderData.value = await dl('code_pet_sex');
 	getEditpetKindData.value = await getSysPetKind();
 	getEditpetBloodData.value = await dl('code_pet_blood');

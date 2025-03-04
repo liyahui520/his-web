@@ -73,7 +73,7 @@ const editProductVaccinesTitle = ref('');
 var props = defineProps({
     productCategorysData: {
         type: Array,
-        default: []
+        default: [] as any
     }
 });
 

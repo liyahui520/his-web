@@ -197,8 +197,11 @@ const rules = ref<FormRules>({
 	petBirthDate: [{ required: true, message: '请选择宠物生日！', trigger: 'change' }],
 });
 
-// 打开弹窗
 
+/**
+ * 打开弹窗
+ * @param row 
+ */
 const openDialog = async (row: PPets) => {
 	getEditpetGenderData.value = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_sex');
 

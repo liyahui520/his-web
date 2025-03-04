@@ -71,7 +71,7 @@ import { PcustomerApi, PPetsApi, MemberLevelApi,SysDictDataApi } from '/@/api-se
 import router from '/@/router';
 import CardPet from '/@/views/main/ppets/component/cardPet.vue';
 import CardAdd from '/@/views/main/ppets/component/cardAdd.vue';
-import EditPet from './editDialog.vue';
+import EditPet from '../../ppets/component/editDialog.vue';
 import { Search } from '@element-plus/icons-vue';
 
 const getSingCustomer = ref<any>({});

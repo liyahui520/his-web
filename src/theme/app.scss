@@ -49,6 +49,18 @@ body,
 	position: relative;
 }
 
+.tab-cus-Content{
+	display: flex;
+  flex-direction: column;
+  height: calc(100vh - 145px);
+}
+
+.tab-cus-full-Content{
+	display: flex;
+  flex-direction: column;
+  height: calc(100vh - 65px);
+}
+
 /* 主布局样式
 ------------------------------- */
 .layout-container {

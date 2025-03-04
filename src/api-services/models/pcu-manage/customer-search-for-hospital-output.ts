@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-import { PetSearchForHospitalOutput } from './pet-search-for-hospital-output';
  /**
  * 
  *
@@ -89,7 +88,7 @@ export interface CustomerSearchForHospitalOutput {
      * 宠物ID
      *
      * @type {number}
-     * @memberof PetSearchForHospitalOutput
+     * @memberof CustomerSearchForHospitalOutput
      */
     petId?: number;
 
@@ -97,7 +96,7 @@ export interface CustomerSearchForHospitalOutput {
      * 宠主id
      *
      * @type {number}
-     * @memberof PetSearchForHospitalOutput
+     * @memberof CustomerSearchForHospitalOutput
      */
     customerId?: number | null;
 
@@ -105,7 +104,7 @@ export interface CustomerSearchForHospitalOutput {
      * 宠物名称
      *
      * @type {string}
-     * @memberof PetSearchForHospitalOutput
+     * @memberof CustomerSearchForHospitalOutput
      */
     petName?: string | null;
 
@@ -113,7 +112,7 @@ export interface CustomerSearchForHospitalOutput {
      * 性别 (0 公 1 母 2 未知)
      *
      * @type {string}
-     * @memberof PetSearchForHospitalOutput
+     * @memberof CustomerSearchForHospitalOutput
      */
     petGenderText?: string | null;
 
@@ -121,7 +120,7 @@ export interface CustomerSearchForHospitalOutput {
      * 生日
      *
      * @type {Date}
-     * @memberof PetSearchForHospitalOutput
+     * @memberof CustomerSearchForHospitalOutput
      */
     petBirthDate?: Date | null;
 
@@ -129,7 +128,7 @@ export interface CustomerSearchForHospitalOutput {
      * 宠物种类
      *
      * @type {number}
-     * @memberof PetSearchForHospitalOutput
+     * @memberof CustomerSearchForHospitalOutput
      */
     petKind?: number | null;
 
@@ -137,7 +136,7 @@ export interface CustomerSearchForHospitalOutput {
      * 宠物种类
      *
      * @type {string}
-     * @memberof PetSearchForHospitalOutput
+     * @memberof CustomerSearchForHospitalOutput
      */
     petKindText?: string | null;
 
@@ -145,7 +144,7 @@ export interface CustomerSearchForHospitalOutput {
      * 宠物品种
      *
      * @type {number}
-     * @memberof PetSearchForHospitalOutput
+     * @memberof CustomerSearchForHospitalOutput
      */
     petVarietie?: number | null;
 
@@ -153,7 +152,7 @@ export interface CustomerSearchForHospitalOutput {
      * 宠物品种
      *
      * @type {string}
-     * @memberof PetSearchForHospitalOutput
+     * @memberof CustomerSearchForHospitalOutput
      */
     petVarietieText?: string | null;
 
@@ -161,7 +160,7 @@ export interface CustomerSearchForHospitalOutput {
      * 病历号码
      *
      * @type {string}
-     * @memberof PetSearchForHospitalOutput
+     * @memberof CustomerSearchForHospitalOutput
      */
     petRecordNumber?: string | null;
 
@@ -169,7 +168,7 @@ export interface CustomerSearchForHospitalOutput {
      * 宠物体重
      *
      * @type {number}
-     * @memberof PetSearchForHospitalOutput
+     * @memberof CustomerSearchForHospitalOutput
      */
     petWeight?: number | null;
 
@@ -177,14 +176,7 @@ export interface CustomerSearchForHospitalOutput {
      * 宠物备注
      *
      * @type {string}
-     * @memberof PetSearchForHospitalOutput
+     * @memberof CustomerSearchForHospitalOutput
      */
     petRemark?: string | null;
-    // /**
-    //  * 宠物集合
-    //  *
-    //  * @type {Array<PetSearchForHospitalOutput>}
-    //  * @memberof CustomerSearchForHospitalOutput
-    //  */
-    // pets?: Array<PetSearchForHospitalOutput> | null;
 }

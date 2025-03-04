@@ -395,7 +395,7 @@ const handleCustomer = async (val: any) => {
 	cartsTableParams.value.customerId = val.customerId;
 	cartsTableParams.value.petIds = [val.petId];
 	cartTableLoading.value = true;
-	let res = await getAPI(PcustomerApi).apiPcustomerGetCustomerFundGet(val.customerId);
+	let res = await getAPI(PcustomerApi).apiPcustomerIdGetCustomerFundGet(val.customerId);
 
 	customerFundData.value = res.data.result ?? {};
 	await loadPaymentCarts();

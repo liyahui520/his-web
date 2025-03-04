@@ -87,6 +87,7 @@ export interface CustomerSMSInput {
      * @memberof CustomerSMSInput
      */
     ver?: string | null;
+
     /**
      * 用户名称
      *
@@ -94,8 +95,9 @@ export interface CustomerSMSInput {
      * @memberof CustomerSMSInput
      */
     name?: string | null;
+
     /**
-     * 用户名称
+     * 用户手机号码
      *
      * @type {string}
      * @memberof CustomerSMSInput
@@ -103,12 +105,13 @@ export interface CustomerSMSInput {
     cellPhone?: string | null;
 
     /**
-     * 客户来源选中集合
+     * 客户来源
      *
-     * @type {Array<number>}
+     * @type {Array<string>}
      * @memberof CustomerSMSInput
      */
     customerSources?: Array<string> | null;
+
     /**
      * 会员级别选中集合
      *

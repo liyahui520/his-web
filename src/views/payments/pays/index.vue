@@ -444,7 +444,8 @@ const loadCustomer = async () => {
 	}
 };
 
-/**
+
+/** 
  * 选中用户事件
  * @param val 当前选中用户对象
  */
@@ -457,7 +458,7 @@ const handleCustomer = async (val: any) => {
 	slectCustomerIndex.value = val.id + '';
 	customerFundLoading.value = true;
 	cartTableLoading.value = true;
-	let res = await getAPI(PcustomerApi).apiPcustomerGetCustomerFundGet(val.id);
+	let res = await getAPI(PcustomerApi).apiPcustomerIdGetCustomerFundGet(val.id);
 
 	customerFundLoading.value = false;
 	customerFundData.value = res.data.result ?? {};

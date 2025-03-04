@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * 会员管理
- * <br/><u><b><font color='FF0000'> 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！</font></b></u>
+ * <br/><u><b><font color='FF0000'> 内部接口文档</font></b></u>
  *
  * OpenAPI spec version: 1.0.0
  * Contact: liyahui360@163.com
@@ -12,113 +12,123 @@
  * Do not edit the class manually.
  */
 
-/**
+ /**
  * 明细
  *
  * @export
  * @interface MemberSecondaryCardDetailDto
  */
 export interface MemberSecondaryCardDetailDto {
-	/**
-	 * 明细主键
-	 *
-	 * @type {number}
-	 * @memberof MemberSecondaryCardDetailDto
-	 */
-	id?: number;
 
-	/**
-	 * 会员Id
-	 *
-	 * @type {number}
-	 * @memberof MemberSecondaryCardDetailDto
-	 */
-	customerId?: number;
+    /**
+     * 明细主键
+     *
+     * @type {number}
+     * @memberof MemberSecondaryCardDetailDto
+     */
+    id?: number;
 
-	/**
-	 * 次卡Id
-	 *
-	 * @type {number}
-	 * @memberof MemberSecondaryCardDetailDto
-	 */
-	cardId?: number;
-	/**
-	 * 次卡名称
-	 *
-	 * @type {string}
-	 * @memberof MemberSecondaryCardDetailDto
-	 */
-	cardName?: string | null;
-	/**
-	 * 类型  0 消费  1 退单
-	 *
-	 * @type {number}
-	 * @memberof MemberSecondaryCardDetailDto
-	 */
-	type?: number;
-	/**
-	 * 类型  0 消费  1 退单
-	 *
-	 * @type {string}
-	 * @memberof MemberSecondaryCardDetailDto
-	 */
-	typeText?: string | null;
-	/**
-	 * 订单编号
-	 *
-	 * @type {string}
-	 * @memberof MemberSecondaryCardDetailDto
-	 */
-	serialNumber?: string | null;
+    /**
+     * 会员Id
+     *
+     * @type {number}
+     * @memberof MemberSecondaryCardDetailDto
+     */
+    customerId?: number;
 
-	/**
-	 * 本次消耗次数
-	 *
-	 * @type {number}
-	 * @memberof MemberSecondaryCardDetailDto
-	 */
-	totalCount?: number;
-	/**
-	 * 本次消耗次数
-	 *
-	 * @type {number}
-	 * @memberof MemberSecondaryCardDetailDto
-	 */
-	principalCount?: number;
-	/**
-	 * 本次消耗次数
-	 *
-	 * @type {number}
-	 * @memberof MemberSecondaryCardDetailDto
-	 */
-	giftCount?: number;
-	/**
-	 * 本次消耗次数
-	 *
-	 * @type {number}
-	 * @memberof MemberSecondaryCardDetailDto
-	 */
-	currentCount?: number;
-	/**
-	 * 创建时间
-	 *
-	 * @type {Date}
-	 * @memberof MemberSecondaryCardDetailDto
-	 */
-	createTime?: Date | null;
-	/**
-	 * 创建名称
-	 *
-	 * @type {string}
-	 * @memberof MemberSecondaryCardDetailDto
-	 */
-	createUserName?: string | null;
+    /**
+     * 次卡Id
+     *
+     * @type {number}
+     * @memberof MemberSecondaryCardDetailDto
+     */
+    cardId?: number;
 
-	/**
-	 * 创建机构名称
-	 *
-	 * @type {string}
-	 * @memberof MemberSecondaryCardDetailDto
-	 */
-	createOrgName?: string | null;
+    /**
+     * 次卡名称
+     *
+     * @type {string}
+     * @memberof MemberSecondaryCardDetailDto
+     */
+    cardName?: string | null;
+
+    /**
+     * 类型  0 消费  1 退单
+     *
+     * @type {number}
+     * @memberof MemberSecondaryCardDetailDto
+     */
+    type?: number;
+
+    /**
+     * 类型文本
+     *
+     * @type {string}
+     * @memberof MemberSecondaryCardDetailDto
+     */
+    typeText?: string | null;
+
+    /**
+     * 订单编号
+     *
+     * @type {string}
+     * @memberof MemberSecondaryCardDetailDto
+     */
+    serialNumber?: string | null;
+
+    /**
+     * 交易时间
+     *
+     * @type {Date}
+     * @memberof MemberSecondaryCardDetailDto
+     */
+    createTime?: Date | null;
+
+    /**
+     * 本次消耗次数
+     *
+     * @type {number}
+     * @memberof MemberSecondaryCardDetailDto
+     */
+    totalCount?: number;
+
+    /**
+     * 本金次数
+     *
+     * @type {number}
+     * @memberof MemberSecondaryCardDetailDto
+     */
+    principalCount?: number;
+
+    /**
+     * 赠送次数
+     *
+     * @type {number}
+     * @memberof MemberSecondaryCardDetailDto
+     */
+    giftCount?: number;
+
+    /**
+     * 当前剩余总次数
+     *
+     * @type {number}
+     * @memberof MemberSecondaryCardDetailDto
+     */
+    currentCount?: number;
+
+    /**
+     * 创建名称
+     *
+     * @type {string}
+     * @memberof MemberSecondaryCardDetailDto
+     */
+    createUserName?: string | null;
+
+    /**
+     * 创建机构名称
+     *
+     * @type {string}
+     * @memberof MemberSecondaryCardDetailDto
+     */
+    createOrgName?: string | null;
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="productUnits-container">
+    <div class="productUnits-container" :class="isTagsViewCurrenFull?'tab-cus-full-Content':'tab-cus-Content'">
         <el-card shadow="never" :body-style="{ paddingBottom: '0' }">
             <el-form :model="queryParams" ref="queryForm" :inline="true">
                 <el-form-item label="产品名称">
@@ -34,8 +34,8 @@
                 </el-form-item>
             </el-form>
         </el-card>
-        <el-card  shadow="never"  style="height: calc(100vh - 235px);overflow: auto;margin-top: 8px">
-            <el-table :data="tableData"  v-loading="loading" tooltip-effect="light" row-key="id"  style="height: calc(100vh - 320px);" border>
+        <el-card  shadow="never"  class="full-table" style="overflow: auto;margin-top: 8px">
+            <el-table :data="tableData"  v-loading="loading" tooltip-effect="light" row-key="id"  border>
                 <el-table-column type="index" label="序号" width="55" align="center" fixed="" />
                 <el-table-column prop="productTypeText" label="产品类型" show-overflow-tooltip=""  width="100"  />
                 <el-table-column prop="productName" label="产品名称" show-overflow-tooltip="" />
@@ -81,12 +81,16 @@
 
 <script lang="ts" setup name="OutStorageManage">
 import { ref } from 'vue';
-import { ElMessageBox, ElMessage } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysEnumApi,InOrOutDetailApi } from '/@/api-services/api';
 import { addWeeksToDateReturnDate, formatDate } from "/@/utils/formatTime";
 import { downloadByData, getFileName } from '/@/utils/download';
 import { verifyNumberComma } from '/@/utils/toolsValidate';
+
+import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'; 
+import { storeToRefs } from 'pinia';
+const storesTagsViewRoutes = useTagsViewRoutes(); 
+const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
 const loading = ref(false);
 const tableData = ref<any>([]);
 const queryParams = ref<any>({ productName: '', serialNumber: '', startTime: null, endTime: null, outType: null });

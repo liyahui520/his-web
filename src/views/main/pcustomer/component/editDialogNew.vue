@@ -343,13 +343,15 @@ const submit = async () => {
 			let values = ruleForm.value;
 			values.address = JSON.stringify(address.value);
 			let dot = {} as any;
-			if (ruleForm.value.id != undefined && ruleForm.value.id > 0) {
-				let r = await getAPI(PcustomerApi).apiPcustomerEditPut(values); // updatePcustomer(values);
+			let r = await getAPI(PcustomerApi).apiPcustomerAddPcuPetPost(values);
 				dot = r.data?.result;
-			} else {
-				let r = await getAPI(PcustomerApi).apiPcustomerAddPost(values);
-				dot = r.data?.result;
-			}
+			// if (ruleForm.value.id != undefined && ruleForm.value.id > 0) {
+			// 	let r = await getAPI(PcustomerApi).apiPcustomerEditPut(values); // updatePcustomer(values);
+			// 	dot = r.data?.result;
+			// } else {
+			// 	let r = await getAPI(PcustomerApi).apiPcustomerAddPcuPetPost(values);
+			// 	dot = r.data?.result;
+			// }
 			closeDialog(dot);
 		}
 	});

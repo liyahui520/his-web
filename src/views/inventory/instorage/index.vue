@@ -1,15 +1,14 @@
 <template>
-	<div class="instorage-container">
+	<div class="instorage-container"  :class="isTagsViewCurrenFull?'tab-cus-full-Content':'tab-cus-Content'">
 		<el-card shadow="never" :body-style="{ paddingBottom: '0' }">
 			<TableSearch :search="tb.tableData.search" :modelValue="tb.tableData.param" @search="onSearch" />
 		</el-card>
-		<el-card shadow="never" style="height: calc(100vh - 235px); overflow: auto; margin-top: 8px">
+		<el-card shadow="never" class="full-table" style="overflow: auto; margin-top: 8px">
 			<Table
 				ref="tableRef"
 				v-bind="tb.tableData"
 				:getData="getData"
-				:exportChangeData="exportChangeData"
-				style="height: calc(100vh - 320px)"
+				:exportChangeData="exportChangeData" 
 				@sortHeader="onSortHeader"
 				@selectionChange="tableSelection"
 				border
@@ -71,8 +70,13 @@ import { formatDate } from '/@/utils/formatTime';
 import { useUserInfo } from '/@/stores/userInfo';
 
 const stores = useUserInfo();
+
+import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'; 
+import { storeToRefs } from 'pinia';
+const storesTagsViewRoutes = useTagsViewRoutes(); 
+const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
 // 引入组件
-const Table = defineAsyncComponent(() => import('/@/components/table/index.vue'));
+const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const TableSearch = defineAsyncComponent(() => import('/@/components/table/search.vue'));
 const AddInstorage = defineAsyncComponent(() => import('./component/addInstorage.vue'));
 const addInstorageRef = ref();

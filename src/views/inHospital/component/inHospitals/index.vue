@@ -1,5 +1,5 @@
 <template>
-	<div class="in-hospitals-container">
+	<div class="in-hospitals-container" >
 		<el-card shadow="never" :body-style="{ paddingBottom: '0' }" style="margin-bottom: 16px;">
 			<el-form :model="queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="客户名称">

@@ -25,7 +25,6 @@ import { AdminResultPcustomer } from '/@/api-services/models/pcu-manage/admin-re
 import { AdminResultSqlSugarPagedListCustomerSearchForSaleOutput } from '../../models/pcu-manage';
 import { CustomerSearchForSaleInput, CustomerPetInfoForSaleInput, AdminResultCustomerPetInfoForSaleOutput } from '../../models/pcu-manage';
 import { AdminResultCustomerFundOutput } from '../../models/pcu-manage';
-import { AdminResultCustomerFundDetailsOutput } from '../../models/pcu-manage/admin-result-customer-fund-details-output';
 import { MedicalCustomerPetsInput } from '/@/api-services/models/pcu-manage/medical-customer-pets-input';
 import { AdminResultListPcustomer } from '/@/api-services/models/pcu-manage/admin-result-list-pcustomer';
 import { AdminResultPcutomerDetailOutInput } from '/@/api-services/models/pcu-manage/admin-result-pcutomer-detail-out-input';
@@ -39,24 +38,366 @@ import {
 	CustomerSearchForHospitalInput,
 	CustomerSMSInput,
 	AdminResultSqlSugarPagedListCustomerSMSOutput,
+    AddPcuPPetsInput,
+    AdminResultListCustomerFundDetailsOutput, 
+    AdminResultPcustomerFastOutput,
 } from '../../models/pcu-manage';
-
+import { AdminResultSysFile } from '../../models';
 /**
  * PcustomerApi - axios parameter creator
  * @export
  */
 export const PcustomerApiAxiosParamCreator = function (configuration?: Configuration) {
-	return {
-
+    return {
         /**
          * 
-         * @summary 获取所有可发短信的用户信息
-         * @param {CustomerSMSInput} [body] 请求参数
+         * @summary 新增会员和单只宠物
+         * @param {AddPcuPPetsInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiPcustomerGetCustomersForSmsPost: async (body?: CustomerSMSInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/pcustomer/get-customers-for-sms`;
+        apiPcustomerAddPcuPetPost: async (body?: AddPcuPPetsInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/pcustomer/add-pcu-pet`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 增加会员
+         * @param {AddPcustomerInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerAddPost: async (body?: AddPcustomerInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/pcustomer/add`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取用户的资金明细以便结算使用
+         * @param {number} customerId 用户Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerCustomerIdGetCustomerPetFundDetailsGet: async (customerId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'customerId' is not null or undefined
+            if (customerId === null || customerId === undefined) {
+                throw new RequiredError('customerId','Required parameter customerId was null or undefined when calling apiPcustomerCustomerIdGetCustomerPetFundDetailsGet.');
+            }
+            const localVarPath = `/api/pcustomer/{customerId}/get-customer-pet-fund-details`
+                .replace(`{${"customerId"}}`, encodeURIComponent(String(customerId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取会员可用次卡信息集合
+         * @param {number} customerId 会员Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerCustomerIdGetCustomerSecondaryCardListGet: async (customerId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'customerId' is not null or undefined
+            if (customerId === null || customerId === undefined) {
+                throw new RequiredError('customerId','Required parameter customerId was null or undefined when calling apiPcustomerCustomerIdGetCustomerSecondaryCardListGet.');
+            }
+            const localVarPath = `/api/pcustomer/{customerId}/get-customer-secondary-card-list`
+                .replace(`{${"customerId"}}`, encodeURIComponent(String(customerId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取会员次卡信息
+         * @param {number} customerId 会员Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerCustomerIdGetCustomerSecondaryCardsGet: async (customerId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'customerId' is not null or undefined
+            if (customerId === null || customerId === undefined) {
+                throw new RequiredError('customerId','Required parameter customerId was null or undefined when calling apiPcustomerCustomerIdGetCustomerSecondaryCardsGet.');
+            }
+            const localVarPath = `/api/pcustomer/{customerId}/get-customer-secondary-cards`
+                .replace(`{${"customerId"}}`, encodeURIComponent(String(customerId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取会员次卡汇总信息
+         * @param {number} customerId 会员Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerCustomerIdGetCustomerSecondaryCardsSummaryGet: async (customerId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'customerId' is not null or undefined
+            if (customerId === null || customerId === undefined) {
+                throw new RequiredError('customerId','Required parameter customerId was null or undefined when calling apiPcustomerCustomerIdGetCustomerSecondaryCardsSummaryGet.');
+            }
+            const localVarPath = `/api/pcustomer/{customerId}/get-customer-secondary-cards-summary`
+                .replace(`{${"customerId"}}`, encodeURIComponent(String(customerId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 更新会员
+         * @param {UpdatePcustomerInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerEditPut: async (body?: UpdatePcustomerInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/pcustomer/edit`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 快速注册会员及宠物信息、单只宠物
+         * @param {PcustomerFastInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerFastAddPost: async (body?: PcustomerFastInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/pcustomer/fastAdd`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -144,925 +485,150 @@ export const PcustomerApiAxiosParamCreator = function (configuration?: Configura
                 options: localVarRequestOptions,
             };
         },
-		/**
-		 *
-		 * @summary 获取会员次卡汇总信息
-		 * @param {string} customerId 会员Id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiGetMemberSecondaryCardsSummaryGet: async (customerId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			// verify required parameter 'customerId' is not null or undefined
-			if (customerId === null || customerId === undefined) {
-				throw new RequiredError('customerId', 'Required parameter customerId was null or undefined when calling apiGetMemberSecondaryCardsSummaryGet.');
-			}
-			const localVarPath = `/api/pcustomer/{customerId}/get-customer-secondary-cards-summary`.replace(`{${'customerId'}}`, encodeURIComponent(String(customerId)));
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 获取会员次卡信息
-		 * @param {string} customerId 会员Id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiGetCustomerSecondaryCardInfoGet: async (customerId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			// verify required parameter 'customerId' is not null or undefined
-			if (customerId === null || customerId === undefined) {
-				throw new RequiredError('customerId', 'Required parameter customerId was null or undefined when calling apiGetCustomerSecondaryCardInfoGet.');
-			}
-			const localVarPath = `/api/pcustomer/{customerId}/get-customer-secondary-cards`.replace(`{${'customerId'}}`, encodeURIComponent(String(customerId)));
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 获取会员可用次卡信息集合
-		 * @param {string} customerId 会员Id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiGetCustomerSecondaryCardListGet: async (customerId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			// verify required parameter 'customerId' is not null or undefined
-			if (customerId === null || customerId === undefined) {
-				throw new RequiredError('customerId', 'Required parameter customerId was null or undefined when calling apiGetCustomerSecondaryCardListGet.');
-			}
-			const localVarPath = `/api/pcustomer/{customerId}/get-customer-secondary-card-list`.replace(`{${'customerId'}}`, encodeURIComponent(String(customerId)));
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-
-		/**
-		 *
-		 * @summary 获取会员次卡消费信息
-		 * @param {MemberSecondaryCardDetailsInput} [body] 会员Id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiGetCustomerSecondaryCardPagePost: async (body?: MemberSecondaryCardDetailsInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			const localVarPath = `/api/pcustomer/get-customer-secondary-card-page`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-			const needsSerialization = typeof body !== 'string' || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-			localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : body || '';
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-
-		/**
-		 *
-		 * @summary 增加会员
-		 * @param {AddPcustomerInput} [body]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerAddPost: async (body?: AddPcustomerInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			const localVarPath = `/api/pcustomer/add`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-			// @ts-ignore
-			const needsSerialization = typeof body !== 'string' || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-			localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : body || '';
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 获取用户宠物信息
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerCustomerPetInfoGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			const localVarPath = `/api/pcustomer/customerPetInfo`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 获取用户宠物列表信息
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerCustomerPetListGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			const localVarPath = `/api/pcustomer/customerPetList`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 更新会员
-		 * @param {UpdatePcustomerInput} [body]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerEditPut: async (body?: UpdatePcustomerInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			const localVarPath = `/api/pcustomer/edit`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'PUT', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-			// @ts-ignore
-			const needsSerialization = typeof body !== 'string' || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-			localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : body || '';
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 快速注册会员及宠物信息、单只宠物
-		 * @param {PcustomerFastInput} [body] 请求参数
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerFastAddPost: async (body?: PcustomerFastInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			const localVarPath = `/api/pcustomer/fastAdd`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-			// @ts-ignore
-			const needsSerialization = typeof body !== 'string' || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-			localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : body || '';
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 删除会员
-		 * @param {number} id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerIdDeleteDelete: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			if (id === null || id === undefined) {
-				throw new RequiredError('id', 'Required parameter id was null or undefined when calling apiPcustomerIdDeleteDelete.');
-			}
-			const localVarPath = `/api/pcustomer/{id}/delete`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'DELETE', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-
-		/**
-		 *
-		 * @summary 获取单个会员信息
-		 * @param {number} id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerIdGetGet: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			if (id === null || id === undefined) {
-				throw new RequiredError('id', 'Required parameter id was null or undefined when calling apiPcustomerIdGetGet.');
-			}
-			const localVarPath = `/api/pcustomer/{id}/get`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 获取会员列表
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerListPost: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			const localVarPath = `/api/pcustomer/list`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 分页查询会员
-		 * @param {PcustomerInput} [body]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerPagePost: async (body?: PcustomerInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			const localVarPath = `/api/pcustomer/page`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-			// @ts-ignore
-			const needsSerialization = typeof body !== 'string' || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-			localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : body || '';
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 获取用户宠物信息
-		 * @param {CustomerSearchForSaleInput} [body] 请求参数
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerGetCustomerPetForSalePost: async (body?: CustomerSearchForSaleInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			const localVarPath = `/api/pcustomer/get-customer-pet-page-for-sale`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-			// @ts-ignore
-			const needsSerialization = typeof body !== 'string' || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-			localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : body || '';
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 获取当前用户的资金情况
-		 * @param {number} [id] 请求参数
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerGetCustomerFundGet: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			if (id === null || id === undefined) {
-				throw new RequiredError('id', 'Required parameter id was null or undefined when calling apiPcustomerGetCustomerFundGet.');
-			}
-			const localVarPath = `/api/pcustomer/{id}/get-customer-fund`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-
-		/**
-		 *
-		 * @summary 获取当前用户的资金合集
-		 * @param {number} [id] 请求参数
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerGetCustomerFundDetailsGet: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			if (id === null || id === undefined) {
-				throw new RequiredError('id', 'Required parameter id was null or undefined when calling apiPcustomerGetCustomerFundDetailsGet.');
-			}
-			const localVarPath = `/api/pcustomer/{customerId}/get-customer-pet-fund-details`.replace(`{${'customerId'}}`, encodeURIComponent(String(id)));
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 获取销售产品界面用户相关信息
-		 * @param {CustomerPetInfoForSaleInput} [body] 请求参数
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerGetCustomerPetInfoForSalePost: async (body?: CustomerPetInfoForSaleInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			const localVarPath = `/api/pcustomer/get-customer-pet-info-for-sale`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-			// @ts-ignore
-			const needsSerialization = typeof body !== 'string' || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-			localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : body || '';
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 搜索用户宠物简单信息
-		 * @param {MedicalCustomerPetsInput} [body]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerGetMedicalCustometPetsPost: async (body?: MedicalCustomerPetsInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			const localVarPath = `/api/pcustomer/get-medical-customet-pets`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-			// @ts-ignore
-			const needsSerialization = typeof body !== 'string' || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-			localVarRequestOptions.data = needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : body || '';
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 获取会员信息 详细信息类型转换
-		 * @param {number} id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerIdGetDetailGet: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			// verify required parameter 'id' is not null or undefined
-			if (id === null || id === undefined) {
-				throw new RequiredError('id', 'Required parameter id was null or undefined when calling apiPcustomerIdGetDetailGet.');
-			}
-			const localVarPath = `/api/pcustomer/{id}/get-detail`.replace(`{${'id'}}`, encodeURIComponent(String(id)));
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-		/**
-		 *
-		 * @summary 获取散客会员信息 详细信息类型转换
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		apiPcustomerGetScatteredDetailGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-			const localVarPath = `/api/pcustomer/get-scattered-detail`;
-			// use dummy base URL string because the URL constructor only accepts absolute URLs.
-			const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-			let baseOptions;
-			if (configuration) {
-				baseOptions = configuration.baseOptions;
-			}
-			const localVarRequestOptions: AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options };
-			const localVarHeaderParameter = {} as any;
-			const localVarQueryParameter = {} as any;
-
-			// authentication Bearer required
-			// http bearer authentication required
-			if (configuration && configuration.accessToken) {
-				const accessToken = typeof configuration.accessToken === 'function' ? await configuration.accessToken() : await configuration.accessToken;
-				localVarHeaderParameter['Authorization'] = 'Bearer ' + accessToken;
-			}
-
-			const query = new URLSearchParams(localVarUrlObj.search);
-			for (const key in localVarQueryParameter) {
-				query.set(key, localVarQueryParameter[key]);
-			}
-			for (const key in options.params) {
-				query.set(key, options.params[key]);
-			}
-			localVarUrlObj.search = new URLSearchParams(query).toString();
-			let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-			localVarRequestOptions.headers = { ...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers };
-
-			return {
-				url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-				options: localVarRequestOptions,
-			};
-		},
-	};
-};
-
-/**
- * PcustomerApi - functional programming interface
- * @export
- */
-export const PcustomerApiFp = function (configuration?: Configuration) {
-	return {
-
+        /**
+         * 
+         * @summary 获取销售产品界面用户相关信息
+         * @param {CustomerPetInfoForSaleInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerGetCustomerPetInfoForSalePost: async (body?: CustomerPetInfoForSaleInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/pcustomer/get-customer-pet-info-for-sale`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取用户宠物信息
+         * @param {CustomerSearchForSaleInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerGetCustomerPetPageForSalePost: async (body?: CustomerSearchForSaleInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/pcustomer/get-customer-pet-page-for-sale`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取会员次卡消费信息
+         * @param {MemberSecondaryCardDetailsInput} [body] 会员Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerGetCustomerSecondaryCardPagePost: async (body?: MemberSecondaryCardDetailsInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/pcustomer/get-customer-secondary-card-page`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 
          * @summary 获取所有可发短信的用户信息
@@ -1070,8 +636,593 @@ export const PcustomerApiFp = function (configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiPcustomerGetCustomersForSmsPost(body?: CustomerSMSInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListCustomerSMSOutput>>> {
-            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerGetCustomersForSmsPost(body, options);
+        apiPcustomerGetCustomersForSmsPost: async (body?: CustomerSMSInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/pcustomer/get-customers-for-sms`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 搜索用户宠物简单信息
+         * @param {MedicalCustomerPetsInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerGetMedicalCustometPetsPost: async (body?: MedicalCustomerPetsInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/pcustomer/get-medical-customet-pets`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取散客会员信息 详细信息类型转换
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerGetScatteredDetailGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/pcustomer/get-scattered-detail`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 删除会员
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerIdDeleteDelete: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling apiPcustomerIdDeleteDelete.');
+            }
+            const localVarPath = `/api/pcustomer/{id}/delete`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取当前用户的资金情况
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerIdGetCustomerFundGet: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling apiPcustomerIdGetCustomerFundGet.');
+            }
+            const localVarPath = `/api/pcustomer/{id}/get-customer-fund`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取会员信息 详细信息类型转换
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerIdGetDetailGet: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling apiPcustomerIdGetDetailGet.');
+            }
+            const localVarPath = `/api/pcustomer/{id}/get-detail`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取单个会员信息
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerIdGetGet: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling apiPcustomerIdGetGet.');
+            }
+            const localVarPath = `/api/pcustomer/{id}/get`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取会员列表
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerListPost: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/pcustomer/list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 分页查询会员
+         * @param {PcustomerInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerPagePost: async (body?: PcustomerInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/pcustomer/page`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 上传用户头像
+         * @param {Blob} [file] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiPcustomerUploadCustomerAvatarPostForm: async (file?: Blob, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/pcustomer/upload-customer-avatar`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new FormData();
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+
+            if (file !== undefined) { 
+                localVarFormParams.append('file', file as any);
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams;
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * PcustomerApi - functional programming interface
+ * @export
+ */
+export const PcustomerApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary 新增会员和单只宠物
+         * @param {AddPcuPPetsInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerAddPcuPetPost(body?: AddPcuPPetsInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultPcustomer>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerAddPcuPetPost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 增加会员
+         * @param {AddPcustomerInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerAddPost(body?: AddPcustomerInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultPcustomer>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerAddPost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取用户的资金明细以便结算使用
+         * @param {number} customerId 用户Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerCustomerIdGetCustomerPetFundDetailsGet(customerId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListCustomerFundDetailsOutput>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerCustomerIdGetCustomerPetFundDetailsGet(customerId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取会员可用次卡信息集合
+         * @param {number} customerId 会员Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerCustomerIdGetCustomerSecondaryCardListGet(customerId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListMemberSecondaryCardOutput>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerCustomerIdGetCustomerSecondaryCardListGet(customerId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取会员次卡信息
+         * @param {number} customerId 会员Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerCustomerIdGetCustomerSecondaryCardsGet(customerId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListMemberSecondaryCardsDto>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerCustomerIdGetCustomerSecondaryCardsGet(customerId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取会员次卡汇总信息
+         * @param {number} customerId 会员Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerCustomerIdGetCustomerSecondaryCardsSummaryGet(customerId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultMemberSecondaryCardsSummaryDto>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerCustomerIdGetCustomerSecondaryCardsSummaryGet(customerId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 更新会员
+         * @param {UpdatePcustomerInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerEditPut(body?: UpdatePcustomerInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultPcustomer>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerEditPut(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 快速注册会员及宠物信息、单只宠物
+         * @param {PcustomerFastInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerFastAddPost(body?: PcustomerFastInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultPcustomerFastOutput>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerFastAddPost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1091,335 +1242,187 @@ export const PcustomerApiFp = function (configuration?: Configuration) {
                 return axios.request(axiosRequestArgs);
             };
         },
-		/**
-		 *
-		 * @summary 获取会员次卡汇总信息
-		 * @param {string} customerId 会员Id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiGetMemberSecondaryCardsSummaryGet(
-			customerId: string,
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultMemberSecondaryCardsSummaryDto>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiGetMemberSecondaryCardsSummaryGet(customerId, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 获取会员次卡信息
-		 * @param {string} customerId 会员Id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiGetCustomerSecondaryCardInfoGet(
-			customerId: string,
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListMemberSecondaryCardsDto>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiGetCustomerSecondaryCardInfoGet(customerId, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 获取会员可用次卡信息集合
-		 * @param {string} customerId 会员Id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiGetCustomerSecondaryCardListGet(
-			customerId: string,
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListMemberSecondaryCardOutput>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiGetCustomerSecondaryCardListGet(customerId, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-				return axios.request(axiosRequestArgs);
-			};
-		},
-
-		/**
-		 *
-		 * @summary 获取会员次卡消费信息
-		 * @param {MemberSecondaryCardDetailsInput} [body] 会员Id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiGetCustomerSecondaryCardPagePost(
-			body?: MemberSecondaryCardDetailsInput,
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListMemberSecondaryCardDetailDto>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiGetCustomerSecondaryCardPagePost(body, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 增加会员
-		 * @param {AddPcustomerInput} [body]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerAddPost(body?: AddPcustomerInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerAddPost(body, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = {
-					...localVarAxiosArgs.options,
-					url: basePath + localVarAxiosArgs.url,
-				};
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 获取用户宠物信息
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerCustomerPetInfoGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerCustomerPetInfoGet(options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = {
-					...localVarAxiosArgs.options,
-					url: basePath + localVarAxiosArgs.url,
-				};
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 获取用户宠物列表信息
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerCustomerPetListGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerCustomerPetListGet(options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = {
-					...localVarAxiosArgs.options,
-					url: basePath + localVarAxiosArgs.url,
-				};
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 更新会员
-		 * @param {UpdatePcustomerInput} [body]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerEditPut(body?: UpdatePcustomerInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerEditPut(body, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = {
-					...localVarAxiosArgs.options,
-					url: basePath + localVarAxiosArgs.url,
-				};
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 快速注册会员及宠物信息、单只宠物
-		 * @param {PcustomerFastInput} [body] 请求参数
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerFastAddPost(body?: PcustomerFastInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerFastAddPost(body, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = {
-					...localVarAxiosArgs.options,
-					url: basePath + localVarAxiosArgs.url,
-				};
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 删除会员
-		 * @param {number} id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerIdDeleteDelete(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerIdDeleteDelete(id, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = {
-					...localVarAxiosArgs.options,
-					url: basePath + localVarAxiosArgs.url,
-				};
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 获取单个会员信息
-		 * @param {number} id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerIdGetGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultPcustomer>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerIdGetGet(id, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = {
-					...localVarAxiosArgs.options,
-					url: basePath + localVarAxiosArgs.url,
-				};
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 获取会员列表
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerListPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultObject>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerListPost(options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = {
-					...localVarAxiosArgs.options,
-					url: basePath + localVarAxiosArgs.url,
-				};
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 分页查询会员
-		 * @param {PcustomerInput} [body]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerPagePost(body?: PcustomerInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultObject>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerPagePost(body, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = {
-					...localVarAxiosArgs.options,
-					url: basePath + localVarAxiosArgs.url,
-				};
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 获取用户宠物信息
-		 * @param {CustomerSearchForSaleInput} [body] 请求参数
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerGetCustomerPetForSalePost(
-			body?: CustomerSearchForSaleInput,
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListCustomerSearchForSaleOutput>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerGetCustomerPetForSalePost(body, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 获取当前用户的资金情况
-		 * @param {number} [id] 请求参数
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerGetCustomerFundGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultCustomerFundOutput>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerGetCustomerFundGet(id, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 获取当前用户的资金合集
-		 * @param {number} [id] 请求参数
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerGetCustomerFundDetailsGet(
-			id: number,
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultCustomerFundDetailsOutput>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerGetCustomerFundDetailsGet(id, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 获取销售产品界面用户相关信息
-		 * @param {CustomerPetInfoForSaleInput} [body] 请求参数
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerGetCustomerPetInfoForSalePost(
-			body?: CustomerPetInfoForSaleInput,
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultCustomerPetInfoForSaleOutput>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerGetCustomerPetInfoForSalePost(body, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 搜索用户宠物简单信息
-		 * @param {MedicalCustomerPetsInput} [body]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerGetMedicalCustometPetsPost(
-			body?: MedicalCustomerPetsInput,
-			options?: AxiosRequestConfig
-		): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListPcustomer>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerGetMedicalCustometPetsPost(body, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 获取会员信息 详细信息类型转换
-		 * @param {number} id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerIdGetDetailGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultPcutomerDetailOutInput>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerIdGetDetailGet(id, options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-				return axios.request(axiosRequestArgs);
-			};
-		},
-		/**
-		 *
-		 * @summary 获取散客会员信息 详细信息类型转换
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerGetScatteredDetailGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultPcutomerDetailOutInput>>> {
-			const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerGetScatteredDetailGet(options);
-			return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-				const axiosRequestArgs: AxiosRequestConfig = { ...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url };
-				return axios.request(axiosRequestArgs);
-			};
-		},
-	};
+        /**
+         * 
+         * @summary 获取销售产品界面用户相关信息
+         * @param {CustomerPetInfoForSaleInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerGetCustomerPetInfoForSalePost(body?: CustomerPetInfoForSaleInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultCustomerPetInfoForSaleOutput>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerGetCustomerPetInfoForSalePost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取用户宠物信息
+         * @param {CustomerSearchForSaleInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerGetCustomerPetPageForSalePost(body?: CustomerSearchForSaleInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListCustomerSearchForSaleOutput>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerGetCustomerPetPageForSalePost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取会员次卡消费信息
+         * @param {MemberSecondaryCardDetailsInput} [body] 会员Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerGetCustomerSecondaryCardPagePost(body?: MemberSecondaryCardDetailsInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListMemberSecondaryCardDetailDto>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerGetCustomerSecondaryCardPagePost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取所有可发短信的用户信息
+         * @param {CustomerSMSInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerGetCustomersForSmsPost(body?: CustomerSMSInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListCustomerSMSOutput>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerGetCustomersForSmsPost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 搜索用户宠物简单信息
+         * @param {MedicalCustomerPetsInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerGetMedicalCustometPetsPost(body?: MedicalCustomerPetsInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListPcustomer>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerGetMedicalCustometPetsPost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取散客会员信息 详细信息类型转换
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerGetScatteredDetailGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultPcutomerDetailOutInput>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerGetScatteredDetailGet(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 删除会员
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerIdDeleteDelete(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerIdDeleteDelete(id, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取当前用户的资金情况
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerIdGetCustomerFundGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultCustomerFundOutput>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerIdGetCustomerFundGet(id, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取会员信息 详细信息类型转换
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerIdGetDetailGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultPcutomerDetailOutInput>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerIdGetDetailGet(id, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取单个会员信息
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerIdGetGet(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultPcustomer>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerIdGetGet(id, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取会员列表
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerListPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultObject>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerListPost(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 分页查询会员
+         * @param {PcustomerInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerPagePost(body?: PcustomerInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultObject>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerPagePost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 上传用户头像
+         * @param {Blob} [file] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerUploadCustomerAvatarPostForm(file?: Blob, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysFile>>> {
+            const localVarAxiosArgs = await PcustomerApiAxiosParamCreator(configuration).apiPcustomerUploadCustomerAvatarPostForm(file, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+    }
 };
 
 /**
@@ -1427,7 +1430,127 @@ export const PcustomerApiFp = function (configuration?: Configuration) {
  * @export
  */
 export const PcustomerApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-	return {
+    return {
+        /**
+         * 
+         * @summary 新增会员和单只宠物
+         * @param {AddPcuPPetsInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerAddPcuPetPost(body?: AddPcuPPetsInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultPcustomer>> {
+            return PcustomerApiFp(configuration).apiPcustomerAddPcuPetPost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 增加会员
+         * @param {AddPcustomerInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerAddPost(body?: AddPcustomerInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultPcustomer>> {
+            return PcustomerApiFp(configuration).apiPcustomerAddPost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取用户的资金明细以便结算使用
+         * @param {number} customerId 用户Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerCustomerIdGetCustomerPetFundDetailsGet(customerId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListCustomerFundDetailsOutput>> {
+            return PcustomerApiFp(configuration).apiPcustomerCustomerIdGetCustomerPetFundDetailsGet(customerId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取会员可用次卡信息集合
+         * @param {number} customerId 会员Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerCustomerIdGetCustomerSecondaryCardListGet(customerId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListMemberSecondaryCardOutput>> {
+            return PcustomerApiFp(configuration).apiPcustomerCustomerIdGetCustomerSecondaryCardListGet(customerId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取会员次卡信息
+         * @param {number} customerId 会员Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerCustomerIdGetCustomerSecondaryCardsGet(customerId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListMemberSecondaryCardsDto>> {
+            return PcustomerApiFp(configuration).apiPcustomerCustomerIdGetCustomerSecondaryCardsGet(customerId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取会员次卡汇总信息
+         * @param {number} customerId 会员Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerCustomerIdGetCustomerSecondaryCardsSummaryGet(customerId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultMemberSecondaryCardsSummaryDto>> {
+            return PcustomerApiFp(configuration).apiPcustomerCustomerIdGetCustomerSecondaryCardsSummaryGet(customerId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 更新会员
+         * @param {UpdatePcustomerInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerEditPut(body?: UpdatePcustomerInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultPcustomer>> {
+            return PcustomerApiFp(configuration).apiPcustomerEditPut(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 快速注册会员及宠物信息、单只宠物
+         * @param {PcustomerFastInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerFastAddPost(body?: PcustomerFastInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultPcustomerFastOutput>> {
+            return PcustomerApiFp(configuration).apiPcustomerFastAddPost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取用户宠物信息为住院
+         * @param {CustomerSearchForHospitalInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerGetCustomerPetForHospitalPost(body?: CustomerSearchForHospitalInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListCustomerSearchForHospitalOutput>> {
+            return PcustomerApiFp(configuration).apiPcustomerGetCustomerPetForHospitalPost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取销售产品界面用户相关信息
+         * @param {CustomerPetInfoForSaleInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerGetCustomerPetInfoForSalePost(body?: CustomerPetInfoForSaleInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultCustomerPetInfoForSaleOutput>> {
+            return PcustomerApiFp(configuration).apiPcustomerGetCustomerPetInfoForSalePost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取用户宠物信息
+         * @param {CustomerSearchForSaleInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerGetCustomerPetPageForSalePost(body?: CustomerSearchForSaleInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListCustomerSearchForSaleOutput>> {
+            return PcustomerApiFp(configuration).apiPcustomerGetCustomerPetPageForSalePost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取会员次卡消费信息
+         * @param {MemberSecondaryCardDetailsInput} [body] 会员Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerGetCustomerSecondaryCardPagePost(body?: MemberSecondaryCardDetailsInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListMemberSecondaryCardDetailDto>> {
+            return PcustomerApiFp(configuration).apiPcustomerGetCustomerSecondaryCardPagePost(body, options).then((request) => request(axios, basePath));
+        },
         /**
          * 
          * @summary 获取所有可发短信的用户信息
@@ -1440,241 +1563,93 @@ export const PcustomerApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary 获取用户宠物信息为住院
-         * @param {CustomerSearchForHospitalInput} [body] 请求参数
+         * @summary 搜索用户宠物简单信息
+         * @param {MedicalCustomerPetsInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiPcustomerGetCustomerPetForHospitalPost(body?: CustomerSearchForHospitalInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListCustomerSearchForHospitalOutput>> {
-            return PcustomerApiFp(configuration).apiPcustomerGetCustomerPetForHospitalPost(body, options).then((request) => request(axios, basePath));
+        async apiPcustomerGetMedicalCustometPetsPost(body?: MedicalCustomerPetsInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListPcustomer>> {
+            return PcustomerApiFp(configuration).apiPcustomerGetMedicalCustometPetsPost(body, options).then((request) => request(axios, basePath));
         },
-		/**
-		 *
-		 * @summary 获取会员次卡汇总信息
-		 * @param {string} customerId 会员Id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiGetMemberSecondaryCardsSummaryGet(customerId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultMemberSecondaryCardsSummaryDto>> {
-			return PcustomerApiFp(configuration)
-				.apiGetMemberSecondaryCardsSummaryGet(customerId, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 获取会员次卡信息
-		 * @param {string} customerId 会员Id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiGetCustomerSecondaryCardInfoGet(customerId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListMemberSecondaryCardsDto>> {
-			return PcustomerApiFp(configuration)
-				.apiGetCustomerSecondaryCardInfoGet(customerId, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 获取会员可用次卡信息集合
-		 * @param {string} customerId 会员Id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiGetCustomerSecondaryCardListGet(customerId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListMemberSecondaryCardOutput>> {
-			return PcustomerApiFp(configuration)
-				.apiGetCustomerSecondaryCardListGet(customerId, options)
-				.then((request) => request(axios, basePath));
-		},
-
-		/**
-		 *
-		 * @summary 获取会员次卡消费信息
-		 * @param {MemberSecondaryCardDetailsInput} [body] 会员Id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiGetCustomerSecondaryCardPagePost(body?: MemberSecondaryCardDetailsInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListMemberSecondaryCardDetailDto>> {
-			return PcustomerApiFp(configuration)
-				.apiGetCustomerSecondaryCardPagePost(body, options)
-				.then((request) => request(axios, basePath));
-		},
-
-		/**
-		 *
-		 * @summary 增加会员
-		 * @param {AddPcustomerInput} [body]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerAddPost(body?: AddPcustomerInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-			return PcustomerApiFp(configuration)
-				.apiPcustomerAddPost(body, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 获取用户宠物信息
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerCustomerPetInfoGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-			return PcustomerApiFp(configuration)
-				.apiPcustomerCustomerPetInfoGet(options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 获取用户宠物列表信息
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerCustomerPetListGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-			return PcustomerApiFp(configuration)
-				.apiPcustomerCustomerPetListGet(options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 更新会员
-		 * @param {UpdatePcustomerInput} [body]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerEditPut(body?: UpdatePcustomerInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-			return PcustomerApiFp(configuration)
-				.apiPcustomerEditPut(body, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 快速注册会员及宠物信息、单只宠物
-		 * @param {PcustomerFastInput} [body] 请求参数
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerFastAddPost(body?: PcustomerFastInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-			return PcustomerApiFp(configuration)
-				.apiPcustomerFastAddPost(body, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 删除会员
-		 * @param {number} id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerIdDeleteDelete(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-			return PcustomerApiFp(configuration)
-				.apiPcustomerIdDeleteDelete(id, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 获取单个会员信息
-		 * @param {number} id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerIdGetGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultPcustomer>> {
-			return PcustomerApiFp(configuration)
-				.apiPcustomerIdGetGet(id, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 获取会员列表
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerListPost(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
-			return PcustomerApiFp(configuration)
-				.apiPcustomerListPost(options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 分页查询会员
-		 * @param {PcustomerInput} [body]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerPagePost(body?: PcustomerInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
-			return PcustomerApiFp(configuration)
-				.apiPcustomerPagePost(body, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 获取用户宠物信息
-		 * @param {CustomerSearchForSaleInput} [body] 请求参数
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerGetCustomerPetForSalePost(body?: CustomerSearchForSaleInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListCustomerSearchForSaleOutput>> {
-			return PcustomerApiFp(configuration)
-				.apiPcustomerGetCustomerPetForSalePost(body, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 获取当前用户的资金情况
-		 * @param {number} [id] 请求参数
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerGetCustomerFundGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultCustomerFundOutput>> {
-			return PcustomerApiFp(configuration)
-				.apiPcustomerGetCustomerFundGet(id, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 获取销售产品界面用户相关信息
-		 * @param {CustomerPetInfoForSaleInput} [body] 请求参数
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerGetCustomerPetInfoForSalePost(body?: CustomerPetInfoForSaleInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultCustomerPetInfoForSaleOutput>> {
-			return PcustomerApiFp(configuration)
-				.apiPcustomerGetCustomerPetInfoForSalePost(body, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 搜索用户宠物简单信息
-		 * @param {MedicalCustomerPetsInput} [body]
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerGetMedicalCustometPetsPost(body?: MedicalCustomerPetsInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListPcustomer>> {
-			return PcustomerApiFp(configuration)
-				.apiPcustomerGetMedicalCustometPetsPost(body, options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 获取散客会员信息 详细信息类型转换
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerGetScatteredDetailGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultPcutomerDetailOutInput>> {
-			return PcustomerApiFp(configuration)
-				.apiPcustomerGetScatteredDetailGet(options)
-				.then((request) => request(axios, basePath));
-		},
-		/**
-		 *
-		 * @summary 获取会员信息 详细信息类型转换
-		 * @param {number} id
-		 * @param {*} [options] Override http request option.
-		 * @throws {RequiredError}
-		 */
-		async apiPcustomerIdGetDetailGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultPcutomerDetailOutInput>> {
-			return PcustomerApiFp(configuration)
-				.apiPcustomerIdGetDetailGet(id, options)
-				.then((request) => request(axios, basePath));
-		},
-	};
+        /**
+         * 
+         * @summary 获取散客会员信息 详细信息类型转换
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerGetScatteredDetailGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultPcutomerDetailOutInput>> {
+            return PcustomerApiFp(configuration).apiPcustomerGetScatteredDetailGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 删除会员
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerIdDeleteDelete(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return PcustomerApiFp(configuration).apiPcustomerIdDeleteDelete(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取当前用户的资金情况
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerIdGetCustomerFundGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultCustomerFundOutput>> {
+            return PcustomerApiFp(configuration).apiPcustomerIdGetCustomerFundGet(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取会员信息 详细信息类型转换
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerIdGetDetailGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultPcutomerDetailOutInput>> {
+            return PcustomerApiFp(configuration).apiPcustomerIdGetDetailGet(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取单个会员信息
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerIdGetGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultPcustomer>> {
+            return PcustomerApiFp(configuration).apiPcustomerIdGetGet(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取会员列表
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerListPost(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
+            return PcustomerApiFp(configuration).apiPcustomerListPost(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 分页查询会员
+         * @param {PcustomerInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerPagePost(body?: PcustomerInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
+            return PcustomerApiFp(configuration).apiPcustomerPagePost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 上传用户头像
+         * @param {Blob} [file] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiPcustomerUploadCustomerAvatarPostForm(file?: Blob, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysFile>> {
+            return PcustomerApiFp(configuration).apiPcustomerUploadCustomerAvatarPostForm(file, options).then((request) => request(axios, basePath));
+        },
+    };
 };
 
 /**
@@ -1684,7 +1659,138 @@ export const PcustomerApiFactory = function (configuration?: Configuration, base
  * @extends {BaseAPI}
  */
 export class PcustomerApi extends BaseAPI {
-
+    /**
+     * 
+     * @summary 新增会员和单只宠物
+     * @param {AddPcuPPetsInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerAddPcuPetPost(body?: AddPcuPPetsInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultPcustomer>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerAddPcuPetPost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 增加会员
+     * @param {AddPcustomerInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerAddPost(body?: AddPcustomerInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultPcustomer>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerAddPost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取用户的资金明细以便结算使用
+     * @param {number} customerId 用户Id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerCustomerIdGetCustomerPetFundDetailsGet(customerId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListCustomerFundDetailsOutput>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerCustomerIdGetCustomerPetFundDetailsGet(customerId, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取会员可用次卡信息集合
+     * @param {number} customerId 会员Id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerCustomerIdGetCustomerSecondaryCardListGet(customerId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListMemberSecondaryCardOutput>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerCustomerIdGetCustomerSecondaryCardListGet(customerId, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取会员次卡信息
+     * @param {number} customerId 会员Id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerCustomerIdGetCustomerSecondaryCardsGet(customerId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListMemberSecondaryCardsDto>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerCustomerIdGetCustomerSecondaryCardsGet(customerId, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取会员次卡汇总信息
+     * @param {number} customerId 会员Id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerCustomerIdGetCustomerSecondaryCardsSummaryGet(customerId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultMemberSecondaryCardsSummaryDto>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerCustomerIdGetCustomerSecondaryCardsSummaryGet(customerId, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 更新会员
+     * @param {UpdatePcustomerInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerEditPut(body?: UpdatePcustomerInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultPcustomer>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerEditPut(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 快速注册会员及宠物信息、单只宠物
+     * @param {PcustomerFastInput} [body] 请求参数
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerFastAddPost(body?: PcustomerFastInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultPcustomerFastOutput>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerFastAddPost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取用户宠物信息为住院
+     * @param {CustomerSearchForHospitalInput} [body] 请求参数
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerGetCustomerPetForHospitalPost(body?: CustomerSearchForHospitalInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListCustomerSearchForHospitalOutput>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerGetCustomerPetForHospitalPost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取销售产品界面用户相关信息
+     * @param {CustomerPetInfoForSaleInput} [body] 请求参数
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerGetCustomerPetInfoForSalePost(body?: CustomerPetInfoForSaleInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultCustomerPetInfoForSaleOutput>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerGetCustomerPetInfoForSalePost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取用户宠物信息
+     * @param {CustomerSearchForSaleInput} [body] 请求参数
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerGetCustomerPetPageForSalePost(body?: CustomerSearchForSaleInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListCustomerSearchForSaleOutput>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerGetCustomerPetPageForSalePost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取会员次卡消费信息
+     * @param {MemberSecondaryCardDetailsInput} [body] 会员Id
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerGetCustomerSecondaryCardPagePost(body?: MemberSecondaryCardDetailsInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListMemberSecondaryCardDetailDto>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerGetCustomerSecondaryCardPagePost(body, options).then((request) => request(this.axios, this.basePath));
+    }
     /**
      * 
      * @summary 获取所有可发短信的用户信息
@@ -1698,281 +1804,99 @@ export class PcustomerApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 获取用户宠物信息为住院
-     * @param {CustomerSearchForHospitalInput} [body] 请求参数
+     * @summary 搜索用户宠物简单信息
+     * @param {MedicalCustomerPetsInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PcustomerApi
      */
-    public async apiPcustomerGetCustomerPetForHospitalPost(body?: CustomerSearchForHospitalInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListCustomerSearchForHospitalOutput>> {
-        return PcustomerApiFp(this.configuration).apiPcustomerGetCustomerPetForHospitalPost(body, options).then((request) => request(this.axios, this.basePath));
+    public async apiPcustomerGetMedicalCustometPetsPost(body?: MedicalCustomerPetsInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListPcustomer>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerGetMedicalCustometPetsPost(body, options).then((request) => request(this.axios, this.basePath));
     }
-	/**
-	 *
-	 * @summary 获取会员次卡汇总信息
-	 * @param {string} customerId 会员Id
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiGetMemberSecondaryCardsSummaryGet(customerId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultMemberSecondaryCardsSummaryDto>> {
-		return PcustomerApiFp(this.configuration)
-			.apiGetMemberSecondaryCardsSummaryGet(customerId, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-	/**
-	 *
-	 * @summary 获取会员次卡信息
-	 * @param {string} customerId 会员Id
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiGetCustomerSecondaryCardInfoGet(customerId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListMemberSecondaryCardsDto>> {
-		return PcustomerApiFp(this.configuration)
-			.apiGetCustomerSecondaryCardInfoGet(customerId, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-	/**
-	 *
-	 * @summary 获取会员可用次卡信息集合
-	 * @param {string} customerId 会员Id
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiGetCustomerSecondaryCardListGet(customerId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListMemberSecondaryCardOutput>> {
-		return PcustomerApiFp(this.configuration)
-			.apiGetCustomerSecondaryCardListGet(customerId, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @summary 获取会员次卡消费信息
-	 * @param {MemberSecondaryCardDetailsInput} [body] 会员Id
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiGetCustomerSecondaryCardPagePost(
-		body?: MemberSecondaryCardDetailsInput,
-		options?: AxiosRequestConfig
-	): Promise<AxiosResponse<AdminResultSqlSugarPagedListMemberSecondaryCardDetailDto>> {
-		return PcustomerApiFp(this.configuration)
-			.apiGetCustomerSecondaryCardPagePost(body, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-	/**
-	 *
-	 * @summary 增加会员
-	 * @param {AddPcustomerInput} [body]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerAddPost(body?: AddPcustomerInput, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerAddPost(body, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @summary 获取用户宠物信息
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerCustomerPetInfoGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerCustomerPetInfoGet(options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @summary 获取用户宠物列表信息
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerCustomerPetListGet(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerCustomerPetListGet(options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @summary 更新会员
-	 * @param {UpdatePcustomerInput} [body]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerEditPut(body?: UpdatePcustomerInput, options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerEditPut(body, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @summary 快速注册会员及宠物信息、单只宠物
-	 * @param {PcustomerFastInput} [body] 请求参数
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerFastAddPost(body?: PcustomerFastInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerFastAddPost(body, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @summary 删除会员
-	 * @param {number} id
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerIdDeleteDelete(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerIdDeleteDelete(id, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @summary 获取单个会员信息
-	 * @param {number} id
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerIdGetGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultPcustomer>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerIdGetGet(id, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @summary 获取会员列表
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerListPost(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerListPost(options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-
-	/**
-	 *
-	 * @summary 分页查询会员
-	 * @param {PcustomerInput} [body]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerPagePost(body?: PcustomerInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerPagePost(body, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-	/**
-	 *
-	 * @summary 获取用户宠物信息
-	 * @param {CustomerSearchForSaleInput} [body] 请求参数
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerGetCustomerPetForSalePost(body?: CustomerSearchForSaleInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListCustomerSearchForSaleOutput>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerGetCustomerPetForSalePost(body, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-	/**
-	 *
-	 * @summary 获取当前用户的资金情况
-	 * @param {number} [id] 请求参数
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerGetCustomerFundGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultCustomerFundOutput>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerGetCustomerFundGet(id, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-	/**
-	 *
-	 * @summary 获取当前用户的资金合集
-	 * @param {number} [id] 请求参数
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerGetCustomerFundDetailsGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultCustomerFundDetailsOutput>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerGetCustomerFundDetailsGet(id, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-	/**
-	 *
-	 * @summary 获取销售产品界面用户相关信息
-	 * @param {CustomerPetInfoForSaleInput} [body] 请求参数
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerGetCustomerPetInfoForSalePost(body?: CustomerPetInfoForSaleInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultCustomerPetInfoForSaleOutput>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerGetCustomerPetInfoForSalePost(body, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-	/**
-	 *
-	 * @summary 搜索用户宠物简单信息
-	 * @param {MedicalCustomerPetsInput} [body]
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerGetMedicalCustometPetsPost(body?: MedicalCustomerPetsInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListPcustomer>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerGetMedicalCustometPetsPost(body, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-	/**
-	 *
-	 * @summary 获取散客会员信息 详细信息类型转换
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerGetScatteredDetailGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultPcutomerDetailOutInput>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerGetScatteredDetailGet(options)
-			.then((request) => request(this.axios, this.basePath));
-	}
-	/**
-	 *
-	 * @summary 获取会员信息 详细信息类型转换
-	 * @param {number} id
-	 * @param {*} [options] Override http request option.
-	 * @throws {RequiredError}
-	 * @memberof PcustomerApi
-	 */
-	public async apiPcustomerIdGetDetailGet(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultPcutomerDetailOutInput>> {
-		return PcustomerApiFp(this.configuration)
-			.apiPcustomerIdGetDetailGet(id, options)
-			.then((request) => request(this.axios, this.basePath));
-	}
+    /**
+     * 
+     * @summary 获取散客会员信息 详细信息类型转换
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerGetScatteredDetailGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultPcutomerDetailOutInput>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerGetScatteredDetailGet(options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 删除会员
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerIdDeleteDelete(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerIdDeleteDelete(id, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取当前用户的资金情况
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerIdGetCustomerFundGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultCustomerFundOutput>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerIdGetCustomerFundGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取会员信息 详细信息类型转换
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerIdGetDetailGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultPcutomerDetailOutInput>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerIdGetDetailGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取单个会员信息
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerIdGetGet(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultPcustomer>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerIdGetGet(id, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取会员列表
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerListPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultObject>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerListPost(options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 分页查询会员
+     * @param {PcustomerInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerPagePost(body?: PcustomerInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultObject>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerPagePost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 上传用户头像
+     * @param {Blob} [file] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PcustomerApi
+     */
+    public async apiPcustomerUploadCustomerAvatarPostForm(file?: Blob, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysFile>> {
+        return PcustomerApiFp(this.configuration).apiPcustomerUploadCustomerAvatarPostForm(file, options).then((request) => request(this.axios, this.basePath));
+    }
 }

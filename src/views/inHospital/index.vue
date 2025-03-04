@@ -24,6 +24,7 @@ const inHospital = defineAsyncComponent(() => import('./component/inHospitals/in
 const fosterCare = defineAsyncComponent(() => import('./component/fosterCares/index.vue'));
 const cage = defineAsyncComponent(() => import('./component/cages/index.vue'));
 const nurse = defineAsyncComponent(() => import('./component/nurses/index.vue'));
+
 const activeName = ref('inHospital');
 
 const inHospitalRef= ref();

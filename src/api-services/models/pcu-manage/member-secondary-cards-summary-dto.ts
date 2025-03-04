@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * 会员管理
- * <br/><u><b><font color='FF0000'> 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！</font></b></u>
+ * <br/><u><b><font color='FF0000'> 内部接口文档</font></b></u>
  *
  * OpenAPI spec version: 1.0.0
  * Contact: liyahui360@163.com
@@ -18,10 +18,10 @@
  * @export
  * @interface MemberSecondaryCardsSummaryDto
  */
- export interface MemberSecondaryCardsSummaryDto {
+export interface MemberSecondaryCardsSummaryDto {
 
     /**
-     * 会员次卡Id
+     * 会员Id
      *
      * @type {number}
      * @memberof MemberSecondaryCardsSummaryDto
@@ -37,7 +37,7 @@
     totalCount?: number;
 
     /**
-     * 总本金次数
+     * 本金次数
      *
      * @type {number}
      * @memberof MemberSecondaryCardsSummaryDto
@@ -45,7 +45,7 @@
     principalCount?: number;
 
     /**
-     * 总赠送次数
+     * 赠送次数
      *
      * @type {number}
      * @memberof MemberSecondaryCardsSummaryDto
@@ -59,6 +59,7 @@
      * @memberof MemberSecondaryCardsSummaryDto
      */
     useCount?: number;
+
     /**
      * 最近一次使用时间
      *

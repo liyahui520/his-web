@@ -1,5 +1,5 @@
 <template>
-	<div class="productRegisters-container">
+	<div class="productRegisters-container" :class="isTagsViewCurrenFull?'tab-cus-full-Content':'tab-cus-Content'">
 		<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
 			<Search :search="tb.tableData.search" :param="tb.tableData.param" @search="onSearch">
 				<template #command>
@@ -32,7 +32,7 @@
 				</el-row>
 			</el-form> -->
 		</el-card>
-		<el-card class="full-table" shadow="hover" style="height: calc(100vh - 225px); overflow: auto; margin-top: 8px">
+		<el-card class="full-table" shadow="hover" style="overflow: auto; margin-top: 8px">
 			<!-- <el-table :data="tableData" style="width: 100%" v-loading="loading" tooltip-effect="light" row-key="id" border>
 				<el-table-column type="index" label="序号" width="80" align="center" fixed="" />
 				<el-table-column prop="name" label="名称" fixed="" show-overflow-tooltip="" />
@@ -67,6 +67,10 @@ const Search = defineAsyncComponent(() => import('/@/components/table/search.vue
 
 import { getAPI } from '/@/utils/axios-utils';
 import { ProductRegistersApi } from '/@/api-services/api';
+import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes'; 
+import { storeToRefs } from 'pinia';
+const storesTagsViewRoutes = useTagsViewRoutes(); 
+const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
 
 const editDialogRef = ref();
 

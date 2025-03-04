@@ -421,7 +421,7 @@ const handleCustomer = async (val: any) => {
     slectCustomerIndex.value = val.id + '';
     customerFundLoading.value = true;
     cartTableLoading.value = true;
-    var res = await getAPI(PcustomerApi).apiPcustomerGetCustomerFundGet(val.id);
+    var res = await getAPI(PcustomerApi).apiPcustomerIdGetCustomerFundGet(val.id);
     customerFundLoading.value = false;
     customerFundData.value = res.data.result ?? {};
     await loadPaymentCarts();

@@ -1,6 +1,6 @@
 <template>
-    <div class="productgoods-container">
-        <el-card shadow="never" :body-style="{ paddingBottom: '0', border: '0px' }">
+    <div class="productgoods-container " :class="isTagsViewCurrenFull?'tab-cus-full-Content':'tab-cus-Content'">
+        <el-card shadow="never" :body-style="{ paddingBottom: '0', border: '0px' }" >
             <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="70px">
                 <el-form-item label="产品类型">
                     <!-- <el-select v-model="productTypesValue" default-first-option placeholder="请选择一级目录"
@@ -57,7 +57,7 @@
             </el-form>
         </el-card>
 
-        <el-card class="full-table" shadow="never" :body-style="{ border: '0px' }"  style="height: calc(100vh - 225px);overflow: auto;margin-top: 8px">
+        <el-card class="full-table" shadow="never" :body-style="{ border: '0px' }"  style="overflow: auto;margin-top: 8px;">
             <component :is="componentObject[productTypesValue]?.name" :productCategorysData="productCategorysData">
             </component>
         </el-card>
@@ -71,7 +71,11 @@ import { ProductCategorysApi } from '/@/api-services/api';
 import mittBus from '/@/utils/newmitt';
 import { useUserInfo } from '/@/stores/userInfo';
 
-const stores = useUserInfo();
+import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
+import { storeToRefs } from 'pinia';
+const storesTagsViewRoutes = useTagsViewRoutes();
+const stores = useUserInfo(); 
+const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
 // 页面加载时
 onMounted(async () => {
     await loadProductTypes();

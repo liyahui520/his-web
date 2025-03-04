@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * 会员管理
- * <br/><u><b><font color='FF0000'> 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！</font></b></u>
+ * <br/><u><b><font color='FF0000'> 内部接口文档</font></b></u>
  *
  * OpenAPI spec version: 1.0.0
  * Contact: liyahui360@163.com
@@ -12,6 +12,8 @@
  * Do not edit the class manually.
  */
 
+import { Filter } from './filter';
+import { Search } from './search';
  /**
  * 
  *
@@ -21,76 +23,24 @@
 export interface MemberSecondaryCardDetailsInput {
 
     /**
-     * 创建时间
-     *
-     * @type {Date}
+     * @type {Search}
      * @memberof MemberSecondaryCardDetailsInput
      */
-    createTime?: Date | null;
+    search?: Search;
 
     /**
-     * 更新时间
-     *
-     * @type {Date}
-     * @memberof MemberSecondaryCardDetailsInput
-     */
-    updateTime?: Date | null;
-
-    /**
-     * 创建者Id
-     *
-     * @type {number}
-     * @memberof MemberSecondaryCardDetailsInput
-     */
-    createUserId?: number | null;
-
-    /**
-     * 修改者Id
-     *
-     * @type {number}
-     * @memberof MemberSecondaryCardDetailsInput
-     */
-    updateUserId?: number | null;
-
-    /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof MemberSecondaryCardDetailsInput
-     */
-    isDelete?: boolean;
-
-    /**
-     * 版本标识
+     * 模糊查询关键字
      *
      * @type {string}
      * @memberof MemberSecondaryCardDetailsInput
      */
-    ver?: string | null;
+    keyword?: string | null;
 
     /**
-     * 创建者部门名称
-     *
-     * @type {string}
+     * @type {Filter}
      * @memberof MemberSecondaryCardDetailsInput
      */
-    createOrgName?: string | null;
-
-    /**
-     * 修改者姓名
-     *
-     * @type {string}
-     * @memberof MemberSecondaryCardDetailsInput
-     */
-    updateUserName?: string | null;
-
-    /**
-     * 创建者姓名
-     *
-     * @type {string}
-     * @memberof MemberSecondaryCardDetailsInput
-     */
-    createUserName?: string | null;
+    filter?: Filter;
 
     /**
      * 当前页码
@@ -131,6 +81,12 @@ export interface MemberSecondaryCardDetailsInput {
      * @memberof MemberSecondaryCardDetailsInput
      */
     descStr?: string | null;
+
+    /**
+     * @type {string}
+     * @memberof MemberSecondaryCardDetailsInput
+     */
+    ver?: string | null;
 
     /**
      * 用户Id

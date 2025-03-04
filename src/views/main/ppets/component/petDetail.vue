@@ -55,9 +55,8 @@
 import { ref, onMounted, reactive } from 'vue';
 import { ElMessage } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
-import { PcustomerApi, PPetsApi, MemberLevelApi } from '/@/api-services/api';
+import { SysDictDataApi, PPetsApi, MemberLevelApi } from '/@/api-services/api';
 import router from '/@/router';
-import { getDictDataList } from '/@/api/system/admin';
 import CardPet from '/@/views/main/ppets/component/cardPet.vue';
 import CardAdd from '/@/views/main/ppets/component/cardAdd.vue';
 import EditPet from './editDialog.vue';
@@ -101,7 +100,7 @@ const initData = async () => {
 	getPPets.value = await getPetsListView(router.currentRoute.value.query.id);
 };
 const getDictDataDropdownList = async (val: any) => {
-	let list = await getDictDataList(val);
+	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
 	return list.data.result ?? [];
 };
 const errorHandler = async () => {

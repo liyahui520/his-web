@@ -339,21 +339,19 @@
 </template>
 
 <script setup lang="ts" name="prescriptionDrugDrag">
-import { reactive, ref, nextTick, onMounted, defineAsyncComponent, computed } from 'vue';
+import { ref, defineAsyncComponent, computed } from 'vue';
 import { ElMessageBox, ElMessage, ElTable } from 'element-plus';
-import { DocumentAdd, DArrowLeft, DArrowRight, DeleteFilled } from '@element-plus/icons-vue';
+import { DocumentAdd, DeleteFilled } from '@element-plus/icons-vue';
 import { getAPI } from '/@/utils/axios-utils';
-import { ProductCategorysApi, CEMRecordApi, ProductDrugsApi } from '/@/api-services/api';
+import { ProductCategorysApi, CEMRecordApi, ProductDrugsApi,SysDictDataApi } from '/@/api-services/api';
 import { CEMRecordItemGroupTypeEnum } from '/@/api-services/models/cemrecord-manage';
 import { verifyNumberComma, verifyTextColor } from '/@/utils/toolsValidate';
 import { ProductTypeEnums } from '/@/api-services';
 import { formatAge } from '/@/utils/formatTime';
-import { getDictDataList } from '/@/api/system/admin';
 import commonFunction from '/@/utils/commonFunction';
 import { useUserInfo } from '/@/stores/userInfo';
 import other from '/@/utils/other';
 import Decimal from 'decimal.js';
-import { ro } from 'element-plus/es/locale';
 
 const CategroyProducts = defineAsyncComponent(() => import('/@/components/tree/categroyProducts.vue'));
 const PackDrug = defineAsyncComponent(() => import('/@/components/treatment/packDrug.vue'));
@@ -475,7 +473,7 @@ const dayCharge = (row: any) => {
  * 获取使用方式
  */
 const getUsingMethods = async () => {
-	let list = await getDictDataList('code_dosing_way');
+	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_dosing_way');
 	dosingWayData.value = list.data.result ?? [];
 };
 /**

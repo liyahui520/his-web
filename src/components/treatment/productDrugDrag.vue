@@ -368,12 +368,11 @@ import { reactive, ref, nextTick, onMounted, defineAsyncComponent, computed } fr
 import { ElMessageBox,ElMessage, ElTable } from 'element-plus';
 import { DocumentAdd, DArrowLeft, DArrowRight, DeleteFilled } from '@element-plus/icons-vue';
 import { getAPI } from '/@/utils/axios-utils';
-import { ProductCategorysApi, CEMRecordApi, ProductDrugsApi } from '/@/api-services/api';
+import { ProductCategorysApi, CEMRecordApi, ProductDrugsApi,SysDictDataApi } from '/@/api-services/api';
 import { CEMRecordItemGroupTypeEnum } from '/@/api-services/models/cemrecord-manage';
 import { verifyNumberComma, verifyTextColor } from '/@/utils/toolsValidate';
 import { ProductTypeEnums } from '/@/api-services';
 import { formatAge } from '/@/utils/formatTime';
-import { getDictDataList } from '/@/api/system/admin';
 import commonFunction from '/@/utils/commonFunction';
 import { useUserInfo } from '/@/stores/userInfo';
 import other from '/@/utils/other';
@@ -712,7 +711,7 @@ const getUsingMethods = async () => {
 };
 
 const getDictDataDropdownList = async (val: any) => {
-	let list = await getDictDataList(val);
+	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
 	return list.data.result ?? [];
 };
 

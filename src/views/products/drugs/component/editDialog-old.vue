@@ -172,9 +172,7 @@
 import { ref, onMounted } from 'vue';
 import type { FormRules } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
-import { ProductDrugsApi } from '/@/api-services/api';
-
-import { getDictDataList } from '/@/api/system/admin';
+import { ProductDrugsApi,SysDictDataApi } from '/@/api-services/api';
 import { useUserInfo } from '/@/stores/userInfo';
 
 const stores = useUserInfo();
@@ -201,7 +199,7 @@ const outUnitName = ref('出库单位');
 const usingMethodData=ref<any>([]);
 const dosingWayData=ref<any>([]);
 const getDictDataDropdownList = async (val: any) => {
-  let list = await getDictDataList(val);
+  let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
   return list.data.result ?? [];
 };
 const loadUsingMethodData=async ()=>{

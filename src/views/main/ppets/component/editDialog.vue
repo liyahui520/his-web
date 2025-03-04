@@ -165,11 +165,9 @@ import { ElMessage } from 'element-plus';
 import type { FormRules } from 'element-plus';
 import { Plus, Watch } from '@element-plus/icons-vue';
 import { UploadRequestOptions } from 'element-plus';
-import { getDictDataList } from '/@/api/system/admin';
 import { getAPI } from '/@/utils/axios-utils';
-import { SysPetConfigApi, PPetsApi, SysFileApi } from '/@/api-services/api';
+import { SysPetConfigApi, PPetsApi, SysFileApi,SysDictDataApi } from '/@/api-services/api';
 import { AddPPetsInput, PPets, UpdatePPetsInput } from '/@/api-services';
-import { getDictDataItem as di, getDictDataList as dl } from '/@/utils/dict-utils';
 import other from '/@/utils/other';
 
 const getEditpetGenderData = ref<any>([]);
@@ -202,11 +200,11 @@ const rules = ref<FormRules>({
 // 打开弹窗
 const openDialog = async (row: PPets) => {
 	console.log("row",row)
-	getEditpetGenderData.value = await dl('code_pet_sex');
+	getEditpetGenderData.value = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_sex');
 	getEditpetKindData.value = await getSysPetKind();
-	getEditpetBloodData.value = await dl('code_pet_blood');
-	getEditpetStatusData.value = await dl('code_pet_status');
-	getEditpetColorData.value = await dl('code_pet_color');
+	getEditpetBloodData.value = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_blood');
+	getEditpetStatusData.value = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_status');
+	getEditpetColorData.value = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_color');
 	ruleForm.value = other.deepClone(row);
 	isShowDialog.value = true;
 };

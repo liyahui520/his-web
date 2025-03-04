@@ -77,8 +77,7 @@ import { ElMessageBox, ElMessage } from 'element-plus';
 import { auth } from '/@/utils/authFunction';
 import editDialog from '/@/views/products/drugs/component/editDialog.vue';
 import { getAPI } from '/@/utils/axios-utils';
-import { ProductDrugsApi } from '/@/api-services/api';
-import { getDictDataList } from '/@/api/system/admin';
+import { ProductDrugsApi,SysDictDataApi } from '/@/api-services/api';
 import mittBus from '/@/utils/newmitt';
 
 const editDialogRef = ref();
@@ -88,7 +87,7 @@ const queryParams = ref<any>({});
 const tableParams = ref({
 	page: 1,
 	pageSize: 20,
-	total: 0,
+	total: 0 as any
 });
 const usingMethodObject = ref<any>({});
 const dosingWayObject = ref<any>({});
@@ -186,7 +185,7 @@ onMounted(async () => {
 });
 
 const getDictDataDropdownList = async (val: any) => {
-	let list = await getDictDataList(val);
+	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
 	return list.data.result ?? [];
 };
 </script> 

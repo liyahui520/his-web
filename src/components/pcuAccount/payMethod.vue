@@ -31,7 +31,6 @@
     } from '@element-plus/icons-vue'
     import {getAPI} from "/@/utils/axios-utils";
     import {PcuAccountApi, PcustomerApi} from "/@/api-services";
-    import {getDictDataList} from "/@/api/system/admin";
     import {
         verifyNumberComma,
         verifyNumberCnUppercase,

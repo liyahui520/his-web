@@ -27,9 +27,8 @@
 import { defineAsyncComponent, nextTick, onMounted, reactive, ref, h } from 'vue';
 import { ElDivider } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
-import { getDictDataList } from '/@/api/system/admin';
 import { CEMRecordApi } from '/@/api-services/api';
-import { PrintAndPreviewApi } from '/@/api-services';
+import { PrintAndPreviewApi,SysDictDataApi } from '/@/api-services';
 import { getDictDataItem as di } from '/@/utils/dict-utils';
 import { formatDate } from '/@/utils/formatTime';
 
@@ -265,7 +264,7 @@ const printViewer = async (row) => {
 };
 
 const getDictDataDropdownList = async (val: any) => {
-	let list = await getDictDataList(val);
+	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
 	return list.data.result ?? [];
 };
 onMounted(async () => {

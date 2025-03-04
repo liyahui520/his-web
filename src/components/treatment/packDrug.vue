@@ -82,8 +82,8 @@
 					</el-form>
 				</el-space>
 				<span class="dialog-footer">
-					<el-button @click="cancel" >取 消</el-button>
-					<el-button type="primary" @click="submit" >确 定</el-button>
+					<el-button @click="cancel">取 消</el-button>
+					<el-button type="primary" @click="submit">确 定</el-button>
 				</span>
 			</template>
 		</el-dialog>
@@ -95,10 +95,11 @@ import { ref, onMounted, computed } from 'vue';
 import { ElTable } from 'element-plus';
 import { DeleteFilled } from '@element-plus/icons-vue';
 import { verifyNumberComma } from '/@/utils/toolsValidate';
-import { getDictDataList } from '/@/api/system/admin';
 import commonFunction from '/@/utils/commonFunction';
 import Decimal from 'decimal.js';
 import type { FormRules } from 'element-plus';
+import { getAPI } from '/@/utils/axios-utils';
+import { SysDictDataApi } from '/@/api-services';
 
 const { generateGUID } = commonFunction();
 //父级传递来的参数
@@ -128,7 +129,7 @@ const getUsingMethods = async () => {
 	dosingWayData.value = res ?? [];
 };
 const getDictDataDropdownList = async (val: any) => {
-	let list = await getDictDataList(val);
+	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
 	return list.data.result ?? [];
 };
 // 打开弹窗

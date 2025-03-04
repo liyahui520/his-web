@@ -63,8 +63,6 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, reactive, } from 'vue';
-import { getDictDataList } from '/@/api/system/admin';
-
 import { getAPI } from '/@/utils/axios-utils';
 import { SecondaryCardsApi } from '/@/api-services/api';
 

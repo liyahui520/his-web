@@ -42,6 +42,7 @@
 	</Table>
 	<editDialog ref="editDialogRef" :productCategorysData="props.productCategorysData" :title="editProductDrugsTitle" @reloadTable="handleQuery" />
 	<batchEditDialog ref="batchEditDialogRef" :title="'批量编辑'" @reloadTable="handleQuery" :productCategorysData="props.productCategorysData" />
+	<downloadTemp ref="downloadTempRef" :title="importTempTitle" />
 </template>
 
 <script lang="ts" setup name="productDrugsVue">
@@ -51,20 +52,23 @@ import { auth } from '/@/utils/authFunction';
 import editDialog from '/@/views/products/drugs/component/editDialog.vue';
 import { Delete, Edit } from '@element-plus/icons-vue';
 import { getAPI } from '/@/utils/axios-utils';
-import { ProductDrugsApi,ImportProductApi } from '/@/api-services/api';
-import { getDictDataList } from '/@/api/system/admin';
+import { ProductDrugsApi,SysDictDataApi } from '/@/api-services/api';
 import mittBus from '/@/utils/newmitt';
 import batchEditDialog from '/@/views/products/component/batchEditDialog.vue';
-import { downloadByData, getFileName } from '/@/utils/download';
+import downloadTemp from '/@/views/products/component/downloadTemp.vue';
 import { ProductTypeEnums } from '/@/api-services';
 
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const tableDrugsRef = ref<RefType>();
 const usingMethodObject = ref<any>({});
 const dosingWayObject = ref<any>({});
+const usingMethodTransObject = ref<any>({});
+const dosingWayTransObject = ref<any>({});
 const editDialogRef = ref();
+const downloadTempRef = ref();
 const batchEditDialogRef = ref();
 const editProductDrugsTitle = ref('');
+const importTempTitle = ref('');
 const deleteIds = ref<any>([]);
 const usingMethodData = ref<any>([]);
 const dosingWayData = ref<any>([]);
@@ -382,6 +386,7 @@ const loadUsingMethodData = async () => {
 	usingMethodData.value = res ?? [];
 	usingMethodData.value.forEach((item: any) => {
 		usingMethodObject.value[item.id] = item.value;
+		usingMethodTransObject.value[item.code] = item.value;
 	});
 };
 const loadDosingWayData = async () => {
@@ -389,15 +394,16 @@ const loadDosingWayData = async () => {
 	dosingWayData.value = res ?? [];
 	dosingWayData.value.forEach((item: any) => {
 		dosingWayObject.value[item.id] = item.value;
+		dosingWayTransObject.value[item.code] = item.value;
 	});
 };
 /**
  * 下载导入模板信息
  */
 const downTemp = async () => {
-	var res = await getAPI(ImportProductApi).apiImportProductDownProductDrugTemplateInputGet(ProductTypeEnums.NUMBER_20001,{ responseType: 'blob' });
-    let fileName = getFileName(res.headers);
-    downloadByData(res.data as any, fileName);
+	
+	importTempTitle.value = "导入产品信息";
+	downloadTempRef.value?.openDialog(ProductTypeEnums.NUMBER_20001,usingMethodTransObject.value,dosingWayTransObject.value);
 };
 
 // 查询操作
@@ -516,7 +522,7 @@ const delProductDrugs = (row: any) => {
 };
 
 const getDictDataDropdownList = async (val: any) => {
-	let list = await getDictDataList(val);
+	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
 	return list.data.result ?? [];
 };
 </script>

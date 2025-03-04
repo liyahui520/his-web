@@ -87,15 +87,10 @@
 
     } from '@element-plus/icons-vue'
     import {getAPI} from "/@/utils/axios-utils";
-    import {PcuAccountApi, PcustomerApi} from "/@/api-services";
-    import {getDictDataList} from "/@/api/system/admin";
+    import {PcuAccountApi, SysDictDataApi} from "/@/api-services";
     import {
-        verifyNumberComma,
-        verifyNumberCnUppercase,
-        verifyTextColor,
         verifyNumberIntegerAndFloat,
-        addAllSpace,
-        verifyNumberCommaNo, verifiyNumberInteger
+        verifyNumberCommaNo
     } from '/@/utils/toolsValidate';
 
     const PayMethod = defineAsyncComponent(() => import('/@/components/pcuAccount/payMethod.vue'));
@@ -202,7 +197,7 @@
     }
 
     const getDictDataDropdownList = async (val: any) => {
-        let list = await getDictDataList(val);
+        let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
         return list.data.result ?? [];
     };
 

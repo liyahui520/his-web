@@ -177,9 +177,7 @@
 import { ref, defineAsyncComponent } from 'vue';
 import { addDaysToDate, addWeeksToDate, addMonthsToDate, addYearsToDate } from '/@/utils/formatTime';
 import { getAPI } from '/@/utils/axios-utils';
-import { SMSTemplateApi } from '/@/api-services/api';
-import { VaccinationApi } from '/@/api-services/api';
-import { getDictDataList } from '/@/api/system/admin';
+import { SMSTemplateApi,SysDictDataApi,VaccinationApi } from '/@/api-services/api';
 import commonFunction from '/@/utils/commonFunction';
 import { useUserInfo } from '/@/stores/userInfo';
 import { storeToRefs } from 'pinia';
@@ -230,7 +228,6 @@ const intervalUnitFunction = {
 		return addWeeksToDate(startTime, interval);
 	},
 	Day: (startTime: Date, interval: number) => {
-		console.log("应该是进来这里的",startTime,interval)
 		return addDaysToDate(startTime, interval);
 	},
 };
@@ -459,7 +456,7 @@ const submit = async () => {
 };
 
 const getDictDataDropdownList = async (val: any) => {
-	let list = await getDictDataList(val);
+	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
 	return list.data.result ?? [];
 };
 //加载使用方式

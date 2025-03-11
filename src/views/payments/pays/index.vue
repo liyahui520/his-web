@@ -526,7 +526,7 @@ onMounted(async () => {
  * 加载可用的次卡
  */
 const loadCanSecondaryCardDatas = async () => {
-	let res = await getAPI(PcustomerApi).apiGetCustomerSecondaryCardListGet(customerFundData.value.id);
+	let res = await getAPI(PcustomerApi).apiPcustomerCustomerIdGetCustomerSecondaryCardListGet(customerFundData.value.id);
 	secondaryCardData.value = res.data.result ?? [];
 };
 /**

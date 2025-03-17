@@ -228,16 +228,10 @@ export interface UpdateMenuInput {
     title: string;
 
     /**
-     * 大图片
-     * @type {string}
+     * 租户Id
+     *
+     * @type {number}
      * @memberof UpdateMenuInput
      */
-    largeImage: string | undefined | null;
-    /**
-     * 小图片
-     * @type {string}
-     * @memberof UpdateMenuInput
-     */
-    image: string | undefined | null;
-    classInfo:{dllName:'',classFillName:''}|null;
+    tenantId?: number;
 }

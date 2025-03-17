@@ -14,6 +14,7 @@
 
 import { Filter } from './filter';
 import { Search } from './search';
+import { TableUniqueConfigItem } from './table-unique-config-item';
  /**
  * 代码生成参数类
  *
@@ -177,6 +178,14 @@ export interface CodeGenInput {
      * @memberof CodeGenInput
      */
     tableComment?: string | null;
+
+    /**
+     * 表唯一字段列表
+     *
+     * @type {Array<TableUniqueConfigItem>}
+     * @memberof CodeGenInput
+     */
+    tableUniqueList?: Array<TableUniqueConfigItem> | null;
 
     /**
      * 菜单应用分类（应用编码）

@@ -15,6 +15,7 @@
 import { DbType } from './db-type';
 import { StatusEnum } from './status-enum';
 import { TenantTypeEnum } from './tenant-type-enum';
+import { YesNoEnum } from './yes-no-enum';
  /**
  * 
  *
@@ -88,7 +89,15 @@ export interface UpdateTenantInput {
     isDelete?: boolean;
 
     /**
-     * 用户Id
+     * 应用Id
+     *
+     * @type {number}
+     * @memberof UpdateTenantInput
+     */
+    appId?: number | null;
+
+    /**
+     * 租管用户Id
      *
      * @type {number}
      * @memberof UpdateTenantInput
@@ -104,7 +113,7 @@ export interface UpdateTenantInput {
     orgId?: number;
 
     /**
-     * 主机
+     * 域名
      *
      * @type {string}
      * @memberof UpdateTenantInput
@@ -146,6 +155,36 @@ export interface UpdateTenantInput {
      * @memberof UpdateTenantInput
      */
     slaveConnections?: string | null;
+
+    /**
+     * @type {YesNoEnum}
+     * @memberof UpdateTenantInput
+     */
+    enableReg?: YesNoEnum;
+
+    /**
+     * 默认注册方案Id
+     *
+     * @type {number}
+     * @memberof UpdateTenantInput
+     */
+    regWayId?: number | null;
+
+    /**
+     * 图标
+     *
+     * @type {string}
+     * @memberof UpdateTenantInput
+     */
+    logo: string;
+
+    /**
+     * 水印
+     *
+     * @type {string}
+     * @memberof UpdateTenantInput
+     */
+    watermark?: string | null;
 
     /**
      * 排序
@@ -200,11 +239,68 @@ export interface UpdateTenantInput {
      * @memberof UpdateTenantInput
      */
     adminAccount: string;
-    
+
     /**
-     * 产品类型集合
-     * @type {Array<number>}
-     * @memberof AddTenantInput
+     * 系统主标题
+     *
+     * @type {string}
+     * @memberof UpdateTenantInput
      */
-    productTypeIds?: Array<number> | null;
+    title: string;
+
+    /**
+     * 系统副标题
+     *
+     * @type {string}
+     * @memberof UpdateTenantInput
+     */
+    viceTitle: string;
+
+    /**
+     * 系统描述
+     *
+     * @type {string}
+     * @memberof UpdateTenantInput
+     */
+    viceDesc: string;
+
+    /**
+     * 版权说明
+     *
+     * @type {string}
+     * @memberof UpdateTenantInput
+     */
+    copyright: string;
+
+    /**
+     * ICP备案号
+     *
+     * @type {string}
+     * @memberof UpdateTenantInput
+     */
+    icp: string;
+
+    /**
+     * ICP地址
+     *
+     * @type {string}
+     * @memberof UpdateTenantInput
+     */
+    icpUrl: string;
+
+    /**
+     * Logo图片Base64码
+     *
+     * @type {string}
+     * @memberof UpdateTenantInput
+     */
+    logoBase64?: string | null;
+
+    /**
+     * Logo文件名
+     *
+     * @type {string}
+     * @memberof UpdateTenantInput
+     */
+    logoFileName?: string | null;
 }

@@ -31,4 +31,12 @@ export interface ListScheduleInput {
      * @memberof ListScheduleInput
      */
     endTime?: Date | null;
+
+    /**
+     * 租户Id
+     *
+     * @type {number}
+     * @memberof ListScheduleInput
+     */
+    tenantId?: number;
 }

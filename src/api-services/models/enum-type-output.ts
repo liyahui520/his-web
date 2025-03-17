@@ -38,6 +38,14 @@ export interface EnumTypeOutput {
     typeName?: string | null;
 
     /**
+     * 枚举类型全名称
+     *
+     * @type {string}
+     * @memberof EnumTypeOutput
+     */
+    typeFullName?: string | null;
+
+    /**
      * 枚举类型备注
      *
      * @type {string}

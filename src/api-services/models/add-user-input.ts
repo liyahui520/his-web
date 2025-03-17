@@ -438,10 +438,4 @@ export interface AddUserInput {
      * @memberof AddUserInput
      */
     extOrgIdList?: Array<SysUserExtOrg> | null;
-    /**
-     * 挂号项目集合
-     * @type {Array<number>}
-     * @memberof UpdateUserInput
-     */
-    productIdList?: Array<number> | null;
 }

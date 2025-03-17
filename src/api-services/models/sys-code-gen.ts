@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+import { TableUniqueConfigItem } from './table-unique-config-item';
  /**
  * 代码生成表
  *
@@ -165,6 +166,14 @@ export interface SysCodeGen {
     busName?: string | null;
 
     /**
+     * 表唯一字段配置
+     *
+     * @type {string}
+     * @memberof SysCodeGen
+     */
+    tableUniqueConfig?: string | null;
+
+    /**
      * 是否生成菜单
      *
      * @type {boolean}
@@ -211,4 +220,12 @@ export interface SysCodeGen {
      * @memberof SysCodeGen
      */
     printName?: string | null;
+
+    /**
+     * 表唯一字段列表
+     *
+     * @type {Array<TableUniqueConfigItem>}
+     * @memberof SysCodeGen
+     */
+    tableUniqueList?: Array<TableUniqueConfigItem> | null;
 }

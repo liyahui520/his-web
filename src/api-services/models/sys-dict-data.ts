@@ -20,7 +20,6 @@ import { StatusEnum } from './status-enum';
  * @interface SysDictData
  */
 export interface SysDictData {
-    [x: string]: any;
 
     /**
      * 雪花Id
@@ -87,12 +86,28 @@ export interface SysDictData {
     isDelete?: boolean;
 
     /**
+     * 租户Id
+     *
+     * @type {number}
+     * @memberof SysDictData
+     */
+    tenantId?: number | null;
+
+    /**
      * 字典类型Id
      *
      * @type {number}
      * @memberof SysDictData
      */
     dictTypeId?: number;
+
+    /**
+     * 显示文本
+     *
+     * @type {string}
+     * @memberof SysDictData
+     */
+    label: string;
 
     /**
      * 值
@@ -108,15 +123,7 @@ export interface SysDictData {
      * @type {string}
      * @memberof SysDictData
      */
-    code: string;
-
-    /**
-     * 名称
-     *
-     * @type {string}
-     * @memberof SysDictData
-     */
-    name?: string | null;
+    code?: string | null;
 
     /**
      * 显示样式-标签颜色
@@ -171,9 +178,4 @@ export interface SysDictData {
      * @memberof SysDictData
      */
     status?: StatusEnum;
-    /**
-     * @type {string}
-     * @memberof SysDictData
-     */
-    ver?: string | null;
 }

@@ -13,12 +13,20 @@
  */
 
  /**
- * 
+ * 上传文件Base64
  *
  * @export
  * @interface UploadFileFromBase64Input
  */
 export interface UploadFileFromBase64Input {
+
+    /**
+     * 文件名
+     *
+     * @type {string}
+     * @memberof UploadFileFromBase64Input
+     */
+    fileName?: string | null;
 
     /**
      * 文件内容
@@ -37,34 +45,10 @@ export interface UploadFileFromBase64Input {
     contentType?: string | null;
 
     /**
-     * 文件名称
-     *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
-     */
-    fileName?: string | null;
-
-    /**
      * 保存路径
      *
      * @type {string}
      * @memberof UploadFileFromBase64Input
      */
     path?: string | null;
-
-    /**
-     * 文件类型
-     *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
-     */
-    fileType?: string | null;
-
-    /**
-     * 是否公开  若为true则所有人都可以查看，默认只有自己或有权限的可以查看
-     *
-     * @type {boolean}
-     * @memberof UploadFileFromBase64Input
-     */
-    isPublic?: boolean;
 }

@@ -14,6 +14,7 @@
 
 import { StatusEnum } from './status-enum';
 import { SysDictData } from './sys-dict-data';
+import { YesNoEnum } from './yes-no-enum';
  /**
  * 
  *
@@ -117,6 +118,12 @@ export interface UpdateDictTypeInput {
      * @memberof UpdateDictTypeInput
      */
     remark?: string | null;
+
+    /**
+     * @type {YesNoEnum}
+     * @memberof UpdateDictTypeInput
+     */
+    sysFlag?: YesNoEnum;
 
     /**
      * @type {StatusEnum}

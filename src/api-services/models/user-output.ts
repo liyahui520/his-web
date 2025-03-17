@@ -445,12 +445,4 @@ export interface UserOutput {
      * @memberof UserOutput
      */
     domainAccount?: string | null;
-    
-    /**
-     * 是否系统默认用户
-     *
-     * @type {boolean}
-     * @memberof UserOutput
-     */
-    isSystem?: boolean;
 }

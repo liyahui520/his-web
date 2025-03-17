@@ -29,7 +29,7 @@ export interface SysFileUploadFileBody {
     file: Blob;
 
     /**
-     * 文件类型
+     * 文件类别
      *
      * @type {string}
      * @memberof SysFileUploadFileBody
@@ -37,7 +37,7 @@ export interface SysFileUploadFileBody {
     fileType?: string;
 
     /**
-     * 是否公开  若为true则所有人都可以查看，默认只有自己或有权限的可以查看
+     * 是否公开
      *
      * @type {boolean}
      * @memberof SysFileUploadFileBody
@@ -51,4 +51,20 @@ export interface SysFileUploadFileBody {
      * @memberof SysFileUploadFileBody
      */
     path?: string;
+
+    /**
+     * 文件保存路径
+     *
+     * @type {string}
+     * @memberof SysFileUploadFileBody
+     */
+    savePath?: string;
+
+    /**
+     * 允许格式：.jpeg.jpg.png.bmp.gif.tif
+     *
+     * @type {string}
+     * @memberof SysFileUploadFileBody
+     */
+    allowSuffix?: string;
 }

@@ -37,4 +37,12 @@ export interface LoginPhoneInput {
      * @example 123456
      */
     code: string;
+
+    /**
+     * 租户
+     *
+     * @type {number}
+     * @memberof LoginPhoneInput
+     */
+    tenantId: number;
 }

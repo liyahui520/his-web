@@ -130,3 +130,6 @@ export * from './apis/import-manage/import-product-api';
 
 export * from './apis/pcu-pet-config/pcu-pet-config-api'
 export * from './apis/sys-app-api';
+
+export * from './apis/sys-template-api';
+export * from './apis/sys-tenant-config-api';

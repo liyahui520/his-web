@@ -14,6 +14,7 @@
 
 import { Filter } from './filter';
 import { Search } from './search';
+import { TableUniqueConfigItem } from './table-unique-config-item';
  /**
  * 
  *
@@ -137,6 +138,14 @@ export interface AddCodeGenInput {
      * @memberof AddCodeGenInput
      */
     tableComment?: string | null;
+
+    /**
+     * 表唯一字段列表
+     *
+     * @type {Array<TableUniqueConfigItem>}
+     * @memberof AddCodeGenInput
+     */
+    tableUniqueList?: Array<TableUniqueConfigItem> | null;
 
     /**
      * 菜单应用分类（应用编码）

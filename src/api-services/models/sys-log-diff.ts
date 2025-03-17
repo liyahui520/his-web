@@ -85,20 +85,20 @@ export interface SysLogDiff {
     isDelete?: boolean;
 
     /**
-     * 操作前记录
+     * 租户Id
      *
-     * @type {string}
+     * @type {number}
      * @memberof SysLogDiff
      */
-    beforeData?: string | null;
+    tenantId?: number | null;
 
     /**
-     * 操作后记录
+     * 差异数据
      *
      * @type {string}
      * @memberof SysLogDiff
      */
-    afterData?: string | null;
+    diffData?: string | null;
 
     /**
      * Sql

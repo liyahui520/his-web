@@ -101,6 +101,14 @@ export interface SysCodeGenConfig {
     columnName: string;
 
     /**
+     * 主键
+     *
+     * @type {string}
+     * @memberof SysCodeGenConfig
+     */
+    columnKey?: string | null;
+
+    /**
      * 实体属性名
      *
      * @type {string}
@@ -123,6 +131,14 @@ export interface SysCodeGenConfig {
      * @memberof SysCodeGenConfig
      */
     columnComment?: string | null;
+
+    /**
+     * 数据库中类型（物理类型）
+     *
+     * @type {string}
+     * @memberof SysCodeGenConfig
+     */
+    dataType?: string | null;
 
     /**
      * .NET数据类型
@@ -170,7 +186,7 @@ export interface SysCodeGenConfig {
      * @type {string}
      * @memberof SysCodeGenConfig
      */
-    fkColumnName?: string | null;
+    fkDisplayColumns?: string | null;
 
     /**
      * 外键链接字段
@@ -189,12 +205,36 @@ export interface SysCodeGenConfig {
     fkColumnNetType?: string | null;
 
     /**
+     * 父级字段
+     *
+     * @type {string}
+     * @memberof SysCodeGenConfig
+     */
+    pidColumn?: string | null;
+
+    /**
      * 字典编码
      *
      * @type {string}
      * @memberof SysCodeGenConfig
      */
     dictTypeCode?: string | null;
+
+    /**
+     * 查询方式
+     *
+     * @type {string}
+     * @memberof SysCodeGenConfig
+     */
+    queryType?: string | null;
+
+    /**
+     * 是否是查询条件
+     *
+     * @type {string}
+     * @memberof SysCodeGenConfig
+     */
+    whetherQuery?: string | null;
 
     /**
      * 列表是否缩进（字典）
@@ -221,22 +261,6 @@ export interface SysCodeGenConfig {
     whetherSortable?: string | null;
 
     /**
-     * 是否是查询条件
-     *
-     * @type {string}
-     * @memberof SysCodeGenConfig
-     */
-    queryWhether?: string | null;
-
-    /**
-     * 查询方式
-     *
-     * @type {string}
-     * @memberof SysCodeGenConfig
-     */
-    queryType?: string | null;
-
-    /**
      * 列表显示
      *
      * @type {string}
@@ -253,20 +277,12 @@ export interface SysCodeGenConfig {
     whetherAddUpdate?: string | null;
 
     /**
-     * 主键
+     * 导入
      *
      * @type {string}
      * @memberof SysCodeGenConfig
      */
-    columnKey?: string | null;
-
-    /**
-     * 数据库中类型（物理类型）
-     *
-     * @type {string}
-     * @memberof SysCodeGenConfig
-     */
-    dataType?: string | null;
+    whetherImport?: string | null;
 
     /**
      * 是否通用字段
@@ -275,30 +291,6 @@ export interface SysCodeGenConfig {
      * @memberof SysCodeGenConfig
      */
     whetherCommon?: string | null;
-
-    /**
-     * 显示文本字段
-     *
-     * @type {string}
-     * @memberof SysCodeGenConfig
-     */
-    displayColumn?: string | null;
-
-    /**
-     * 选中值字段
-     *
-     * @type {string}
-     * @memberof SysCodeGenConfig
-     */
-    valueColumn?: string | null;
-
-    /**
-     * 父级字段
-     *
-     * @type {string}
-     * @memberof SysCodeGenConfig
-     */
-    pidColumn?: string | null;
 
     /**
      * 排序

@@ -97,4 +97,12 @@ export interface PagePrintInput {
      * @memberof PagePrintInput
      */
     code?: string | null;
+
+    /**
+     * 租户Id
+     *
+     * @type {number}
+     * @memberof PagePrintInput
+     */
+    tenantId?: number;
 }

@@ -86,12 +86,28 @@ export interface AddDictDataInput {
     isDelete?: boolean;
 
     /**
+     * 租户Id
+     *
+     * @type {number}
+     * @memberof AddDictDataInput
+     */
+    tenantId?: number | null;
+
+    /**
      * 字典类型Id
      *
      * @type {number}
      * @memberof AddDictDataInput
      */
     dictTypeId?: number;
+
+    /**
+     * 显示文本
+     *
+     * @type {string}
+     * @memberof AddDictDataInput
+     */
+    label: string;
 
     /**
      * 值
@@ -107,15 +123,7 @@ export interface AddDictDataInput {
      * @type {string}
      * @memberof AddDictDataInput
      */
-    code: string;
-
-    /**
-     * 名称
-     *
-     * @type {string}
-     * @memberof AddDictDataInput
-     */
-    name?: string | null;
+    code?: string | null;
 
     /**
      * 显示样式-标签颜色

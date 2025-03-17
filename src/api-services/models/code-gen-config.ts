@@ -45,6 +45,14 @@ export interface CodeGenConfig {
     columnName?: string | null;
 
     /**
+     * 主外键
+     *
+     * @type {string}
+     * @memberof CodeGenConfig
+     */
+    columnKey?: string | null;
+
+    /**
      * 实体属性名
      *
      * @type {string}
@@ -83,6 +91,22 @@ export interface CodeGenConfig {
      * @memberof CodeGenConfig
      */
     netType?: string | null;
+
+    /**
+     * 数据库中类型（物理类型）
+     *
+     * @type {string}
+     * @memberof CodeGenConfig
+     */
+    dataType?: string | null;
+
+    /**
+     * 可空.NET类型
+     *
+     * @type {string}
+     * @memberof CodeGenConfig
+     */
+    nullableNetType?: string | null;
 
     /**
      * 作用类型（字典）
@@ -125,14 +149,6 @@ export interface CodeGenConfig {
     lowerFkEntityName?: string | null;
 
     /**
-     * 外键显示字段
-     *
-     * @type {string}
-     * @memberof CodeGenConfig
-     */
-    fkColumnName?: string | null;
-
-    /**
      * 外键链接字段
      *
      * @type {string}
@@ -141,12 +157,20 @@ export interface CodeGenConfig {
     fkLinkColumnName?: string | null;
 
     /**
-     * 外键显示字段(首字母小写)
+     * 外键显示字段
      *
-     * @type {string}
+     * @type {Array<string>}
      * @memberof CodeGenConfig
      */
-    lowerFkColumnName?: string | null;
+    fkDisplayColumnList?: Array<string> | null;
+
+    /**
+     * 外键显示字段(首字母小写)
+     *
+     * @type {Array<string>}
+     * @memberof CodeGenConfig
+     */
+    lowerFkDisplayColumnsList?: Array<string> | null;
 
     /**
      * 外键显示字段.NET类型
@@ -157,12 +181,36 @@ export interface CodeGenConfig {
     fkColumnNetType?: string | null;
 
     /**
+     * 父级字段
+     *
+     * @type {string}
+     * @memberof CodeGenConfig
+     */
+    pidColumn?: string | null;
+
+    /**
      * 字典code
      *
      * @type {string}
      * @memberof CodeGenConfig
      */
     dictTypeCode?: string | null;
+
+    /**
+     * 查询方式
+     *
+     * @type {string}
+     * @memberof CodeGenConfig
+     */
+    queryType?: string | null;
+
+    /**
+     * 是否是查询条件
+     *
+     * @type {string}
+     * @memberof CodeGenConfig
+     */
+    whetherQuery?: string | null;
 
     /**
      * 列表是否缩进（字典）
@@ -189,22 +237,6 @@ export interface CodeGenConfig {
     whetherSortable?: string | null;
 
     /**
-     * 是否是查询条件
-     *
-     * @type {string}
-     * @memberof CodeGenConfig
-     */
-    queryWhether?: string | null;
-
-    /**
-     * 查询方式
-     *
-     * @type {string}
-     * @memberof CodeGenConfig
-     */
-    queryType?: string | null;
-
-    /**
      * 列表显示
      *
      * @type {string}
@@ -221,20 +253,12 @@ export interface CodeGenConfig {
     whetherAddUpdate?: string | null;
 
     /**
-     * 主外键
+     * 导入
      *
      * @type {string}
      * @memberof CodeGenConfig
      */
-    columnKey?: string | null;
-
-    /**
-     * 数据库中类型（物理类型）
-     *
-     * @type {string}
-     * @memberof CodeGenConfig
-     */
-    dataType?: string | null;
+    whetherImport?: string | null;
 
     /**
      * 是否是通用字段
@@ -245,42 +269,50 @@ export interface CodeGenConfig {
     whetherCommon?: string | null;
 
     /**
-     * 表的别名 Table as XXX
-     *
-     * @type {string}
-     * @memberof CodeGenConfig
-     */
-    tableNickName?: string | null;
-
-    /**
-     * 显示文本字段
-     *
-     * @type {string}
-     * @memberof CodeGenConfig
-     */
-    displayColumn?: string | null;
-
-    /**
-     * 选中值字段
-     *
-     * @type {string}
-     * @memberof CodeGenConfig
-     */
-    valueColumn?: string | null;
-
-    /**
-     * 父级字段
-     *
-     * @type {string}
-     * @memberof CodeGenConfig
-     */
-    pidColumn?: string | null;
-
-    /**
      * 排序
      *
      * @type {number}
      * @memberof CodeGenConfig
      */
     orderNo?: number;
+
+    /**
+     * 是否是选择器控件
+     *
+     * @type {boolean}
+     * @memberof CodeGenConfig
+     */
+    isSelectorEffectType?: boolean;
+
+    /**
+     * 去掉尾部Id的属性名
+     *
+     * @type {string}
+     * @memberof CodeGenConfig
+     */
+    propertyNameTrimEndId?: string | null;
+
+    /**
+     * 去掉尾部Id的属性名
+     *
+     * @type {string}
+     * @memberof CodeGenConfig
+     */
+    lowerPropertyNameTrimEndId?: string | null;
+
+    /**
+     * 扩展属性名称
+     *
+     * @type {string}
+     * @memberof CodeGenConfig
+     */
+    extendedPropertyName?: string | null;
+
+    /**
+     * 首字母小写的扩展属性名称
+     *
+     * @type {string}
+     * @memberof CodeGenConfig
+     */
+    lowerExtendedPropertyName?: string | null;
 }

@@ -21,14 +21,6 @@
 export interface UserMenuInput {
 
     /**
-     * 用户Id
-     *
-     * @type {number}
-     * @memberof UserMenuInput
-     */
-    userId?: number;
-
-    /**
      * 收藏菜单Id集合
      *
      * @type {Array<number>}

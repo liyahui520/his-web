@@ -129,4 +129,12 @@ export interface PageLogInput {
      * @memberof PageLogInput
      */
     remoteIp?: string | null;
+
+    /**
+     * 租户Id
+     *
+     * @type {number}
+     * @memberof PageLogInput
+     */
+    tenantId?: number;
 }

@@ -15,6 +15,7 @@
 import { DbType } from './db-type';
 import { StatusEnum } from './status-enum';
 import { TenantTypeEnum } from './tenant-type-enum';
+import { YesNoEnum } from './yes-no-enum';
  /**
  * 
  *
@@ -88,7 +89,15 @@ export interface TenantOutput {
     isDelete?: boolean;
 
     /**
-     * 用户Id
+     * 应用Id
+     *
+     * @type {number}
+     * @memberof TenantOutput
+     */
+    appId?: number | null;
+
+    /**
+     * 租管用户Id
      *
      * @type {number}
      * @memberof TenantOutput
@@ -104,7 +113,7 @@ export interface TenantOutput {
     orgId?: number;
 
     /**
-     * 主机
+     * 域名
      *
      * @type {string}
      * @memberof TenantOutput
@@ -146,6 +155,84 @@ export interface TenantOutput {
      * @memberof TenantOutput
      */
     slaveConnections?: string | null;
+
+    /**
+     * @type {YesNoEnum}
+     * @memberof TenantOutput
+     */
+    enableReg?: YesNoEnum;
+
+    /**
+     * 默认注册方案Id
+     *
+     * @type {number}
+     * @memberof TenantOutput
+     */
+    regWayId?: number | null;
+
+    /**
+     * 图标
+     *
+     * @type {string}
+     * @memberof TenantOutput
+     */
+    logo: string;
+
+    /**
+     * 标题
+     *
+     * @type {string}
+     * @memberof TenantOutput
+     */
+    title?: string | null;
+
+    /**
+     * 副标题
+     *
+     * @type {string}
+     * @memberof TenantOutput
+     */
+    viceTitle?: string | null;
+
+    /**
+     * 副描述
+     *
+     * @type {string}
+     * @memberof TenantOutput
+     */
+    viceDesc?: string | null;
+
+    /**
+     * 水印
+     *
+     * @type {string}
+     * @memberof TenantOutput
+     */
+    watermark?: string | null;
+
+    /**
+     * 版权信息
+     *
+     * @type {string}
+     * @memberof TenantOutput
+     */
+    copyright?: string | null;
+
+    /**
+     * ICP备案号
+     *
+     * @type {string}
+     * @memberof TenantOutput
+     */
+    icp?: string | null;
+
+    /**
+     * ICP地址
+     *
+     * @type {string}
+     * @memberof TenantOutput
+     */
+    icpUrl?: string | null;
 
     /**
      * 排序

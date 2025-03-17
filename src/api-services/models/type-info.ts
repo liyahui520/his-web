@@ -215,6 +215,18 @@ export interface TypeInfo {
      * @type {boolean}
      * @memberof TypeInfo
      */
+    isFunctionPointer?: boolean;
+
+    /**
+     * @type {boolean}
+     * @memberof TypeInfo
+     */
+    isUnmanagedFunctionPointer?: boolean;
+
+    /**
+     * @type {boolean}
+     * @memberof TypeInfo
+     */
     hasElementType?: boolean;
 
     /**

@@ -43,4 +43,12 @@ export interface RoleOutput {
      * @memberof RoleOutput
      */
     code?: string | null;
+
+    /**
+     * 租户Id
+     *
+     * @type {number}
+     * @memberof RoleOutput
+     */
+    tenantId?: number;
 }

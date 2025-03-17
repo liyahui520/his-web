@@ -13,6 +13,7 @@
  */
 
 import { StatusEnum } from './status-enum';
+import { SysUser } from './sys-user';
  /**
  * 系统职位表
  *
@@ -130,4 +131,12 @@ export interface SysPos {
      * @memberof SysPos
      */
     status?: StatusEnum;
+
+    /**
+     * 在职人员
+     *
+     * @type {Array<SysUser>}
+     * @memberof SysPos
+     */
+    userList?: Array<SysUser> | null;
 }

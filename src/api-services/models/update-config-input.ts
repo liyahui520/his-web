@@ -102,7 +102,7 @@ export interface UpdateConfigInput {
     code?: string | null;
 
     /**
-     * 属性值
+     * 属性默认值
      *
      * @type {string}
      * @memberof UpdateConfigInput

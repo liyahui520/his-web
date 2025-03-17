@@ -14,7 +14,7 @@
 
 import { YesNoEnum } from './yes-no-enum';
  /**
- * 系统参数配置表
+ * 系统配置参数表
  *
  * @export
  * @interface SysConfig
@@ -102,7 +102,7 @@ export interface SysConfig {
     code?: string | null;
 
     /**
-     * 属性值
+     * 属性默认值
      *
      * @type {string}
      * @memberof SysConfig

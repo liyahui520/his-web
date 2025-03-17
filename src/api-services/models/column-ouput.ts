@@ -77,6 +77,14 @@ export interface ColumnOuput {
     netType?: string | null;
 
     /**
+     * 字典编码
+     *
+     * @type {string}
+     * @memberof ColumnOuput
+     */
+    dictTypeCode?: string | null;
+
+    /**
      * 字段描述
      *
      * @type {string}

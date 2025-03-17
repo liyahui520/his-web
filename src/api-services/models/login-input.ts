@@ -39,6 +39,14 @@ export interface LoginInput {
     password: string;
 
     /**
+     * 租户
+     *
+     * @type {number}
+     * @memberof LoginInput
+     */
+    tenantId: number;
+
+    /**
      * 验证码Id
      *
      * @type {number}

@@ -15,6 +15,7 @@
 import { DbType } from './db-type';
 import { StatusEnum } from './status-enum';
 import { TenantTypeEnum } from './tenant-type-enum';
+import { YesNoEnum } from './yes-no-enum';
  /**
  * 
  *
@@ -88,7 +89,15 @@ export interface AddTenantInput {
     isDelete?: boolean;
 
     /**
-     * 用户Id
+     * 应用Id
+     *
+     * @type {number}
+     * @memberof AddTenantInput
+     */
+    appId?: number | null;
+
+    /**
+     * 租管用户Id
      *
      * @type {number}
      * @memberof AddTenantInput
@@ -104,7 +113,7 @@ export interface AddTenantInput {
     orgId?: number;
 
     /**
-     * 主机
+     * 域名
      *
      * @type {string}
      * @memberof AddTenantInput
@@ -146,6 +155,36 @@ export interface AddTenantInput {
      * @memberof AddTenantInput
      */
     slaveConnections?: string | null;
+
+    /**
+     * @type {YesNoEnum}
+     * @memberof AddTenantInput
+     */
+    enableReg?: YesNoEnum;
+
+    /**
+     * 默认注册方案Id
+     *
+     * @type {number}
+     * @memberof AddTenantInput
+     */
+    regWayId?: number | null;
+
+    /**
+     * 图标
+     *
+     * @type {string}
+     * @memberof AddTenantInput
+     */
+    logo: string;
+
+    /**
+     * 水印
+     *
+     * @type {string}
+     * @memberof AddTenantInput
+     */
+    watermark?: string | null;
 
     /**
      * 排序
@@ -202,9 +241,66 @@ export interface AddTenantInput {
     adminAccount: string;
 
     /**
-     * 产品类型集合
-     * @type {Array<number>}
+     * 系统主标题
+     *
+     * @type {string}
      * @memberof AddTenantInput
      */
-    productTypeIds?: Array<number> | null;
+    title: string;
+
+    /**
+     * 系统副标题
+     *
+     * @type {string}
+     * @memberof AddTenantInput
+     */
+    viceTitle: string;
+
+    /**
+     * 系统描述
+     *
+     * @type {string}
+     * @memberof AddTenantInput
+     */
+    viceDesc: string;
+
+    /**
+     * 版权说明
+     *
+     * @type {string}
+     * @memberof AddTenantInput
+     */
+    copyright: string;
+
+    /**
+     * ICP备案号
+     *
+     * @type {string}
+     * @memberof AddTenantInput
+     */
+    icp: string;
+
+    /**
+     * ICP地址
+     *
+     * @type {string}
+     * @memberof AddTenantInput
+     */
+    icpUrl: string;
+
+    /**
+     * Logo图片Base64码
+     *
+     * @type {string}
+     * @memberof AddTenantInput
+     */
+    logoBase64?: string | null;
+
+    /**
+     * Logo文件名
+     *
+     * @type {string}
+     * @memberof AddTenantInput
+     */
+    logoFileName?: string | null;
 }

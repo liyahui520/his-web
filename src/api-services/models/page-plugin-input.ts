@@ -97,4 +97,12 @@ export interface PagePluginInput {
      * @memberof PagePluginInput
      */
     code?: string | null;
+
+    /**
+     * 租户Id
+     *
+     * @type {number}
+     * @memberof PagePluginInput
+     */
+    tenantId?: number;
 }

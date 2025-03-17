@@ -408,20 +408,6 @@ export interface UpdateUserInput {
     account: string;
 
     /**
-     * 密码
-     *
-     * @type {string}
-     * @memberof AddUserInput
-     */
-    password: string;
-    /**
-     * 编辑密码
-     *
-     * @type {string}
-     * @memberof AddUserInput
-     */
-    editPassword: boolean;
-    /**
      * 真实姓名
      *
      * @type {string}
@@ -452,21 +438,4 @@ export interface UpdateUserInput {
      * @memberof UpdateUserInput
      */
     extOrgIdList?: Array<SysUserExtOrg> | null;
-    /**
-     * 挂号项目集合
-     * @type {Array<number>}
-     * @memberof UpdateUserInput
-     */
-    productIdList?: Array<number> | null;
-
-    
-    /**
-     * 是否系统默认
-     *
-     * @type {boolean}
-     * @memberof UpdateUserInput
-     */
-    isSystem?: boolean;
-
-
 }

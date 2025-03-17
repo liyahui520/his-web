@@ -18,21 +18,9 @@
  * @enum {string}
  */
 export enum AccountTypeEnum {
-    /**
-     * 会员
-     */
     NUMBER_666 = 666,
-    /**
-     * 普通账号
-     */
     NUMBER_777 = 777,
-    /**
-     * 系统管理员
-     */
     NUMBER_888 = 888,
-    /**
-     * 超级管理员
-     */
     NUMBER_999 = 999
 }
 

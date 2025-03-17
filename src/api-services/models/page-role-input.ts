@@ -83,6 +83,14 @@ export interface PageRoleInput {
     descStr?: string | null;
 
     /**
+     * 租户Id
+     *
+     * @type {number}
+     * @memberof PageRoleInput
+     */
+    tenantId?: number;
+
+    /**
      * 名称
      *
      * @type {string}

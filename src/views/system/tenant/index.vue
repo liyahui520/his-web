@@ -36,9 +36,9 @@
 				<el-table-column prop="viceDesc" label="描述" width="300" show-overflow-tooltip />
 				<el-table-column prop="watermark" label="水印" width="130" show-overflow-tooltip />
 				<el-table-column prop="copyright" label="版权信息" width="350" show-overflow-tooltip />
-				<el-table-column prop="icp" label="备案号" width="130" show-overflow-tooltip />
+				<el-table-column prop="icp" label="备案号" width="150" show-overflow-tooltip />
 				<el-table-column prop="icpUrl" label="icp地址" width="280" show-overflow-tooltip />
-				<el-table-column prop="enableReg" label="启用注册" width="280" show-overflow-tooltip>
+				<el-table-column prop="enableReg" label="启用注册" width="100" show-overflow-tooltip>
 					<template #default="scope">
 						<g-sys-dict v-model="scope.row.enableReg" code="YesNoEnum" />
 					</template>

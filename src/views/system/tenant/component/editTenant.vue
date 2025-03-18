@@ -229,9 +229,9 @@ const openDialog = async (row: any) => {
 	state.ruleForm = other.deepClone(row) as any;
 	state.isShowDialog = true;
 	ruleFormRef.value?.resetFields();
-	state.ruleForm.icp ??= '省ICP备12345678号';
-	state.ruleForm.icpUrl ??= 'https://beian.miit.gov.cn';
-	state.ruleForm.copyright ??= `Copyright \u00a9 ${new Date().getFullYear()}-present xxxxx All rights reserved.`;
+	// state.ruleForm.icp ??= '省ICP备12345678号';
+	// state.ruleForm.icpUrl ??= 'https://beian.miit.gov.cn';
+	// state.ruleForm.copyright ??= `Copyright \u00a9 ${new Date().getFullYear()}-present xxxxx All rights reserved.`;
 	state.isShowDialog = true;
 	state.regWayData = await getAPI(SysUserRegWayApi)
 		.apiSysUserRegWayListPost({ tenantId: row.id })

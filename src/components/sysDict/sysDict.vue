@@ -55,7 +55,6 @@ const state = reactive({
 const setDictValue = (value: any) => {
 	state.value = value;
 	state.dictData = dictList[props.code]?.filter(props.onItemFilter) ?? [];
-
 	if (Array.isArray(value)) {
 		state.dict = state.dictData.filter((x: any) => value.includes(x[props.propValue]));
 		if (state.dict) {
@@ -71,6 +70,7 @@ const setDictValue = (value: any) => {
 			(state.dict as DictItem).tagType = 'primary';
 		}
 	}
+	console.log("state.dict", state.dict)
 };
 
 watch(

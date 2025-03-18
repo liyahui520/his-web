@@ -104,7 +104,7 @@ import { PaymentCartsApi } from '/@/api-services/api';
 import commonFunction from '/@/utils/commonFunction';
 import Decimal from 'decimal.js';
 import { ProductCostTypeEnums, BusinessTypeEnum } from '/@/api-services/models/order-manage';
-import { ProductTypeEnums } from "/@/api-services";
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';;
 
 
 const Products = defineAsyncComponent(() => import('/@/components/products/selectProducts.vue'));

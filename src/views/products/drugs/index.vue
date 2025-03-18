@@ -56,7 +56,7 @@ import { ProductDrugsApi,SysDictDataApi } from '/@/api-services/api';
 import mittBus from '/@/utils/newmitt';
 import batchEditDialog from '/@/views/products/component/batchEditDialog.vue';
 import downloadTemp from '/@/views/products/component/downloadTemp.vue';
-import { ProductTypeEnums } from '/@/api-services';
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const tableDrugsRef = ref<RefType>();

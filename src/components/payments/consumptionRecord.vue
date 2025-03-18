@@ -72,7 +72,7 @@
 						</template>
 					</el-table-column>
 					<el-table-column label="支付方式" align="center">
-						<el-table-column v-for="(method, index) in paymentMethods" :key="method.id" :label="method.value">
+						<el-table-column v-for="(method, index) in paymentMethods" :key="method.id" :label="method.label">
 							<template #default="scope">
 								<el-text>{{ verifyNumberComma(scope.row.paymentMethodObject[method.id + ''] ?? '0.00') }}</el-text>
 							</template>
@@ -158,6 +158,7 @@ const openDialog = async (data: any) => {
 	queryParams.value.petId = data.petId;
 	await handleQuery();
 	paymentMethods.value = await getDictDataList('payment_type');
+	console.log("paymentMethods.value",paymentMethods.value)
 };
 // 关闭弹窗
 const closeDialog = (data: any) => {

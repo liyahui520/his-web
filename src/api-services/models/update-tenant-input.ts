@@ -303,4 +303,11 @@ export interface UpdateTenantInput {
      * @memberof UpdateTenantInput
      */
     logoFileName?: string | null;
+    /**
+     * 产品类型
+     *
+     * @type {string}
+     * @memberof UpdateTenantInput
+     */
+    productTypeIds?: number[] | null;
 }

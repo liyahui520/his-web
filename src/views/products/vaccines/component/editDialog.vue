@@ -79,6 +79,17 @@
 						</el-form-item>
 					</el-col>
 					<el-divider content-position="left" style="padding: 0; margin: 15px">疫苗属性</el-divider>
+					
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="成本价">
+							<el-text type="primary">{{ ruleForm.costPrice }}</el-text>
+						</el-form-item>
+					</el-col>
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="库存">
+							<el-text type="primary">{{ ruleForm.count ?? 0 }}</el-text>
+						</el-form-item>
+					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="接种间隔" prop="interval">
 							<el-input-number v-model="ruleForm.interval" :precision="0" :step="1" :max="999999999" :min="0" />

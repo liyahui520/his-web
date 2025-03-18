@@ -43,7 +43,7 @@ import { ref, onMounted, reactive, defineAsyncComponent, nextTick } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { LaboratoryApi, PrintAndPreviewApi } from '/@/api-services/api';
 import { addDaysToDate } from '/@/utils/formatTime';
-import { ProductTypeEnums } from '/@/api-services';
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 import editXray from './component/editXray.vue';
 import editBscan from './component/editBscan.vue';
 import editMicro from './component/editMicro.vue';

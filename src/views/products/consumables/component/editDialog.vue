@@ -84,7 +84,7 @@
 
                 <el-divider content-position="left" style="padding: 0;margin: 15px">消耗品属性</el-divider>
                 <el-row :gutter="35">
-
+<!-- 
                     <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
                         <el-form-item label="成本价" >
                             <el-text type="primary">{{ ruleForm.costPrice }}</el-text>
@@ -92,9 +92,9 @@
                     </el-col>
                     <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
                         <el-form-item label="库存" >
-                            <el-text type="primary">{{ ruleForm.count }}</el-text>
+                            <el-text type="primary">{{ ruleForm.count ?? 0 }}</el-text>
                         </el-form-item>
-                    </el-col>
+                    </el-col> -->
                     <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
                         <el-form-item label="销售价格" prop="salePrice">
                             <el-input-number v-model="ruleForm.salePrice" :precision="2" :step="0.1" :max="999999999"
@@ -110,8 +110,8 @@
                 </el-row>
                 <el-row :gutter="35">
                     <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-                        <el-form-item label="出库单位" prop="outUnitId">
-                            <el-select v-model="ruleForm.outUnitId" filterable placeholder="请选择出库单位"
+                        <el-form-item label="单位" prop="outUnitId">
+                            <el-select v-model="ruleForm.outUnitId" filterable placeholder="请选择单位"
                                 style="width: 100%;">
                                 <el-option v-for="item in unitData" :key="item.id" :label="item.name"
                                     :value="item.id"></el-option>
@@ -129,12 +129,12 @@
                     </el-col>
                 </el-row>
                 <el-row :gutter="35">
-
+<!-- 
                     <el-col :xs="16" :sm="8" :md="8" :lg="8" :xl="8" class="mb20">
                         <el-form-item label="允许零库存" prop="isZeroSale">
                             <el-switch v-model="ruleForm.isZeroSale" active-text="是" inactive-text="否" />
                         </el-form-item>
-                    </el-col>
+                    </el-col> -->
                     <el-col :xs="16" :sm="8" :md="8" :lg="8" :xl="8" class="mb20">
                         <el-form-item label="参与打折" prop="isDiscount">
                             <el-switch v-model="ruleForm.isDiscount" active-text="是" inactive-text="否" />

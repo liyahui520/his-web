@@ -137,7 +137,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column label="支付方式" align="center">
-                    <el-table-column v-for="(method, index) in paymentMethods" :key="method.id" :label="method.value"
+                    <el-table-column v-for="(method, index) in paymentMethods" :key="method.id" :label="method.label"
                         show-overflow-tooltip="">
                         <template #default="scope">
                             <el-text>{{ verifyNumberComma(scope.row.paymentMethodObjectNew[method.id + ''] ?? '0.00')

@@ -19,6 +19,7 @@ import 'vue3-tree-org/lib/vue3-tree-org.css';
 // VForm3 表单设计
 import VForm3 from 'vform3-builds';
 import 'vform3-builds/dist/designer.style.css';
+import sysDict from "/src/components/sysDict/sysDict.vue";
 // 关闭自动打印
 //// @ts-ignore
 //import VForm3 from 'vform3-builds'; // VForm3表单设计
@@ -42,6 +43,9 @@ import 'vform3-builds/dist/designer.style.css';
 const app = createApp(App); 
 directive(app);
 other.elSvg(app);
+// 注册全局字典组件
+app.component('GSysDict', sysDict);
+
 
 // #region  FastCrud配置
 //import { FastCrud } from '@fast-crud/fast-crud';

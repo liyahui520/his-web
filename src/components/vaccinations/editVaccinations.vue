@@ -183,7 +183,7 @@ import { useUserInfo } from '/@/stores/userInfo';
 import { storeToRefs } from 'pinia';
 import { formatDate } from '/@/utils/formatTime';
 import Decimal from 'decimal.js';
-import { ProductTypeEnums } from '/@/api-services';
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 import { verifyNumberComma } from '/@/utils/toolsValidate';
 import type { FormRules } from 'element-plus';
 

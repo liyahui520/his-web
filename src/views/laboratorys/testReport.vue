@@ -40,7 +40,7 @@ import editResport from '/@/views/laboratorys/component/editResport.vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { LaboratoryApi } from '/@/api-services/api';
 import { addDaysToDate } from "/@/utils/formatTime";
-import { ProductTypeEnums } from "/@/api-services";
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';;
 
 
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));

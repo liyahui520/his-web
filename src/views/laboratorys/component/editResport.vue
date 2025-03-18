@@ -156,7 +156,7 @@ import { storeToRefs } from 'pinia';
 import { useUserInfo } from '/@/stores/userInfo';
 import { getAPI } from '/@/utils/axios-utils';
 import { LaboratoryApi } from '/@/api-services/api';
-import { ProductTypeEnums } from '/@/api-services';
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 import other from '/@/utils/other';
 import { addDaysToDate, formatDate } from '/@/utils/formatTime';
 

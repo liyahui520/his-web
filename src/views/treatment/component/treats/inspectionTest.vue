@@ -88,7 +88,7 @@ import { ElMessage, ElTable } from 'element-plus';
 import { InStorageApi, CEMRecordApi, PrintAndPreviewApi } from '/@/api-services';
 import { Delete, Edit, Search, View, Printer, DocumentAdd } from '@element-plus/icons-vue';
 import { verifyNumberComma, verifyNumberCnUppercase } from '/@/utils/toolsValidate';
-import { ProductTypeEnums } from '/@/api-services';
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 
 import { signalR } from '/@/views/cem/signalRCem';
 

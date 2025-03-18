@@ -72,7 +72,7 @@ import { ref, nextTick, defineAsyncComponent } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { ProductCategorysApi } from '/@/api-services/api';
 import { DeleteFilled } from '@element-plus/icons-vue'
-import { ProductTypeEnums } from "/@/api-services";
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';;
 import { verifyNumberComma } from '/@/utils/toolsValidate';
 import { useUserInfo } from '/@/stores/userInfo';
 import { formatAge,formatDate } from '/@/utils/formatTime';

@@ -99,7 +99,7 @@
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="库存">
-							<el-text type="primary">{{ ruleForm.count }}</el-text>
+							<el-text type="primary">{{ ruleForm.count ?? 0 }}</el-text>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">

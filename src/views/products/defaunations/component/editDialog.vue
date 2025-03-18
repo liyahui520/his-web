@@ -10,7 +10,6 @@
 				</div>
 			</template>
 			<el-form :model="ruleForm" ref="ruleFormRef" size="default" label-width="100px" :rules="rules">
-				<el-divider content-position="left" style="padding: 0; margin: 15px">驱虫信息</el-divider>
 				<el-row :gutter="35">
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="所属目录" prop="categoryArr">
@@ -27,8 +26,6 @@
 							<el-input v-model="ruleForm.serialNumber" placeholder="请输入编码" clearable="" />
 						</el-form-item>
 					</el-col>
-				</el-row>
-				<el-row :gutter="35">
 					<el-form-item v-show="false">
 						<el-input v-model="ruleForm.id" />
 					</el-form-item>
@@ -79,9 +76,18 @@
 							</el-select>
 						</el-form-item>
 					</el-col>
-				</el-row>
-				<el-divider content-position="left" style="padding: 0; margin: 15px">驱虫属性</el-divider>
-				<el-row :gutter="35">
+					<el-divider content-position="left" style="padding: 0; margin: 15px">驱虫属性</el-divider>
+
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="成本价">
+							<el-text type="primary">{{ ruleForm.costPrice }}</el-text>
+						</el-form-item>
+					</el-col>
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="库存">
+							<el-text type="primary">{{ ruleForm.count ?? 0 }}</el-text>
+						</el-form-item>
+					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="接种间隔" prop="interval">
 							<el-input-number v-model="ruleForm.interval" :precision="0" :step="1" :max="999999999" :min="0" />
@@ -97,17 +103,6 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="接种次数" prop="times">
 							<el-input-number v-model="ruleForm.times" :precision="0" :step="1" :max="999999999" :min="1" />
-						</el-form-item>
-					</el-col>
-
-					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="成本价" prop="costPrice">
-							<el-input-number v-model="ruleForm.costPrice" disabled :precision="2" :step="0.1" :max="999999999" :min="0"></el-input-number>
-						</el-form-item>
-					</el-col>
-					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="库存" prop="costPrice">
-							<el-input-number v-model="ruleForm.count" disabled></el-input-number>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">

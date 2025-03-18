@@ -32,6 +32,13 @@ export const getToken = () => {
 export const getHeader = () => {
     return { authorization: 'Bearer ' + getToken() };
 };
+
+// 清除 token
+export const clearAccessAfterReload = () => {
+	clearTokens();
+	// 刷新浏览器
+	window.location.reload();
+};
 export const getTempToken = () => {
     let t= Local.get(accessTempTokenKey);
     if(t!=null)return t;

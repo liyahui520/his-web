@@ -170,7 +170,7 @@ import { getAPI } from '/@/utils/axios-utils';
 import p from 'js-pinyin';
 import { ProductDisposalApi } from '/@/api-services/api';
 import { useUserInfo } from '/@/stores/userInfo';
-import { ProductTypeEnums } from '/@/api-services';
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 import other from '/@/utils/other';
 
 const Products = defineAsyncComponent(() => import('/@/components/products/selectProducts.vue'));

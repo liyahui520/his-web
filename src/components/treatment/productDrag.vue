@@ -259,7 +259,7 @@ import { DocumentAdd, DArrowLeft, DArrowRight, DeleteFilled } from '@element-plu
 import { getAPI } from '/@/utils/axios-utils';
 import { ProductCategorysApi, ProductTestApi, CEMRecordApi } from '/@/api-services/api';
 import { verifyNumberComma, verifyTextColor } from '/@/utils/toolsValidate';
-import { ProductTypeEnums } from '/@/api-services';
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 import { formatAge } from '/@/utils/formatTime';
 import { CEMRecordItemGroupTypeEnum } from '/@/api-services/models/cemrecord-manage';
 import other from '/@/utils/other';

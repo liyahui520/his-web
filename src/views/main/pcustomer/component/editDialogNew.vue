@@ -25,7 +25,7 @@
 						</el-form-item>
 						<el-form-item label="客户来源" prop="sourceId">
 							<el-select filterable v-model="ruleForm.sourceId" placeholder="请选择客户来源">
-								<el-option v-for="(item, index) in getEditsourceidData" :key="index" :value="item.code" :label="item.value">{{ item.value }} </el-option>
+								<el-option v-for="(item, index) in getEditsourceidData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 						<el-form-item label="手机号" prop="cellPhone">
@@ -33,7 +33,7 @@
 						</el-form-item>
 						<el-form-item label="性别" prop="sex">
 							<el-select  v-model="ruleForm.sex" placeholder="请选择性别">
-								<el-option v-for="(item, index) in getEditsexData" :key="index" :value="item.code" :label="item.value">{{ item.value }} </el-option>
+								<el-option v-for="(item, index) in getEditsexData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 						<el-form-item label="会员生日" prop="birthdate">
@@ -65,7 +65,7 @@
 						</el-form-item>
 						<el-form-item label="性别" prop="pet.petGender">
 							<el-select  v-model="ruleForm.pet.petGender" placeholder="请选择性别">
-								<el-option v-for="(item, index) in getEditpetGenderData" :key="index" :value="item.code" :label="item.value">{{ item.value }} </el-option>
+								<el-option v-for="(item, index) in getEditpetGenderData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 						<el-form-item label="宠物种类" prop="pet.petKind">
@@ -80,12 +80,12 @@
 						</el-form-item>
 						<el-form-item label="宠物血型" prop="pet.petBlood">
 							<el-select  v-model="ruleForm.pet.petBlood" placeholder="请选择宠物血型">
-								<el-option v-for="(item, index) in getEditpetBloodData" :key="index" :value="item.code" :label="item.value">{{ item.value }} </el-option>
+								<el-option v-for="(item, index) in getEditpetBloodData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 						<el-form-item  label="宠物颜色" prop="pet.petColor">
 							<el-select filterable v-model="ruleForm.pet.petColor" placeholder="请选择宠物颜色">
-								<el-option v-for="(item, index) in getEditpetColorData" :key="index" :value="item.code" :label="item.value">{{ item.value }} </el-option>
+								<el-option v-for="(item, index) in getEditpetColorData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 						<el-form-item label="生日" prop="pet.petBirthDate">
@@ -97,7 +97,7 @@
 						</el-form-item>
 						<el-form-item label="宠物状态" prop="pet.petStatus">
 							<el-select  v-model="ruleForm.pet.petStatus" placeholder="请选择宠物状态">
-								<el-option v-for="(item, index) in getEditpetStatusData" :key="item.code" :value="item.code" :label="item.value">{{ item.value }} </el-option>
+								<el-option v-for="(item, index) in getEditpetStatusData" :key="item.value" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 

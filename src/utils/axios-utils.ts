@@ -126,7 +126,7 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
     (r) => {
         let res = r;
-        if(res.data.type!='application/octet-stream'){
+        if(res.data.type!='application/octet-stream'&&window.__env__.VITE_ENV!='development'){
             const priveKey = window.__env__.VITE_SM_PRIVE_KEY;
             // if (window.__env__.VITE_ENV === 'development') { 
             //     const a = sm2.doDecrypt(r.data.substring(2), publicKey, 1);

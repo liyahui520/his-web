@@ -59,7 +59,7 @@
 </template>
 
 <script setup lang="ts" name="loginIndex">
-import { defineAsyncComponent, onMounted, reactive, computed } from 'vue';
+import { defineAsyncComponent, onMounted, reactive, computed,ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useThemeConfig } from '/@/stores/themeConfig';
 import { NextLoading } from '/@/utils/loading';
@@ -72,6 +72,8 @@ import {SignalR} from "/@/views/system/onlineUser/signalRLogin";
 import {ElNotification} from "element-plus";
 import {Local} from "/@/utils/storage";
 import {accessTempTokenKey} from "/@/utils/request";
+import {getAPI} from '/@/utils/axios-utils';
+import {SysTenantApi} from '/@/api-services';
 import commonFunction from "/@/utils/commonFunction";
 const {generateGUID} = commonFunction();
 
@@ -83,6 +85,10 @@ const Scan = defineAsyncComponent(() => import('/@/views/login/component/scan.vu
 
 const storesThemeConfig = useThemeConfig();
 const { themeConfig } = storeToRefs(storesThemeConfig);
+const tenantInfo = ref({
+	id: undefined as number | undefined,
+	list: [],
+});
 const state = reactive({
 	tabsActiveName: 'account',
 	isScan: false,
@@ -92,10 +98,21 @@ const getThemeConfig = computed(() => {
 	return themeConfig.value;
 });
 // 页面加载时
-onMounted(() => {
+onMounted(async () => {
+	await getTenantInfo();
 	NextLoading.done();
 });
-
+// 获取租户信息
+const getTenantInfo = async () => {
+	if (themeConfig.value.hideTenantForLogin) {
+		return tenantInfo.value;
+	}
+	const host = location.host.toLowerCase();
+	tenantInfo.value.list = await getAPI(SysTenantApi).apiSysTenantListGet().then(res => res.data.result ?? null);
+	const tenant = tenantInfo.value.list.find((item: any) => !item.host && item.host === host) as any;
+	if (tenant?.value) tenantInfo.value.id = parseInt(tenant?.value);
+	return tenantInfo.value;
+}
 </script>
 
 <style scoped lang="scss">

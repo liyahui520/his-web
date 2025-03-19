@@ -151,7 +151,7 @@ export const useThemeConfig = defineStore('themeConfig', {
 			// Icp备案号
 			icp: '豫ICP备2024067131号',
 			// Icp地址
-			icpUrl: 'https://beian.miit.gov.cn/',
+			icpUrl: 'https://beian.miit.gov.cn/', 
 		},
 	}),
 	actions: {

@@ -115,6 +115,14 @@
 							<el-input-number v-model="ruleForm.memberPrice" :precision="2" :step="0.1" :max="999999999" :min="0"></el-input-number>
 						</el-form-item>
 					</el-col>
+					
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="状态">
+							<el-checkbox label="可订" v-model="ruleForm.canOrder" />
+							<el-checkbox label="可销" v-model="ruleForm.canSale" />
+							<el-checkbox label="可盘" v-model="ruleForm.canCable" />
+						</el-form-item>
+					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="入库单位" prop="inUnitId">
 							<el-select v-model="ruleForm.inUnitId" filterable placeholder="请选择入库单位" @change="inUnitChange" style="width: 100%">
@@ -137,13 +145,6 @@
 						</el-form-item>
 					</el-col>
 
-					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="状态">
-							<el-checkbox label="可订" v-model="ruleForm.canOrder" />
-							<el-checkbox label="可销" v-model="ruleForm.canSale" />
-							<el-checkbox label="可盘" v-model="ruleForm.canCable" />
-						</el-form-item>
-					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="规格" prop="specific">
 							<el-input v-model="ruleForm.specific" placeholder="请输入规格" clearable="" />

@@ -90,12 +90,12 @@ var props = defineProps({
 const categoryRef = ref();
 const productTypesData = ref<any>([]);
 const productCategorysData = ref<any>([]);
-const productTypesValue = ref('');
+const productTypesValue = ref<any>('');
 const productCategoryLabel = ref('');
 const queryParams = ref<any>({ name: '', categoryId: -1, canOrder: true, canSale: true });
 const carcerProp = ref<any>({ checkStrictly: true })
-const componentObject = {
-    10001: {
+const componentObject : { [key: string]: { name: any, add: () => void, query: () => void } } = {
+    "10001": {
         name: defineAsyncComponent(() => import('./goods/index.vue')),
         add: () => {
             mittBus.emit("goodsAddMthods", {
@@ -108,7 +108,7 @@ const componentObject = {
             mittBus.emit("goodsQueryMthods", queryParams.value);
         }
     },
-    20001: {
+    "20001": {
         name: defineAsyncComponent(() => import('./drugs/index.vue')),
         add: () => {
             mittBus.emit("drugsAddMthods", {
@@ -121,7 +121,7 @@ const componentObject = {
             mittBus.emit("drugsQueryMthods", queryParams.value);
         }
     },
-    30001: {
+    "30001": {
         name: defineAsyncComponent(() => import('./cosmetologys/index.vue')),
         add: () => {
             mittBus.emit("cosmetologysAddMthods", {
@@ -134,7 +134,7 @@ const componentObject = {
             mittBus.emit("cosmetologysQueryMthods", queryParams.value);
         }
     },
-    40001: {
+    "40001": {
         name: defineAsyncComponent(() => import('./washs/index.vue')),
         add: () => {
             mittBus.emit("washsAddMthods", {
@@ -147,7 +147,7 @@ const componentObject = {
             mittBus.emit("washsQueryMthods", queryParams.value);
         }
     },
-    50001: {
+    "50001": {
         name: defineAsyncComponent(() => import('./defaunations/index.vue')),
         add: () => {
             mittBus.emit("defaunationsAddMthods", {
@@ -160,7 +160,7 @@ const componentObject = {
             mittBus.emit("defaunationsQueryMthods", queryParams.value);
         }
     },
-    60001: {
+    "60001": {
         name: defineAsyncComponent(() => import('./vaccines/index.vue')),
         add: () => {
             mittBus.emit("vaccinesAddMthods", {
@@ -174,7 +174,7 @@ const componentObject = {
         }
     },
     //移除住院留观内容
-    // 70001: {
+    // "70001": {
     //     name: defineAsyncComponent(() => import('./hospitals/index.vue')),
     //     add: () => {
     //         mittBus.emit("hospitalsAddMthods", {
@@ -187,7 +187,7 @@ const componentObject = {
     //         mittBus.emit("hospitalsQueryMthods", queryParams.value);
     //     }
     // },
-    // 80001: {
+    // "80001": {
     //     name: defineAsyncComponent(() => import('./fosters/index.vue')),
     //     add: () => {
     //         mittBus.emit("fostersAddMthods", {
@@ -200,7 +200,7 @@ const componentObject = {
     //         mittBus.emit("fostersQueryMthods", queryParams.value);
     //     }
     // },
-    90001: {
+    "90001": {
         name: defineAsyncComponent(() => import('./bmodes/index.vue')),
         add: () => {
             mittBus.emit("bmodesAddMthods", {
@@ -213,7 +213,7 @@ const componentObject = {
             mittBus.emit("bmodesQueryMthods", queryParams.value);
         }
     },
-    100001: {
+    "100001": {
         name: defineAsyncComponent(() => import('./xrays/index.vue')),
         add: () => {
             mittBus.emit("xraysAddMthods", {
@@ -226,7 +226,7 @@ const componentObject = {
             mittBus.emit("xraysQueryMthods", queryParams.value);
         }
     },
-    110001: {
+    "110001": {
         name: defineAsyncComponent(() => import('./tests/index.vue')),
         add: () => {
             mittBus.emit("testsAddMthods", {
@@ -239,7 +239,7 @@ const componentObject = {
             mittBus.emit("testsQueryMthods", queryParams.value);
         }
     },
-    120001: {
+    "120001": {
         name: defineAsyncComponent(() => import('./disposals/index.vue')),
         add: () => {
             mittBus.emit("disposalsAddMthods", {
@@ -252,7 +252,7 @@ const componentObject = {
             mittBus.emit("disposalsQueryMthods", queryParams.value);
         }
     },
-    130001: {
+    "130001": {
         name: defineAsyncComponent(() => import('./microscopes/index.vue')),
         add: () => {
             mittBus.emit("microscopesAddMthods", {
@@ -265,7 +265,7 @@ const componentObject = {
             mittBus.emit("microscopesQueryMthods", queryParams.value);
         }
     },
-    140001: {
+    "140001": {
         name: defineAsyncComponent(() => import('./consumables/index.vue')),
         add: () => {
             mittBus.emit("consumablesAddMthods", {
@@ -278,7 +278,7 @@ const componentObject = {
             mittBus.emit("consumablesQueryMthods", queryParams.value);
         }
     },
-    150001: {
+    "150001": {
         name: defineAsyncComponent(() => import('./papers/index.vue')),
         add: () => {
             mittBus.emit("papersAddMthods", {

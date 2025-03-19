@@ -12,6 +12,7 @@
  * Do not edit the class manually.
  */
 
+import { ProductTypeEnums } from './product-type-enums';
  /**
  * 导入药品数据
  *
@@ -35,6 +36,12 @@ export interface ImportDrugsDto {
      * @memberof ImportDrugsDto
      */
     englishName?: string | null;
+
+    /**
+     * @type {ProductTypeEnums}
+     * @memberof ImportDrugsDto
+     */
+    type?: ProductTypeEnums;
 
     /**
      * 库存个数
@@ -143,10 +150,10 @@ export interface ImportDrugsDto {
     /**
      * 有无批次
      *
-     * @type {boolean}
+     * @type {number}
      * @memberof ImportDrugsDto
      */
-    isAnaesthesia: boolean;
+    isAnaesthesia: number;
 
     /**
      * 销售价格
@@ -167,18 +174,18 @@ export interface ImportDrugsDto {
     /**
      * 是否参与打折
      *
-     * @type {boolean}
+     * @type {number}
      * @memberof ImportDrugsDto
      */
-    isDiscount: boolean;
+    isDiscount: number;
 
     /**
      * 是否允许零库存
      *
-     * @type {boolean}
+     * @type {number}
      * @memberof ImportDrugsDto
      */
-    isZeroSale: boolean;
+    isZeroSale: number;
 
     /**
      * 入库单位ID
@@ -223,26 +230,26 @@ export interface ImportDrugsDto {
     /**
      * 可销
      *
-     * @type {boolean}
+     * @type {number}
      * @memberof ImportDrugsDto
      */
-    canSale: boolean;
+    canSale: number;
 
     /**
      * 可订
      *
-     * @type {boolean}
+     * @type {number}
      * @memberof ImportDrugsDto
      */
-    canOrder: boolean;
+    canOrder: number;
 
     /**
      * 可盘
      *
-     * @type {boolean}
+     * @type {number}
      * @memberof ImportDrugsDto
      */
-    canCable: boolean;
+    canCable: number;
 
     /**
      * 备注

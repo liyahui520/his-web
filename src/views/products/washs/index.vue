@@ -42,7 +42,7 @@ import batchEditDialog from '/@/views/products/component/batchEditDialog.vue';
 var props = defineProps({
     productCategorysData: {
         type: Array,
-        default: []
+        default: [] as any
     }
 });
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
@@ -78,16 +78,16 @@ const tb = reactive<TableDemoState>({
                 fixed: 'left',
                 'show-overflow-tooltip': true,
             },
-            {
-                prop: 'barCode',
-                width: '120',
-                label: '条形码',
-                headerAlign: 'center',
-                toolTip: true,
-                sortable: 'custom',
-                isCheck: true,
-                'show-overflow-tooltip': true,
-            },
+            // {
+            //     prop: 'barCode',
+            //     width: '120',
+            //     label: '条形码',
+            //     headerAlign: 'center',
+            //     toolTip: true,
+            //     sortable: 'custom',
+            //     isCheck: true,
+            //     'show-overflow-tooltip': true,
+            // },
             {
                 prop: 'serialNumber',
                 width: '160',
@@ -211,9 +211,9 @@ const getData = async (par: any) => {
 
 
 //选中的值
-const selectionChange = async (d) => {
+const selectionChange = async (d:any) => {
     deleteIds.value = [];
-    d.forEach(v => {
+    d.forEach((v:any) => {
         deleteIds.value.push(v.id);
     });
 }
@@ -244,7 +244,7 @@ const batchDelete=()=>{
                         tableWashsRef?.value?.pageReset();
                     });
                     ElMessage.success('删除成功');
-                }).catch(_ => {
+                }).catch((error:any) => {
                     ElMessage.error('删除失败');
                 });
 

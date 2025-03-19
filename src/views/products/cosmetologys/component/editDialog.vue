@@ -37,11 +37,11 @@
                             <el-input v-model="ruleForm.name" placeholder="请输入名称" clearable="" @change="pinyin" />
                         </el-form-item>
                     </el-col>
-                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+                    <!-- <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
                         <el-form-item label="条形码" prop="barCode">
                             <el-input v-model="ruleForm.barCode" placeholder="请输入条形码" clearable="" />
                         </el-form-item>
-                    </el-col>
+                    </el-col> -->
                     <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
                         <el-form-item label="缩写" prop="nameLetter">
                             <el-input v-model="ruleForm.nameLetter" placeholder="请输入缩写" clearable="" />
@@ -66,6 +66,11 @@
                         </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+                        <el-form-item label="参与打折" prop="isDiscount">
+                            <el-switch v-model="ruleForm.isDiscount" active-text="是" inactive-text="否" />
+                        </el-form-item>
+                    </el-col>
+                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
                         <el-form-item label="销售价格" prop="salePrice">
                             <el-input-number v-model="ruleForm.salePrice" :precision="2" :step="1" :max="999999999"
                                 :min="0"></el-input-number>
@@ -75,11 +80,6 @@
                         <el-form-item label="会员价格" prop="memberPrice">
                             <el-input-number v-model="ruleForm.memberPrice" :precision="2" :step="1" :max="999999999"
                                 :min="0"></el-input-number>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-                        <el-form-item label="参与打折" prop="isDiscount">
-                            <el-switch v-model="ruleForm.isDiscount" active-text="是" inactive-text="否" />
                         </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">

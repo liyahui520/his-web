@@ -31,7 +31,7 @@
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="绑定DN" prop="bindDn">
-							<el-input v-model="state.ruleForm.bindDn" placeholder="请输入有域管理权限的账户" maxlength="32" show-word-limit clearable />
+							<el-input v-model="state.ruleForm.bindDn" placeholder="请输入有域管理权限的账户" maxlength="128" show-word-limit clearable />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
@@ -82,7 +82,6 @@ import type { FormRules } from 'element-plus';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysLdapApi } from '/@/api-services/api';
-import other from '/@/utils/other';
 
 const props = defineProps({
 	title: String,
@@ -96,7 +95,7 @@ const state = reactive({
 
 // 打开弹窗
 const openDialog = (row: any) => {
-	state.ruleForm = other.deepClone(row);
+	state.ruleForm = JSON.parse(JSON.stringify(row));
 	state.isShowDialog = true;
 	ruleFormRef.value?.resetFields();
 };

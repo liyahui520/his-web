@@ -134,3 +134,5 @@ export * from './apis/sys-app-api';
 
 export * from './apis/sys-template-api';
 export * from './apis/sys-tenant-config-api';
+
+export * from './apis/sys-update-api';

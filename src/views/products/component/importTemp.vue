@@ -10,7 +10,9 @@
 				</div>
 			</template>
 			<el-card shadow="never" style="height: calc(100vh - 125px)" :body-style="{ padding: 0 }">
-				<Table ref="tableRef" v-if="PropVirtTableS.tables" :PropVirtTableS="PropVirtTableS"></Table>
+				<Table ref="tableRef" v-if="PropVirtTableS.tables" :PropVirtTableS="PropVirtTableS">
+					
+				</Table>
 			</el-card>
 			<template #footer>
 				<span class="dialog-footer">
@@ -27,12 +29,14 @@
 import { defineAsyncComponent, nextTick, onMounted, reactive, ref, h } from 'vue';
 import { ElMessage } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
-import { ImportProductApi,SysDictDataApi} from '/@/api-services';
+import { ImportProductApi, SysDictDataApi } from '/@/api-services';
 import { ElButton, ElTag, ElInput, ElSelect, ElOption } from 'element-plus';
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 
 const Table = defineAsyncComponent(() => import('/@/components/table/tableV2.vue'));
 
-const tableRef=ref();
+const tableRef = ref();
+const productType = ref<any>(-1);
 //父级传递来的参数
 var props = defineProps({
 	title: {
@@ -145,11 +149,12 @@ let PropVirtTableS = reactive({
 const isShowDialog = ref(false);
 
 // 打开弹窗
-const openDialog = async (row: any,usingMethodData:any,dosingWayData:any) => {
+const openDialog = async (row: any, usingMethodData: any, dosingWayData: any, type: any) => {
 	PropVirtTableS.tables = row;
 	isShowDialog.value = true;
 	PropVirtTableS.isLoading = false;
-    PropVirtTableS.tables.forEach((item: any) => {
+	productType.value = type;
+	PropVirtTableS.tables.forEach((item: any) => {
 		item.usingMethodName = usingMethodData[item.usingMethod];
 		item.dosingWayName = dosingWayData[item.dosingWay];
 		item.isAnaesthesiaName = item.isAnaesthesia == 1 ? '是' : '否';
@@ -158,9 +163,8 @@ const openDialog = async (row: any,usingMethodData:any,dosingWayData:any) => {
 		item.canSaleName = item.canSale == 1 ? '是' : '否';
 		item.canOrderName = item.canOrder == 1 ? '是' : '否';
 		item.canCableName = item.canCable == 1 ? '是' : '否';
-    })
+	});
 };
-
 
 // 取消
 const cancel = () => {
@@ -171,7 +175,7 @@ const cancel = () => {
 const submit = async () => {
 	if (PropVirtTableS.tables.length > 0) {
 		await getAPI(ImportProductApi)
-			.apiImportProductSaveProductDrugPost(PropVirtTableS.tables)
+			.apiImportProductSaveProductDrugInputPost(productType.value, PropVirtTableS.tables)
 			.then(() => {
 				ElMessage.success('导入成功');
 				cancel();

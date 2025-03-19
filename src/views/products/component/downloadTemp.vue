@@ -45,7 +45,7 @@
 			</template>
 		</el-dialog>
 		<importTemp ref="importTempRef" title="数据效验" />
-		<error ref="errorRef" title="模板数据异常" :errorMessage="message"/>
+		<error ref="errorRef" title="模板数据异常" :errorMessage="message" />
 	</div>
 </template>
 
@@ -53,7 +53,7 @@
 import { ref, onMounted } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { UploadFilled } from '@element-plus/icons-vue';
-import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus';
+import type { UploadRawFile } from 'element-plus';
 import importTemp from '/@/views/products/component/importTemp.vue';
 import error from '/@/components/message/error.vue';
 import { downloadByData, getFileName } from '/@/utils/download';
@@ -68,7 +68,7 @@ const importTempRef = ref();
 const errorRef = ref();
 const upload = ref();
 const message = ref('');
-const btnloading=ref(false);
+const btnloading = ref(false);
 //父级传递来的参数
 var props = defineProps({
 	title: {
@@ -79,16 +79,15 @@ var props = defineProps({
 //父级传递来的函数，用于回调
 const emit = defineEmits(['reloadTable']);
 const isShowDialog = ref(false);
-const productType=ref<any>(-1);
+const productType = ref<any>(-1);
 
 // 打开弹窗
-const openDialog = async (type: any,usingMethodData:any,dosingWayData:any) => {
+const openDialog = async (type: any, usingMethodData: any, dosingWayData: any) => {
 	fileList.value = [];
 	isShowDialog.value = true;
-    productType.value=type;
-    console.log(dosingWayData,usingMethodData);
-    dosingWayObject.value=dosingWayData;
-    usingMethodObject.value=usingMethodData;
+	productType.value = type;
+	dosingWayObject.value = dosingWayData;
+	usingMethodObject.value = usingMethodData;
 };
 
 // 通过onChanne方法获得文件列表
@@ -96,7 +95,7 @@ const handleChange = (l: any, f: []) => {
 	file.value = l;
 	fileList.value = f;
 };
-const handleExceed = (files) => {
+const handleExceed = (files: any) => {
 	upload.value!.clearFiles();
 	const file = files[0] as UploadRawFile;
 	file.uid = genFileId();
@@ -111,30 +110,35 @@ const cancel = () => {
 /**
  * 下载产品导入模板
  */
-const downloadTemplate=async ()=>{
-	var res = await getAPI(ImportProductApi).apiImportProductDownProductDrugTemplateInputGet(productType.value,{ responseType: 'blob' });
-    let fileName = getFileName(res.headers);
-    downloadByData(res.data as any, fileName);
-}
+const downloadTemplate = async () => {
+	var res = await getAPI(ImportProductApi).apiImportProductDownProductDrugTemplateInputGet(productType.value, { responseType: 'blob' });
+	let fileName = getFileName(res.headers);
+	downloadByData(res.data as any, fileName);
+};
 
 const UploadFile = async () => {
 	if (fileList.value.length > 0) {
-		btnloading.value=true;
-		message.value='';
-		var r = await getAPI(ImportProductApi).apiImportProductValidateProductDrugPostForm(fileList.value[0]?.raw);
-		if (!r.data?.result?.scuess) {
-			r.data?.result?.data.forEach(element => {
-				message.value+=`第`+element.rowIndex+'行：';
-				Object.keys(element.fieldErrors).forEach(key=>{
-					message.value+='['+key+']:'+element.fieldErrors[key]+'   '
-				});
-				message.value+="\r\n";
+		btnloading.value = true;
+		message.value = '';
+		await getAPI(ImportProductApi)
+			.apiImportProductValidateProductDrugInputPostForm(productType.value, fileList.value[0]?.raw)
+			.then((r: any) => {
+				if (!r.data?.result?.scuess) {
+					r.data?.result?.data.forEach((element: any) => {
+						message.value += `第` + element.rowIndex + '行：';
+						Object.keys(element.fieldErrors).forEach((key) => {
+							message.value += '[' + key + ']:' + element.fieldErrors[key] + '   ';
+						});
+						message.value += '\r\n';
+					});
+					errorRef.value?.openDialog();
+				} else {
+					importTempRef.value?.openDialog(r.data?.result?.data, usingMethodObject.value, dosingWayObject.value,productType.value);
+				}
+			})
+			.finally(() => {
+				btnloading.value = false;
 			});
-			errorRef.value?.openDialog();
-		} else {
-			importTempRef.value?.openDialog(r.data?.result?.data,usingMethodObject.value,dosingWayObject.value);
-		}
-		btnloading.value=false;
 	}
 };
 

@@ -203,7 +203,7 @@ const setHeader = computed(() => {
 });
 
 //搜索时字体高亮
-const colorformatter = async (val) => {
+const colorformatter = async (val:any) => {
     console.log(props.param);
     if (props.param.name)
         return verifyTextColor(val, props.param.name);

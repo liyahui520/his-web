@@ -20,7 +20,6 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 import { AdminResultIActionResult } from '../../models/import-manage';
 import { AdminResultObject } from '../../models/import-manage';
 import { AdminResultString } from '../../models/import-manage';
-import { ImportDrugsDto } from '../../models/import-manage';
 import { ProductTypeEnums } from '../../models/import-manage';
 /**
  * ImportProductApi - axios parameter creator
@@ -130,11 +129,11 @@ export const ImportProductApiAxiosParamCreator = function (configuration?: Confi
          * 
          * @summary 保存execl产品信息数据
          * @param {ProductTypeEnums} input 类型
-         * @param {Array<ImportDrugsDto>} [body] 请求参数
+         * @param {any} [body] 请求参数
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiImportProductSaveProductDrugInputPost: async (input: ProductTypeEnums, body?: Array<ImportDrugsDto>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiImportProductSaveProductDrugInputPost: async (input: ProductTypeEnums, body?: any, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'input' is not null or undefined
             if (input === null || input === undefined) {
                 throw new RequiredError('input','Required parameter input was null or undefined when calling apiImportProductSaveProductDrugInputPost.');
@@ -279,11 +278,11 @@ export const ImportProductApiFp = function(configuration?: Configuration) {
          * 
          * @summary 保存execl产品信息数据
          * @param {ProductTypeEnums} input 类型
-         * @param {Array<ImportDrugsDto>} [body] 请求参数
+         * @param {any} [body] 请求参数
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiImportProductSaveProductDrugInputPost(input: ProductTypeEnums, body?: Array<ImportDrugsDto>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async apiImportProductSaveProductDrugInputPost(input: ProductTypeEnums, body?: any, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
             const localVarAxiosArgs = await ImportProductApiAxiosParamCreator(configuration).apiImportProductSaveProductDrugInputPost(input, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -338,11 +337,11 @@ export const ImportProductApiFactory = function (configuration?: Configuration, 
          * 
          * @summary 保存execl产品信息数据
          * @param {ProductTypeEnums} input 类型
-         * @param {Array<ImportDrugsDto>} [body] 请求参数
+         * @param {any} [body] 请求参数
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiImportProductSaveProductDrugInputPost(input: ProductTypeEnums, body?: Array<ImportDrugsDto>, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async apiImportProductSaveProductDrugInputPost(input: ProductTypeEnums, body?: any, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
             return ImportProductApiFp(configuration).apiImportProductSaveProductDrugInputPost(input, body, options).then((request) => request(axios, basePath));
         },
         /**
@@ -392,12 +391,12 @@ export class ImportProductApi extends BaseAPI {
      * 
      * @summary 保存execl产品信息数据
      * @param {ProductTypeEnums} input 类型
-     * @param {Array<ImportDrugsDto>} [body] 请求参数
+     * @param {any} [body] 请求参数
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ImportProductApi
      */
-    public async apiImportProductSaveProductDrugInputPost(input: ProductTypeEnums, body?: Array<ImportDrugsDto>, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async apiImportProductSaveProductDrugInputPost(input: ProductTypeEnums, body?: any, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
         return ImportProductApiFp(this.configuration).apiImportProductSaveProductDrugInputPost(input, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**

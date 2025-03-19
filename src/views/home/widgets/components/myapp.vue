@@ -82,7 +82,7 @@ onMounted(() => {
 // 请求已收藏菜单列表
 const getFavoriteMenuList = async () => {
 	try {
-		const res = await getAPI(SysUserMenuApi).apiSysUserMenuUserMenuListUserIdGet(userInfos.value.id);
+		const res = await getAPI(SysUserMenuApi).apiSysUserMenuUserMenuListGet();
 		return res.data.result || [];
 	} catch (error) {
 		return [];

@@ -212,9 +212,9 @@ const tb = reactive<TableDemoState>({
 				placeholder: '请选择会员级别',
 				required: false,
 				type: 'select',
-				options: getlevelData.value,
-				optionkey: 'id',
-				optionname: 'name',
+				options: [],
+				optionkey: 'label',
+				optionname: 'value',
 			},
 		],
 		param: { params: '' },
@@ -227,6 +227,7 @@ const tb = reactive<TableDemoState>({
 
 const getData = async (par: any) => {
 	var res = await getAPI(PcustomerApi).apiPcustomerPagePost(par);
+	
 	return res.data;
 };
 
@@ -271,7 +272,11 @@ const getLevels=async ()=>{
 	await getAPI(MemberLevelApi)
 		.apiMemberLevelListPost({})
 		.then((res) => {
-			getlevelData.value = res.data?.result ?? []; 
+			// getlevelData.value = res.data?.result ?? []; 
+			let result = res.data?.result ?? [];
+			result.forEach((itme: any) => {
+				tb.tableData.search[1].options?.push({ value: itme.id, label: itme.name });
+			});
 		});
 }
 

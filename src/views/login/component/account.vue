@@ -218,8 +218,8 @@ onUnmounted(() => {
 
 // 检测大小写按键
 const handleKeyPress = (e: KeyboardEvent) => {
-	const isCapsLockOn = e.getModifierState('CapsLock');
-	state.capsLockVisible = isCapsLockOn;
+	// const isCapsLockOn = e.getModifierState('CapsLock');
+	// state.capsLockVisible = isCapsLockOn;
 };
 
 // 获取验证码
@@ -279,7 +279,6 @@ const saveTokenAndInitRoutes = async (accessToken: string | any) => {
 	Local.set(accessTokenKey, accessToken);
 	// Local.set(refreshAccessTokenKey, refreshAccessToken);
 	Session.set('token', accessToken);
-
 	// const [err,res]=await feature(getAPI(CEMRecordApi).apiCEMRecordGetInitPhysicalExamGet());
 	// if(!err){
 	// 	Local.set('cem-record-physical', res.data.result);

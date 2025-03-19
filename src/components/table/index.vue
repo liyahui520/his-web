@@ -11,7 +11,7 @@
                     <Printer />
                 </el-icon>
                 <el-dropdown v-if="!config.hideExport" trigger="click">
-                    <SvgIcon name="iconfont icon-yunxiazai_o" :size="22" title="导出" />
+                    <SvgIcon name="iconfont icon-yunxiazai_o" :size="22" title="导出" class="tool-icon"/>
                     <template #dropdown>
                         <el-dropdown-menu>
                             <el-dropdown-item @click="onImportTable">导出本页数据</el-dropdown-item>
@@ -390,47 +390,60 @@ defineExpose({
 
 <style scoped lang="scss">
 .table-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+	display: flex !important;
+	flex-direction: column;
+	height: 100%;
 
-    .el-table {
-        flex: 1;
-    }
+	.el-table {
+		flex: 1;
+	}
 
-    .table-footer {
-        // display: flex;
-        height: 48px;
-        min-height: 48px;
-        justify-content: flex-end;
-    }
+	.table-footer {
+		display: flex;
+		justify-content: flex-end;
+	}
 
-    .table-header {
-        display: flex;
+	.table-header {
+		display: flex;
 
-        .table-footer-tool {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
+		.table-footer-tool {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			justify-content: flex-end;
 
-            i {
-                margin-right: 10px;
-                cursor: pointer;
-                color: var(--el-text-color-regular);
+			i {
+				margin-right: 5px !important;
+				cursor: pointer;
+				color: var(--el-text-color-regular);
 
-                &:last-of-type {
-                    margin-right: 0;
-                }
-            }
+				&:last-of-type {
+					margin-right: 0;
+				}
+			}
 
-            .el-dropdown {
-                i {
-                    margin-right: 10px;
-                    color: var(--el-text-color-regular);
-                }
-            }
-        }
-    }
+			.el-dropdown {
+				i {
+					margin-right: 10px;
+					color: var(--el-text-color-regular);
+				}
+			}
+
+			.tool-icon {
+				border: 1px solid #a7a7a7;
+				border-radius: 20%;
+				padding: 1px;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			.el-icon.tool-icon {
+				font-size: 25px;
+				border: 1px solid #a7a7a7;
+				padding: 4px;
+			}
+		}
+	}
 }
 </style>

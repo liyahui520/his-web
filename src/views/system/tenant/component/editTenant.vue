@@ -104,15 +104,6 @@
 									<el-input v-model="state.ruleForm.remark" placeholder="请输入备注内容" clearable type="textarea" />
 								</el-form-item>
 							</el-col>
-							<!-- <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
-								<el-form-item label="产品类型">
-									<el-checkbox-group v-model="state.ruleForm.productTypeIds" :min="1">
-										<el-checkbox v-for="productTypeItem in productTypes" :key="productTypeItem.id" :label="productTypeItem.id">
-											{{ productTypeItem.name }}
-										</el-checkbox>
-									</el-checkbox-group>
-								</el-form-item>
-							</el-col> -->
 						</el-row>
 					</el-tab-pane>
 					<el-tab-pane label="站点信息" style="height: 400px; overflow: auto; overflow-x: hidden">
@@ -176,12 +167,10 @@
 
 <script lang="ts" setup name="sysEditTenant">
 import { reactive, ref } from 'vue';
-
 import { getAPI } from '/@/utils/axios-utils';
 import { SysTenantApi, SysUserRegWayApi } from '/@/api-services/api';
 import { UpdateTenantInput } from '/@/api-services/models';
 import { UploadInstance } from 'element-plus';
-import other from '/@/utils/other';
 import { fileToBase64 } from '/@/utils/base64Conver';
 import GSysDict from '/@/components/sysDict/sysDict.vue';
 
@@ -199,23 +188,6 @@ const state = reactive({
 	regWayData: [] as Array<any>,
 	ruleForm: {} as UpdateTenantInput,
 });
-const productTypes = [
-	{ id: 1300000000101, name: '商品' },
-	{ id: 1300000000102, name: '药品' },
-	{ id: 1300000000103, name: '美容' },
-	{ id: 1300000000104, name: '洗澡' },
-	{ id: 1300000000105, name: '驱虫' },
-	{ id: 1300000000106, name: '疫苗' },
-	{ id: 1300000000107, name: '住院' },
-	{ id: 1300000000108, name: '留观' },
-	{ id: 1300000000109, name: '超声' },
-	{ id: 1300000000115, name: '摄影' },
-	{ id: 1300000000110, name: '化验' },
-	{ id: 1300000000111, name: '处置' },
-	{ id: 1300000000112, name: '显微镜' },
-	{ id: 1300000000113, name: '消耗品' },
-	{ id: 1300000000114, name: '试纸' },
-];
 
 // 通过onChange方法获得文件列表
 const handleUploadChange = (file: any) => {
@@ -223,19 +195,17 @@ const handleUploadChange = (file: any) => {
 	state.file = file;
 	state.ruleForm.logo = URL.createObjectURL(state.file.raw); // 显示预览logo
 };
+
 // 打开弹窗
 const openDialog = async (row: any) => {
 	state.selectedTabName = '0';
-	state.ruleForm = other.deepClone(row) as any;
-	state.isShowDialog = true;
 	ruleFormRef.value?.resetFields();
-	// state.ruleForm.icp ??= '省ICP备12345678号';
-	// state.ruleForm.icpUrl ??= 'https://beian.miit.gov.cn';
-	// state.ruleForm.copyright ??= `Copyright \u00a9 ${new Date().getFullYear()}-present xxxxx All rights reserved.`;
+	state.ruleForm = JSON.parse(JSON.stringify(row));
+	state.ruleForm.icp ??= '省ICP备12345678号';
+	state.ruleForm.icpUrl ??= 'https://beian.miit.gov.cn';
+	state.ruleForm.copyright ??= `Copyright \u00a9 ${new Date().getFullYear()}-present xxxxx All rights reserved.`;
 	state.isShowDialog = true;
-	state.regWayData = await getAPI(SysUserRegWayApi)
-		.apiSysUserRegWayListPost({ tenantId: row.id })
-		.then((res) => res.data.result ?? []);
+	state.regWayData = await getAPI(SysUserRegWayApi).apiSysUserRegWayListPost({ tenantId: row.id }).then((res) => res.data.result ?? []);
 };
 
 // 关闭弹窗
@@ -260,7 +230,6 @@ const submit = async () => {
 		if (!valid) return;
 		state.loading = true;
 		try {
-			state.ruleForm.productTypeIds=productTypes.map((item)=>item.id);
 			if (state.ruleForm.enableReg != 1) state.ruleForm.regWayId = undefined;
 			if (state.ruleForm.id != undefined && state.ruleForm.id > 0) {
 				await getAPI(SysTenantApi).apiSysTenantUpdatePost(state.ruleForm);

@@ -130,6 +130,7 @@
 		<!-- <AddPPet ref="editDialogRef"
                title="添加宠物"
                @reloadTable="handlePetQuery"/> -->
+		<EditDialogNew ref="editDialogNewRef" title="登记会员" @reloadTable="handleNewAddSuccess"></EditDialogNew>
 	</div>
 </template>
 
@@ -146,6 +147,8 @@ import commonFunction from '/@/utils/commonFunction';
 
 //新增会员
 const AddPcustomer = defineAsyncComponent(() => import('/@/views/main/pcustomer/component/editDialog.vue'));
+//新增会员
+const EditDialogNew= defineAsyncComponent(() => import('/@/views/main/pcustomer/component/editDialogNew.vue'));
 // //新增宠物
 // const AddPPet = defineAsyncComponent(() => import('/@/views/main/ppets/component/editDialog.vue'));
 
@@ -154,6 +157,7 @@ const pcuParams = ref<number>(0);
 const loading = ref(false);
 const options = ref<any>([]);
 const petEditDialogRef = ref();
+const editDialogNewRef = ref();
 const editPetTitle = ref('新增会员');
 // const editDialogRef = ref();
 const queryParams = debounceRef({ type: 1, parmarm: '' },5000);
@@ -198,7 +202,8 @@ const handleQuery = async (row) => {
 
 //添加会员
 const addPcustomer = async () => {
-	petEditDialogRef.value?.openDialog({ sourceid: '1', sex: '-1' });
+	//petEditDialogRef.value?.openDialog({ sourceid: '1', sex: '-1' });
+	editDialogNewRef.value?.openDialog({ sourceid: '1', sex: '-1' });
 };
 
 const pcuChange = async (val: any) => {
@@ -215,6 +220,9 @@ const InitScattered = async () => {
 const errorHandler = async () => {
 	return false;
 };
+const handleNewAddSuccess = () => {
+	alert('登记成功')
+}
 </script>
 
 <style lang="scss" scoped>

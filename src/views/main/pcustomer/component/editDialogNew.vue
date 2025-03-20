@@ -93,7 +93,7 @@
 						</el-form-item>
 						
 						<el-form-item label="宠物体重" prop="pet.petWeight">
-							<el-input-number v-model="ruleForm.pet.petWeight" placeholder="请输入宠物体重" :precision="2" :step="0.1" :min="0.01" > </el-input-number>
+							<el-input-number v-model="ruleForm.pet.petWeight" placeholder="宠物体重" :precision="2" :step="0.1" :min="0.01" > </el-input-number>
 							<span style="margin-left: 30px;">单位：Kg</span>
 						</el-form-item>
 						<el-form-item label="宠物状态" prop="pet.petStatus">
@@ -201,7 +201,7 @@ const ruleForm = ref<any>({
 		petName: '',
 		petGender: '-1',
 		petKind: '',
-		petVarietie: '',
+		petVarietie: null,
 		petBlood: '',
 		petColor: '',
 		petBirthDate: null,
@@ -230,7 +230,7 @@ let petEntity = {
 		petName: '',
 		petGender: '-1',
 		petKind: '',
-		petVarietie: '',
+		petVarietie: null,
 		petBlood: '',
 		petColor: '',
 		petBirthDate: null,
@@ -341,7 +341,7 @@ const KindChange = async (kindId) => {
 	if (!kindId) return;
 	const res = await getAPI(SysPetConfigApi).apiSysPetVarietieGetByKindId(kindId);
 	getEditpetVarietieData.value = res.data.result ?? [];
-	ruleForm.value.pet.petVarietie = '';
+	ruleForm.value.pet.petVarietie = null;
 };
 
 // 提交

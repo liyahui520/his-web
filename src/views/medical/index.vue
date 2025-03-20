@@ -220,8 +220,8 @@ const InitScattered = async () => {
 const errorHandler = async () => {
 	return false;
 };
-const handleNewAddSuccess = () => {
-	alert('登记成功')
+const handleNewAddSuccess = async (pcustomer: any) => {
+	await refmedicalPcustomer.value.initData(pcustomer.id);
 }
 </script>
 

@@ -32,7 +32,7 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="性别" prop="petGender">
 							<el-select clearable v-model="ruleForm.petGender" placeholder="请选择性别">
-								<el-option v-for="(item, index) in getEditpetGenderData" :key="index" :value="item.code" :label="item.value">{{ item.value }} </el-option>
+								<el-option v-for="(item, index) in getEditpetGenderData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -53,14 +53,14 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="宠物血型" prop="petBlood">
 							<el-select clearable v-model="ruleForm.petBlood" placeholder="请选择宠物血型">
-								<el-option v-for="(item, index) in getEditpetBloodData" :key="index" :value="item.code" :label="item.value">{{ item.value }} </el-option>
+								<el-option v-for="(item, index) in getEditpetBloodData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="宠物颜色" prop="petColor">
 							<el-select clearable v-model="ruleForm.petColor" placeholder="请选择宠物颜色">
-								<el-option v-for="(item, index) in getEditpetColorData" :key="index" :value="item.code" :label="item.value">{{ item.value }} </el-option>
+								<el-option v-for="(item, index) in getEditpetColorData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -79,7 +79,7 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="宠物状态" prop="petStatus">
 							<el-select clearable v-model="ruleForm.petStatus" placeholder="请选择宠物状态">
-								<el-option v-for="(item, index) in getEditpetStatusData" :key="item.code" :value="item.code" :label="item.value">{{ item.value }} </el-option>
+								<el-option v-for="(item, index) in getEditpetStatusData" :key="item.code" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -193,7 +193,7 @@ const ruleForm = ref<any>({});
 const rules = ref<FormRules>({
 	petName: [{ required: true, message: '请输入宠物名称！', trigger: 'blur' }],
 	petKind: [{ required: true, message: '请选择宠物种类！', trigger: 'change' }],
-	petVarietie: [{ required: true, message: '请选择宠物品种！', trigger: 'change' }],
+	//petVarietie: [{ required: true, message: '请选择宠物品种！', trigger: 'change' }],
 	petBirthDate: [{ required: true, message: '请选择宠物生日！', trigger: 'change' }],
 });
 
@@ -203,12 +203,14 @@ const rules = ref<FormRules>({
  * @param row 
  */
 const openDialog = async (row: PPets) => {
-	getEditpetGenderData.value = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_sex');
+	console.log(row);
+	getEditpetGenderData.value = (await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_sex')).data.result;
 
 	getEditpetKindData.value = await getSysPetKind();
-	getEditpetBloodData.value = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_blood');
-	getEditpetStatusData.value = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_status');
-	getEditpetColorData.value = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_color');
+	getEditpetBloodData.value = (await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_blood')).data.result;
+	getEditpetStatusData.value =( await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_status')).data.result;
+	getEditpetColorData.value = (await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_color')).data.result;
+	console.log(getEditpetColorData.value)
 	ruleForm.value = other.deepClone(row);
 	isShowDialog.value = true;
 };
@@ -259,8 +261,9 @@ const getSysPetKind = async () => {
  * @param kindId
  * @constructor
  */
-const KindChange = async (kindId) => {
+const KindChange = async (kindId:any) => {
 	if (!kindId) return;
+	ruleForm.value.petVarietie = null;
 	const res = await getAPI(SysPetConfigApi).apiSysPetVarietieGetByKindId(kindId);
 	getEditpetVarietieData.value = res.data.result ?? [];
 };

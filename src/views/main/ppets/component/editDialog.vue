@@ -166,10 +166,12 @@ import type { FormRules } from 'element-plus';
 import { Plus, Watch } from '@element-plus/icons-vue';
 import { UploadRequestOptions } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
-import { SysPetConfigApi, PPetsApi, SysFileApi,SysDictDataApi } from '/@/api-services/api';
-import { AddPPetsInput, PPets, UpdatePPetsInput } from '/@/api-services';
+import { SysPetConfigApi, PPetsApi, SysFileApi, SysDictDataApi } from '/@/api-services/api';
+import { AddPPetsInput, PPets, UpdatePPetsInput } from '/@/api-services/models/pcu-manage';
 import other from '/@/utils/other';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const dictList = useUserInfo().dictList;
 const getEditpetGenderData = ref<any>([]);
 const getEditpetKindData = ref<any>([]);
 const getEditpetVarietieData = ref<any>([]);
@@ -197,22 +199,19 @@ const rules = ref<FormRules>({
 	petBirthDate: [{ required: true, message: '请选择宠物生日！', trigger: 'change' }],
 });
 
-
 /**
  * 打开弹窗
- * @param row 
+ * @param row
  */
 const openDialog = async (row: PPets) => {
-	console.log(row);
-	getEditpetGenderData.value = (await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_sex')).data.result;
-
-	getEditpetKindData.value = await getSysPetKind();
-	getEditpetBloodData.value = (await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_blood')).data.result;
-	getEditpetStatusData.value =( await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_status')).data.result;
-	getEditpetColorData.value = (await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_pet_color')).data.result;
-	console.log(getEditpetColorData.value)
 	ruleForm.value = other.deepClone(row);
 	isShowDialog.value = true;
+	getEditpetGenderData.value =dictList['code_pet_sex']
+	getEditpetBloodData.value = dictList['code_pet_blood']
+	getEditpetStatusData.value = dictList['code_pet_status']
+	getEditpetColorData.value =dictList['code_pet_color']
+	getEditpetKindData.value = await getSysPetKind();
+	
 };
 
 // 关闭弹窗
@@ -238,7 +237,7 @@ const submit = async () => {
 				await getAPI(PPetsApi).apiPPetsAddPost(values as AddPPetsInput);
 			}
 			closeDialog();
-		} 
+		}
 	});
 };
 
@@ -261,7 +260,7 @@ const getSysPetKind = async () => {
  * @param kindId
  * @constructor
  */
-const KindChange = async (kindId:any) => {
+const KindChange = async (kindId: any) => {
 	if (!kindId) return;
 	ruleForm.value.petVarietie = null;
 	const res = await getAPI(SysPetConfigApi).apiSysPetVarietieGetByKindId(kindId);
@@ -269,7 +268,9 @@ const KindChange = async (kindId:any) => {
 };
 
 // 页面加载时
-onMounted(async () => {});
+onMounted(async () => {
+
+});
 
 //将属性或者函数暴露给父组件
 defineExpose({ openDialog, KindChange });

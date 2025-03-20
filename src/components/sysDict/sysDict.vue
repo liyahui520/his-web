@@ -70,7 +70,6 @@ const setDictValue = (value: any) => {
 			(state.dict as DictItem).tagType = 'primary';
 		}
 	}
-	console.log("state.dict", state.dict)
 };
 
 watch(

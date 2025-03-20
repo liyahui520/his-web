@@ -22,14 +22,7 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="会员级别" prop="level">
 							<el-select clearable="" v-model="ruleForm.level" placeholder="请选择会员级别">
-								<el-option v-for="(item, index) in getEditlevelData" :key="item.id" :value="item.id" :label="item.name">{{ item.name }} </el-option>
-							</el-select>
-						</el-form-item>
-					</el-col>
-					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-						<el-form-item label="客户来源" prop="sourceId">
-							<el-select clearable="" v-model="ruleForm.sourceId" placeholder="请选择客户来源">
-								<el-option v-for="(item, index) in getEditsourceidData" :key="index" :value="item.code" :label="item.value">{{ item.value }} </el-option>
+								<el-option v-for="(item, index) in getEditlevelData" :key="index" :value="item.id" :label="item.name">{{ item.name }} </el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -38,6 +31,14 @@
 							<el-input v-model="ruleForm.cellPhone" maxlength="11" placeholder="请输入手机号" clearable="" />
 						</el-form-item>
 					</el-col>
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="客户来源" prop="sourceId">
+							<el-select clearable="" v-model="ruleForm.sourceId" placeholder="请选择客户来源">
+								<el-option v-for="(item, index) in getEditsourceidData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+				
 					<!--					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">-->
 					<!--						<el-form-item label="是否散客" prop="isscattered">-->
 					<!--							<el-input v-model="ruleForm.isscattered" placeholder="请输入是否散客" clearable="" />-->
@@ -49,18 +50,18 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="性别" prop="sex">
 							<el-select clearable="" v-model="ruleForm.sex" placeholder="请选择性别">
-								<el-option v-for="(item, index) in getEditsexData" :key="index" :value="item.code" :label="item.value">{{ item.value }} </el-option>
+								<el-option v-for="(item, index) in getEditsexData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="会员生日" prop="birthdate">
-							<el-date-picker v-model="ruleForm.birthdate" type="date" placeholder="会员生日" />
+							<el-date-picker v-model="ruleForm.birthdate" type="date" placeholder="" />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="电话" prop="phone">
-							<el-input v-model="ruleForm.phone" placeholder="请输入电话" clearable="" />
+							<el-input v-model="ruleForm.phone" placeholder="" clearable="" />
 						</el-form-item>
 					</el-col>
 					<!--					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">-->
@@ -79,7 +80,7 @@
 					<!--					</el-col>-->
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="邮箱" prop="email">
-							<el-input v-model="ruleForm.email" placeholder="请输入邮箱" clearable="" />
+							<el-input v-model="ruleForm.email" placeholder="" clearable="" />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
@@ -90,7 +91,7 @@
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="详细地址" prop="addressDetails">
-							<el-input v-model="ruleForm.addressDetails" type="textarea" :rows="2" placeholder="详细地址" clearable="" />
+							<el-input v-model="ruleForm.addressDetails" type="textarea" :rows="2" placeholder="" clearable="" />
 						</el-form-item>
 					</el-col>
 
@@ -178,8 +179,21 @@ const openDialog = async (row: any) => {
 		.apiMemberLevelListPost({})
 		.then((res) => {
 			getEditlevelData.value = res.data?.result ?? [];
+
+			// 会员等级默认设置普通会员
+			var defaultLevel = getEditlevelData.value.filter((x:any) => x.name == "普通会员");
+			if (defaultLevel.length > 0) {
+				ruleForm.value.level = defaultLevel[0].id;
+			}
 		});
 	getEditsourceidData.value = await getDictDataDropdownList('code_customer_source');
+
+	// 客户来源默认设置门店登记
+	var defaultCustomerSource = getEditsourceidData.value.filter((x: any) => x.label == "门店登记");
+	if (defaultCustomerSource.length > 0) {
+		ruleForm.value.sourceId = defaultCustomerSource[0].value;
+	}
+
 	getEditsexData.value = await getDictDataDropdownList('code_sex');
 	address.value = ruleForm.value.address ? JSON.parse(ruleForm.value.address) : [];
 	isShowDialog.value = true;

@@ -65,13 +65,12 @@
 </template>
 
 <script lang="ts" setup name="sysEditRole">
-import { onMounted, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import type { ElTree } from 'element-plus';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysMenuApi, SysRoleApi } from '/@/api-services/api';
 import { SysMenu, UpdateRoleInput } from '/@/api-services/models';
-import other from '/@/utils/other';
 
 const props = defineProps({
 	title: String,
@@ -86,18 +85,12 @@ const state = reactive({
 	menuData: [] as Array<SysMenu>, // 菜单数据
 });
 
-onMounted(async () => {
-	state.loading = true;
-	var res = await getAPI(SysMenuApi).apiSysMenuRoleListGet();
-	state.menuData = res.data.result ?? [];
-	state.loading = false;
-});
-
 // 打开弹窗
 const openDialog = async (row: any) => {
+	state.menuData = await getAPI(SysMenuApi).apiSysMenuListGet(undefined, undefined, row?.tenantId).then((res) => res.data.result ?? []);
 	ruleFormRef.value?.resetFields();
 	treeRef.value?.setCheckedKeys([]); // 清空选中值
-	state.ruleForm = other.deepClone(row) as any;
+	state.ruleForm = JSON.parse(JSON.stringify(row));
 	if (row.id != undefined) {
 		var res = await getAPI(SysRoleApi).apiSysRoleOwnMenuListGet(row.id);
 		setTimeout(() => {
@@ -135,7 +128,6 @@ const submit = () => {
 // 叶子节点同行显示样式
 const treeNodeClass = (node: SysMenu) => {
 	let addClass = true; // 添加叶子节点同行显示样式
-    console.log('node---',node)
 	for (var key in node.children) {
 		// 如果存在子节点非叶子节点，不添加样式
 		if (node.children[key].children?.length ?? 0 > 0) {

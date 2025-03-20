@@ -99,9 +99,9 @@
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="状态">
-							<el-checkbox label="可订" v-model="ruleForm.canOrder" />
+							<!-- <el-checkbox label="可订" v-model="ruleForm.canOrder" /> -->
 							<el-checkbox label="可销" v-model="ruleForm.canSale" />
-							<el-checkbox label="可盘" v-model="ruleForm.canCable" />
+							<!-- <el-checkbox label="可盘" v-model="ruleForm.canCable" /> -->
 						</el-form-item>
 					</el-col>
 				</el-row>

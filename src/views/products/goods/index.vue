@@ -4,7 +4,7 @@
 			<el-button type="danger" :icon="Delete" @click="batchDelete" plain size="small" v-auth="'products:goods:delete'">批量删除</el-button>
 			<el-button type="primary" :icon="Edit" plain size="small" @click="batchEdit" v-auth="'products:goods:update'">批量编辑</el-button>
 
-			<el-button type="warning" size="small" icon="ele-Upload" round @click="downTemp" > 导入产品 </el-button>
+			<el-button type="warning" size="small" icon="ele-Upload" round @click="downTemp" v-auth="'products:goods:import'" > 导入产品 </el-button>
 		</template>
 		<template #isDiscount="scope">
 			<el-tag v-if="scope.row.isDiscount"> 是</el-tag>
@@ -43,7 +43,6 @@
 import { ref, onMounted, reactive, defineAsyncComponent, nextTick } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import { auth } from '/@/utils/authFunction';
-
 import editDialog from '/@/views/products/goods/component/editDialog.vue';
 import batchEditDialog from '/@/views/products/component/batchEditDialog.vue';
 import { Delete, Edit, Flag, Failed } from '@element-plus/icons-vue';

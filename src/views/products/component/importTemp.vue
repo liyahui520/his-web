@@ -10,9 +10,7 @@
 				</div>
 			</template>
 			<el-card shadow="never" style="height: calc(100vh - 125px)" :body-style="{ padding: 0 }">
-				<Table ref="tableRef" v-if="PropVirtTableS.tables" :PropVirtTableS="PropVirtTableS">
-					
-				</Table>
+				<Table ref="tableRef" v-if="PropVirtTableS.tables" :PropVirtTableS="PropVirtTableS"> </Table>
 			</el-card>
 			<template #footer>
 				<span class="dialog-footer">
@@ -26,11 +24,11 @@
 </template>
 
 <script lang="tsx" setup name="editDialog">
-import { defineAsyncComponent, nextTick, onMounted, reactive, ref, h } from 'vue';
+import { defineAsyncComponent, onMounted, reactive, ref } from 'vue';
 import { ElMessage } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
-import { ImportProductApi, SysDictDataApi } from '/@/api-services';
-import { ElButton, ElTag, ElInput, ElSelect, ElOption } from 'element-plus';
+import { ImportProductApi } from '/@/api-services';
+import { ElButton } from 'element-plus';
 import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 
 const Table = defineAsyncComponent(() => import('/@/components/table/tableV2.vue'));
@@ -79,6 +77,10 @@ let PropVirtTableS = reactive({
 			title: '生产商',
 			width: 150,
 		},
+		brandName: {
+			title: '品牌名称',
+			width: 150,
+		},
 		ingredient: {
 			title: '成分',
 			width: 150,
@@ -91,52 +93,48 @@ let PropVirtTableS = reactive({
 			title: '投药方式',
 			width: 150,
 		},
-		isAnaesthesiaName: {
-			title: '有无批次',
-			width: 150,
-		},
 		salePrice: {
 			title: '销售价格',
-			width: 150,
+			width: 100,
 		},
 		memberPrice: {
 			title: '会员价格',
-			width: 150,
-		},
-		isDiscountName: {
-			title: '是否参与打折',
-			width: 150,
-		},
-		isZeroSaleName: {
-			title: '是否允许零库存',
-			width: 150,
+			width: 100,
 		},
 		inUnitName: {
 			title: '入库单位',
-			width: 150,
+			width: 100,
 		},
 		outUnitName: {
 			title: '出库单位',
-			width: 150,
-		},
-		brandName: {
-			title: '品牌名称',
-			width: 150,
-		},
-		specific: {
-			title: '规格',
-			width: 150,
+			width: 100,
 		},
 		canSaleName: {
 			title: '可销',
-			width: 150,
+			width: 50,
 		},
 		canOrderName: {
 			title: '可订',
-			width: 150,
+			width: 50,
 		},
 		canCableName: {
 			title: '可盘',
+			width: 50,
+		},
+		isAnaesthesiaName: {
+			title: '有无批次',
+			width: 80,
+		},
+		isDiscountName: {
+			title: '参与打折',
+			width: 80,
+		},
+		isZeroSaleName: {
+			title: '允许零库存',
+			width: 90,
+		},
+		specific: {
+			title: '规格',
 			width: 150,
 		},
 		remark: {
@@ -164,6 +162,23 @@ const openDialog = async (row: any, usingMethodData: any, dosingWayData: any, ty
 		item.canOrderName = item.canOrder == 1 ? '是' : '否';
 		item.canCableName = item.canCable == 1 ? '是' : '否';
 	});
+	//&nbsp;商品 Goods = 10001<br />&nbsp;药品 Drugs = 20001<br />&nbsp;美容 Cosmetologys = 30001<br />&nbsp;洗澡 Washs = 40001<br />&nbsp;驱虫 Defaunations = 50001
+	// <br />&nbsp;疫苗 Vaccines = 60001<br />&nbsp;住院 Hospitals = 70001<br />&nbsp;留观 Fosters = 80001<br />&nbsp;超声检查 BModes = 90001<br />&nbsp;摄影检查 XRays = 100001
+	//<br />&nbsp;化验 Tests = 110001<br />&nbsp;处置 Disposals = 120001<br />&nbsp;显微镜 Microscopes = 130001<br />&nbsp;消耗品 Consumables = 140001<br />&nbsp;试纸 Papers = 150001<br />
+	if (productType.value != ProductTypeEnums.NUMBER_20001) {
+		Reflect.deleteProperty(PropVirtTableS.keyS, "ingredient");
+		Reflect.deleteProperty(PropVirtTableS.keyS, "usingMethodName");
+		Reflect.deleteProperty(PropVirtTableS.keyS, "dosingWayName");
+	}
+	if(productType.value == ProductTypeEnums.NUMBER_140001||productType.value == ProductTypeEnums.NUMBER_150001){
+		Reflect.deleteProperty(PropVirtTableS.keyS, "brandName");
+		Reflect.deleteProperty(PropVirtTableS.keyS, "isAnaesthesiaName");
+		Reflect.deleteProperty(PropVirtTableS.keyS, "isZeroSaleName");
+		Reflect.deleteProperty(PropVirtTableS.keyS, "canOrderName");
+		Reflect.deleteProperty(PropVirtTableS.keyS, "canCableName");
+		Reflect.deleteProperty(PropVirtTableS.keyS, "inUnitName");
+	}
+
 };
 
 // 取消
@@ -192,12 +207,7 @@ onMounted(async () => {});
 defineExpose({ openDialog });
 </script>
 <style lang="scss" scoped>
-// .el-dialog.is-fullscreen {
-// 	//overflow: hidden !important;
-// }
-// :deep(.el-dialog__body) {
-// 	// height: calc(100vh - 85px) !important;
-// }
+
 :deep(.el-dialog__footer) {
 	padding-top: 0 !important;
 	text-align: center !important;

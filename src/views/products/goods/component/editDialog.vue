@@ -123,7 +123,7 @@
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="换算" prop="inSpecific">
-							1 {{ inUnitName ?? '入库单位' }} =
+							1 {{ inUnitName ?? '入库单位' }} &nbsp;&nbsp;=&nbsp;&nbsp;
 							<el-input-number v-model="ruleForm.inSpecific" :max="999999999" :min="1" />
 							&nbsp;&nbsp;{{ outUnitName ?? '出库单位' }}
 						</el-form-item>

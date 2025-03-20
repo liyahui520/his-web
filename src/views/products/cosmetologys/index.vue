@@ -3,7 +3,7 @@
 		<template v-slot:command>
 			<el-button type="danger" :icon="Delete" @click="batchDelete" plain size="small" v-auth="'products:cosmetologys:delete'">批量删除</el-button>
 			<el-button type="primary" :icon="Edit" plain size="small" @click="batchEdit" v-auth="'products:cosmetologys:update'">批量编辑</el-button>
-			<el-button type="warning" size="small" icon="ele-Upload" round @click="downTemp" > 导入产品 </el-button>
+			<el-button type="warning" size="small" icon="ele-Upload" round @click="downTemp" v-auth="'products:cosmetologys:import'" > 导入产品 </el-button>
 		</template>
 
 		<template #isDiscount="scope">
@@ -23,6 +23,7 @@
 	<editDialog ref="editDialogRef" :title="editProductCosmetologysTitle" :productCategorysData="props.productCategorysData" @reloadTable="handleQuery" />
 
 	<batchEditDialog ref="batchEditDialogRef" :title="'批量编辑'" @reloadTable="handleQuery" :productCategorysData="props.productCategorysData" />
+	<downloadTemp ref="downloadTempRef" :title="importTempTitle" />
 </template>
 
 <script lang="ts" setup>
@@ -34,6 +35,8 @@ import { getAPI } from '/@/utils/axios-utils';
 import { ProductCosmetologysApi } from '/@/api-services/api';
 import batchEditDialog from '/@/views/products/component/batchEditDialog.vue';
 import mittBus from '/@/utils/newmitt';
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';
+import downloadTemp from '/@/views/products/component/downloadTemp.vue';
 
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const editDialog = defineAsyncComponent(() => import('/@/views/products/cosmetologys/component/editDialog.vue'));
@@ -42,6 +45,8 @@ const batchEditDialogRef = ref();
 const tableCosmetoloysRef = ref();
 const loading = ref(false);
 const deleteIds = ref<any>([]);
+const importTempTitle = ref('');
+const downloadTempRef = ref();
 var props = defineProps({
 	productCategorysData: {
 		type: Array,
@@ -147,6 +152,16 @@ const tb = reactive<TableDemoState>({
 				'show-overflow-tooltip': true,
 			},
 			{
+				prop: 'outUnitName',
+				width: '120',
+				label: '单位',
+				headerAlign: 'center',
+				toolTip: true,
+				sortable: 'custom',
+				isCheck: true,
+				'show-overflow-tooltip': true,
+			},
+			{
 				prop: 'isDiscount',
 				width: '100',
 				label: '参与打折',
@@ -199,6 +214,13 @@ const tb = reactive<TableDemoState>({
 	},
 });
 
+/**
+ * 下载导入模板信息
+ */
+ const downTemp = async () => {
+	importTempTitle.value = '导入产品信息';
+	downloadTempRef.value?.openDialog(ProductTypeEnums.NUMBER_30001, [], []);
+};
 const editProductCosmetologysTitle = ref('');
 
 // 查询操作
@@ -227,9 +249,9 @@ const getData = async (par: any) => {
 	return res.data;
 };
 //选中的值
-const selectionChange = async (d) => {
+const selectionChange = async (d:any) => {
 	deleteIds.value = [];
-	d.forEach((v) => {
+	d.forEach((v:any) => {
 		deleteIds.value.push(v.id);
 	});
 };
@@ -277,7 +299,7 @@ const batchDelete = () => {
 		.then(async () => {
 			await getAPI(ProductCosmetologysApi)
 				.apiProductCosmetologysDeleteByIdsDelete({
-					ids: tableRows.map((m) => {
+					ids: tableRows.map((m:any) => {
 						return m.id;
 					}),
 				})

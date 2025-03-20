@@ -3,7 +3,7 @@
 		<template v-slot:command>
 			<el-button type="danger" :icon="Delete" @click="batchDelete" plain size="small" v-auth="'products:drugs:delete'">批量删除</el-button>
 			<el-button type="primary" :icon="Edit" plain size="small" @click="batchEdit" v-auth="'products:drugs:update'">批量编辑</el-button>
-            <el-button type="warning" size="small" icon="ele-Upload" round @click="downTemp" > 导入产品 </el-button>
+            <el-button type="warning" size="small" icon="ele-Upload" round @click="downTemp" v-auth="'products:drugs:import'" > 导入产品 </el-button>
             
 		</template>
 		<template #isDiscount="scope">

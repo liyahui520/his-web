@@ -4,25 +4,14 @@
         <template v-slot:command>
             <el-button type="danger" :icon="Delete" plain size="small" @click="batchDelete" v-auth="'products:microscopes:delete'">批量删除</el-button>
             <el-button type="primary" :icon="Edit" plain size="small" @click="batchEdit" v-auth="'products:microscopes:update'">批量编辑</el-button>
+			<el-button type="warning" size="small" icon="ele-Upload" round @click="downTemp" v-auth="'products:microscopes:import'"> 导入产品 </el-button>
         </template>
         <template #isDiscount="scope">
             <el-tag v-if="scope.row.isDiscount"> 是</el-tag>
             <el-tag type="danger" v-else> 否</el-tag>
         </template>
-        <template #canCable="scope">
-            <el-tag v-if="scope.row.canCable"> 是</el-tag>
-            <el-tag type="danger" v-else> 否</el-tag>
-        </template>
-        <template #canOrder="scope">
-            <el-tag v-if="scope.row.canOrder"> 是</el-tag>
-            <el-tag type="danger" v-else> 否</el-tag>
-        </template>
         <template #canSale="scope">
             <el-tag v-if="scope.row.canSale"> 是</el-tag>
-            <el-tag type="danger" v-else> 否</el-tag>
-        </template>
-        <template #isDisable="scope">
-            <el-tag v-if="scope.row.isDisable"> 是</el-tag>
             <el-tag type="danger" v-else> 否</el-tag>
         </template>
         <template #action="scope" v-if="auth('products:microscopes:update') || auth('products:microscopes:delete')">
@@ -39,6 +28,7 @@
         :productCategorysData="props.productCategorysData" />
     <batchEditDialog ref="batchEditDialogRef" :title="'批量编辑'" @reloadTable="handleQuery"
         :productCategorysData="props.productCategorysData" />
+        <downloadTemp ref="downloadTempRef" :title="importTempTitle" />
 </template>
 
 <script lang="ts" setup>
@@ -50,6 +40,8 @@ import { Delete, Edit, Flag, Failed } from '@element-plus/icons-vue'
 import { ProductMicroscopeApi } from '/@/api-services/api';
 import batchEditDialog from '/@/views/products/component/batchEditDialog.vue';
 import mittBus from '/@/utils/newmitt';
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';
+import downloadTemp from '/@/views/products/component/downloadTemp.vue';
 
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const editDialog = defineAsyncComponent(() => import('./component/editDialog.vue'));
@@ -58,6 +50,8 @@ const batchEditDialogRef = ref();
 const loading = ref(false);
 const tableMicroscopesRef = ref();
 const deleteIds = ref<any>([]);
+const importTempTitle = ref('');
+const downloadTempRef = ref();
 const editProductMicroscopesTitle = ref('');
 var props = defineProps({
     productCategorysData: {
@@ -65,6 +59,13 @@ var props = defineProps({
         default: []
     }
 });
+/**
+ * 下载导入模板信息
+ */
+ const downTemp = async () => {
+	importTempTitle.value = '导入产品信息';
+	downloadTempRef.value?.openDialog(ProductTypeEnums.NUMBER_130001, [], []);
+};
 const tb = reactive<TableDemoState>({
     tableData: {
         // 表头内容（必传，注意格式）
@@ -162,6 +163,16 @@ const tb = reactive<TableDemoState>({
                 type: 'price',
                 'show-overflow-tooltip': true,
             },
+			{
+				prop: 'outUnitName',
+				width: '120',
+				label: '单位',
+				headerAlign: 'center',
+				toolTip: true,
+				sortable: 'custom',
+				isCheck: true,
+				'show-overflow-tooltip': true,
+			},
             {
                 prop: 'isDiscount',
                 width: '110',
@@ -173,31 +184,10 @@ const tb = reactive<TableDemoState>({
                 align:"center",
                 'show-overflow-tooltip': true,
             },
-
-            {
-                prop: 'canOrder',
-                width: '100',
-                label: '可订',
-                headerAlign: 'center',
-                toolTip: true,
-                sortable: 'custom',
-                isCheck: true,
-                align:"center"
-            },
             {
                 prop: 'canSale',
                 width: '100',
                 label: '可销',
-                headerAlign: 'center',
-                toolTip: true,
-                sortable: 'custom',
-                isCheck: true,
-                align:"center"
-            },
-            {
-                prop: 'canCable',
-                width: '100',
-                label: '可盘',
                 headerAlign: 'center',
                 toolTip: true,
                 sortable: 'custom',

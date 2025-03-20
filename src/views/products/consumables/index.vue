@@ -3,26 +3,14 @@
 		<template v-slot:command>
 			<el-button type="danger" :icon="Delete" plain size="small" @click="batchDelete" v-auth="'products:consumables:delete'">批量删除</el-button>
 			<el-button type="primary" :icon="Edit" plain size="small" @click="batchEdit" v-auth="'products:consumables:update'">批量编辑</el-button>
-			<el-button type="warning" size="small" icon="ele-Upload" round @click="downTemp"> 导入产品 </el-button>
+			<el-button type="warning" size="small" icon="ele-Upload" round @click="downTemp" v-auth="'products:consumables:import'"> 导入产品 </el-button>
 		</template>
 		<template #isDiscount="scope">
 			<el-tag v-if="scope.row.isDiscount"> 是</el-tag>
 			<el-tag type="danger" v-else> 否</el-tag>
 		</template>
-		<template #canCable="scope">
-			<el-tag v-if="scope.row.canCable"> 是</el-tag>
-			<el-tag type="danger" v-else> 否</el-tag>
-		</template>
-		<template #canOrder="scope">
-			<el-tag v-if="scope.row.canOrder"> 是</el-tag>
-			<el-tag type="danger" v-else> 否</el-tag>
-		</template>
 		<template #canSale="scope">
 			<el-tag v-if="scope.row.canSale"> 是</el-tag>
-			<el-tag type="danger" v-else> 否</el-tag>
-		</template>
-		<template #isDisable="scope">
-			<el-tag v-if="scope.row.isDisable"> 是</el-tag>
 			<el-tag type="danger" v-else> 否</el-tag>
 		</template>
 		<template #action="scope" v-if="auth('products:consumables:update') || auth('products:consumables:delete')">
@@ -134,16 +122,6 @@ const tb = reactive<TableDemoState>({
 				'show-overflow-tooltip': true,
 			},
 			{
-				prop: 'count',
-				width: '80',
-				label: '库存',
-				headerAlign: 'center',
-				toolTip: true,
-				sortable: 'custom',
-				isCheck: true,
-				'show-overflow-tooltip': true,
-			},
-			{
 				prop: 'salePrice',
 				width: '120',
 				label: '销售价格',
@@ -178,7 +156,7 @@ const tb = reactive<TableDemoState>({
 			{
 				prop: 'outUnitName',
 				width: '120',
-				label: '出库单位',
+				label: '单位',
 				headerAlign: 'center',
 				toolTip: true,
 				sortable: 'custom',
@@ -207,29 +185,9 @@ const tb = reactive<TableDemoState>({
 				'show-overflow-tooltip': true,
 			},
 			{
-				prop: 'canOrder',
-				width: '100',
-				label: '可订',
-				headerAlign: 'center',
-				toolTip: true,
-				sortable: 'custom',
-				align: 'center',
-				isCheck: true,
-			},
-			{
 				prop: 'canSale',
 				width: '100',
 				label: '可销',
-				headerAlign: 'center',
-				toolTip: true,
-				sortable: 'custom',
-				align: 'center',
-				isCheck: true,
-			},
-			{
-				prop: 'canCable',
-				width: '100',
-				label: '可盘',
 				headerAlign: 'center',
 				toolTip: true,
 				sortable: 'custom',

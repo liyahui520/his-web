@@ -4,25 +4,14 @@
         <template v-slot:command>
             <el-button type="danger" :icon="Delete" plain size="small" @click="batchDelete" v-auth="'products:disposals:delete'">批量删除</el-button>
             <el-button type="primary" :icon="Edit" plain size="small" @click="batchEdit" v-auth="'products:disposals:update'">批量编辑</el-button>
+			<el-button type="warning" size="small" icon="ele-Upload" round @click="downTemp" v-auth="'products:disposals:import'"> 导入产品 </el-button>
         </template>
         <template #isDiscount="scope">
             <el-tag v-if="scope.row.isDiscount"> 是</el-tag>
             <el-tag type="danger" v-else> 否</el-tag>
         </template>
-        <template #canCable="scope">
-            <el-tag v-if="scope.row.canCable"> 是</el-tag>
-            <el-tag type="danger" v-else> 否</el-tag>
-        </template>
-        <template #canOrder="scope">
-            <el-tag v-if="scope.row.canOrder"> 是</el-tag>
-            <el-tag type="danger" v-else> 否</el-tag>
-        </template>
         <template #canSale="scope">
             <el-tag v-if="scope.row.canSale"> 是</el-tag>
-            <el-tag type="danger" v-else> 否</el-tag>
-        </template>
-        <template #isDisable="scope">
-            <el-tag v-if="scope.row.isDisable"> 是</el-tag>
             <el-tag type="danger" v-else> 否</el-tag>
         </template>
         <template #action="scope" v-if="auth('products:disposals:update') || auth('products:disposals:delete')">
@@ -39,6 +28,7 @@
         :productCategorysData="props.productCategorysData" />
     <batchEditDialog ref="batchEditDialogRef" :title="'批量编辑'" @reloadTable="handleQuery"
         :productCategorysData="props.productCategorysData" />
+        <downloadTemp ref="downloadTempRef" :title="importTempTitle" />
 </template>
 
 <script lang="ts" setup>
@@ -49,16 +39,20 @@ import { getAPI } from '/@/utils/axios-utils';
 import { Delete, Edit } from '@element-plus/icons-vue'
 import { ProductDisposalApi } from '/@/api-services/api';
 import mittBus from '/@/utils/newmitt';
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';
+import downloadTemp from '/@/views/products/component/downloadTemp.vue';
+import batchEditDialog from '/@/views/products/component/batchEditDialog.vue';
 
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const editDialog = defineAsyncComponent(() => import('./component/editDialog.vue'));
-import batchEditDialog from '/@/views/products/component/batchEditDialog.vue';
 const editDialogRef = ref();
 const batchEditDialogRef = ref();
 const loading = ref(false);
 const tableDisposalsRef = ref();
 const deleteIds = ref<any>([]);
 const editProductDisposalsTitle = ref('');
+const importTempTitle = ref('');
+const downloadTempRef = ref();
 var props = defineProps({
     productCategorysData: {
         type: Array,
@@ -162,6 +156,16 @@ const tb = reactive<TableDemoState>({
                 type: 'price',
                 'show-overflow-tooltip': true,
             },
+			{
+				prop: 'outUnitName',
+				width: '120',
+				label: '单位',
+				headerAlign: 'center',
+				toolTip: true,
+				sortable: 'custom',
+				isCheck: true,
+				'show-overflow-tooltip': true,
+			},
             {
                 prop: 'isDiscount',
                 width: '110',
@@ -173,31 +177,10 @@ const tb = reactive<TableDemoState>({
                 align:"center",
                 'show-overflow-tooltip': true,
             },
-
-            {
-                prop: 'canOrder',
-                width: '100',
-                label: '可订',
-                headerAlign: 'center',
-                toolTip: true,
-                sortable: 'custom',
-                isCheck: true,
-                align:"center"
-            },
             {
                 prop: 'canSale',
                 width: '100',
                 label: '可销',
-                headerAlign: 'center',
-                toolTip: true,
-                sortable: 'custom',
-                isCheck: true,
-                align:"center"
-            },
-            {
-                prop: 'canCable',
-                width: '100',
-                label: '可盘',
                 headerAlign: 'center',
                 toolTip: true,
                 sortable: 'custom',
@@ -238,6 +221,13 @@ const tb = reactive<TableDemoState>({
     },
 });
 
+/**
+ * 下载导入模板信息
+ */
+ const downTemp = async () => {
+	importTempTitle.value = '导入产品信息';
+	downloadTempRef.value?.openDialog(ProductTypeEnums.NUMBER_120001, [], []);
+};
 // 拖动显示列排序回调
 const onSortHeader = (data: object[]) => {
     tb.tableData.columns = data;

@@ -4,6 +4,7 @@
         <template v-slot:command>
             <el-button type="danger" :icon="Delete" plain size="small" @click="batchDelete" v-auth="'products:xrays:update'">批量删除</el-button>
             <el-button type="primary" :icon="Edit" plain size="small"  @click="batchEdit" v-auth="'products:xrays:delete'">批量编辑</el-button>
+			<el-button type="warning" size="small" icon="ele-Upload" round @click="downTemp" v-auth="'products:xrays:import'"> 导入产品 </el-button>
         </template>
         <template #isDiscount="scope">
             <el-tag v-if="scope.row.isDiscount"> 是</el-tag>
@@ -25,6 +26,7 @@
     <editDialog ref="editDialogRef" :productCategorysData="props.productCategorysData" :title="editProductXRaysTitle" @reloadTable="handleQuery" />
     <batchEditDialog ref="batchEditDialogRef" :title="'批量编辑'" @reloadTable="handleQuery"
         :productCategorysData="props.productCategorysData" />
+        <downloadTemp ref="downloadTempRef" :title="importTempTitle" />
 </template>
 
 <script lang="ts" setup>
@@ -37,6 +39,8 @@ import batchEditDialog from '/@/views/products/component/batchEditDialog.vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { Delete, Edit } from '@element-plus/icons-vue'
 import { ProductXRayApi } from '/@/api-services/api';
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';
+import downloadTemp from '/@/views/products/component/downloadTemp.vue';
 
 
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
@@ -47,6 +51,8 @@ const batchEditDialogRef = ref();
 const loading = ref(false);
 const tableXRaysRef = ref();
 const editProductXRaysTitle = ref('');
+const importTempTitle = ref('');
+const downloadTempRef = ref();
 const tb = reactive<TableDemoState>({
     tableData: {
         // 表头内容（必传，注意格式）
@@ -144,6 +150,16 @@ const tb = reactive<TableDemoState>({
                 type: 'price',
                 'show-overflow-tooltip': true,
             },
+			{
+				prop: 'outUnitName',
+				width: '120',
+				label: '单位',
+				headerAlign: 'center',
+				toolTip: true,
+				sortable: 'custom',
+				isCheck: true,
+				'show-overflow-tooltip': true,
+			},
             {
                 prop: 'isDiscount',
                 width: '100',
@@ -197,6 +213,13 @@ const tb = reactive<TableDemoState>({
     },
 });
 
+/**
+ * 下载导入模板信息
+ */
+ const downTemp = async () => {
+	importTempTitle.value = '导入产品信息';
+	downloadTempRef.value?.openDialog(ProductTypeEnums.NUMBER_100001, [], []);
+};
 var props = defineProps({
         productCategorysData: {
             type: Array,

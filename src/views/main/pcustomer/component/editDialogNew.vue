@@ -18,6 +18,9 @@
 						<el-form-item label="会员名称" prop="name">
 							<el-input v-model="ruleForm.name" placeholder="请输入会员名称"/>
 						</el-form-item>
+						<el-form-item label="手机号" prop="cellPhone">
+							<el-input v-model="ruleForm.cellPhone" maxlength="11" placeholder="请输入手机号" />
+						</el-form-item>
 						<el-form-item label="会员级别" prop="level">
 							<el-select filterable v-model="ruleForm.level" placeholder="请选择会员级别">
 								<el-option v-for="(item, index) in getEditlevelData" :key="item.id" :value="item.id" :label="item.name">{{ item.name }} </el-option>
@@ -28,16 +31,13 @@
 								<el-option v-for="(item, index) in getEditsourceidData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
-						<el-form-item label="手机号" prop="cellPhone">
-							<el-input v-model="ruleForm.cellPhone" maxlength="11" placeholder="请输入手机号" />
-						</el-form-item>
 						<el-form-item label="性别" prop="sex">
 							<el-select  v-model="ruleForm.sex" placeholder="请选择性别">
 								<el-option v-for="(item, index) in getEditsexData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 						<el-form-item label="会员生日" prop="birthdate">
-							<el-date-picker v-model="ruleForm.birthdate" type="date" placeholder="会员生日" />
+							<el-date-picker v-model="ruleForm.birthdate" type="date" placeholder="会员生日" style="width: 240px;"/>
 						</el-form-item>
 						<el-form-item label="电话" prop="phone">
 							<el-input v-model="ruleForm.phone" placeholder="请输入电话" />
@@ -63,7 +63,10 @@
 						<el-form-item label="宠物名称" prop="pet.petName">
 							<el-input v-model="ruleForm.pet.petName" placeholder="请输入宠物名称"  />
 						</el-form-item>
-						<el-form-item label="性别" prop="pet.petGender">
+						<el-form-item label="宠物生日" prop="pet.petBirthDate">
+							<el-date-picker v-model="ruleForm.pet.petBirthDate" type="date" placeholder="请选择宠物生日"  style="width: 240px;"/>
+						</el-form-item>
+						<el-form-item label="宠物性别" prop="pet.petGender">
 							<el-select  v-model="ruleForm.pet.petGender" placeholder="请选择性别">
 								<el-option v-for="(item, index) in getEditpetGenderData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
@@ -88,12 +91,10 @@
 								<el-option v-for="(item, index) in getEditpetColorData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
-						<el-form-item label="生日" prop="pet.petBirthDate">
-							<el-date-picker v-model="ruleForm.pet.petBirthDate" type="date" placeholder="请选择宠物生日" />
-						</el-form-item>
+						
 						<el-form-item label="宠物体重" prop="pet.petWeight">
-							<el-input-number v-model="ruleForm.pet.petWeight" placeholder="请输入宠物体重" :precision="2" :step="0.1" :min="0.01" > </el-input-number>
-							<span><el-tag type="success">Kg</el-tag></span>
+							<el-input-number v-model="ruleForm.pet.petWeight" placeholder="宠物体重" :precision="2" :step="0.1" :min="0.01" > </el-input-number>
+							<span style="margin-left: 30px;">单位：Kg</span>
 						</el-form-item>
 						<el-form-item label="宠物状态" prop="pet.petStatus">
 							<el-select  v-model="ruleForm.pet.petStatus" placeholder="请选择宠物状态">
@@ -200,7 +201,7 @@ const ruleForm = ref<any>({
 		petName: '',
 		petGender: '-1',
 		petKind: '',
-		petVarietie: '',
+		petVarietie: null,
 		petBlood: '',
 		petColor: '',
 		petBirthDate: null,
@@ -229,7 +230,7 @@ let petEntity = {
 		petName: '',
 		petGender: '-1',
 		petKind: '',
-		petVarietie: '',
+		petVarietie: null,
 		petBlood: '',
 		petColor: '',
 		petBirthDate: null,
@@ -268,7 +269,7 @@ const rules = ref<FormRules>({
 ],
 	'pet.petName': [{ required: true, message: '请输入宠物名称！', trigger: 'blur' }],
 	'pet.petKind': [{ required: true, message: '请选择宠物种类！', trigger: 'change' }],
-	'pet.petVarietie': [{ required: true, message: '请选择宠物品种！', trigger: 'change' }],
+	// 'pet.petVarietie': [{ required: true, message: '请选择宠物品种！', trigger: 'change' }],
 	'pet.petBirthDate': [{ required: true, message: '请选择宠物生日！', trigger: 'change' }],
 });
 
@@ -292,6 +293,13 @@ const openDialog = async (row: any) => {
 			});
 		});
 	getEditsourceidData.value = await getDictDataDropdownList('code_customer_source');
+
+	// 客户来源默认设置门店登记
+	var defaultCustomerSource = getEditsourceidData.value.filter((x: any) => x.label == "门店登记");
+	if (defaultCustomerSource.length > 0) {
+		ruleForm.value.sourceId = defaultCustomerSource[0].value;
+	}
+
 	getEditsexData.value = await getDictDataDropdownList('code_sex');
 	address.value = ruleForm.value.address ? JSON.parse(ruleForm.value.address) : [];
 	isShowDialog.value = true;
@@ -333,7 +341,7 @@ const KindChange = async (kindId) => {
 	if (!kindId) return;
 	const res = await getAPI(SysPetConfigApi).apiSysPetVarietieGetByKindId(kindId);
 	getEditpetVarietieData.value = res.data.result ?? [];
-	ruleForm.value.pet.petVarietie = '';
+	ruleForm.value.pet.petVarietie = null;
 };
 
 // 提交

@@ -45,13 +45,11 @@ import editSingDialog from '/@/views/main/pcustomer/component/editDialog.vue';
 import uploadExecl from '/@/views/main/pcustomer/component/uploadExecl.vue';
 import petEditDialog from '/@/views/main/ppets/component/editDialog.vue';
 import {PcustomerApi,MemberLevelApi } from '/@/api-services/api';
-import router from '/@/router';
-import { getDictDataItem as di } from '/@/utils/dict-utils';
+
 
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const Search = defineAsyncComponent(() => import('/@/components/table/search.vue'));
 const PcuDetails = defineAsyncComponent(() => import('./component/pcuDetails.vue'));
-const getlevelData = ref<any>([]);
 const editDialogRef = ref();
 const petEditDialogRef = ref();
 const tableRef = ref();
@@ -232,7 +230,7 @@ const getData = async (par: any) => {
 };
 
 // 搜索点击时表单回调
-const onSearch = (data: EmptyObjectType) => {
+const onSearch = (data: any) => {
 	tb.tableData.param = Object.assign({}, tb.tableData.param, { ...data });
 	nextTick(() => {
 		tableRef.value.pageReset();
@@ -252,7 +250,7 @@ const openAddPcustomer = () => {
 	editDialogRef.value?.openDialog({ sourceid: '1', sex: '-1' });
 };
 
-const openDetail = async (row) => {
+const openDetail = async (row:any) => {
 	// await router.push('/pcu/detail?id=' + row.id);
 	pcuDetailsRef.value.openDialog(row);
 };

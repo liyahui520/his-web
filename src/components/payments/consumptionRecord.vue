@@ -118,11 +118,13 @@ import { ref, defineAsyncComponent } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { ConsumptionApi } from '/@/api-services/api';
 import { addMonthsToDate, formatDate } from '/@/utils/formatTime';
-import { getDictDataList } from '/@/utils/dict-utils';
 import { ElMessage } from 'element-plus';
 import { verifyNumberComma } from '/@/utils/toolsValidate';
 import Decimal from 'decimal.js';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 //父级传递来的参数
 var props = defineProps({
 	title: {
@@ -157,7 +159,7 @@ const openDialog = async (data: any) => {
 	queryParams.value.customerId = data.customerId;
 	queryParams.value.petId = data.petId;
 	await handleQuery();
-	paymentMethods.value = await getDictDataList('payment_type');
+	paymentMethods.value = dictList['payment_type'];
 	console.log("paymentMethods.value",paymentMethods.value)
 };
 // 关闭弹窗

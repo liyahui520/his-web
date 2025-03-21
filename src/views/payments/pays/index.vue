@@ -65,10 +65,9 @@
 									</el-breadcrumb>
 								</div>
 								<div class="right-info">
-									<p class="amount">会员卡余额：{{ customerFundData.cardBalance ?? 0 }}</p>
-									<p class="amount">押金余额：{{ customerFundData.depositAmount ?? 0 }}</p>
+									<p class="amount">会员卡余额：{{ verifyNumberComma((customerFundData.cardBalance??0).toFixed(2)) || 0.0 }}</p>
+									<p class="amount">押金余额：{{ verifyNumberComma((customerFundData.depositAmount??0).toFixed(2)) || 0.0 }}</p>
 									<p class="amount">次卡余次：{{ customerFundData.secondaryCardBalance ?? 0 }}</p>
-									<!-- <p class="amount">记账金额：{{ customerFundData.secondaryCardBalance ?? 0 }}</p> -->
 								</div>
 							</div>
 						</template>

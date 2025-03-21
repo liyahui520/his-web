@@ -37,10 +37,9 @@
 <script lang="ts" setup name="level">
 import { defineAsyncComponent, nextTick, reactive, ref } from 'vue';
 import editDialog from '/@/views/main/memberLevel/component/editDialog.vue';
-import { getDictDataItem as di } from '/@/utils/dict-utils';
 import { getAPI } from '/@/utils/axios-utils';
 import { MemberLevelApi } from '/@/api-services';
-import { auth } from '/@/utils/authFunction';
+
 
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const Search = defineAsyncComponent(() => import('/@/components/table/search.vue'));
@@ -129,7 +128,7 @@ const tb = reactive<TableDemoState>({
 	},
 });
 
-const onSearch = (data: EmptyObjectType) => {
+const onSearch = (data: any) => {
 	tb.tableData.param = Object.assign({}, tb.tableData.param, { ...data });
 	nextTick(() => {
 		tableRef.value.pageReset();
@@ -139,10 +138,7 @@ const getData = async (par: any) => {
 	var res = await getAPI(MemberLevelApi).apiMemberLevelPagePost(par);
 	return res.data;
 };
-/**
- * 删除会员级别
- */
-const delMemberLevel = async (row: any) => {};
+
 /**
  * 编辑页面
  * @param row

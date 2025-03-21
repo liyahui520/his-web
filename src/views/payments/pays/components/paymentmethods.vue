@@ -239,9 +239,7 @@ import { ElMessage } from 'element-plus';
 import { CircleClose } from '@element-plus/icons-vue';
 import Decimal from 'decimal.js';
 import commonFunction from '/@/utils/commonFunction';
-import { getDictDataList } from '/@/utils/dict-utils';
 import otherHandle from '/@/utils/other';
-
 import account from '/@/assets/pay-type/account.png';
 import ali from '/@/assets/pay-type/ali.png';
 import applet from '/@/assets/pay-type/applet.png';
@@ -256,7 +254,10 @@ import secondarycard from '/@/assets/pay-type/secondarycard.png';
 import taobao from '/@/assets/pay-type/taobao.png';
 import tiktok from '/@/assets/pay-type/tiktok.png';
 import wechat from '/@/assets/pay-type/wechat.png';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const { twoFloorNum, equalDivision, getSubArray } = commonFunction();
 const emit = defineEmits(['refresh']);
 const paymentDetails = ref<any>([]);
@@ -267,7 +268,7 @@ const actualTotalAmount = ref<number>(0.0);
 const downIntegerAmount = ref<number>(0.0);
 const paymentRemark = ref('');
 const willPayAmount = ref<number>(0.0);
-const PayMentTypeImgs = ref({
+const PayMentTypeImgs = ref<any>({
 	account: account,
 	ali: ali,
 	applet: applet,
@@ -334,10 +335,10 @@ const openDrawer = async (rowInfo: any) => {
 	secondarycardAmount.value = 0;
 	straightSecondarycardAmount.value = 0;
 	secondaryCardWriteOff.value = '';
-	var res = await getAPI(PcustomerApi).apiPcustomerGetCustomerFundDetailsGet(data.customerId);
-	res.data.result?.forEach((item) => {
+	var res = await getAPI(PcustomerApi).apiPcustomerCustomerIdGetCustomerPetFundDetailsGet(data.customerId);
+	res.data.result?.forEach((item:any) => {
 		// 次卡、会员卡、押金需要显示余额等信息
-		fixedMethods.value.forEach((ele) => {
+		fixedMethods.value.forEach((ele:any) => {
 			if (ele.code == item.type) {
 				ele.totalAmount = item.totalAmount;
 				ele.businessId = item.id;
@@ -479,7 +480,7 @@ const discountAmount = computed(() => {
  * 计算总金额
  */
 const totalAmount = computed(() => {
-	const totalAmountValue = paymentDetails.value.reduce((pre, item) => {
+	const totalAmountValue = paymentDetails.value.reduce((pre:any, item:any) => {
 		let accumulateAmount = new Decimal(pre).add(new Decimal(item.amountPrice));
 		return new Decimal(accumulateAmount);
 	}, 0);
@@ -499,7 +500,7 @@ const downInteger = () => {
 };
 
 // 选择支付方式
-const chooseMethod = (index, type) => {
+const chooseMethod = (index:any, type:any) => {
 	if (type == 1) {
 		absMethods.value[firstIndex.value].amount = '';
 		firstIndex.value = index;
@@ -511,7 +512,7 @@ const chooseMethod = (index, type) => {
 };
 
 // 删除已输入的支付方式
-const cancelItem = (index, type) => {
+const cancelItem = (index:any, type:any) => {
 	if (type == 1) {
 		fixedMethods.value[index].amount = '';
 	} else {
@@ -525,24 +526,24 @@ const cancelItem = (index, type) => {
  * 加载可用的支付方式
  */
 const loadPaymentMethods = async () => {
-	let memoryData = getDictDataList('payment_type');
+	let memoryData = dictList['payment_type'];
 	if (memoryData.length == 0) {
 		ElMessage.error('请先维护支付方式');
 		return;
 	}
 	fixedMethods.value = [];
-	memoryData.forEach((item, index) => {
+	memoryData.forEach((item:any, index:any) => {
 		let info = {
 			id: item.id,
-			name: item.value,
+			name: item.label,
 			amount: 0,
 			principalAmount: 0,
 			giftAmount: 0,
 			remark: '',
-			payImg: PayMentTypeImgs.value[item.code], // '@/assets/pay-type/' + item.code + '.png',
+			payImg: PayMentTypeImgs.value[item.value], // '@/assets/pay-type/' + item.code + '.png',
 			businessId: item.id,
 			businessVer: item.ver,
-			code: item.code,
+			code: item.value,
 			isShow: false,
 		};
 		if (index < 6) {
@@ -571,12 +572,12 @@ const submitPay = async () => {
 	}
 	submitLoading.value = true;
 	let arr: any = [];
-	fixedMethods.value.forEach((ele) => {
+	fixedMethods.value.forEach((ele:any) => {
 		if (ele.amount) {
 			arr.push(ele);
 		}
 	});
-	absMethods.value.forEach((ele) => {
+	absMethods.value.forEach((ele:any) => {
 		if (ele.amount) {
 			arr.push(ele);
 		}

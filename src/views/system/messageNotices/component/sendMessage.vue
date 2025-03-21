@@ -100,14 +100,15 @@
 import { ref } from 'vue';
 
 import { ElMessage } from 'element-plus';
-import { auth } from '/@/utils/authFunction';
 import { getAPI } from '/@/utils/axios-utils';
 import { PcustomerApi, SMSTemplateApi, MemberLevelApi,SysSmsSendApi } from '/@/api-services/api';
 import { verifyNumberComma } from '/@/utils/toolsValidate';
 import { SysSMSTemplateEnum } from '/@/api-services/models/template-json-manage/sys-smstemplate-enum';
-import { getDictDataList } from '/@/utils/dict-utils';
 import type { FormRules } from 'element-plus';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const ruleFormRef=ref();
 const tableRef = ref();
 const queryForm = ref();
@@ -144,7 +145,7 @@ const loadBaseSearchData = async () => {
 		.then((res) => {
 			memberLevelData.value = res.data.result ?? [];
 		});
-	customerSourceData.value = await getDictDataList('code_customer_source');
+	customerSourceData.value = dictList['code_customer_source'];
 	queryParams.value.memberLevels = memberLevelData.value.map((item: any) => item.id);
 	queryParams.value.customerSources = customerSourceData.value.map((item: any) => item.code);
 };

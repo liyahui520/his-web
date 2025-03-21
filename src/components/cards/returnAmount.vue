@@ -46,7 +46,7 @@
                         <el-form-item prop="giveAmount" style="display: flex;">
                             <div width="30px"></div>
                             <span style="margin-left: 10px;width: 92px;">赠送金额</span>
-                            <el-input-number style="width: 30%;" v-model="ruleForm.giveAmount" :precision="2" :min="0"
+                            <el-input-number style="width: 25%;" v-model="ruleForm.giveAmount" :precision="2" :min="0"
                                 :step="100" :max="9999999" :disabled="props.cardInfo.giveAmount == 0"
                                 @change="(currentValue: any, oldValue: any) => { if (!currentValue) ruleForm.giveAmount = 0; }" />
                         </el-form-item>

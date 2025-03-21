@@ -29,7 +29,6 @@ import { ElDivider } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
 import { CEMRecordApi } from '/@/api-services/api';
 import { PrintAndPreviewApi,SysDictDataApi } from '/@/api-services';
-import { getDictDataItem as di } from '/@/utils/dict-utils';
 import { formatDate } from '/@/utils/formatTime';
 import { useUserInfo } from '/@/stores/userInfo';
 
@@ -218,7 +217,7 @@ const getData = async (par: any) => {
 };
 
 // 搜索点击时表单回调
-const onSearch = (data: EmptyObjectType) => {
+const onSearch = (data: any) => {
 	tb.tableData.param = Object.assign({}, tb.tableData.param, { ...data });
 	nextTick(() => {
 		tableRef.value.pageReset();

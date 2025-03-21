@@ -69,11 +69,13 @@ import { ref, defineAsyncComponent, reactive, nextTick } from "vue";
 import { getAPI } from "/@/utils/axios-utils";
 import { MemberDepositApi } from "/@/api-services";
 import { ElMessage } from "element-plus";
-import { getDictDataItem as di, getDictDataList } from '/@/utils/dict-utils';
-
 import { verifyNumberComma } from '/@/utils/toolsValidate';
 import RechargeAmount from './rechargeAmount.vue'
 import ReturnAmount from './returnAmount.vue'
+import { useUserInfo } from '/@/stores/userInfo';
+
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const PcuDetails = defineAsyncComponent(() => import('/@/components/pcus/pcuDetails.vue'));
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 
@@ -208,7 +210,7 @@ const tb = reactive<TableDemoState>({
 const emit = defineEmits(["reloadTable"]);
 // 打开弹窗
 const openDialog = async () => {
-    getPriceModth.value = await getDictDataList('code_card_recharge_type');
+    getPriceModth.value = dictList['code_card_recharge_type'];
     isShowDialog.value = true;
     await loadDepositInfo();
     await loadDepositTypes();
@@ -280,7 +282,7 @@ const loadDepositTypes = async () => {
     depositTypes.value = [];
     let res = await getAPI(MemberDepositApi).apiMemberDepositGetDepositTypesGet(props.pcustomer.id);
     depositTypes.value = res.data?.result ?? [];
-    depositTypesProps.value = depositTypes.value.filter(item => item.id !== "-1");
+    depositTypesProps.value = depositTypes.value.filter((item:any) => item.id !== "-1");
     let totalAmountValue = depositTypes.value?.reduce((pre: any, cur: any) => {
         return pre + cur.totalAmount;
     }, 0);

@@ -77,10 +77,11 @@
 import { ref, defineAsyncComponent, reactive, nextTick } from "vue";
 import { getAPI } from "/@/utils/axios-utils";
 import { PcustomerApi } from "/@/api-services";
-import { ElMessage } from "element-plus";
-import { getDictDataItem as di, getDictDataList } from '/@/utils/dict-utils';
 import { Plus } from '@element-plus/icons-vue';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const PcuDetails = defineAsyncComponent(() => import('/@/components/pcus/pcuDetails.vue'));
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const SecondaryCards = defineAsyncComponent(() => import('/@/components/sales/secondaryCards.vue'));
@@ -208,7 +209,7 @@ const tb = reactive<TableDemoState>({
 const emit = defineEmits(["reloadTable"]);
 // 打开弹窗
 const openDialog = async (petData: any) => {
-    getPriceModth.value = await getDictDataList('code_card_recharge_type');
+    getPriceModth.value =dictList['code_card_recharge_type'];
     isShowDialog.value = true;
     petInfo.value = petData;
     await loadSecondaryCardInfo();
@@ -235,7 +236,7 @@ const secondaryCardChange = async () => {
 
 
 const loadSecondaryCardInfo = async () => {
-    let res = await getAPI(PcustomerApi).apiGetMemberSecondaryCardsSummaryGet(props.pcustomer.id);
+    let res = await getAPI(PcustomerApi).apiPcustomerCustomerIdGetCustomerSecondaryCardsSummaryGet(props.pcustomer.id);
     secondaryCardInfo.value = res.data?.result ?? {};
 }
 
@@ -245,7 +246,7 @@ const loadSecondaryCardInfo = async () => {
  */
 const loadSecondaryCardTypes = async () => {
     secondaryCardTypes.value = [];
-    let res = await getAPI(PcustomerApi).apiGetCustomerSecondaryCardInfoGet(props.pcustomer.id);
+    let res = await getAPI(PcustomerApi).apiPcustomerCustomerIdGetCustomerSecondaryCardsGet(props.pcustomer.id);
     secondaryCardTypes.value = res.data?.result ?? [];
     let totalCountValue = secondaryCardTypes.value?.reduce((pre: any, cur: any) => {
         return pre + cur.canCount;
@@ -268,7 +269,7 @@ const loadSecondaryCardTypes = async () => {
 const loadSecondaryCardDetails = async (par: any) => {
     par.customerId = props.pcustomer.id;
     par.cardId = cardId.value;
-    let secondaryCard = await getAPI(PcustomerApi).apiGetCustomerSecondaryCardPagePost(par);
+    let secondaryCard = await getAPI(PcustomerApi).apiPcustomerGetCustomerSecondaryCardPagePost(par);
 
     return secondaryCard.data;
 }

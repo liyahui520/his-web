@@ -194,10 +194,12 @@ import { addDaysToDate, formatDate } from "/@/utils/formatTime";
 import { downloadByData, getFileName } from '/@/utils/download';
 import ReturnPayment from '/@/views/payments/orders/components/returnPayment.vue';
 import { verifyNumberComma } from '/@/utils/toolsValidate';
-import { getDictDataList } from '/@/utils/dict-utils';
 import other from '/@/utils/other';
 import Decimal from 'decimal.js';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const PrintView = defineAsyncComponent(() => import('/@/components/print/index.vue'));
 const paymentTableRef = ref();
 const returnPaymentRef = ref();
@@ -358,7 +360,7 @@ const loadOrders = async () => {
  * 加载支付方式
  */
 const loadPaymentMethods = async () => {
-    let memoryData = getDictDataList('payment_type');
+    let memoryData = dictList['payment_type'];
     if (memoryData.length == 0) {
         ElMessage.error('请先维护支付方式');
         return;

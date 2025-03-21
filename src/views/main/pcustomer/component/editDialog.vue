@@ -86,7 +86,17 @@
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="地址" prop="address">
 							<!--							<el-input v-model="ruleForm.address" placeholder="请输入地址" clearable="" />-->
-							<el-cascader style="width: 100%" v-model="address" :options="options" :props="customProps"></el-cascader>
+							<!-- <el-cascader style="width: 100%" v-model="address" :options="options" :props="customProps"></el-cascader> -->
+							<el-cascader
+										v-model="address"
+										style="width: 100%"
+										ref="customerAddressRef"
+										placeholder="请选择医院地址"
+										:options="options"
+										:props="customProps"
+										@change="handleAddressChange"
+										filterable
+									/>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
@@ -149,16 +159,10 @@ const isShowDialog = ref(false);
 const ruleForm = ref<any>({});
 
 const options = ref<any>([]);
-const customProps = {
-	multiple: false, // 启用多选
-	emitPath: false, // 只返回该节点的值
-	value: 'id', // 自定义当前数组的键名 - value
-	label: 'name', // 自定义当前数组的键名 - label
-	children: 'children', // 自定义当前数组的键名 - children
-	expandTrigger: 'click', // 次级菜单的展开方式 - click/hover
-};
 const loadRegion = async () => {
 	options.value = stores.sysRegions;
+	console.log("区域")
+	console.log(stores.sysRegions);
 };
 
 //自行删除非必填规则
@@ -228,6 +232,23 @@ const submit = async () => {
 			closeDialog(values);
 		}
 	});
+};
+
+const customerAddressRef = ref();
+const customProps = {
+	multiple: false, // 启用多选
+	emitPath: false, // 只返回该节点的值
+	value: 'id', // 自定义当前数组的键名 - value
+	label: 'name', // 自定义当前数组的键名 - label
+	children: 'children', // 自定义当前数组的键名 - children
+	expandTrigger: 'click', // 次级菜单的展开方式 - click/hover
+};
+/**
+ * 处理地址变更
+ * @param value
+ */
+const handleAddressChange = (value: any) => {
+	ruleForm.value.addressText = customerAddressRef.value.getCheckedNodes()[0].pathLabels.join('');
 };
 
 

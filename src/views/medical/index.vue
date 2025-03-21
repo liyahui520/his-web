@@ -24,7 +24,7 @@
 					>
 						<el-option
 							v-infinite-scroll="Pcuload"
-							style="height: 140px;width: 450px; border: 1px solid #c6e2ff; border-radius: 5px; margin: 5px"
+							style="height: auto;width: 450px; border: 1px solid #c6e2ff; border-radius: 5px; margin: 5px"
 							v-for="item in options"
 							:label="item?.id"
 							:value="item?.id"
@@ -36,18 +36,16 @@
 										<span>{{ item?.name ?? '-' }}</span>
 										<el-divider direction="vertical" />
 										<span>
-											<el-tag>
-												<el-icon>
+											<el-icon style="position: relative;top: 2px;">
 													<ele-Phone />
 												</el-icon>
 												{{ item?.cellPhone ?? '-' }}
-											</el-tag>
 										</span>
 										<el-divider direction="vertical" />
 										<span>{{ item?.cardNumber ?? '-' }}</span>
 									</div>
 								</el-col>
-								<el-col :span="24" style="height: 110px; line-height: 24px; margin-top: 3px">
+								<el-col :span="24" style="height: 110px; line-height: 24px; margin-top: 3px" v-if="item?.pPetss.length>0">
 									<el-carousel height="auto" autoplay style="">
 										<el-carousel-item v-if="item?.pPetss == null || item?.pPetss.count <= 0">
 											<div>暂无宠物</div>

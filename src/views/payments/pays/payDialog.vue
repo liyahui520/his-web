@@ -337,7 +337,7 @@ const openPaymentMethods = async () => {
  */
 const handlePaymentAmountChange = (value: any) => {
 	let totalAmountValue = totalAmountComputed;
-	let actualPriceArray = multipleSelection.value.map((row) => new Decimal(row.actualPrice).toFixed(2, Decimal.ROUND_DOWN));
+	let actualPriceArray = multipleSelection.value.map((row:any) => new Decimal(row.actualPrice).toFixed(2, Decimal.ROUND_DOWN));
 	let priceResult = adjustAmounts(actualPriceArray, totalAmountValue.value, value);
 	priceResult.forEach((item: any, index: number) => {
 		multipleSelection.value[index].actualPrice = item;
@@ -380,7 +380,7 @@ const handleActualPriceChange = (value: any, row: any) => {
  * 计算总金额
  */
 const computeTotalAmount = () => {
-	const totalAmountValue = multipleSelection.value.reduce((pre, item) => {
+	const totalAmountValue = multipleSelection.value.reduce((pre:any, item:any) => {
 		return new Decimal(pre).add(new Decimal(item.actualPrice));
 	}, 0);
 	const result = totalAmountValue.toFixed(2, Decimal.ROUND_UP);
@@ -443,7 +443,7 @@ const deleteDisabled = computed(() => {
  * 加载可用的次卡
  */
 const loadCanSecondaryCardDatas = async () => {
-	let res = await getAPI(PcustomerApi).apiGetCustomerSecondaryCardListGet(customerFundData.value.id);
+	let res = await getAPI(PcustomerApi).apiPcustomerCustomerIdGetCustomerSecondaryCardListGet(customerFundData.value.id);
 	secondaryCardData.value = res.data.result ?? [];
 };
 /**
@@ -457,7 +457,7 @@ const loadCanDepositTypes = async () => {
  * 计算结算金额
  */
 const totalAmountComputed = computed(() => {
-	let totalAmountValue = multipleSelection.value.reduce((pre, item) => {
+	let totalAmountValue = multipleSelection.value.reduce((pre:any, item:any) => {
 		let accumulateAmount = new Decimal(pre).add(new Decimal(item.amountPrice));
 		return new Decimal(accumulateAmount);
 	}, 0);

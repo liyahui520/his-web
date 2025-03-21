@@ -185,7 +185,7 @@ const Pcuload = async () => {
 	// });
 };
 
-const handleQuery = async (row) => {
+const handleQuery = async (row:any) => {
 	await refmedicalPcustomer.value.initData(row.id);
 	// editDialogRef.value.openDialog({
 	// 	petGender: '-1',

@@ -9,7 +9,7 @@
 					<span>{{ props.title }}</span>
 				</div>
 			</template>
-			<el-row v-loading="submitLoading"  element-loading-text="保存中，请勿关闭此页面！">
+			<el-row v-loading="submitLoading" element-loading-text="保存中，请勿关闭此页面！">
 				<el-col :span="4" class="left-container">
 					<el-card shadow="always" style="margin-left: 5px">
 						<el-tabs v-model="tabValue">
@@ -407,7 +407,7 @@ const selectable = (row: any) => !row.isPack;
  * 打包窗口回调函数
  * @param row
  */
-const packLoad = async (row) => {
+const packLoad = async (row: any) => {
 	row.child.reduce((all: [], item) => {
 		tableData.value.cemRecordPrescriptionItems = tableData.value.cemRecordPrescriptionItems.filter((i) => i.vKey != item.vKey);
 	}, []);
@@ -474,8 +474,7 @@ const dayCharge = (row: any) => {
  * 获取使用方式
  */
 const getUsingMethods = async () => {
-	let list = dictList['code_dosing_way'];
-	dosingWayData.value = list.data.result ?? [];
+	dosingWayData.value = dictList['code_dosing_way'];
 };
 /**
  * 添加分组
@@ -510,7 +509,7 @@ const clear = () => {
  * 选择分组变更事件
  * @param row
  */
-const changeOrderGroup = (row) => {
+const changeOrderGroup = (row: any) => {
 	if (row.orderId) row.orderName = orderGroupObject.value[row.orderId];
 };
 /**
@@ -553,33 +552,33 @@ const remoteMethod = async () => {
  * 搜索产品的双击事件
  * @param rows
  */
-const remoteTableClick = async (row:any) => {
+const remoteTableClick = async (row: any) => {
 	tableData.value.cemRecordPrescriptionItems.push({
-			recordId: props.treatData?.id,
-			regId: props.treatData?.regId,
-			itemId: row.id,
-			itemName: row.name,
-			type: row.type,
-			typeText: row.typeText,
-			count: 1,
-			salePrice: row.salePrice,
-			amountPrice: row.salePrice,
-			isEditPrice: 0,
-			remark: '',
-			unitName: unitObject.value[row.outUnitId], //
-			unitId: row.outUnitId,
-			specific: row.specific,
-			useDose: row.useDose ?? 1,
-			useMethods: row.useMethods ?? 1,
-			dayNum: row.dayNum ?? 1,
-			amountCount: row.useMethods ?? 1,
-			dosingWay: row.dosingWay,
-			isPack: false,
-			child: null,
-			useMaxDose: row.useMaxDose ?? 0,
-			useMinDose: row.useMinDose ?? 0,
-			vKey: generateGUID(),
-		});
+		recordId: props.treatData?.id,
+		regId: props.treatData?.regId,
+		itemId: row.id,
+		itemName: row.name,
+		type: row.type,
+		typeText: row.typeText,
+		count: 1,
+		salePrice: row.salePrice,
+		amountPrice: row.salePrice,
+		isEditPrice: 0,
+		remark: '',
+		unitName: unitObject.value[row.outUnitId], //
+		unitId: row.outUnitId,
+		specific: row.specific,
+		useDose: row.useDose ?? 1,
+		useMethods: row.useMethods ?? 1,
+		dayNum: row.dayNum ?? 1,
+		amountCount: row.useMethods ?? 1,
+		dosingWay: row.dosingWay,
+		isPack: false,
+		child: null,
+		useMaxDose: row.useMaxDose ?? 0,
+		useMinDose: row.useMinDose ?? 0,
+		vKey: generateGUID(),
+	});
 	popoverRef.value.hide();
 };
 
@@ -753,7 +752,7 @@ const handleNodeClick = async (item: any) => {
 		useMethods: item.useMethods ?? 1,
 		dayNum: 1,
 		amountCount: item.useMethods ?? 1,
-		dosingWay: item.dosingWay,
+		dosingWay: item.dosingWay == 0 ? null : item.dosingWay,
 		isPack: false,
 		child: null,
 		useMaxDose: item.useMaxDose ?? 0,
@@ -767,10 +766,16 @@ const handleNodeClick = async (item: any) => {
  * 保存处方
  */
 const savePrescription = async () => {
-	submitLoading.value=true;
+	submitLoading.value = true;
 	var json = other.deepClone(tableData.value.cemRecordPrescriptionItems) as any;
-	if (tableData.value.id) await getAPI(CEMRecordApi).apiCEMRecordRegIdRecordIdIdEditPrescriptionPut(props.treatData?.regId, props.treatData?.id, tableData.value.id, json).finally(() => submitLoading.value=false);
-	else await getAPI(CEMRecordApi).apiCEMRecordRegIdRecordIdAddPrescriptionPost(props.treatData?.regId, props.treatData?.id, json).finally(() => submitLoading.value=false);
+	if (tableData.value.id)
+		await getAPI(CEMRecordApi)
+			.apiCEMRecordRegIdRecordIdIdEditPrescriptionPut(props.treatData?.regId, props.treatData?.id, tableData.value.id, json)
+			.finally(() => (submitLoading.value = false));
+	else
+		await getAPI(CEMRecordApi)
+			.apiCEMRecordRegIdRecordIdAddPrescriptionPost(props.treatData?.regId, props.treatData?.id, json)
+			.finally(() => (submitLoading.value = false));
 	closeDialog();
 };
 

@@ -61,6 +61,7 @@ import { useUserInfo } from '/@/stores/userInfo';
 
 const stores = useUserInfo();
 const dictList = stores.dictList;
+console.log("stores.userInfos.authBtnList",stores.userInfos.authBtnList)
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const tableDrugsRef = ref<RefType>();
 const usingMethodObject = ref<any>({});

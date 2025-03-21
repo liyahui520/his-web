@@ -48,7 +48,7 @@
 			</el-form>
 		</el-card>
 
-		<el-card class="full-table" shadow="never" :body-style="{ border: '0px' }" style="overflow: auto; margin-top: 8px">
+		<el-card class="full-table" shadow="never" :body-style="{ border: '0px' }" style="overflow: auto; margin-top: 8px;">
 			<component :is="componentObject[productTypesValue]?.name" :productCategorysData="productCategorysData"> </component>
 		</el-card>
 	</div>

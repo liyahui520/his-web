@@ -88,9 +88,9 @@
 							<!--							<el-input v-model="ruleForm.address" placeholder="请输入地址" clearable="" />-->
 							<!-- <el-cascader style="width: 100%" v-model="address" :options="options" :props="customProps"></el-cascader> -->
 							<el-cascader
-										v-model="ruleForm.address"
+										v-model="address"
 										style="width: 100%"
-										ref="cascaderRef"
+										ref="customerAddressRef"
 										placeholder="请选择医院地址"
 										:options="options"
 										:props="customProps"
@@ -234,7 +234,7 @@ const submit = async () => {
 	});
 };
 
-const cascaderRef = ref();
+const customerAddressRef = ref();
 const customProps = {
 	multiple: false, // 启用多选
 	emitPath: false, // 只返回该节点的值
@@ -247,8 +247,8 @@ const customProps = {
  * 处理地址变更
  * @param value
  */
- const handleAddressChange = (value: any) => {
-	ruleForm.value.addressText = cascaderRef.value.getCheckedNodes()[0].pathLabels.join('');
+const handleAddressChange = (value: any) => {
+	ruleForm.value.addressText = customerAddressRef.value.getCheckedNodes()[0].pathLabels.join('');
 };
 
 

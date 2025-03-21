@@ -66,7 +66,7 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="使用方式" prop="usingMethod">
 							<el-select v-model="ruleForm.usingMethod" filterable placeholder="请选择使用方式">
-								<el-option v-for="item in usingMethodData" :key="item.id" :label="item.value" :value="item.id"> </el-option>
+								<el-option v-for="item in usingMethodData" :key="item.id" :label="item.label" :value="item.id"> </el-option>
 							</el-select>
 						</el-form-item>
 
@@ -74,7 +74,7 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="投药方式" prop="dosingWay">
 							<el-select v-model="ruleForm.dosingWay" filterable placeholder="请选择投药方式">
-								<el-option v-for="item in dosingWayData" :key="item.id" :label="item.value" :value="item.id"> </el-option>
+								<el-option v-for="item in dosingWayData" :key="item.id" :label="item.label" :value="item.id"> </el-option>
 							</el-select>
 						</el-form-item>
 
@@ -172,10 +172,11 @@
 import { ref, onMounted } from 'vue';
 import type { FormRules } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
-import { ProductDrugsApi,SysDictDataApi } from '/@/api-services/api';
+import { ProductDrugsApi } from '/@/api-services/api';
 import { useUserInfo } from '/@/stores/userInfo';
 
 const stores = useUserInfo();
+const dictList = stores.dictList;
 //父级传递来的参数
 var props = defineProps({
 	title: {
@@ -198,16 +199,13 @@ const inUnitName = ref('入库单位');
 const outUnitName = ref('出库单位');
 const usingMethodData=ref<any>([]);
 const dosingWayData=ref<any>([]);
-const getDictDataDropdownList = async (val: any) => {
-  let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
-  return list.data.result ?? [];
-};
+
 const loadUsingMethodData=async ()=>{
-	var res = await getDictDataDropdownList('code_using_method');
+	var res = dictList['code_using_method'];
 	usingMethodData.value = res?? [];
 };
 const loadDosingWayData=async()=>{
-	var res = await getDictDataDropdownList('code_dosing_way');
+	var res = dictList['code_dosing_way'];
 	dosingWayData.value = res?? [];
 };
 

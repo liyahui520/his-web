@@ -26,12 +26,9 @@
 <script lang="tsx" setup name="editDialog">
 import { defineAsyncComponent, nextTick, onMounted, reactive, ref, h } from 'vue';
 import { ElMessage } from 'element-plus';
-import type { FormRules } from 'element-plus';
-import { getDictDataList as dl } from '/@/utils/dict-utils';
 import { getAPI } from '/@/utils/axios-utils';
 import { ImportPcuPetApi } from '/@/api-services';
-import { ElButton, ElTag, ElInput, ElSelect, ElOption } from 'element-plus';
-import type { Column } from 'element-plus';
+import { ElButton } from 'element-plus';
 
 const Table = defineAsyncComponent(() => import('/@/components/table/tableV2.vue'));
 const getEditlevelData = ref<any>([]);
@@ -244,9 +241,6 @@ const submit = async () => {
 	}
 };
 
-const getDictDataDropdownList = async (val: any) => {
-	return await dl(val);
-};
 
 // 页面加载时
 onMounted(async () => {});

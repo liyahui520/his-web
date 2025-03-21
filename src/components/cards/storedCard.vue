@@ -47,11 +47,11 @@
         </template>
         <template v-slot:columncommand>
           <el-table-column label="支付方式" align="center">
-            <el-table-column width="80" prop="pcuAccountPayMethods" :label="item.value" :show-overflow-tooltip="true"
+            <el-table-column width="80" prop="pcuAccountPayMethods" :label="item.label" :show-overflow-tooltip="true"
               min-width="50" v-for="item in getPriceModth" :key="item.id">
               <template #default="scope">
-                <span>{{ scope.row.rechargeDetails.filter(s => s.rechargeType
-                  == item.code)[0]?.totalAmount?.toFixed(2).toString() || '0.00' }}</span>
+                <span>{{ scope.row.rechargeDetails.filter((s:any) => s.rechargeType
+                  == item.value)[0]?.totalAmount?.toFixed(2).toString() || '0.00' }}</span>
               </template>
             </el-table-column>
           </el-table-column>
@@ -75,12 +75,14 @@
 import { ref, defineAsyncComponent, reactive, nextTick } from "vue";
 import { getAPI } from "/@/utils/axios-utils";
 import { MemberCardApi } from "/@/api-services";
-import { getDictDataItem as di, getDictDataList as dl } from '/@/utils/dict-utils';
 import { verifyNumberComma } from "/@/utils/toolsValidate";
 import RechargeCard from './rechargeCard.vue'
 import ReturnAmount from './returnAmount.vue'
 import { ElMessage } from "element-plus";
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const PcuDetails = defineAsyncComponent(() => import('/@/components/pcus/pcuDetails.vue'));
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 
@@ -222,7 +224,7 @@ const tb = reactive<TableDemoState>({
 const emit = defineEmits(["reloadTable"]);
 // 打开弹窗
 const openDialog = async () => {
-  getPriceModth.value = await dl('code_card_recharge_type');
+  getPriceModth.value = dictList['code_card_recharge_type'];
   isShowDialog.value = true;
   await loadCardInfo();
 };

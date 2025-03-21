@@ -41,7 +41,7 @@
 						<el-table-column label="使用方式" width="150">
 							<template #default="scope">
 								<el-select v-model="scope.row.dosingWay" filterable clearable placeholder="使用方式" style="width: 100%">
-									<el-option v-for="item in dosingWayData" :key="item.id" :label="item.value" :value="item.id"></el-option>
+									<el-option v-for="item in dosingWayData" :key="item.id" :label="item.label" :value="item.id"></el-option>
 								</el-select>
 							</template>
 						</el-table-column>
@@ -177,16 +177,18 @@
 import { ref, defineAsyncComponent } from 'vue';
 import { addDaysToDate, addWeeksToDate, addMonthsToDate, addYearsToDate } from '/@/utils/formatTime';
 import { getAPI } from '/@/utils/axios-utils';
-import { SMSTemplateApi,SysDictDataApi,VaccinationApi } from '/@/api-services/api';
+import { SMSTemplateApi,VaccinationApi } from '/@/api-services/api';
 import commonFunction from '/@/utils/commonFunction';
-import { useUserInfo } from '/@/stores/userInfo';
 import { storeToRefs } from 'pinia';
 import { formatDate } from '/@/utils/formatTime';
 import Decimal from 'decimal.js';
 import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 import { verifyNumberComma } from '/@/utils/toolsValidate';
 import type { FormRules } from 'element-plus';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const Products = defineAsyncComponent(() => import('/@/components/products/selectProducts.vue'));
 const templateData = ref<any>([]);
 const productRef = ref();
@@ -198,7 +200,6 @@ const dosingWayData = ref<any>([]);
 const ruleForm = ref<any>({ vaccinationInfos: [], smsContent: '' });
 const ruleFormRef = ref<any>();
 const { generateGUID } = commonFunction();
-const stores = useUserInfo();
 const { userInfos, userList, sysOrgInfo } = storeToRefs(stores);
 const sysUserData = ref<any>([]);
 const isHasData = ref(false);
@@ -217,7 +218,7 @@ const intervalUnitData = ref<any>([
 
 const smsTemplateItems = ref<any>([]);
 
-const intervalUnitFunction = {
+const intervalUnitFunction =ref<any>({
 	Year: (startTime: Date, interval: number) => {
 		return addYearsToDate(startTime, interval);
 	},
@@ -230,7 +231,7 @@ const intervalUnitFunction = {
 	Day: (startTime: Date, interval: number) => {
 		return addDaysToDate(startTime, interval);
 	},
-};
+}) ;
 //删除驱虫疫苗
 const deleteVaccination = (index: number) => {
 	ruleForm.value.vaccinationInfos.splice(index, 1);
@@ -257,7 +258,7 @@ const rules = ref<FormRules>({
  * @param row
  * @param index
  */
-const handleRowChange = (row: any, index) => {
+const handleRowChange = (row: any, index:any) => {
 	//判断集合中grouping一样的情况下此后的expectVaccinations都会推迟指定日期
 	for (let i = index + 1; i < ruleForm.value.vaccinationInfos.length; i++) {
 		let info = ruleForm.value.vaccinationInfos[i];
@@ -269,7 +270,7 @@ const handleRowChange = (row: any, index) => {
 /**
  * 预计接种时间变更事件
  */
-const expectVaccinationsChange = (row: any, index) => {
+const expectVaccinationsChange = (row: any, index: any) => {
 	handleRowChange(row, index);
 };
 /**
@@ -277,7 +278,7 @@ const expectVaccinationsChange = (row: any, index) => {
  * @param row
  * @param index
  */
-const intervalChange = (row: any, index) => {
+const intervalChange = (row: any, index: any) => {
 	let startTime = new Date();
 	if (index > 0) {
 		if (row.grouping == ruleForm.value.vaccinationInfos[index - 1].grouping) {
@@ -292,7 +293,7 @@ const intervalChange = (row: any, index) => {
  * @param row
  * @param index
  */
-const intervalUnitChange = (row: any, index) => {
+const intervalUnitChange = (row: any, index: any) => {
 	let startTime = new Date();
 	if (index > 0) {
 		if (row.grouping == ruleForm.value.vaccinationInfos[index - 1].grouping) {
@@ -455,13 +456,9 @@ const submit = async () => {
 	});
 };
 
-const getDictDataDropdownList = async (val: any) => {
-	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
-	return list.data.result ?? [];
-};
 //加载使用方式
 const loadDosingWayData = async () => {
-	var res = await getDictDataDropdownList('code_dosing_way');
+	var res = dictList['code_dosing_way'];
 	dosingWayData.value = res ?? [];
 };
 //加载基础数据

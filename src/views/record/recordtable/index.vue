@@ -31,7 +31,10 @@ import { CEMRecordApi } from '/@/api-services/api';
 import { PrintAndPreviewApi,SysDictDataApi } from '/@/api-services';
 import { getDictDataItem as di } from '/@/utils/dict-utils';
 import { formatDate } from '/@/utils/formatTime';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const Search = defineAsyncComponent(() => import('/@/components/table/search.vue'));
 const PrintView = defineAsyncComponent(() => import('/@/components/print/index.vue'));
@@ -228,11 +231,11 @@ const handleQuery = async () => {
 	var res = await getAPI(CEMRecordApi).apiCEMRecordGetCemRecordsPagePost(Object.assign(queryParams.value, tableParams.value));
 	tableData.value = res.data.result?.items ?? [];
 	loading.value = false;
-	getRegistersStatusEnumData.value = await getDictDataDropdownList('RegistersStatusEnum');
+	getRegistersStatusEnumData.value = dictList['RegistersStatusEnum'];
 };
 
 //打印
-const printRecord = async (row) => {
+const printRecord = async (row:any) => {
 	var r = await getAPI(PrintAndPreviewApi).apiPrintAndPreviewRecordIdGetRecordPreviewPrintPost(row.id, {
 		hasZhuSu: true,
 		hasPhysical: true,
@@ -248,7 +251,7 @@ const printRecord = async (row) => {
 };
 
 //预览
-const printViewer = async (row) => {
+const printViewer = async (row:any) => {
 	var r = await getAPI(PrintAndPreviewApi).apiPrintAndPreviewRecordIdGetRecordPreviewPrintPost(row.id, {
 		hasZhuSu: true,
 		hasPhysical: true,
@@ -263,10 +266,6 @@ const printViewer = async (row) => {
 	printViewRef.value.showDialog(json, data?.binData, true,json?.panels[0].width);
 };
 
-const getDictDataDropdownList = async (val: any) => {
-	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
-	return list.data.result ?? [];
-};
 onMounted(async () => {
 	await handleQuery();
 });

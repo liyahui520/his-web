@@ -232,7 +232,7 @@
 									<el-table-column prop="itemName" label="使用方式" min-width="150" show-overflow-tooltip>
 										<template #default="scope">
 											<el-select v-model="scope.row.dosingWay" filterable placeholder="请选择使用方式" style="width: 100%">
-												<el-option v-for="item in dosingWayData" :key="item.id" :label="item.value" :value="item.id"></el-option>
+												<el-option v-for="item in dosingWayData" :key="item.id" :label="item.label" :value="item.id"></el-option>
 											</el-select>
 										</template>
 									</el-table-column>
@@ -368,17 +368,18 @@ import { reactive, ref, nextTick, onMounted, defineAsyncComponent, computed } fr
 import { ElMessageBox,ElMessage, ElTable } from 'element-plus';
 import { DocumentAdd, DArrowLeft, DArrowRight, DeleteFilled } from '@element-plus/icons-vue';
 import { getAPI } from '/@/utils/axios-utils';
-import { ProductCategorysApi, CEMRecordApi, ProductDrugsApi,SysDictDataApi } from '/@/api-services/api';
+import { ProductCategorysApi, CEMRecordApi, ProductDrugsApi } from '/@/api-services/api';
 import { CEMRecordItemGroupTypeEnum } from '/@/api-services/models/cemrecord-manage';
 import { verifyNumberComma, verifyTextColor } from '/@/utils/toolsValidate';
 import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 import { formatAge } from '/@/utils/formatTime';
 import commonFunction from '/@/utils/commonFunction';
-import { useUserInfo } from '/@/stores/userInfo';
 import other from '/@/utils/other';
 import Decimal from 'decimal.js';
+import { useUserInfo } from '/@/stores/userInfo';
 
 const stores = useUserInfo();
+const dictList = stores.dictList;
 const { generateGUID } = commonFunction();
 const CategroyProducts = defineAsyncComponent(() => import('/@/components/tree/categroyProducts.vue'));
 const PackDrug = defineAsyncComponent(() => import('/@/components/treatment/packDrug.vue'));
@@ -469,7 +470,7 @@ const onConfirm = async () => {
 	}
 };
 
-const closeBefore = async (done) => {
+const closeBefore = async (done:any) => {
 	if (JSON.stringify(oldData.value) != JSON.stringify(tableData.value)) {
 		ElMessageBox.confirm(`数据已修改，是否保存?`, '提示', {
 			confirmButtonText: '保存',
@@ -532,7 +533,7 @@ const handleResize = () => {
 //选择产品--------------END -------------------
 
 //格式化
-const formatInput = (val) => {
+const formatInput = (val:any) => {
 	return verifyNumberComma(parseFloat(val).toFixed(2).toString());
 };
 
@@ -550,7 +551,7 @@ const arraySpanMethod = ({ row, column, rowIndex, columnIndex }) => {
 };
 
 //获取table选中的值
-const SelectionRows = async (rows) => {
+const SelectionRows = async (rows:any) => {
 	packRows.value = rows;
 };
 
@@ -562,22 +563,22 @@ const savePrescription = async () => {
 	await closeDialog();
 };
 
-const countCharge = async (row) => {
+const countCharge = async (row:any) => {
 	row.amountPrice = row.count * row.salePrice;
 	// await sumAmount();
 };
 
-const deleteRow = async (index) => {
+const deleteRow = async (index:any) => {
 	tableData.value.cemRecordPrescriptionItems.splice(index, 1);
 	// await sumAmount();
 };
 
 //计算投药量
-const dayCharge = async (row) => {
+const dayCharge = async (row:any) => {
 	row.amountCount = row.dayNum * row.useMethods;
 };
 
-const changeOrderGroup = (row) => {
+const changeOrderGroup = (row:any) => {
 	if (row.orderId) row.orderName = orderGroupObject.value[row.orderId];
 };
 
@@ -600,7 +601,7 @@ const remoteMethod = async () => {
 	}
 };
 
-const rowClick = async (rows) => {
+const rowClick = async (rows:any) => {
 	if (rows) {
 		multipleTableRef.value!.toggleRowSelection(rows, undefined);
 	} else {
@@ -608,9 +609,9 @@ const rowClick = async (rows) => {
 	}
 };
 
-const packLoad = async (row) => {
-	row.child.reduce((all: [], item) => {
-		tableData.value.cemRecordPrescriptionItems = tableData.value.cemRecordPrescriptionItems.filter((i, index) => i.vKey != item.vKey);
+const packLoad = async (row:any) => {
+	row.child.reduce((all: [], item:any) => {
+		tableData.value.cemRecordPrescriptionItems = tableData.value.cemRecordPrescriptionItems.filter((i:any, index:any) => i.vKey != item.vKey);
 	}, []);
 	row.recordId = props.treatData?.id;
 	row.regId = props.treatData?.regId;
@@ -649,8 +650,8 @@ const handleNodeClick = async (item: any) => {
 };
 
 //处理数据
-const refreshData = async (rows) => {
-	let r = rows.reduce((all: any, item) => {
+const refreshData = async (rows:any) => {
+	let r = rows.reduce((all: any, item:any) => {
 		let json = {
 			recordId: props.treatData.id,
 			regId: props.treatData.regId,
@@ -683,12 +684,12 @@ const refreshData = async (rows) => {
 	return r;
 };
 
-const selectable = async (row, index) => {
+const selectable = async (row:any, index:any) => {
 	return false;
 };
 
 //双击事件
-const toggleSelection = async (rows) => {
+const toggleSelection = async (rows:any) => {
 	let d = other.deepClone(selectRowList.value);
 	let netb = [] as any;
 	if (d.length > 0) {
@@ -706,21 +707,17 @@ const toggleSelection = async (rows) => {
 
 //获取使用方式
 const getUsingMethods = async () => {
-	let res = await getDictDataDropdownList('code_dosing_way');
+	let res = dictList['code_dosing_way'];
 	dosingWayData.value = res ?? [];
 };
 
-const getDictDataDropdownList = async (val: any) => {
-	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
-	return list.data.result ?? [];
-};
 
 //获取选中的行值
-const selectRow = async (se) => {
+const selectRow = async (se:any) => {
 	selectRowList.value = se;
 };
 
-const toggleSidebar = async (v) => {
+const toggleSidebar = async (v:any) => {
 	await nextTick(() => {
 		isSidebarVisible.value = !v ? true : false;
 		if (!v) {
@@ -731,7 +728,7 @@ const toggleSidebar = async (v) => {
 	});
 };
 
-const toggleRightSidebar = async (v) => {
+const toggleRightSidebar = async (v:any) => {
 	await nextTick(() => {
 		isRigheSidebarVisible.value = !v ? true : false;
 		if (!v) {
@@ -744,10 +741,10 @@ const toggleRightSidebar = async (v) => {
 
 
 // 打开弹窗
-const openDialog = async (row) => {
+const openDialog = async (row:any) => {
 	oldData.value = other.deepClone(row);
 	if (row?.cemRecordPrescriptionItems?.length > 0) {
-		let allList = row?.cemRecordPrescriptionItems.reduce((all: any, item) => {
+		let allList = row?.cemRecordPrescriptionItems.reduce((all: any, item:any) => {
 			if (!item.vKey) item.vKey = generateGUID();
 			if (item.child && item.child.length > 0) {
 				let c = item.child.reduce((a: any, i: any) => {

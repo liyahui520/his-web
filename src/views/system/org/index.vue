@@ -15,7 +15,7 @@
 						</el-form-item> -->
 						<el-form-item label="机构类型">
 							<el-select v-model="state.queryParams.type" filterable clearable>
-								<el-option v-for="item in state.orgTypeList" :key="item.value" :label="item.value" :value="item.code" />
+								<el-option v-for="item in state.orgTypeList" :key="item.value" :label="item.label" :value="item.value" />
 							</el-select>
 						</el-form-item>
 						<el-form-item>
@@ -67,18 +67,18 @@
 <script lang="ts" setup name="sysOrg">
 import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
-import { Splitpanes, Pane } from 'splitpanes';
 import 'splitpanes/dist/splitpanes.css';
-
 import OrgTree from '/@/views/system/org/component/orgTree.vue';
 import EditOrg from '/@/views/system/org/component/editOrg.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
-
 import { getAPI } from '/@/utils/axios-utils';
-import { SysOrgApi, SysDictDataApi } from '/@/api-services/api';
+import { SysOrgApi } from '/@/api-services/api';
 import { SysOrg, UpdateOrgInput } from '/@/api-services/models';
 import other from '/@/utils/other';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const editOrgRef = ref<InstanceType<typeof EditOrg>>();
 const orgTreeRef = ref<InstanceType<typeof OrgTree>>();
 const state = reactive({
@@ -98,7 +98,7 @@ const state = reactive({
 onMounted(async () => {
 	handleQuery();
 
-	let resDicData = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('org_type');
+	let resDicData = dictList['org_type'];
 	state.orgTypeList = resDicData.data.result;
 });
 
@@ -177,6 +177,6 @@ const nodeClick = async (node: any) => {
 
 // 字典转换
 const dictFormatter = (row: any, column: any, cellValue: any) => {
-	return state.orgTypeList.find((u: any) => u.code == cellValue)?.value;
+	return state.orgTypeList.find((u: any) => u.value == cellValue)?.value;
 };
 </script>

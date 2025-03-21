@@ -96,11 +96,13 @@
 import { ref, defineAsyncComponent, reactive, computed } from "vue";
 import { getAPI } from "/@/utils/axios-utils";
 import { MemberCardApi } from "/@/api-services";
-import { getDictDataList as dl } from '/@/utils/dict-utils';
-import { verifyNumberComma } from "/@/utils/toolsValidate";
 import { MemberCardRechargeInput } from "/@/api-services/models/card-manage";
 import { ElMessage } from "element-plus";
 import { Wallet } from '@element-plus/icons-vue'
+import { useUserInfo } from '/@/stores/userInfo';
+
+const stores = useUserInfo();
+const dictList = stores.dictList;
 //父级传递来的参数
 var props = defineProps({
     title: {
@@ -127,7 +129,7 @@ const ruleForm = ref<MemberCardRechargeInput>({
 const emit = defineEmits(["reloadTable"]);
 // 打开弹窗
 const openDialog = async () => {
-    getPriceModth.value = await dl('code_card_recharge_type');
+    getPriceModth.value = dictList['code_card_recharge_type'];
     isShowDialog.value = true;
     ruleForm.value.customerId = props.pcustomer.id
     ruleForm.value.cardId = props.cardInfo.id
@@ -135,8 +137,8 @@ const openDialog = async () => {
     ruleForm.value.remark ='';
     getPriceModthObject.value = {};
     getPriceModth.value.forEach((item: any) => {
-        ruleForm.value.rechargeDetails?.push({ rechargeType: item.code, totalAmount: 0 });
-        getPriceModthObject.value[item.code] = { name: item.value, url: `src/assets/pay-type/${item.code}.png` }
+        ruleForm.value.rechargeDetails?.push({ rechargeType: item.value, totalAmount: 0 });
+        getPriceModthObject.value[item.value] = { name: item.label, url: `src/assets/pay-type/${item.value}.png` }
     });
     ruleForm.value.rechargeDetails[0].totalAmount = props.cardInfo.oriAmount;
     ruleForm.value.giveAmount = props.cardInfo.giveAmount;

@@ -17,14 +17,14 @@ import { Configuration } from '../../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../../base';
-import { AdminResultListMemberDepositDto } from '../../models';
-import { AdminResultListMemberDepositMethodDto } from '../../models';
-import { AdminResultListMemberDepositTypeDto } from '../../models';
-import { AdminResultMemberDepositAmountDto } from '../../models';
-import { AdminResultSqlSugarPagedListMemberDepositDetailDto } from '../../models';
-import { MemberDepositPageInput } from '../../models';
-import { RechargeDepositInput } from '../../models';
-import { ReturnDepositInput } from '../../models';
+import { AdminResultListMemberDepositDto } from '../../models/deposit-manage/admin-result-list-member-deposit-dto';
+import { AdminResultListMemberDepositMethodDto } from '../../models/deposit-manage/admin-result-list-member-deposit-method-dto';
+import { AdminResultListMemberDepositTypeDto } from '../../models/deposit-manage/admin-result-list-member-deposit-type-dto';
+import { AdminResultMemberDepositAmountDto } from '../../models/deposit-manage/admin-result-member-deposit-amount-dto';
+import { AdminResultSqlSugarPagedListMemberDepositDetailDto } from '../../models/deposit-manage/admin-result-sql-sugar-paged-list-member-deposit-detail-dto';
+import { MemberDepositPageInput } from '../../models/deposit-manage/member-deposit-page-input';
+import { RechargeDepositInput } from '../../models/deposit-manage/recharge-deposit-input';
+import { ReturnDepositInput } from '../../models/deposit-manage/return-deposit-input';
 /**
  * MemberDepositApi - axios parameter creator
  * @export

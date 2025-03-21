@@ -80,10 +80,14 @@
 import { ref, computed } from "vue";
 import { getAPI } from "/@/utils/axios-utils";
 import { MemberDepositApi } from "/@/api-services";
-import { getDictDataList as dl } from '/@/utils/dict-utils';
-import { RechargeDepositInput } from "/@/api-services/models";
+import { RechargeDepositInput } from "/@/api-services/models/deposit-manage/recharge-deposit-input";
 import { ElMessage } from "element-plus";
 import { Wallet } from '@element-plus/icons-vue'
+import { MemberDepositTypeEnum } from "/@/api-services/models/deposit-manage/member-deposit-type-enum";
+import { useUserInfo } from '/@/stores/userInfo';
+
+const stores = useUserInfo();
+const dictList = stores.dictList;
 //父级传递来的参数
 var props = defineProps({
     title: {
@@ -95,7 +99,7 @@ var props = defineProps({
     typeId: "-1" as any,
     depositTypes: {
         type: Array,
-        default: []
+        default: [] as any
     }
 });
 const getPriceModth = ref<any>([]);
@@ -104,7 +108,7 @@ const isShowDialog = ref(false);
 const ruleFormRef = ref();
 const ruleForm = ref<RechargeDepositInput>({
     customerId: "0",
-    typeId: "0",
+    typeId: MemberDepositTypeEnum.NUMBER_0,
     changeAmount: 0,
     remark: '',
     payMethods: [] as any,
@@ -114,7 +118,8 @@ const ruleForm = ref<RechargeDepositInput>({
 const emit = defineEmits(["reloadTable"]);
 // 打开弹窗
 const openDialog = async () => {
-    getPriceModth.value = await dl('code_card_recharge_type');
+    getPriceModth.value = dictList['code_card_recharge_type'];
+    console.log("getPriceModth.value",getPriceModth.value)
     isShowDialog.value = true;
     ruleForm.value.remark = '';
     ruleForm.value.customerId = props.pcustomer.id
@@ -122,9 +127,11 @@ const openDialog = async () => {
     ruleForm.value.payMethods = [];
     getPriceModthObject.value = {};
     getPriceModth.value.forEach((item: any) => {
-        ruleForm.value.payMethods?.push({ methodId: item.id, methodName: item.value, amount: 0 });
-        getPriceModthObject.value[item.id] = { name: item.value, url: `src/assets/pay-type/${item.code}.png` }
+        ruleForm.value.payMethods?.push({ methodId: item.id, methodName: item.label, amount: 0 });
+        getPriceModthObject.value[item.id] = { name: item.label, url: `src/assets/pay-type/${item.value}.png` }
     });
+    
+    console.log("getPriceModthObject.value",getPriceModthObject.value)
 };
 
 const computedTotalAmout = computed(() => {

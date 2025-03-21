@@ -79,7 +79,10 @@ import editDialog from '/@/views/products/drugs/component/editDialog.vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { ProductDrugsApi,SysDictDataApi } from '/@/api-services/api';
 import mittBus from '/@/utils/newmitt';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const editDialogRef = ref();
 const loading = ref(false);
 const tableData = ref<any>([]);
@@ -96,17 +99,17 @@ const usingMethodData=ref<any>([]);
 const dosingWayData=ref<any>([]);
 
 const loadUsingMethodData=async ()=>{
-	var res = await getDictDataDropdownList('code_using_method');
+	var res = dictList['code_using_method'];
 	usingMethodData.value=res?? [];
 	usingMethodData.value.forEach((item:any)=>{
-		usingMethodObject.value[item.id]=item.value;
+		usingMethodObject.value[item.id]=item.label;
 	});
 };
 const loadDosingWayData=async()=>{
-	var res = await getDictDataDropdownList('code_dosing_way');
+	var res = dictList['code_dosing_way'];
 	dosingWayData.value=res?? [];
 	dosingWayData.value.forEach((item:any)=>{
-		dosingWayObject.value[item.id]=item.value;
+		dosingWayObject.value[item.id]=item.label;
 	});
 };
 
@@ -184,8 +187,4 @@ onMounted(async () => {
 	await loadDosingWayData();
 });
 
-const getDictDataDropdownList = async (val: any) => {
-	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
-	return list.data.result ?? [];
-};
 </script> 

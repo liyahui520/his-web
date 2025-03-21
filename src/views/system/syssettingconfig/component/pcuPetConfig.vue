@@ -103,7 +103,7 @@
 						</el-form-item>
 						<el-form-item label="编码规则" prop="type">
 							<el-select filterable v-model="recordSerNumberFrom.type" placeholder="请选择" :disabled="!isRecordSerNumber">
-								<el-option v-for="(item, index) in serNumberTypes" :key="index" :value="item.value" :label="item.name">{{ item.name }} </el-option>
+								<el-option v-for="(item, index) in serNumberTypes" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 						<el-form-item label="起始编号" prop="startNumber">
@@ -200,16 +200,12 @@ import { auth } from '/@/utils/authFunction';
 import { getAPI } from '/@/utils/axios-utils';
 import { clone, isObjectValueEqual } from '/@/utils/arrayOperation';
 import { PcuPetConfigApi, MemberLevelApi } from '/@/api-services/api';
-import { Check, Close } from '@element-plus/icons-vue';
-import other from '/@/utils/other';
-import { Delete, Edit, Search, Share, Upload } from '@element-plus/icons-vue';
-import { getDictDataItem as di, getDictDataList as dl } from '/@/utils/dict-utils';
 import { formatDate } from '/@/utils/formatTime';
-import { PcuSerNumberConfigDto } from '/@/api-services/models/pcu-pet-config';
+import { useUserInfo } from '/@/stores/userInfo';
 
-const loading = ref(false);
-const tableData = ref<any>([]);
-const queryParams = ref<any>({ name: '' });
+const stores = useUserInfo();
+const dictList = stores.dictList;
+
 const oldPcuSerNumberConfig = ref();
 const getLevelData = ref<any>([]);
 //会员编号
@@ -232,7 +228,7 @@ const recordSerNumberFromRef = ref();
 const recordSerNumberTypes = ref([]);
 const isRecordSerNumber = ref(false);
 const oldRecordSerNumberConfig = ref();
-const validatePinyin = (rule, value, callback) => {
+const validatePinyin = (rule:any, value:any, callback:any) => {
 	const reg = /^[a-zA-Z]+$/;
 	if (!reg.test(value)) {
 		callback(new Error('只能输入字母，即由字母a-z、A-Z组成的字符串'));
@@ -279,7 +275,7 @@ const editSerNumberConfig = async () => {
  * 保存修改
  */
 const saveSerNumberConfig = async () => {
-	await serNumberFromRef.value.validate(async (valid, fields) => {
+	await serNumberFromRef.value.validate(async (valid:any, fields:any) => {
 		if (!valid) {
 			ElMessage({
 				message: `表单有${Object.keys(fields).length}处验证失败，请修改后再提交`,
@@ -326,7 +322,7 @@ const cancelPcuLevel = async () => {
  * 保存会员级别修改
  */
 const saveLevel = async () => {
-	await levelFromRef.value.validate(async (valid, fields) => {
+	await levelFromRef.value.validate(async (valid:any, fields:any) => {
 		if (!valid) {
 			ElMessage({
 				message: `表单有${Object.keys(fields).length}处验证失败，请修改后再提交`,
@@ -380,7 +376,7 @@ const editRecordSerNumberConfig = async () => {
  * 保存修改
  */
 const saveRecordSerNumberConfig = async () => {
-	await recordSerNumberFromRef.value.validate(async (valid, fields) => {
+	await recordSerNumberFromRef.value.validate(async (valid:any, fields:any) => {
 		if (!valid) {
 			ElMessage({
 				message: `表单有${Object.keys(fields).length}处验证失败，请修改后再提交`,
@@ -405,7 +401,7 @@ const saveRecordSerNumberConfig = async () => {
 
 // 页面加载时
 onMounted(async () => {
-	serNumberTypes.value = await dl('PcuNumberType');
+	serNumberTypes.value = dictList['PcuNumberType'];
 	await getPcuSerNumberConfig();
 	await getLevels();
 	await getRecordSerNumberConfig();

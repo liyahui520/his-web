@@ -45,11 +45,13 @@
 <script lang="ts" setup name="rechargeAccount">
 import { defineAsyncComponent, nextTick, onMounted, reactive, ref, watch } from 'vue';
 import { ElMessage, FormInstance } from 'element-plus';
-import { Iphone, Location, Message, OfficeBuilding, Tickets, User } from '@element-plus/icons-vue';
 import { getAPI } from '/@/utils/axios-utils';
-import { PcuAccountApi, SysDictDataApi } from '/@/api-services';
+import { PcuAccountApi } from '/@/api-services';
 import { verifyNumberComma, verifyNumberIntegerAndFloat, verifyNumberCommaNo } from '/@/utils/toolsValidate';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const PayMethod = defineAsyncComponent(() => import('/@/components/pcuAccount/payMethod.vue'));
 //父级传递来的函数，用于回调
 const emit = defineEmits(['reloadTable']);
@@ -127,10 +129,6 @@ const submit = async () => {
 	}
 };
 
-const getDictDataDropdownList = async (val: any) => {
-	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
-	return list.data.result ?? [];
-};
 
 const resetForm = (formEl: FormInstance | undefined) => {
 	if (!formEl) return;
@@ -139,12 +137,12 @@ const resetForm = (formEl: FormInstance | undefined) => {
 
 const Init = async () => {
 	dynamicValidateForm.pcuAccountPayMethods = [];
-	var r = await getDictDataDropdownList('funding_method');
+	var r = dictList['funding_method'];
 	getPriceModth.value = r;
 	getPriceModth.value.forEach((s) => {
 		dynamicValidateForm.pcuAccountPayMethods.push({
 			typeId: s.id,
-			typeName: s.value,
+			typeName: s.label,
 			price: '0.00',
 			customerId: dynamicValidateForm.customerId,
 		});

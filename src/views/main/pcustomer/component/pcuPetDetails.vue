@@ -53,15 +53,17 @@
 
 <script lang="ts" setup name="detailNo">
 import { ref, onMounted, reactive } from 'vue';
-import { ElMessage } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
-import { SysDictDataApi, PPetsApi, MemberLevelApi } from '/@/api-services/api';
+import { PPetsApi, MemberLevelApi } from '/@/api-services/api';
 import router from '/@/router';
 import CardPet from '/@/views/main/ppets/component/cardPet.vue';
 import CardAdd from '/@/views/main/ppets/component/cardAdd.vue';
 import EditPet from '../../ppets/component/editDialog.vue';
 import { Search } from '@element-plus/icons-vue';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const getSingCustomer = ref<any>({});
 const getPPets = ref<any>([]);
 const getlevelData = ref<any>([]);
@@ -75,34 +77,27 @@ const editPetTitle = ref('');
 
 //初始化
 const initData = async () => {
-	// if (!router.currentRoute.value.query.id) return;
-
-	// const res = await getAPI(PcustomerApi).apiPcustomerIdGetGet(router.currentRoute.value.query.id);
-	// getSingCustomer.value = res.data?.result ?? [];
-
 	await getAPI(MemberLevelApi)
 		.apiMemberLevelListPost({})
 		.then((resData) => {
 			getlevelData.value = resData.data?.result ?? [];
-			getlevelData.value.forEach((s) => {
+			getlevelData.value.forEach((s:any) => {
 				getLevelDataArr[s.id] = s.name;
 			});
 		});
 
-	getsourceidData.value = await getDictDataDropdownList('code_customer_source');
-	getsourceidData.value.forEach((s) => {
-		getsourceidDataArr[s.code] = s.value;
+	getsourceidData.value = dictList['code_customer_source'];
+	getsourceidData.value.forEach((s:any) => {
+		getsourceidDataArr[s.code] = s.label;
 	});
-	getEditsexData.value = await getDictDataDropdownList('code_sex');
-	getEditsexData.value.forEach((s) => {
-		getEditsexDataArr[s.code] = s.value;
+	getEditsexData.value = dictList['code_sex'];
+	getEditsexData.value.forEach((s:any) => {
+		getEditsexDataArr[s.code] = s.label;
 	});
 	getPPets.value = await getPetsListView(router.currentRoute.value.query.id);
 };
-const getDictDataDropdownList = async (val: any) => {
-	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
-	return list.data.result ?? [];
-};
+
+
 const errorHandler = async () => {
 	return false;
 };

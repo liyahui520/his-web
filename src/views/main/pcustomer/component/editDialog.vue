@@ -123,15 +123,14 @@
 
 <script lang="ts" setup name="editDialog">
 import { ref, onMounted } from 'vue';
-import { ElMessage } from 'element-plus';
 import type { FormRules } from 'element-plus';
-import { getDictDataList as dl } from '/@/utils/dict-utils';
 import { getAPI } from '/@/utils/axios-utils';
 import { PcustomerApi, MemberLevelApi } from '/@/api-services';
-import { useUserInfo } from '/@/stores/userInfo';
 import other from '/@/utils/other';
+import { useUserInfo } from '/@/stores/userInfo';
 
 const stores = useUserInfo();
+const dictList = stores.dictList;
 const getEditlevelData = ref<any>([]);
 const getEditsourceidData = ref<any>([]);
 const getEditsexData = ref<any>([]);
@@ -186,7 +185,7 @@ const openDialog = async (row: any) => {
 				ruleForm.value.level = defaultLevel[0].id;
 			}
 		});
-	getEditsourceidData.value = await getDictDataDropdownList('code_customer_source');
+	getEditsourceidData.value = dictList['code_customer_source'];
 
 	// 客户来源默认设置门店登记
 	var defaultCustomerSource = getEditsourceidData.value.filter((x: any) => x.label == "门店登记");
@@ -194,13 +193,13 @@ const openDialog = async (row: any) => {
 		ruleForm.value.sourceId = defaultCustomerSource[0].value;
 	}
 
-	getEditsexData.value = await getDictDataDropdownList('code_sex');
+	getEditsexData.value = dictList['code_sex'];
 	address.value = ruleForm.value.address ? JSON.parse(ruleForm.value.address) : [];
 	isShowDialog.value = true;
 };
 
 // 关闭弹窗
-const closeDialog = (row) => {
+const closeDialog = (row:any) => {
 	ruleFormRef.value?.resetFields(); 
 	emit('reloadTable', row.customerId);
 	isShowDialog.value = false;
@@ -218,7 +217,7 @@ const submit = async () => {
 		if (isValid) {
 			let values = ruleForm.value;
 			values.address = JSON.stringify(address.value);
-			let dot = {};
+			let dot = {} as any;
 			if (ruleForm.value.id != undefined && ruleForm.value.id > 0) {
 				let r = await getAPI(PcustomerApi).apiPcustomerEditPut(values); // updatePcustomer(values);
 				dot = r.data?.result;
@@ -231,9 +230,6 @@ const submit = async () => {
 	});
 };
 
-const getDictDataDropdownList = async (val: any) => {
-	return await dl(val);
-};
 
 // 页面加载时
 onMounted(async () => {});

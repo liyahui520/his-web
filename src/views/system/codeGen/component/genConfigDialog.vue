@@ -20,7 +20,7 @@
 					<template #default="scope">
 						<div class="effect-type-container">
 							<el-select v-model="scope.row.effectType" class="m-2" placeholder="Select" :disabled="judgeColumns(scope.row)" @change="effectTypeChange(scope.row, scope.$index)">
-								<el-option v-for="item in state.effectTypeList" :key="item.code" :label="item.value" :value="item.code" />
+								<el-option v-for="item in state.effectTypeList" :key="item.value" :label="item.label" :value="item.value" />
 							</el-select>
 							<el-button
 								v-if="scope.row.effectType === 'ApiTreeSelect' || scope.row.effectType === 'fk'"
@@ -36,7 +36,7 @@
 				<el-table-column prop="dictTypeCode" label="字典" width="180" show-overflow-tooltip>
 					<template #default="scope">
 						<el-select v-model="scope.row.dictTypeCode" class="m-2" :disabled="effectTypeEnable(scope.row)">
-							<el-option v-for="item in state.dictTypeCodeList" :key="item.code" :label="item.name" :value="item.code" />
+							<el-option v-for="item in state.dictTypeCodeList" :key="item.value" :label="item.name" :value="item.value" />
 						</el-select>
 					</template>
 				</el-table-column>
@@ -103,7 +103,10 @@ import treeDialog from '/@/views/system/codeGen/component/treeDialog.vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysCodeGenConfigApi, SysConstApi, SysDictDataApi, SysDictTypeApi, SysEnumApi } from '/@/api-services/api';
 import { CodeGenConfig } from '/@/api-services/models/code-gen-config';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const emits = defineEmits(['handleQuery']);
 const fkDialogRef = ref();
 const treeDialogRef = ref();
@@ -121,14 +124,14 @@ const state = reactive({
 });
 
 onMounted(async () => {
-	var res = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_gen_effect_type');
+	var res = dictList['code_gen_effect_type'];
 	state.effectTypeList = res.data.result;
 
 	var res1 = await getAPI(SysDictTypeApi).apiSysDictTypeListGet();
 	state.dictTypeCodeList = res1.data.result;
 	state.dictDataAll = res1.data.result;
 
-	var res2 = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_gen_query_type');
+	var res2 = dictList['code_gen_query_type'];
 	state.queryTypeList = res2.data.result;
 
 	var res3 = await getAPI(SysConstApi).apiSysConstListGet();

@@ -52,12 +52,15 @@ import { auth } from '/@/utils/authFunction';
 import editDialog from '/@/views/products/drugs/component/editDialog.vue';
 import { Delete, Edit } from '@element-plus/icons-vue';
 import { getAPI } from '/@/utils/axios-utils';
-import { ProductDrugsApi,SysDictDataApi } from '/@/api-services/api';
+import { ProductDrugsApi } from '/@/api-services/api';
 import mittBus from '/@/utils/newmitt';
 import batchEditDialog from '/@/views/products/component/batchEditDialog.vue';
 import downloadTemp from '/@/views/products/component/downloadTemp.vue';
 import { ProductTypeEnums } from '/@/api-services/models/product-manage';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const tableDrugsRef = ref<RefType>();
 const usingMethodObject = ref<any>({});
@@ -382,19 +385,19 @@ const getData = async (par: any) => {
 	return res.data;
 };
 const loadUsingMethodData = async () => {
-	var res = await getDictDataDropdownList('code_using_method');
+	var res = dictList['code_using_method'];
 	usingMethodData.value = res ?? [];
 	usingMethodData.value.forEach((item: any) => {
-		usingMethodObject.value[item.id] = item.value;
-		usingMethodTransObject.value[item.code] = item.value;
+		usingMethodObject.value[item.id] = item.label;
+		usingMethodTransObject.value[item.code] = item.label;
 	});
 };
 const loadDosingWayData = async () => {
-	var res = await getDictDataDropdownList('code_dosing_way');
+	var res = dictList['code_dosing_way'];
 	dosingWayData.value = res ?? [];
 	dosingWayData.value.forEach((item: any) => {
-		dosingWayObject.value[item.id] = item.value;
-		dosingWayTransObject.value[item.code] = item.value;
+		dosingWayObject.value[item.id] = item.label;
+		dosingWayTransObject.value[item.code] = item.label;
 	});
 };
 /**
@@ -521,8 +524,4 @@ const delProductDrugs = (row: any) => {
 		.catch(() => {});
 };
 
-const getDictDataDropdownList = async (val: any) => {
-	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
-	return list.data.result ?? [];
-};
 </script>

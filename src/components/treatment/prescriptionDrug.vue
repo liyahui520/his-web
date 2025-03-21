@@ -228,7 +228,7 @@
 										<el-table-column prop="itemName" label="使用方式" min-width="110" show-overflow-tooltip>
 											<template #default="scope">
 												<el-select v-model="scope.row.dosingWay" filterable placeholder="请选择使用方式" style="width: 100%">
-													<el-option v-for="item in dosingWayData" :key="item.id" :label="item.value" :value="item.id"></el-option>
+													<el-option v-for="item in dosingWayData" :key="item.id" :label="item.label" :value="item.id"></el-option>
 												</el-select>
 											</template>
 										</el-table-column>
@@ -343,21 +343,22 @@ import { ref, defineAsyncComponent, computed } from 'vue';
 import { ElMessageBox, ElMessage, ElTable } from 'element-plus';
 import { DocumentAdd, DeleteFilled } from '@element-plus/icons-vue';
 import { getAPI } from '/@/utils/axios-utils';
-import { ProductCategorysApi, CEMRecordApi, ProductDrugsApi,SysDictDataApi } from '/@/api-services/api';
+import { ProductCategorysApi, CEMRecordApi, ProductDrugsApi } from '/@/api-services/api';
 import { CEMRecordItemGroupTypeEnum } from '/@/api-services/models/cemrecord-manage';
 import { verifyNumberComma, verifyTextColor } from '/@/utils/toolsValidate';
 import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 import { formatAge } from '/@/utils/formatTime';
 import commonFunction from '/@/utils/commonFunction';
-import { useUserInfo } from '/@/stores/userInfo';
 import other from '/@/utils/other';
 import Decimal from 'decimal.js';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const CategroyProducts = defineAsyncComponent(() => import('/@/components/tree/categroyProducts.vue'));
 const PackDrug = defineAsyncComponent(() => import('/@/components/treatment/packDrug.vue'));
 //父级传递来的函数，用于回调
 const emit = defineEmits(['reloadTable']);
-const stores = useUserInfo();
 const { generateGUID } = commonFunction();
 const isShowDialog = ref<boolean>(false);
 const orderGroupData = ref<any>([]);
@@ -473,7 +474,7 @@ const dayCharge = (row: any) => {
  * 获取使用方式
  */
 const getUsingMethods = async () => {
-	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_dosing_way');
+	let list = dictList['code_dosing_way'];
 	dosingWayData.value = list.data.result ?? [];
 };
 /**

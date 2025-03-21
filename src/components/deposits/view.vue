@@ -35,7 +35,7 @@
                 </template>
                 <template v-slot:columncommand>
                     <el-table-column label="支付方式" align="center">
-                        <el-table-column width="90" prop="pcuAccountPayMethods" :label="item.value"
+                        <el-table-column width="90" prop="pcuAccountPayMethods" :label="item.label"
                             :show-overflow-tooltip="true" min-width="50" v-for="item in getPriceModth" :key="item.id">
                             <template #default="scope">
                                 <span>{{ scope.row.memberDepositDetailPays.filter(s => s.methodId ==

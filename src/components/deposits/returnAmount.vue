@@ -82,10 +82,13 @@
 import { ref, defineAsyncComponent, reactive, computed } from "vue";
 import { getAPI } from "/@/utils/axios-utils";
 import { MemberDepositApi } from "/@/api-services";
-import { getDictDataList as dl } from '/@/utils/dict-utils';
-import { ReturnDepositInput } from "/@/api-services/models";
+import { ReturnDepositInput } from "/@/api-services/models/deposit-manage/return-deposit-input";
 import { ElMessage } from "element-plus";
 import { Wallet } from '@element-plus/icons-vue'
+import { useUserInfo } from '/@/stores/userInfo';
+
+const stores = useUserInfo();
+const dictList = stores.dictList;
 //父级传递来的参数
 var props = defineProps({
     title: {
@@ -120,7 +123,7 @@ const ruleForm = ref<ReturnDepositInput>({
 const emit = defineEmits(["reloadTable"]);
 // 打开弹窗
 const openDialog = async () => {
-    getPriceModth.value = await dl('code_card_recharge_type');
+    getPriceModth.value = dictList['code_card_recharge_type'];
     canDepositTypes.value = props.depositTypes.filter((m: any) => m.totalAmount > 0);
     ruleForm.value.typeId = props.typeId == "-1" ? canDepositTypes.value[0].id : props.typeId;
     let res = await getAPI(MemberDepositApi).apiGetMemberDepositListGet(props.pcustomer.id);
@@ -138,8 +141,8 @@ const handleDepositChange = () => {
     ruleForm.value.payMethods = [];
     getPriceModthObject.value = {};
     getPriceModth.value.forEach((item: any) => {
-        ruleForm.value.payMethods?.push({ methodId: item.id, methodName: item.value, amount: 0 });
-        getPriceModthObject.value[item.id] = { name: item.value, url: `src/assets/pay-type/${item.code}.png` }
+        ruleForm.value.payMethods?.push({ methodId: item.id, methodName: item.label, amount: 0 });
+        getPriceModthObject.value[item.id] = { name: item.label, url: `src/assets/pay-type/${item.value}.png` }
     });
     depositInfo.value = depositList.value.find((item: any) => item.typeId == ruleForm.value.typeId);
     ruleForm.value.id=depositInfo.value.id;

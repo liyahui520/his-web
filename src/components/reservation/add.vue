@@ -45,14 +45,14 @@
 						<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 							<el-form-item label="预约类型" prop="type">
 								<el-select clearable="" v-model="ruleForm.type" placeholder="请选择预约类型">
-									<el-option v-for="(item, index) in ReservationTypeEnums" :key="item.value" :value="item.value" :label="item.describe">{{ item.describe }} </el-option>
+									<el-option v-for="(item, index) in ReservationTypeEnums" :key="item.value" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 								</el-select>
 							</el-form-item>
 						</el-col>
 						<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 							<el-form-item label="科室" prop="departmentId">
 								<el-select clearable="" v-model="ruleForm.departmentId" placeholder="请选择科室">
-									<el-option v-for="(item, index) in departments" :key="item.id" :value="item.id" :label="item.value">{{ item.value }} </el-option>
+									<el-option v-for="(item, index) in departments" :key="item.id" :value="item.id" :label="item.label">{{ item.label }} </el-option>
 								</el-select>
 							</el-form-item>
 						</el-col>
@@ -122,12 +122,13 @@ import commonFunction from '/@/utils/commonFunction';
 import { ref, onMounted } from 'vue';
 import type { FormRules } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
-import { SysEnumApi, ReservationApi, SMSTemplateApi } from '/@/api-services';
-import { useUserInfo } from '/@/stores/userInfo';
+import { ReservationApi, SMSTemplateApi } from '/@/api-services';
 import { storeToRefs } from 'pinia';
-import { getDictDataList as dl } from '/@/utils/dict-utils';
 import other from '/@/utils/other';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 //父级传递来的参数
 var props = defineProps({
 	title: {
@@ -143,7 +144,6 @@ const departments = ref<any>([]);
 const { scale2Format } = commonFunction();
 const address = ref<any>([]);
 const getUsersData = ref<any>([]);
-const stores = useUserInfo();
 const { userList,sysOrgInfo } = storeToRefs(stores);
 const defaultTime = new Date();
 //父级传递来的函数，用于回调
@@ -209,8 +209,9 @@ const openDialog = async (row: any) => {
 	smsTemplateItems.value.push({ label: '宠主姓名', value: props.pcustomer?.name });
 	smsTemplateItems.value.push({ label: '宠物名称', value: props.pet?.petName });
 	smsTemplateItems.value.push({ label: '预约时间', value: ruleForm.value.reservationTime });
-	ReservationTypeEnums.value = await getEnums('ReservationTypeEnum');
-	departments.value = await dl('medical_record_department_type');
+	ReservationTypeEnums.value = dictList['ReservationTypeEnum'];
+	console.log("ReservationTypeEnums.value",ReservationTypeEnums.value)
+	departments.value = dictList['medical_record_department_type'];
 	getUsersData.value = userList.value;
 	ruleForm.value = other.deepClone(row);
 	address.value = ruleForm.value.address ? JSON.parse(ruleForm.value.address) : [];
@@ -272,15 +273,6 @@ const submit = async () => {
 			closeDialog();
 		}
 	});
-};
-
-/**
- * 获取枚举值
- * @param val
- */
-const getEnums = async (val: string) => {
-	var r = await getAPI(SysEnumApi).apiSysEnumEnumDataListGet(val);
-	return r.data?.result;
 };
 
 // 页面加载时

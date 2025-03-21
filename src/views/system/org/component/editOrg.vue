@@ -44,7 +44,7 @@
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="机构类型">
 							<el-select v-model="state.ruleForm.type" filterable clearable class="w100">
-								<el-option v-for="item in state.orgTypeList" :key="item.value" :label="item.value" :value="item.code" />
+								<el-option v-for="item in state.orgTypeList" :key="item.value" :label="item.label" :value="item.value" />
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -80,12 +80,14 @@
 
 <script lang="ts" setup name="sysEditOrg">
 import { onMounted, reactive, ref } from 'vue';
-
 import { getAPI } from '/@/utils/axios-utils';
 import { SysOrgApi, SysDictDataApi } from '/@/api-services/api';
 import { SysOrg, UpdateOrgInput } from '/@/api-services/models';
 import other from '/@/utils/other';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const props = defineProps({
 	title: String,
 	orgData: Array<SysOrg>,
@@ -99,7 +101,7 @@ const state = reactive({
 });
 
 onMounted(async () => {
-	let resDicData = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('org_type');
+	let resDicData = dictList['org_type'];
 	state.orgTypeList = resDicData.data.result;
 });
 

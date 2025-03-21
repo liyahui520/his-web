@@ -19,7 +19,7 @@
 						<el-table-column prop="itemName" label="使用方式" min-width="150" show-overflow-tooltip>
 							<template #default="scope">
 								<el-select v-model="scope.row.dosingWay" filterable disabled placeholder="请选择使用方式" style="width: 100%">
-									<el-option v-for="item in dosingWayData" :key="item.id" :label="item.value" :value="item.id"></el-option>
+									<el-option v-for="item in dosingWayData" :key="item.id" :label="item.label" :value="item.id"></el-option>
 								</el-select>
 							</template>
 						</el-table-column>
@@ -98,9 +98,10 @@ import { verifyNumberComma } from '/@/utils/toolsValidate';
 import commonFunction from '/@/utils/commonFunction';
 import Decimal from 'decimal.js';
 import type { FormRules } from 'element-plus';
-import { getAPI } from '/@/utils/axios-utils';
-import { SysDictDataApi } from '/@/api-services';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const { generateGUID } = commonFunction();
 //父级传递来的参数
 var props = defineProps({
@@ -125,24 +126,21 @@ const rules = ref<FormRules>({
 
 //获取使用方式
 const getUsingMethods = async () => {
-	let res = await getDictDataDropdownList('code_dosing_way');
+	let res = dictList['code_dosing_way'];
 	dosingWayData.value = res ?? [];
 };
-const getDictDataDropdownList = async (val: any) => {
-	let list = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet(val);
-	return list.data.result ?? [];
-};
+
 // 打开弹窗
 const openDialog = async (data: any) => {
 	tableData.value = [];
 	isShowDialog.value = true;
-	data.forEach((element) => {
+	data.forEach((element:any) => {
 		element.isPack = true;
 		tableData.value.push(element);
 	});
 };
 
-const deleteRow = async (index) => {
+const deleteRow = async (index:any) => {
 	tableData.value.splice(index, 1);
 };
 

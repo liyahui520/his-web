@@ -117,14 +117,14 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="生成方式" prop="generateType">
 							<el-select v-model="state.ruleForm.generateType" filterable class="w100">
-								<el-option v-for="item in state.codeGenTypeList" :key="item.value" :label="item.value" :value="item.code" />
+								<el-option v-for="item in state.codeGenTypeList" :key="item.value" :label="item.label" :value="item.value" />
 							</el-select>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="支持打印" prop="printType">
 							<el-select v-model="state.ruleForm.printType" filterable class="w100" @change="printTypeChanged">
-								<el-option v-for="item in state.printTypeList" :key="item.value" :label="item.value" :value="item.code" />
+								<el-option v-for="item in state.printTypeList" :key="item.value" :label="item.label" :value="item.value" />
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -153,9 +153,12 @@ import IconSelector from '/@/components/iconSelector/index.vue';
 import other from '/@/utils/other';
 
 import { getAPI } from '/@/utils/axios-utils';
-import { SysCodeGenApi, SysDictDataApi, SysMenuApi, SysPrintApi } from '/@/api-services/api';
+import { SysCodeGenApi, SysMenuApi, SysPrintApi } from '/@/api-services/api';
 import { UpdateCodeGenInput, AddCodeGenInput, SysMenu, SysPrint } from '/@/api-services/models';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
+const dictList = stores.dictList;
 const props = defineProps({
 	title: String,
 	applicationNamespaces: Array<String>,
@@ -180,10 +183,10 @@ onMounted(async () => {
 	let resMenu = await getAPI(SysMenuApi).apiSysMenuListGet();
 	state.menuData = resMenu.data.result ?? [];
 
-	let resDicData = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_gen_create_type');
+	let resDicData = dictList['code_gen_create_type'];
 	state.codeGenTypeList = resDicData.data.result;
 
-	let printTypeResDicData = await getAPI(SysDictDataApi).apiSysDictDataDataListCodeGet('code_gen_print_type');
+	let printTypeResDicData = dictList['code_gen_print_type'];
 	state.printTypeList = printTypeResDicData.data.result;
 
 	let resPrintIdData = await getAPI(SysPrintApi).apiSysPrintPagePost();

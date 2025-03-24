@@ -6,7 +6,7 @@
 		<el-card class="full-table" shadow="never" style="margin-top: 8px">
 			<Table ref="tableRef" v-bind="tb.tableData" :getData="getData">
 				<template #sexText="scope">
-					<el-tag :type="di('code_sex', scope.row.sex)?.tagType"> {{ di('code_sex', scope.row.sex)?.value }} </el-tag>
+					<el-tag :type="di('code_sex', scope.row.sex)?.tagType"> {{ di('code_sex', scope.row.sex)?.label }} </el-tag>
 				</template>
 				<template #command>
 					<el-button type="primary" size="small" icon="ele-Plus" round @click="openAddPcustomer" v-auth="'pcustomer:add'"> 新增会员 </el-button>

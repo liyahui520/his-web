@@ -61,6 +61,7 @@ import CardAdd from '/@/views/main/ppets/component/cardAdd.vue';
 import EditPet from './editDialog.vue';
 import { Search } from '@element-plus/icons-vue';
 import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataItem as di } from '/@/utils/dict-utils';
 
 const stores = useUserInfo();
 const dictList = stores.dictList;

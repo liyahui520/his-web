@@ -61,6 +61,7 @@ import CardPet from '/@/views/main/ppets/component/cardPet.vue';
 import CardAdd from '/@/views/main/ppets/component/cardAdd.vue';
 import EditPet from './editDialog.vue';
 import { Search } from '@element-plus/icons-vue';
+import { getDictDataItem as di } from '/@/utils/dict-utils';
 
 const getSingCustomer = ref<any>({});
 const getPPets = ref<any>([]);

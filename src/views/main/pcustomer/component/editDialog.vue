@@ -29,7 +29,7 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="客户来源" prop="sourceId">
 							<el-select clearable="" v-model="ruleForm.sourceId" placeholder="请选择客户来源">
-								<el-option v-for="(item, index) in getEditsourceidData" :key="index" :value="item.code" :label="item.value">{{ item.value }} </el-option>
+								<el-option v-for="(item, index) in getEditsourceidData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -49,7 +49,7 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="性别" prop="sex">
 							<el-select clearable="" v-model="ruleForm.sex" placeholder="请选择性别">
-								<el-option v-for="(item, index) in getEditsexData" :key="index" :value="item.code" :label="item.value">{{ item.value }} </el-option>
+								<el-option v-for="(item, index) in getEditsexData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>

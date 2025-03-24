@@ -248,7 +248,7 @@ export const useUserInfo = defineStore('userInfo', {
 				const _val = val.toString();
 				const ds = this.getDictDatasByCode(typePCode);
 				for (const element of ds) {
-					if (element.code === _val) {
+					if (element.value === _val) {
 						return element;
 					}
 				}

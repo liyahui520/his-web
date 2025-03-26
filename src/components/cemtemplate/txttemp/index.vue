@@ -104,7 +104,7 @@ const tb = reactive<TableDemoState>({
             isSelection: false, // 是否勾选表格多选
             showSelection: true, //是否显示表格多选
             pageSize: 20, // 每页条数
-            hideExport: false, //是否隐藏导出按钮
+            hideExport: true, //是否隐藏导出按钮
             exportFileName: '商品信息', //导出报表的文件名，不填写取应用名称
             // hideLoad: false,
             hideRefresh:true,
@@ -162,14 +162,14 @@ const onSubmit = ()=>{
 /**
  * 追加
  */
-const append=(content)=>{
+const append=(content:any)=>{
     emits('update:append',content);
 }
 
 /**
  * 覆盖
  */
- const add=(content)=>{
+ const add=(content:any)=>{
     emits('update:add',content);
 }
 

@@ -52,9 +52,10 @@
 										{{ props.data?.pPetsInfo?.petKindText }}
 									</el-breadcrumb-item>
 									<el-breadcrumb-item>
-										<el-text style="width: 120px" truncated>
+										{{ props.data?.pPetsInfo?.petVarietieText }}
+										<!-- <el-text style="width: 120px" truncated>
 											{{ props.data?.pPetsInfo?.petVarietieText }}
-										</el-text>
+										</el-text> -->
 									</el-breadcrumb-item>
 									<el-breadcrumb-item>
 										{{ props.data?.pPetsInfo?.petGenderText }}

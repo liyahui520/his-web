@@ -233,7 +233,7 @@ const selectZhusuTemp = async()=>{
  * 选择现病史模板
  */
  const selectAllergyHistoryTemp = async()=>{
-	txtTitle.value = '选择既往史模板';
+	txtTitle.value = '选择现病史模板';
 	txtTempRef.value?.openDialog(2);
 }
 

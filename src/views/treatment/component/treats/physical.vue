@@ -595,6 +595,7 @@ defineExpose({ save, saveData });
 			color: rgba($color: #000000, $alpha: 0.3);
 			white-space: nowrap;
 			text-align: center;
+			cursor: pointer;
 		}
 		.info-list-icon > img {
 			width: 64px;

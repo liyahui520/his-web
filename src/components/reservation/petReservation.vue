@@ -22,7 +22,7 @@
 					</el-form-item>
 				</el-form>
 			</el-card>
-			<el-card class="full-table" shadow="always" style="margin-top: 8px">
+			<el-card class="full-table" shadow="always" style="height: 550px;margin-top: 8px">
 				<el-table ref="paymentTableRef" stripe :data="tableData" style="width: 100%" height="600" v-loading="loading" tooltip-effect="light" row-key="id" size="small">
 					<el-table-column prop="pcuName" label="会员名称" fixed="left" show-overflow-tooltip="" />
 					<el-table-column prop="petName" label="宠物名称" fixed="left" show-overflow-tooltip="" />

@@ -20,7 +20,7 @@
 					</el-form-item>
 				</el-form>
 			</el-card>
-			<el-card class="full-table" shadow="always" style="margin-top: 8px">
+			<el-card class="full-table" shadow="always" style="height: 550px;margin-top: 8px">
 				<el-table
 					ref="paymentTableRef"
 					stripe

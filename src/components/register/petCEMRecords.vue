@@ -9,8 +9,8 @@
 					<span>{{ props.title }}</span>
 				</div>
 			</template>
-			<el-card class="full-table" shadow="always" style="margin-top: 8px">
-				<el-table ref="paymentTableRef" stripe :data="tableData" style="width: 100%" height="600" v-loading="loading" tooltip-effect="light" row-key="id">
+			<el-card class="full-table" shadow="always" style="height: 550px;margin-top: 8px">
+				<el-table ref="paymentTableRef" :data="tableData" border style="width: 100%" height="600" v-loading="loading" tooltip-effect="light" row-key="id">
 					<el-table-column prop="customerName" label="会员名称" fixed="left" show-overflow-tooltip="" />
 					<el-table-column prop="petName" label="宠物名称" fixed="left" show-overflow-tooltip="" />
 					<el-table-column prop="regTypeText" label="病例类型" min-width="100" show-overflow-tooltip="">
@@ -32,11 +32,11 @@
                             
 						</template>
 					</el-table-column>
-					<el-table-column prop="isHospital" label="住院病例" show-overflow-tooltip="" >
+					<!-- <el-table-column prop="isHospital" label="住院病例" show-overflow-tooltip="" >
 						<template #default="scope">
 							<el-tag type="primary" effect="plain">{{ scope.row.isHospital?'是':'否' }}</el-tag>
 						</template>
-					</el-table-column>
+					</el-table-column> -->
 				</el-table>
 				<el-pagination
 					v-model:currentPage="tableParams.page"

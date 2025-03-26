@@ -72,7 +72,7 @@
                         </el-table>
                         <el-row>
                             <el-col :span="24">
-                                <el-text type="error">注：1、次卡结算只能原路退回。2、已使用的次卡项目不支持退款。</el-text>
+                                <el-text type="danger">注：1、次卡结算只能原路退回。2、已使用的次卡项目不支持退款。</el-text>
                             </el-col>
                         </el-row>
                         <el-row>
@@ -101,30 +101,30 @@
                                 <el-col :span="12" v-for="(item, index) in paymentMethods" :key="index" :offset="0">
                                     <el-form-item style="height: 38px;">
                                         <template #label>
-                                            <img :src="paymentTypeImgs[item.code]" width="30px" height="30px;">
+                                            <img :src="paymentTypeImgs[item.value]" width="30px" height="30px;">
                                         </template>
-                                        <el-input-number v-if="item.code == 'secondarycard'"
-                                            v-model="paymentInfo.paymentMethodObject[item.id]" :min="0.00"
-                                            :precision="2" :max="paymentInfo.actlyAmount"
-                                            :placeholder="!customerFundDetails.secondaryCard ? '不可退' + item.value : item.value"
+                                        <el-input-number v-if="item.value == 'secondarycard'"
+                                            v-model="paymentInfo.paymentMethodObject[item.id]" :min="0"
+                                            :precision="0" :max="paymentInfo.actlyAmount"
+                                            :placeholder="!customerFundDetails.secondaryCard ? '不可退' + item.label : item.label"
                                             controls-position="right" size="default" disabled
                                             @change="(value: any) => handlePaymentMethodsChange(value, item)" />
-                                        <el-input-number v-else-if="item.code == 'memberscard'"
+                                        <el-input-number v-else-if="item.value == 'memberscard'"
                                             v-model="paymentInfo.paymentMethodObject[item.id]" :min="0.00"
                                             :precision="2" :max="paymentInfo.actlyAmount"
-                                            :placeholder="!customerFundDetails.membersCard ? '不可退' + item.value : item.value"
+                                            :placeholder="!customerFundDetails.membersCard ? '不可退' + item.label : item.label"
                                             controls-position="right" size="default"
                                             :disabled="!customerFundDetails.membersCard"
                                             @change="(value: any) => handlePaymentMethodsChange(value, item)" />
-                                        <el-input-number v-else-if="item.code == 'deposit'"
+                                        <el-input-number v-else-if="item.value == 'deposit'"
                                             v-model="paymentInfo.paymentMethodObject[item.id]" :min="0.00"
                                             :precision="2" :max="paymentInfo.actlyAmount"
-                                            :placeholder="paymentInfo.isScattered ? '不可退' + item.value : item.value"
+                                            :placeholder="paymentInfo.isScattered ? '不可退' + item.label : item.label"
                                             controls-position="right" size="default" :disabled="paymentInfo.isScattered"
                                             @change="(value: any) => handlePaymentMethodsChange(value, item)" />
                                         <el-input-number v-else v-model="paymentInfo.paymentMethodObject[item.id]"
                                             :min="0.00" :precision="2" :max="paymentInfo.actlyAmount"
-                                            :placeholder="item.value" controls-position="right" size="default"
+                                            :placeholder="item.label" controls-position="right" size="default"
                                             @change="(value: any) => handlePaymentMethodsChange(value, item)" />
                                     </el-form-item>
                                 </el-col>
@@ -194,7 +194,7 @@ const returnInput = ref<any>({
     returnPaymentDetails: [],
     customerId: 0,
 });
-const paymentTypeImgs = ref({
+const paymentTypeImgs = ref<any>({
     "account": account,
     "ali": ali,
     "applet": applet,
@@ -256,8 +256,8 @@ const openDialog = async (row: any) => {
     canReturnOrder.value = true;
     pageLoading.value = true;
     isShowDialog.value = true;
-    isShowDialog.value = true;
     paymentInfo.value = row.data;
+    paymentInfo.value.actlyAmount= new Decimal(paymentInfo.value.actlyAmount).toNumber();
     if (paymentInfo.value.details == undefined) {
         let details = await getAPI(ConsumptionApi).apiConsumptionGetPaymentDetailsPost({ paymentId: paymentInfo.value.id, customerId: paymentInfo.value.customerId });
         paymentInfo.value.details = details.data.result ?? [];
@@ -270,6 +270,7 @@ const openDialog = async (row: any) => {
     await loadCustomerFundDetails();
     let paymentDetails = paymentInfo.value.details.filter((item: any) => item.count != item.returnCount && item.status != 2)
     paymentDetails.forEach((row: any) => {
+        console.log("row", row)
         let resultArray = equalDivision(row.actualPrice, row.count);
         let rangeList = getSubArray(resultArray, row.returnCount, row.canReturn)
         let handleAmount = rangeList.reduce((pre: number, itemAmount: number) => {
@@ -288,7 +289,7 @@ const openDialog = async (row: any) => {
     returnInput.value.paymentVer = paymentInfo.value.ver;
     returnTableRef.value?.toggleAllSelection();
     sourcePaymentMethodObject.value = paymentInfo.value.paymentMethodObject;
-    secondaryCardId.value = paymentMethods.value.find((item: any) => item.code == "secondarycard")?.id || '0';
+    secondaryCardId.value = paymentMethods.value.find((item: any) => item.value == "secondarycard")?.id || '0';
 };
 /**
  * 加载用户资金详情
@@ -381,6 +382,7 @@ const handlePaymentMethodsAmount = (secondaryCardRowChange: boolean, amount: num
         }
     }
     paymentInfo.value.paymentMethodObject = payemntMethods;
+    console.log("paymentInfo.value.paymentMethodObject",paymentInfo.value.paymentMethodObject)
 }
 
 // 关闭弹窗

@@ -73,8 +73,7 @@
                             </el-table-column>
                             <el-table-column label="付款金额" prop="actualPrice" width="150" show-overflow-tooltip="">
                                 <template #default="scope">
-                                    <el-text>{{ verifyNumberComma(scope.row.actualPrice.toFixed(2)) || '0.00'
-                                        }}</el-text>
+                                    <el-text>{{ verifyNumberComma(scope.row.actualPrice.toFixed(2)) || '0.00' }}</el-text>
                                 </template>
                             </el-table-column>
                             <el-table-column label="单位" prop="outUnitName" width="100" show-overflow-tooltip="">
@@ -165,7 +164,7 @@
                             <el-button icon="ele-Printer" size="small" text="" @click="printBillA4(scope.row)"
                                 type="primary">账单</el-button>
                         </el-tooltip>
-                        <el-tooltip effect="light" v-if="scope.row.status != 2" >
+                        <el-tooltip effect="light" v-if="scope.row.status != 2" content="退单" placement="top">
                             <el-button icon="ele-DArrowLeft" @click="handleReturn(scope.row)" size="small" text=""
                                 type="primary">退单</el-button>
                         </el-tooltip>

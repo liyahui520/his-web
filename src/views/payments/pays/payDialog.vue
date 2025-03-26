@@ -181,7 +181,7 @@ const depositTypes = ref<any>([]);
 const sourceRowInfo = ref<any>({});
 
 //父级传递来的函数，用于回调
-const emit = defineEmits(['reloadTable']);
+const emit = defineEmits(['refresh']);
 /**
  * 打开弹窗
  * @param row
@@ -201,7 +201,7 @@ const openDialog = async (row: any) => {
 
 // 关闭弹窗
 const closeDialog = () => {
-	emit('reloadTable');
+	emit('refresh');
 	isShowDialog.value = false;
 };
 

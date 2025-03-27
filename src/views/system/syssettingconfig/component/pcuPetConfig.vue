@@ -17,7 +17,7 @@
 						</el-form-item>
 						<el-form-item label="编码规则" prop="type">
 							<el-select filterable v-model="serNumberFrom.type" placeholder="请选择宠物种类" :disabled="!isPcuPetSerNumber">
-								<el-option v-for="(item, index) in serNumberTypes" :key="index" :value="item.value" :label="item.name">{{ item.name }} </el-option>
+								<el-option v-for="(item, index) in serNumberTypes" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 						<el-form-item label="起始编号" prop="startNumber">

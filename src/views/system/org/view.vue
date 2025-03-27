@@ -83,17 +83,33 @@
 							</el-col>
 							<el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20" class="mb20">
 								<el-form-item>
-									<el-button icon="ele-Close"  v-if="isEdit" type="warning" @click="() => {isEdit = false;}" v-auth="'sysorgext:edit'"> 取消编辑 </el-button>
-										<el-button icon="ele-Select" v-if="isEdit" type="success" @click="submit" v-auth="'sysorgext:edit'"> 保存 </el-button>
-										<el-button
-											icon="ele-Edit"
-											v-if="!isEdit"
-											type="primary"
-											@click="() => {isEdit = true;}"
-											v-auth="'sysorgext:edit'"
-										>
-											编辑
-										</el-button>
+									<el-button
+										icon="ele-Close"
+										v-if="isEdit"
+										type="warning"
+										@click="
+											() => {
+												isEdit = false;
+											}
+										"
+										v-auth="'sysorgext:edit'"
+									>
+										取消编辑
+									</el-button>
+									<el-button icon="ele-Select" v-if="isEdit" type="success" @click="submit" v-auth="'sysorgext:edit'"> 保存 </el-button>
+									<el-button
+										icon="ele-Edit"
+										v-if="!isEdit"
+										type="primary"
+										@click="
+											() => {
+												isEdit = true;
+											}
+										"
+										v-auth="'sysorgext:edit'"
+									>
+										编辑
+									</el-button>
 								</el-form-item>
 							</el-col>
 						</el-row>

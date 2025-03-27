@@ -32,7 +32,7 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="性别" prop="petGender">
 							<el-select clearable v-model="ruleForm.petGender" placeholder="请选择性别">
-								<el-option v-for="(item, index) in dl('code_pet_sex')" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
+								<el-option v-for="(item, index) in getDictDataList('code_pet_sex')" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -53,14 +53,14 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="宠物血型" prop="petBlood">
 							<el-select clearable v-model="ruleForm.petBlood" placeholder="请选择宠物血型">
-								<el-option v-for="(item, index) in dl('code_pet_blood')" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
+								<el-option v-for="(item, index) in getDictDataList('code_pet_blood')" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="宠物颜色" prop="petColor">
 							<el-select clearable v-model="ruleForm.petColor" placeholder="请选择宠物颜色">
-								<el-option v-for="(item, index) in dl('code_pet_color')" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
+								<el-option v-for="(item, index) in getDictDataList('code_pet_color')" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -79,7 +79,7 @@
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="宠物状态" prop="petStatus">
 							<el-select clearable v-model="ruleForm.petStatus" placeholder="请选择宠物状态">
-								<el-option v-for="(item, index) in dl('code_pet_status')" :key="item.value" :value="item.value" :label="item.label">{{ item.label }} </el-option>
+								<el-option v-for="(item, index) in getDictDataList('code_pet_status')" :key="item.value" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -169,7 +169,7 @@ import { getAPI } from '/@/utils/axios-utils';
 import { SysPetConfigApi, PPetsApi, SysFileApi,SysDictDataApi } from '/@/api-services/api';
 import {  AddPPetsInput, PPets, UpdatePPetsInput } from '/@/api-services/models/pcu-manage';
 import other from '/@/utils/other';
-import { getDictDataItem as di ,getDictDataList as dl} from '/@/utils/dict-utils';
+import { getDictDataList} from '/@/utils/dict-utils';
  
 const getEditpetKindData = ref<any>([]);
 const getEditpetVarietieData = ref<any>([]); 

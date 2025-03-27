@@ -98,10 +98,8 @@ import { verifyNumberComma } from '/@/utils/toolsValidate';
 import commonFunction from '/@/utils/commonFunction';
 import Decimal from 'decimal.js';
 import type { FormRules } from 'element-plus';
-import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
-const stores = useUserInfo();
-const dictList = stores.dictList;
 const { generateGUID } = commonFunction();
 //父级传递来的参数
 var props = defineProps({
@@ -126,7 +124,7 @@ const rules = ref<FormRules>({
 
 //获取使用方式
 const getUsingMethods = async () => {
-	let res = dictList['code_dosing_way'];
+	let res = getDictDataList('code_dosing_way');
 	dosingWayData.value = res ?? [];
 };
 

@@ -345,6 +345,7 @@ declare type TableDemoState = {
 			hideRefresh?: boolean;
 			hidePagination?: boolean;
 			// isOperate: boolean;
+			hideTool?: boolean;
 		};
 		// actions: WorkflowDrawerLabelType[];
 		search: TableSearchType[];

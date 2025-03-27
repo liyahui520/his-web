@@ -71,10 +71,8 @@ import { ElMessage, FormInstance } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
 import { PcuAccountApi, SysDictDataApi } from '/@/api-services';
 import { verifyNumberIntegerAndFloat, verifyNumberCommaNo } from '/@/utils/toolsValidate';
-import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
-const stores = useUserInfo();
-const dictList = stores.dictList;
 const PayMethod = defineAsyncComponent(() => import('/@/components/pcuAccount/payMethod.vue'));
 //父级传递来的函数，用于回调
 const emit = defineEmits(['reloadTable']);
@@ -192,7 +190,7 @@ const valueChang = async () => {
 
 const Init = async () => {
 	dynamicValidateForm.pcuAccountPayMethods = [];
-	var r =dictList['funding_method'];
+	var r =getDictDataList('funding_method');
 	getPriceModth.value = r;
 	payMethod.value = r[0];
 };

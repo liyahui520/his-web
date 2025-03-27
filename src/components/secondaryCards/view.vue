@@ -78,10 +78,8 @@ import { ref, defineAsyncComponent, reactive, nextTick } from "vue";
 import { getAPI } from "/@/utils/axios-utils";
 import { PcustomerApi } from "/@/api-services";
 import { Plus } from '@element-plus/icons-vue';
-import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
-const stores = useUserInfo();
-const dictList = stores.dictList;
 const PcuDetails = defineAsyncComponent(() => import('/@/components/pcus/pcuDetails.vue'));
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const SecondaryCards = defineAsyncComponent(() => import('/@/components/sales/secondaryCards.vue'));
@@ -209,7 +207,7 @@ const tb = reactive<TableDemoState>({
 const emit = defineEmits(["reloadTable"]);
 // 打开弹窗
 const openDialog = async (petData: any) => {
-    getPriceModth.value =dictList['code_card_recharge_type'];
+    getPriceModth.value =getDictDataList('code_card_recharge_type');
     isShowDialog.value = true;
     petInfo.value = petData;
     await loadSecondaryCardInfo();

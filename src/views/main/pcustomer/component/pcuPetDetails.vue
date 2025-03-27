@@ -60,10 +60,8 @@ import CardPet from '/@/views/main/ppets/component/cardPet.vue';
 import CardAdd from '/@/views/main/ppets/component/cardAdd.vue';
 import EditPet from '../../ppets/component/editDialog.vue';
 import { Search } from '@element-plus/icons-vue';
-import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
-const stores = useUserInfo();
-const dictList = stores.dictList;
 const getSingCustomer = ref<any>({});
 const getPPets = ref<any>([]);
 const getlevelData = ref<any>([]);
@@ -86,11 +84,11 @@ const initData = async () => {
 			});
 		});
 
-	getsourceidData.value = dictList['code_customer_source'];
+	getsourceidData.value = getDictDataList('code_customer_source');
 	getsourceidData.value.forEach((s:any) => {
 		getsourceidDataArr[s.code] = s.label;
 	});
-	getEditsexData.value = dictList['code_sex'];
+	getEditsexData.value = getDictDataList('code_sex');
 	getEditsexData.value.forEach((s:any) => {
 		getEditsexDataArr[s.code] = s.label;
 	});

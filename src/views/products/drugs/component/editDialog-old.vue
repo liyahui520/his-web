@@ -174,9 +174,10 @@ import type { FormRules } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
 import { ProductDrugsApi } from '/@/api-services/api';
 import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
 const stores = useUserInfo();
-const dictList = stores.dictList;
+
 //父级传递来的参数
 var props = defineProps({
 	title: {
@@ -201,11 +202,11 @@ const usingMethodData=ref<any>([]);
 const dosingWayData=ref<any>([]);
 
 const loadUsingMethodData=async ()=>{
-	var res = dictList['code_using_method'];
+	var res = getDictDataList('code_using_method');
 	usingMethodData.value = res?? [];
 };
 const loadDosingWayData=async()=>{
-	var res = dictList['code_dosing_way'];
+	var res = getDictDataList('code_dosing_way');
 	dosingWayData.value = res?? [];
 };
 

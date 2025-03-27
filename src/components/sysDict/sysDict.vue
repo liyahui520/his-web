@@ -6,7 +6,6 @@ import { useUserInfo } from '/@/stores/userInfo';
 
 const emit = defineEmits(['update:modelValue']);
 const dictList = useUserInfo().dictList;
-console.log("dictList", dictList)
 const props = defineProps({
 	modelValue: {
 		type: [String, Number, Boolean, Array, null],

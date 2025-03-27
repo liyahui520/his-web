@@ -155,10 +155,9 @@ import other from '/@/utils/other';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysCodeGenApi, SysMenuApi, SysPrintApi } from '/@/api-services/api';
 import { UpdateCodeGenInput, AddCodeGenInput, SysMenu, SysPrint } from '/@/api-services/models';
-import { useUserInfo } from '/@/stores/userInfo';
 
-const stores = useUserInfo();
-const dictList = stores.dictList;
+import { getDictDataList } from '/@/utils/dict-utils';
+
 const props = defineProps({
 	title: String,
 	applicationNamespaces: Array<String>,
@@ -183,10 +182,10 @@ onMounted(async () => {
 	let resMenu = await getAPI(SysMenuApi).apiSysMenuListGet();
 	state.menuData = resMenu.data.result ?? [];
 
-	let resDicData = dictList['code_gen_create_type'];
+	let resDicData = getDictDataList('code_gen_create_type');
 	state.codeGenTypeList = resDicData.data.result;
 
-	let printTypeResDicData = dictList['code_gen_print_type'];
+	let printTypeResDicData = getDictDataList('code_gen_print_type');
 	state.printTypeList = printTypeResDicData.data.result;
 
 	let resPrintIdData = await getAPI(SysPrintApi).apiSysPrintPagePost();

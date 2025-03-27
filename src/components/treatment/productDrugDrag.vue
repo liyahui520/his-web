@@ -377,9 +377,9 @@ import commonFunction from '/@/utils/commonFunction';
 import other from '/@/utils/other';
 import Decimal from 'decimal.js';
 import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
 const stores = useUserInfo();
-const dictList = stores.dictList;
 const { generateGUID } = commonFunction();
 const CategroyProducts = defineAsyncComponent(() => import('/@/components/tree/categroyProducts.vue'));
 const PackDrug = defineAsyncComponent(() => import('/@/components/treatment/packDrug.vue'));
@@ -707,7 +707,7 @@ const toggleSelection = async (rows:any) => {
 
 //获取使用方式
 const getUsingMethods = async () => {
-	let res = dictList['code_dosing_way'];
+	let res = getDictDataList('code_dosing_way');
 	dosingWayData.value = res ?? [];
 };
 

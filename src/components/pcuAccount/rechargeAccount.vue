@@ -48,10 +48,8 @@ import { ElMessage, FormInstance } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
 import { PcuAccountApi } from '/@/api-services';
 import { verifyNumberComma, verifyNumberIntegerAndFloat, verifyNumberCommaNo } from '/@/utils/toolsValidate';
-import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
-const stores = useUserInfo();
-const dictList = stores.dictList;
 const PayMethod = defineAsyncComponent(() => import('/@/components/pcuAccount/payMethod.vue'));
 //父级传递来的函数，用于回调
 const emit = defineEmits(['reloadTable']);
@@ -137,7 +135,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
 
 const Init = async () => {
 	dynamicValidateForm.pcuAccountPayMethods = [];
-	var r = dictList['funding_method'];
+	var r = getDictDataList('funding_method');
 	getPriceModth.value = r;
 	getPriceModth.value.forEach((s) => {
 		dynamicValidateForm.pcuAccountPayMethods.push({

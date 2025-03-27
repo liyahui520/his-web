@@ -28,12 +28,10 @@ import { defineAsyncComponent, nextTick, onMounted, reactive, ref, h } from 'vue
 import { ElDivider } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
 import { CEMRecordApi } from '/@/api-services/api';
-import { PrintAndPreviewApi,SysDictDataApi } from '/@/api-services';
+import { PrintAndPreviewApi } from '/@/api-services';
 import { formatDate } from '/@/utils/formatTime';
-import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
-const stores = useUserInfo();
-const dictList = stores.dictList;
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const Search = defineAsyncComponent(() => import('/@/components/table/search.vue'));
 const PrintView = defineAsyncComponent(() => import('/@/components/print/index.vue'));
@@ -230,7 +228,7 @@ const handleQuery = async () => {
 	var res = await getAPI(CEMRecordApi).apiCEMRecordGetCemRecordsPagePost(Object.assign(queryParams.value, tableParams.value));
 	tableData.value = res.data.result?.items ?? [];
 	loading.value = false;
-	getRegistersStatusEnumData.value = dictList['RegistersStatusEnum'];
+	getRegistersStatusEnumData.value = getDictDataList('RegistersStatusEnum');
 };
 
 //打印

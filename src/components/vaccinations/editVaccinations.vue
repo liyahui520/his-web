@@ -186,9 +186,9 @@ import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 import { verifyNumberComma } from '/@/utils/toolsValidate';
 import type { FormRules } from 'element-plus';
 import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
 const stores = useUserInfo();
-const dictList = stores.dictList;
 const Products = defineAsyncComponent(() => import('/@/components/products/selectProducts.vue'));
 const templateData = ref<any>([]);
 const productRef = ref();
@@ -458,7 +458,7 @@ const submit = async () => {
 
 //加载使用方式
 const loadDosingWayData = async () => {
-	var res = dictList['code_dosing_way'];
+	var res = getDictDataList('code_dosing_way');
 	dosingWayData.value = res ?? [];
 };
 //加载基础数据

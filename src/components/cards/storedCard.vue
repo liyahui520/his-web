@@ -79,10 +79,8 @@ import { verifyNumberComma } from "/@/utils/toolsValidate";
 import RechargeCard from './rechargeCard.vue'
 import ReturnAmount from './returnAmount.vue'
 import { ElMessage } from "element-plus";
-import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
-const stores = useUserInfo();
-const dictList = stores.dictList;
 const PcuDetails = defineAsyncComponent(() => import('/@/components/pcus/pcuDetails.vue'));
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 
@@ -224,7 +222,7 @@ const tb = reactive<TableDemoState>({
 const emit = defineEmits(["reloadTable"]);
 // 打开弹窗
 const openDialog = async () => {
-  getPriceModth.value = dictList['code_card_recharge_type'];
+  getPriceModth.value = getDictDataList('code_card_recharge_type');
   isShowDialog.value = true;
   await loadCardInfo();
 };

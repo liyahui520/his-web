@@ -121,10 +121,8 @@ import { addMonthsToDate, formatDate } from '/@/utils/formatTime';
 import { ElMessage } from 'element-plus';
 import { verifyNumberComma } from '/@/utils/toolsValidate';
 import Decimal from 'decimal.js';
-import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
-const stores = useUserInfo();
-const dictList = stores.dictList;
 //父级传递来的参数
 var props = defineProps({
 	title: {
@@ -159,8 +157,7 @@ const openDialog = async (data: any) => {
 	queryParams.value.customerId = data.customerId;
 	queryParams.value.petId = data.petId;
 	await handleQuery();
-	paymentMethods.value = dictList['payment_type'];
-	console.log("paymentMethods.value",paymentMethods.value)
+	paymentMethods.value = getDictDataList('payment_type');
 };
 // 关闭弹窗
 const closeDialog = (data: any) => {

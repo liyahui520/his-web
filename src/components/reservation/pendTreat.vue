@@ -150,7 +150,7 @@ const selectPcu = async (row: any) => {
 
 
 // 搜索点击时表单回调
-const onSearch = (data: EmptyObjectType) => {
+const onSearch = (data: any) => {
   tb.tableData.param = Object.assign({}, tb.tableData.param, {...data}, {status: 0});
   nextTick(() => {
     tableRef.value.pageReset();

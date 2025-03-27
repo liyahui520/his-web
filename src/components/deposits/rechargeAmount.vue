@@ -84,10 +84,8 @@ import { RechargeDepositInput } from "/@/api-services/models/deposit-manage/rech
 import { ElMessage } from "element-plus";
 import { Wallet } from '@element-plus/icons-vue'
 import { MemberDepositTypeEnum } from "/@/api-services/models/deposit-manage/member-deposit-type-enum";
-import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
-const stores = useUserInfo();
-const dictList = stores.dictList;
 //父级传递来的参数
 var props = defineProps({
     title: {
@@ -118,7 +116,7 @@ const ruleForm = ref<RechargeDepositInput>({
 const emit = defineEmits(["reloadTable"]);
 // 打开弹窗
 const openDialog = async () => {
-    getPriceModth.value = dictList['code_card_recharge_type'];
+    getPriceModth.value = getDictDataList('code_card_recharge_type');
     console.log("getPriceModth.value",getPriceModth.value)
     isShowDialog.value = true;
     ruleForm.value.remark = '';
@@ -130,8 +128,6 @@ const openDialog = async () => {
         ruleForm.value.payMethods?.push({ methodId: item.id, methodName: item.label, amount: 0 });
         getPriceModthObject.value[item.id] = { name: item.label, url: `src/assets/pay-type/${item.value}.png` }
     });
-    
-    console.log("getPriceModthObject.value",getPriceModthObject.value)
 };
 
 const computedTotalAmout = computed(() => {

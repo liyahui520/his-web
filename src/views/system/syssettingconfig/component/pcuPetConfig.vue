@@ -201,10 +201,7 @@ import { getAPI } from '/@/utils/axios-utils';
 import { clone, isObjectValueEqual } from '/@/utils/arrayOperation';
 import { PcuPetConfigApi, MemberLevelApi } from '/@/api-services/api';
 import { formatDate } from '/@/utils/formatTime';
-import { useUserInfo } from '/@/stores/userInfo';
-
-const stores = useUserInfo();
-const dictList = stores.dictList;
+import { getDictDataList } from '/@/utils/dict-utils';
 
 const oldPcuSerNumberConfig = ref();
 const getLevelData = ref<any>([]);
@@ -401,7 +398,7 @@ const saveRecordSerNumberConfig = async () => {
 
 // 页面加载时
 onMounted(async () => {
-	serNumberTypes.value = dictList['PcuNumberType'];
+	serNumberTypes.value = getDictDataList('PcuNumberType');
 	await getPcuSerNumberConfig();
 	await getLevels();
 	await getRecordSerNumberConfig();

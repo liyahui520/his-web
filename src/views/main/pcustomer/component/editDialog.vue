@@ -138,9 +138,9 @@ import { getAPI } from '/@/utils/axios-utils';
 import { PcustomerApi, MemberLevelApi } from '/@/api-services';
 import other from '/@/utils/other';
 import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
 const stores = useUserInfo();
-const dictList = stores.dictList;
 const getEditlevelData = ref<any>([]);
 const getEditsourceidData = ref<any>([]);
 const getEditsexData = ref<any>([]);
@@ -161,8 +161,6 @@ const ruleForm = ref<any>({});
 const options = ref<any>([]);
 const loadRegion = async () => {
 	options.value = stores.sysRegions;
-	console.log("区域")
-	console.log(stores.sysRegions);
 };
 
 //自行删除非必填规则
@@ -189,7 +187,7 @@ const openDialog = async (row: any) => {
 				ruleForm.value.level = defaultLevel[0].id;
 			}
 		});
-	getEditsourceidData.value = dictList['code_customer_source'];
+	getEditsourceidData.value = getDictDataList('code_customer_source');
 
 	// 客户来源默认设置门店登记
 	var defaultCustomerSource = getEditsourceidData.value.filter((x: any) => x.label == "门店登记");
@@ -197,7 +195,7 @@ const openDialog = async (row: any) => {
 		ruleForm.value.sourceId = defaultCustomerSource[0].value;
 	}
 
-	getEditsexData.value = dictList['code_sex'];
+	getEditsexData.value = getDictDataList('code_sex');
 	address.value = ruleForm.value.address ? JSON.parse(ruleForm.value.address) : [];
 	isShowDialog.value = true;
 };

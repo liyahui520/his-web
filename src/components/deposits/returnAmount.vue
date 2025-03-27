@@ -85,10 +85,8 @@ import { MemberDepositApi } from "/@/api-services";
 import { ReturnDepositInput } from "/@/api-services/models/deposit-manage/return-deposit-input";
 import { ElMessage } from "element-plus";
 import { Wallet } from '@element-plus/icons-vue'
-import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
-const stores = useUserInfo();
-const dictList = stores.dictList;
 //父级传递来的参数
 var props = defineProps({
     title: {
@@ -123,7 +121,7 @@ const ruleForm = ref<ReturnDepositInput>({
 const emit = defineEmits(["reloadTable"]);
 // 打开弹窗
 const openDialog = async () => {
-    getPriceModth.value = dictList['code_card_recharge_type'];
+    getPriceModth.value = getDictDataList('code_card_recharge_type');
     canDepositTypes.value = props.depositTypes.filter((m: any) => m.totalAmount > 0);
     ruleForm.value.typeId = props.typeId == "-1" ? canDepositTypes.value[0].id : props.typeId;
     let res = await getAPI(MemberDepositApi).apiGetMemberDepositListGet(props.pcustomer.id);

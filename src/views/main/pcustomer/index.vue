@@ -6,7 +6,7 @@
 		<el-card class="full-table" shadow="never" style="margin-top: 8px">
 			<Table ref="tableRef" v-bind="tb.tableData" :getData="getData">
 				<template #sexText="scope">
-					<el-tag :type="di('code_sex', scope.row.sex)?.tagType"> {{ di('code_sex', scope.row.sex)?.label }} </el-tag>
+					<el-tag :type="getDictDataItem('code_sex', scope.row.sex)?.tagType"> {{ getDictDataItem('code_sex', scope.row.sex)?.label }} </el-tag>
 				</template>
 				<template #command>
 					<el-button type="primary" size="small" icon="ele-Plus" round @click="openAddPcustomer" v-auth="'pcustomer:add'"> 新增会员 </el-button>
@@ -45,6 +45,7 @@ import editSingDialog from '/@/views/main/pcustomer/component/editDialog.vue';
 import uploadExecl from '/@/views/main/pcustomer/component/uploadExecl.vue';
 import petEditDialog from '/@/views/main/ppets/component/editDialog.vue';
 import {PcustomerApi,MemberLevelApi } from '/@/api-services/api';
+import { getDictDataItem } from '/@/utils/dict-utils';
 
 
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
@@ -198,12 +199,12 @@ const tb = reactive<TableDemoState>({
 			pageSize: 20, // 每页条数
 			hideExport: true, //是否隐藏导出按钮
 			exportFileName: '用户信息', //导出报表的文件名，不填写取应用名称
-			hideLoad: true,
 			hidePrint: true,
+			isDisabled:true
 		},
 		// 搜索表单，动态生成（传空数组时，将不显示搜索，type有3种类型：input,date,select）
 		search: [
-			{ label: '', prop: 'params', placeholder: '请输入手机号/用户名/宠物名称', required: false, type: 'input' },
+			{ label: '手机号/用户名/宠物名称', prop: 'params', placeholder: '请输入手机号/用户名/宠物名称', required: false, type: 'input' },
 			{
 				label: '会员级别',
 				prop: 'level',

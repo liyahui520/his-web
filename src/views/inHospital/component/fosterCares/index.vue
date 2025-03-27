@@ -1,6 +1,6 @@
 <template>
 	<div class="in-hospitals-container">
-		<el-card shadow="never" :body-style="{ paddingBottom: '0' }" style="margin-bottom: 16px;">
+		<el-card shadow="never" :body-style="{ paddingBottom: '0' }" style="margin-bottom: 8px;">
 			<el-form :model="queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="客户名称">
 					<el-input v-model="queryParams.customerName" clearable placeholder="请输入客户名称" />

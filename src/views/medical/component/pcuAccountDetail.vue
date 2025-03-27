@@ -113,10 +113,7 @@ import { defineAsyncComponent, nextTick, onMounted, reactive, ref } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { PcuAccountApi, PcustomerApi } from '/@/api-services';
 import { verifyNumberComma } from '/@/utils/toolsValidate';
-import { useUserInfo } from '/@/stores/userInfo';
-
-const stores = useUserInfo();
-const dictList = stores.dictList;
+import { getDictDataList } from '/@/utils/dict-utils';
 
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const RechargeAccount = defineAsyncComponent(() => import('/@/components/pcuAccount/rechargeAccount.vue'));
@@ -317,7 +314,7 @@ const closeDialog = () => {
 };
 // 打开弹窗
 const openDialog = async (customerId:any) => {
-	getPriceModth.value = dictList['funding_method'];
+	getPriceModth.value = getDictDataList('funding_method');
 	await Init(customerId);
 	isShowDialog.value = true;
 };

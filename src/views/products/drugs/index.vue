@@ -57,11 +57,8 @@ import mittBus from '/@/utils/newmitt';
 import batchEditDialog from '/@/views/products/component/batchEditDialog.vue';
 import downloadTemp from '/@/views/products/component/downloadTemp.vue';
 import { ProductTypeEnums } from '/@/api-services/models/product-manage';
-import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
-const stores = useUserInfo();
-const dictList = stores.dictList;
-console.log("stores.userInfos.authBtnList",stores.userInfos.authBtnList)
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const tableDrugsRef = ref<RefType>();
 const usingMethodObject = ref<any>({});
@@ -386,7 +383,7 @@ const getData = async (par: any) => {
 	return res.data;
 };
 const loadUsingMethodData = async () => {
-	var res = dictList['code_using_method'];
+	var res = getDictDataList('code_using_method');
 	usingMethodData.value = res ?? [];
 	usingMethodData.value.forEach((item: any) => {
 		usingMethodObject.value[item.id] = item.label;
@@ -394,7 +391,7 @@ const loadUsingMethodData = async () => {
 	});
 };
 const loadDosingWayData = async () => {
-	var res = dictList['code_dosing_way'];
+	var res = getDictDataList('code_dosing_way');
 	dosingWayData.value = res ?? [];
 	dosingWayData.value.forEach((item: any) => {
 		dosingWayObject.value[item.id] = item.label;

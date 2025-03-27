@@ -351,10 +351,10 @@ import { formatAge } from '/@/utils/formatTime';
 import commonFunction from '/@/utils/commonFunction';
 import other from '/@/utils/other';
 import Decimal from 'decimal.js';
+import { getDictDataList } from '/@/utils/dict-utils';
 import { useUserInfo } from '/@/stores/userInfo';
 
 const stores = useUserInfo();
-const dictList = stores.dictList;
 const CategroyProducts = defineAsyncComponent(() => import('/@/components/tree/categroyProducts.vue'));
 const PackDrug = defineAsyncComponent(() => import('/@/components/treatment/packDrug.vue'));
 //父级传递来的函数，用于回调
@@ -474,7 +474,7 @@ const dayCharge = (row: any) => {
  * 获取使用方式
  */
 const getUsingMethods = async () => {
-	dosingWayData.value = dictList['code_dosing_way'];
+	dosingWayData.value = getDictDataList('code_dosing_way');
 };
 /**
  * 添加分组

@@ -103,10 +103,9 @@ import treeDialog from '/@/views/system/codeGen/component/treeDialog.vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysCodeGenConfigApi, SysConstApi, SysDictDataApi, SysDictTypeApi, SysEnumApi } from '/@/api-services/api';
 import { CodeGenConfig } from '/@/api-services/models/code-gen-config';
-import { useUserInfo } from '/@/stores/userInfo';
 
-const stores = useUserInfo();
-const dictList = stores.dictList;
+import { getDictDataList } from '/@/utils/dict-utils';
+
 const emits = defineEmits(['handleQuery']);
 const fkDialogRef = ref();
 const treeDialogRef = ref();
@@ -124,14 +123,14 @@ const state = reactive({
 });
 
 onMounted(async () => {
-	var res = dictList['code_gen_effect_type'];
+	var res = getDictDataList('code_gen_effect_type');
 	state.effectTypeList = res.data.result;
 
 	var res1 = await getAPI(SysDictTypeApi).apiSysDictTypeListGet();
 	state.dictTypeCodeList = res1.data.result;
 	state.dictDataAll = res1.data.result;
 
-	var res2 = dictList['code_gen_query_type'];
+	var res2 = getDictDataList('code_gen_query_type');
 	state.queryTypeList = res2.data.result;
 
 	var res3 = await getAPI(SysConstApi).apiSysConstListGet();

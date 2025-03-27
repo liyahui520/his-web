@@ -122,6 +122,7 @@ const tb = reactive<TableDemoState>({
 			// hideLoad: false,
 			hidePrint: true,
 			hideTool: true,
+			isDisabled:true
 		},
 		// 搜索表单，动态生成（传空数组时，将不显示搜索，type有3种类型：input,date,select）
 		search: [
@@ -154,7 +155,7 @@ const selectPcu = async (row: any) => {
 };
 
 // 搜索点击时表单回调
-const onSearch = (data: EmptyObjectType) => {
+const onSearch = (data: any) => {
 	tb.tableData.param = Object.assign({}, tb.tableData.param, { ...data }, { status: 1 });
 	nextTick(() => {
 		tableRef.value.pageReset();
@@ -164,6 +165,7 @@ const onSearch = (data: EmptyObjectType) => {
 const getData = async (param: any) => {
 	param.status = 1;
 	let r = await getAPI(RegistersApi).apiRegistersPagePost(param);
+	console.log("r.data", r.data)
 	return r.data;
 };
 // 拖动显示列排序回调

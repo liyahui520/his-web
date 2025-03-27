@@ -81,13 +81,10 @@
 <script lang="ts" setup name="sysEditOrg">
 import { onMounted, reactive, ref } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
-import { SysOrgApi, SysDictDataApi } from '/@/api-services/api';
+import { SysOrgApi } from '/@/api-services/api';
 import { SysOrg, UpdateOrgInput } from '/@/api-services/models';
 import other from '/@/utils/other';
-import { useUserInfo } from '/@/stores/userInfo';
-
-const stores = useUserInfo();
-const dictList = stores.dictList;
+import { getDictDataList } from '/@/utils/dict-utils';
 const props = defineProps({
 	title: String,
 	orgData: Array<SysOrg>,
@@ -101,7 +98,7 @@ const state = reactive({
 });
 
 onMounted(async () => {
-	let resDicData = dictList['org_type'];
+	let resDicData = getDictDataList('org_type');
 	state.orgTypeList = resDicData.data.result;
 });
 

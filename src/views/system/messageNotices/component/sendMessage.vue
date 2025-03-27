@@ -105,10 +105,9 @@ import { PcustomerApi, SMSTemplateApi, MemberLevelApi,SysSmsSendApi } from '/@/a
 import { verifyNumberComma } from '/@/utils/toolsValidate';
 import { SysSMSTemplateEnum } from '/@/api-services/models/template-json-manage/sys-smstemplate-enum';
 import type { FormRules } from 'element-plus';
-import { useUserInfo } from '/@/stores/userInfo';
 
-const stores = useUserInfo();
-const dictList = stores.dictList;
+import { getDictDataList } from '/@/utils/dict-utils';
+
 const ruleFormRef=ref();
 const tableRef = ref();
 const queryForm = ref();
@@ -145,7 +144,7 @@ const loadBaseSearchData = async () => {
 		.then((res) => {
 			memberLevelData.value = res.data.result ?? [];
 		});
-	customerSourceData.value = dictList['code_customer_source'];
+	customerSourceData.value = getDictDataList('code_customer_source');
 	queryParams.value.memberLevels = memberLevelData.value.map((item: any) => item.id);
 	queryParams.value.customerSources = customerSourceData.value.map((item: any) => item.code);
 };

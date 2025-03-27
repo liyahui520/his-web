@@ -93,10 +93,8 @@ import { MemberCardApi } from "/@/api-services";
 import { MemberCardRechargeInput } from "/@/api-services/models/card-manage";
 import { ElMessage } from "element-plus";
 import { Wallet } from '@element-plus/icons-vue'
-import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
 
-const stores = useUserInfo();
-const dictList = stores.dictList;
 //父级传递来的参数
 var props = defineProps({
     title: {
@@ -123,7 +121,7 @@ const ruleForm = ref<MemberCardRechargeInput>({
 const emit = defineEmits(["reloadTable"]);
 // 打开弹窗
 const openDialog = async () => {
-    getPriceModth.value = dictList['code_card_recharge_type'];
+    getPriceModth.value = getDictDataList('code_card_recharge_type');
     isShowDialog.value = true;
     ruleForm.value.customerId = props.pcustomer.id
     ruleForm.value.cardId = props.cardInfo.id;

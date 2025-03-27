@@ -126,9 +126,10 @@ import { ReservationApi, SMSTemplateApi } from '/@/api-services';
 import { storeToRefs } from 'pinia';
 import other from '/@/utils/other';
 import { useUserInfo } from '/@/stores/userInfo';
+import { getDictDataList } from '/@/utils/dict-utils';
+
 
 const stores = useUserInfo();
-const dictList = stores.dictList;
 //父级传递来的参数
 var props = defineProps({
 	title: {
@@ -209,9 +210,8 @@ const openDialog = async (row: any) => {
 	smsTemplateItems.value.push({ label: '宠主姓名', value: props.pcustomer?.name });
 	smsTemplateItems.value.push({ label: '宠物名称', value: props.pet?.petName });
 	smsTemplateItems.value.push({ label: '预约时间', value: ruleForm.value.reservationTime });
-	ReservationTypeEnums.value = dictList['ReservationTypeEnum'];
-	console.log("ReservationTypeEnums.value",ReservationTypeEnums.value)
-	departments.value = dictList['medical_record_department_type'];
+	ReservationTypeEnums.value = getDictDataList('ReservationTypeEnum');
+	departments.value = getDictDataList('medical_record_department_type');
 	getUsersData.value = userList.value;
 	ruleForm.value = other.deepClone(row);
 	address.value = ruleForm.value.address ? JSON.parse(ruleForm.value.address) : [];

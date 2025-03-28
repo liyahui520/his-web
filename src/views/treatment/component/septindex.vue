@@ -9,7 +9,19 @@
 				<div style="padding: 5px">
 					<el-row :gutter="5" align="middle" justify="space-between">
 						<el-col :span="15">
-							<el-avatar :size="60" style="float: left; text-align: center" :src="props.data?.pPetsInfo?.petImageUrl" />
+							<el-avatar
+								v-if="
+									props.data?.pPetsInfo?.petImageUrl != void 0 &&
+									props.data?.pPetsInfo?.petImageUrl != null &&
+									props.data?.pPetsInfo?.petImageUrl != '' &&
+									props.data?.pPetsInfo?.petImageUrl != 'null' &&
+									props.data?.pPetsInfo?.petImageUrl != 'undefined'
+								"
+								:size="60"
+								style="float: left; text-align: center"
+								:src="props.data?.pPetsInfo?.petImageUrl"
+							/>
+							<el-avatar v-else :size="60" style="float: left; text-align: center" :src="'src/assets/in-hospitals/animal.png'" />
 							<div style="float: left; text-align: center; margin-left: 20px">
 								<el-breadcrumb separator="|" style="line-height: 35px">
 									<el-breadcrumb-item>
@@ -83,28 +95,28 @@
 							</div>
 						</el-col>
 						<el-col :span="9">
-							<div style="float: right"> 
-								<el-text v-show="$props.isSave"  v-if="!$props.disabled">
+							<div style="float: right">
+								<el-text v-show="$props.isSave" v-if="!$props.disabled">
 									<el-icon :color="'#0D76F7'">
 										<CircleCheck />
 									</el-icon>
 									<span style="font-size: 12px; margin-right: 10px; color: #0d76f7">已自动保存</span>
 								</el-text>
-                <el-text v-show="!$props.isSave"  v-if="!$props.disabled">
+								<el-text v-show="!$props.isSave" v-if="!$props.disabled">
 									<el-icon :color="'#434343'">
 										<Edit />
 									</el-icon>
-									<span style="font-size: 12px; margin-right: 10px;color: #434343;">正在编辑中</span>
+									<span style="font-size: 12px; margin-right: 10px; color: #434343">正在编辑中</span>
 								</el-text>
 								<el-button :icon="CircleCheck" type="primary" @click="save" plain v-if="!$props.disabled">保存</el-button>
 								<!-- <el-divider direction="vertical"/>
               <el-button :icon="Printer" type="primary" plain>打印</el-button> -->
-								<el-divider direction="vertical"  v-if="!$props.disabled"/>
+								<el-divider direction="vertical" v-if="!$props.disabled" />
 								<el-button :icon="View" type="primary" plain @click="priviewRecord($props.data.recordId)">预览并打印</el-button>
 								<!--                            <el-divider direction="vertical"/>-->
 								<!--                            <el-button :icon="CircleCheck" type="primary">保存病例</el-button>-->
-								<el-divider direction="vertical"  v-if="!$props.disabled"/>
-								<el-button :icon="SwitchButton"  v-if="!$props.disabled" v-show="isvisitDoctor" @click="endRecord" type="warning">结束诊疗</el-button>
+								<el-divider direction="vertical" v-if="!$props.disabled" />
+								<el-button :icon="SwitchButton" v-if="!$props.disabled" v-show="isvisitDoctor" @click="endRecord" type="warning">结束诊疗</el-button>
 							</div>
 						</el-col>
 					</el-row>
@@ -125,7 +137,7 @@ import { verifyNumberComma, verifyNumberCnUppercase, verifyTextColor } from '/@/
 import { formatAge } from '/@/utils/formatTime';
 import { Check, Delete, Edit, Message, Search, Star, Printer, View, CircleCheck, SwitchButton } from '@element-plus/icons-vue';
 import { useUserInfo } from '/@/stores/userInfo';
-import { storeToRefs } from 'pinia'; 
+import { storeToRefs } from 'pinia';
 const PrintView = defineAsyncComponent(() => import('/@/components/print/index.vue'));
 
 const printViewRef = ref();
@@ -142,10 +154,10 @@ var props = defineProps({
 		type: Boolean,
 		default: false,
 	},
-  isSave:{
-    type: Boolean,
-    default: true
-  }
+	isSave: {
+		type: Boolean,
+		default: true,
+	},
 });
 // 引入组件
 // watch(
@@ -192,6 +204,9 @@ onMounted(async () => {});
 
 	.box-card {
 		height: 80px;
+		:deep(.el-avatar) {
+			background-color: white !important;
+		}
 	}
 	.clearfix:before,
 	.clearfix:after {

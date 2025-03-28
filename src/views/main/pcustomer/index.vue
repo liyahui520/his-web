@@ -65,17 +65,17 @@ const tb = reactive<TableDemoState>({
 	tableData: {
 		// 表头内容（必传，注意格式）
 		columns: [
-			{
-				prop: 'createOrgName',
-				minWidth: '150',
-				label: '所属机构',
-				headerAlign: 'center',
-				toolTip: true,
-				sortable: 'custom',
-				isCheck: true,
-				fixed: 'left',
-				'show-overflow-tooltip': true,
-			},
+			// {
+			// 	prop: 'createOrgName',
+			// 	minWidth: '150',
+			// 	label: '所属机构',
+			// 	headerAlign: 'center',
+			// 	toolTip: true,
+			// 	sortable: 'custom',
+			// 	isCheck: true,
+			// 	fixed: 'left',
+			// 	'show-overflow-tooltip': true,
+			// },
 			{
 				prop: 'cardNumber',
 				minWidth: '150',
@@ -279,11 +279,6 @@ const getLevels=async ()=>{
 		});
 }
 
-const getLeveldatas=async ()=>{
-	let r=await getAPI(MemberLevelApi)
-		.apiMemberLevelListPost({});
-		return r.data?.result ?? [];
-}
 
 /**
  * 新建宠物

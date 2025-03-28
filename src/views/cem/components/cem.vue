@@ -70,7 +70,7 @@ const treatData = ref({
 	},
 	status: 0,
 	visitDoctorId: 0,
-	cemRecordAdvice: { adviceContent: '' },
+	cemRecordAdvice: { adviceContent: null },
 	id: 0,
 });
 //父级传递来的参数
@@ -165,7 +165,7 @@ const Init = async (d: any) => {
 			if (!treatData.value?.cemRecordAdvice) {
 				treatData.value = Object.assign({}, treatData.value, {
 					cemRecordAdvice: {
-						adviceContent: '',
+						adviceContent: null,
 					},
 				});
 			}

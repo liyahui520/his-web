@@ -13,9 +13,13 @@
         <el-col :span="24" style="padding-left: 10px">
           <div style="float: left;text-align: center">
             <div style="text-align: center">
-              <el-avatar :src="props.data?.pPetsInfo?.petImageUrl" :size="50">
-                <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png"/>
+              <el-avatar v-if="props.data?.pPetsInfo?.petImageUrl != void 0 && props.data?.pPetsInfo?.petImageUrl != null && props.data?.pPetsInfo?.petImageUrl != '' && props.data?.pPetsInfo?.petImageUrl != 'null' && props.data?.pPetsInfo?.petImageUrl != 'undefined'" :src="props.data?.pPetsInfo?.petImageUrl" :size="50">
+                <img :src="props.data?.pPetsInfo?.petImageUrl"/>
               </el-avatar>
+              <el-avatar v-else :src="'src/assets/in-hospitals/animal.png'" :size="50">
+              </el-avatar>
+              
+
             </div>
             <span><el-text style="max-width: 60px;font-size: 12px;line-height: 20px;color: #8d8d91;overflow: inherit"
                            truncated :title="props.data?.createTime">
@@ -160,7 +164,9 @@ onMounted(async () => {
 <style scoped lang="scss">
 .treatpet-container {
   margin-bottom: 5px;
-
+  :deep(.el-avatar){
+    background-color: white !important;
+  }
   .source {
     //position: fixed;
     top: 0px;

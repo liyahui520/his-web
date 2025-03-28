@@ -228,7 +228,7 @@ let petEntity = {
 	addressDetails: '',
 	pet: {
 		petName: '',
-		petGender: '-1',
+		petGender: '',
 		petKind: '',
 		petVarietie: null,
 		petBlood: '',
@@ -254,6 +254,7 @@ const customProps = {
 	children: 'children', // 自定义当前数组的键名 - children
 	expandTrigger: 'click', // 次级菜单的展开方式 - click/hover
 };
+console.log(" stores.sysRegions", stores.sysRegions)
 const loadRegion = async () => {
 	options.value = stores.sysRegions;
 };
@@ -310,8 +311,8 @@ const cancel = () => {
 
 const uploadPetImageUrlHandle = async (options: UploadRequestOptions) => {
 	const res = await getAPI(SysFileApi).apiSysFileUploadFilePostForm(options.file);
-	ruleForm.value.petImageUrl = res.data.result?.url;
-	ruleForm.value.petImageId = res.data.result?.id;
+	ruleForm.value.pet.petImageUrl = res.data.result?.url;
+	ruleForm.value.pet.petImageId = res.data.result?.id;
 };
 
 /**

@@ -101,6 +101,18 @@ let PropVirtTableS = reactive({
 			title: '会员价格',
 			width: 100,
 		},
+		interval:{
+			title: '接种间隔',
+			width: 100,
+		},
+		intervalUnit:{
+			title: '接种间隔单位',
+			width: 100,
+		},
+		times:{
+			title: '接种次数',
+			width: 100,
+		},
 		inUnitName: {
 			title: '入库单位',
 			width: 100,
@@ -146,6 +158,7 @@ let PropVirtTableS = reactive({
 
 const isShowDialog = ref(false);
 
+const intervalUnitObject = ref<any>({ Day: '天', Week: '周', Month: '月', Year: '年' });
 // 打开弹窗
 const openDialog = async (row: any, usingMethodData: any, dosingWayData: any, type: any) => {
 	PropVirtTableS.tables = row;
@@ -161,24 +174,44 @@ const openDialog = async (row: any, usingMethodData: any, dosingWayData: any, ty
 		item.canSaleName = item.canSale == 1 ? '是' : '否';
 		item.canOrderName = item.canOrder == 1 ? '是' : '否';
 		item.canCableName = item.canCable == 1 ? '是' : '否';
+		item.intervalUnit=intervalUnitObject.value[item.intervalUnit];
 	});
-	//&nbsp;商品 Goods = 10001<br />&nbsp;药品 Drugs = 20001<br />&nbsp;美容 Cosmetologys = 30001<br />&nbsp;洗澡 Washs = 40001<br />&nbsp;驱虫 Defaunations = 50001
-	// <br />&nbsp;疫苗 Vaccines = 60001<br />&nbsp;住院 Hospitals = 70001<br />&nbsp;留观 Fosters = 80001<br />&nbsp;超声检查 BModes = 90001<br />&nbsp;摄影检查 XRays = 100001
-	//<br />&nbsp;化验 Tests = 110001<br />&nbsp;处置 Disposals = 120001<br />&nbsp;显微镜 Microscopes = 130001<br />&nbsp;消耗品 Consumables = 140001<br />&nbsp;试纸 Papers = 150001<br />
+	if (productType.value != ProductTypeEnums.NUMBER_50001 && productType.value != ProductTypeEnums.NUMBER_60001) {
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'interval');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'intervalUnit');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'times');
+	}
 	if (productType.value != ProductTypeEnums.NUMBER_20001) {
-		Reflect.deleteProperty(PropVirtTableS.keyS, "ingredient");
-		Reflect.deleteProperty(PropVirtTableS.keyS, "usingMethodName");
-		Reflect.deleteProperty(PropVirtTableS.keyS, "dosingWayName");
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'ingredient');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'usingMethodName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'dosingWayName');
 	}
-	if(productType.value == ProductTypeEnums.NUMBER_140001||productType.value == ProductTypeEnums.NUMBER_150001){
-		Reflect.deleteProperty(PropVirtTableS.keyS, "brandName");
-		Reflect.deleteProperty(PropVirtTableS.keyS, "isAnaesthesiaName");
-		Reflect.deleteProperty(PropVirtTableS.keyS, "isZeroSaleName");
-		Reflect.deleteProperty(PropVirtTableS.keyS, "canOrderName");
-		Reflect.deleteProperty(PropVirtTableS.keyS, "canCableName");
-		Reflect.deleteProperty(PropVirtTableS.keyS, "inUnitName");
+	if (productType.value == ProductTypeEnums.NUMBER_140001 || productType.value == ProductTypeEnums.NUMBER_150001) {
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'brandName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'isAnaesthesiaName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'isZeroSaleName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'canOrderName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'canCableName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'inUnitName');
 	}
-
+	if (
+		productType.value != ProductTypeEnums.NUMBER_10001 &&
+		productType.value != ProductTypeEnums.NUMBER_20001 &&
+		productType.value != ProductTypeEnums.NUMBER_50001 &&
+		productType.value != ProductTypeEnums.NUMBER_60001
+	) {
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'specific');
+	}
+	if (productType.value == ProductTypeEnums.NUMBER_30001 || productType.value == ProductTypeEnums.NUMBER_40001) {
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'barCode');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'providerName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'manufacturerName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'brandName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'inUnitName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'canOrderName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'canCableName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'isAnaesthesiaName');
+	}
 };
 
 // 取消
@@ -207,7 +240,6 @@ onMounted(async () => {});
 defineExpose({ openDialog });
 </script>
 <style lang="scss" scoped>
-
 :deep(.el-dialog__footer) {
 	padding-top: 0 !important;
 	text-align: center !important;

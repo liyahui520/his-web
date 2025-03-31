@@ -29,7 +29,7 @@
 			<el-tag> 1 {{ scope.row.inUnitName }} = {{ scope.row.inSpecific }} {{ scope.row.outUnitName }}</el-tag>
 		</template>
 		<template #intervalUnit="scope">
-			{{ intervalUnitObject[scope.row.intervalUnit + ''] }}
+			<el-tag>{{ intervalUnitObject[scope.row.intervalUnit] }}</el-tag>
 		</template>
 		<template #action="scope" v-if="auth('products:defaunations:update') || auth('products:defaunations:delete')">
 			<el-button icon="ele-Edit" size="small" text="" type="primary" @click="openEditProductDefaunations(scope.row)" v-auth="'products:defaunations:update'"> 编辑 </el-button>
@@ -218,7 +218,7 @@ const tb = reactive<TableDemoState>({
 			},
 			{
 				prop: 'interval',
-				width: '120',
+				width: '100',
 				label: '接种间隔',
 				headerAlign: 'center',
 				toolTip: true,
@@ -230,6 +230,16 @@ const tb = reactive<TableDemoState>({
 				prop: 'intervalUnit',
 				width: '120',
 				label: '间隔单位',
+				headerAlign: 'center',
+				toolTip: true,
+				sortable: 'custom',
+				isCheck: true,
+				'show-overflow-tooltip': true,
+			},
+			{
+				prop: 'times',
+				width: '100',
+				label: '接种次数',
 				headerAlign: 'center',
 				toolTip: true,
 				sortable: 'custom',

@@ -30,10 +30,10 @@
 			<el-tag> 1 {{ scope.row.inUnitName }} = {{ scope.row.inSpecific }} {{ scope.row.outUnitName }}</el-tag>
 		</template>
 		<template #usingMethod="scope">
-			{{ usingMethodObject[scope.row.usingMethod + ''] }}
+			{{ usingMethodObject[scope.row.usingMethod] }}
 		</template>
 		<template #dosingWay="scope">
-			{{ dosingWayObject[scope.row.dosingWay + ''] }}
+			{{ dosingWayObject[scope.row.dosingWay] }}
 		</template>
 		<template #action="scope" v-if="auth('products:drugs:update') || auth('products:drugs:delete')">
 			<el-button icon="ele-Edit" size="small" text="" type="primary" @click="openEditProductDrugs(scope.row)" v-auth="'products:drugs:update'"> 编辑 </el-button>
@@ -384,18 +384,20 @@ const getData = async (par: any) => {
 };
 const loadUsingMethodData = async () => {
 	var res = getDictDataList('code_using_method');
+	console.log("code_using_method:res",res)
 	usingMethodData.value = res ?? [];
 	usingMethodData.value.forEach((item: any) => {
 		usingMethodObject.value[item.id] = item.label;
-		usingMethodTransObject.value[item.code] = item.label;
+		usingMethodTransObject.value[item.value] = item.label;
 	});
 };
 const loadDosingWayData = async () => {
 	var res = getDictDataList('code_dosing_way');
+	console.log("code_dosing_way:res",res)
 	dosingWayData.value = res ?? [];
 	dosingWayData.value.forEach((item: any) => {
 		dosingWayObject.value[item.id] = item.label;
-		dosingWayTransObject.value[item.code] = item.label;
+		dosingWayTransObject.value[item.value] = item.label;
 	});
 };
 /**

@@ -30,6 +30,7 @@ import { getAPI } from '/@/utils/axios-utils';
 import { ImportProductApi } from '/@/api-services';
 import { ElButton } from 'element-plus';
 import { ProductTypeEnums } from '/@/api-services/models/product-manage';
+import { useUserInfo } from '/@/stores/userInfo';
 
 const Table = defineAsyncComponent(() => import('/@/components/table/tableV2.vue'));
 
@@ -101,15 +102,15 @@ let PropVirtTableS = reactive({
 			title: '会员价格',
 			width: 100,
 		},
-		interval:{
+		interval: {
 			title: '接种间隔',
 			width: 100,
 		},
-		intervalUnit:{
+		intervalUnit: {
 			title: '接种间隔单位',
 			width: 100,
 		},
-		times:{
+		times: {
 			title: '接种次数',
 			width: 100,
 		},
@@ -174,7 +175,7 @@ const openDialog = async (row: any, usingMethodData: any, dosingWayData: any, ty
 		item.canSaleName = item.canSale == 1 ? '是' : '否';
 		item.canOrderName = item.canOrder == 1 ? '是' : '否';
 		item.canCableName = item.canCable == 1 ? '是' : '否';
-		item.intervalUnit=intervalUnitObject.value[item.intervalUnit];
+		item.intervalUnit = intervalUnitObject.value[item.intervalUnit];
 	});
 	if (productType.value != ProductTypeEnums.NUMBER_50001 && productType.value != ProductTypeEnums.NUMBER_60001) {
 		Reflect.deleteProperty(PropVirtTableS.keyS, 'interval');
@@ -211,6 +212,23 @@ const openDialog = async (row: any, usingMethodData: any, dosingWayData: any, ty
 		Reflect.deleteProperty(PropVirtTableS.keyS, 'canOrderName');
 		Reflect.deleteProperty(PropVirtTableS.keyS, 'canCableName');
 		Reflect.deleteProperty(PropVirtTableS.keyS, 'isAnaesthesiaName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'isZeroSaleName');
+	}
+	if (
+		productType.value == ProductTypeEnums.NUMBER_110001 ||
+		productType.value == ProductTypeEnums.NUMBER_120001 ||
+		productType.value == ProductTypeEnums.NUMBER_90001 ||
+		productType.value == ProductTypeEnums.NUMBER_100001 ||
+		productType.value == ProductTypeEnums.NUMBER_130001
+	) {
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'providerName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'manufacturerName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'brandName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'inUnitName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'canOrderName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'canCableName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'isAnaesthesiaName');
+		Reflect.deleteProperty(PropVirtTableS.keyS, 'isZeroSaleName');
 	}
 };
 
@@ -224,8 +242,13 @@ const submit = async () => {
 	if (PropVirtTableS.tables.length > 0) {
 		await getAPI(ImportProductApi)
 			.apiImportProductSaveProductDrugInputPost(productType.value, PropVirtTableS.tables)
-			.then(() => {
+			.then(async () => {
 				ElMessage.success('导入成功');
+
+				await useUserInfo().reloadProductUnitList();
+				await useUserInfo().reloadProductBrandList();
+				await useUserInfo().reloadProductManufacturerList();
+				await useUserInfo().reloadProductProviderList();
 				cancel();
 			});
 	} else {

@@ -155,9 +155,7 @@ const handleNodeClick = (data: any) => {
  * 获取产品数据
  */
 const getProductData = async () => {
-	console.log("begin1",formatDate(new Date(),'YYYY-mm-dd HH:MM:SS'));
     var res = await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(productTypeValue.value);
-	console.log("end1",formatDate(new Date(),'YYYY-mm-dd HH:MM:SS'));
     return res.data?.result ?? [];
 }
 // 取消

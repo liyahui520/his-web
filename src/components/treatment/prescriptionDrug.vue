@@ -186,7 +186,7 @@
 								>
 									<el-table-column type="selection" width="55" align="center" :selectable="selectable" />
 									<el-table-column label="项目信息" style="text-align: center">
-										<el-table-column prop="typeText" label="分组" min-width="110">
+										<el-table-column label="分组" min-width="110">
 											<template #default="scope">
 												<el-select
 													v-model="scope.row.orderId"
@@ -194,7 +194,7 @@
 													v-if="scope.row.child == null || scope.row.child.length <= 0"
 													placeholder="请选择分组"
 													style="width: 100%; margin-right: 10px; line-height: 23px"
-													@change="(value) => changeOrderGroup(scope.row)"
+													@change="(value:any) => changeOrderGroup(scope.row)"
 												>
 													<el-option v-for="item in orderGroupData" :key="item.id" :label="item.name" :value="item.id"></el-option>
 													<template #footer>
@@ -225,7 +225,7 @@
 										</el-table-column>
 										<el-table-column prop="typeText" label="类型" min-width="60" show-overflow-tooltip />
 										<el-table-column prop="itemName" label="项目名称" min-width="150" show-overflow-tooltip />
-										<el-table-column prop="itemName" label="使用方式" min-width="110" show-overflow-tooltip>
+										<el-table-column label="投药方式" min-width="110" show-overflow-tooltip>
 											<template #default="scope">
 												<el-select v-model="scope.row.dosingWay" filterable placeholder="请选择使用方式" style="width: 100%">
 													<el-option v-for="item in dosingWayData" :key="item.id" :label="item.label" :value="item.id"></el-option>

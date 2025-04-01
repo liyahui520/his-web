@@ -184,7 +184,7 @@
 												v-if="scope.row.child == null || scope.row.child.length <= 0"
 												placeholder="请选择分组"
 												style="width: 100%; margin-right: 10px; line-height: 23px"
-												@change="(value) => changeOrderGroup(scope.row)"
+												@change="(value:any) => changeOrderGroup(scope.row)"
 											>
 												<el-option v-for="item in orderGroupData" :key="item.id" :label="item.name" :value="item.id"></el-option>
 												<template #footer>
@@ -201,6 +201,7 @@
 
 									<el-table-column prop="typeText" label="类型" min-width="100" show-overflow-tooltip />
 									<el-table-column prop="itemName" label="项目名称" min-width="150" show-overflow-tooltip />
+									<el-table-column prop="unitName" label="单位" min-width="90" show-overflow-tooltip />
 								</el-table-column>
 								<el-table-column label="计费信息">
 									<el-table-column prop="count" label="数量" min-width="120" show-overflow-tooltip>
@@ -213,11 +214,11 @@
 											<el-input
 												v-model="scope.row.salePrice"
 												:formatter="
-													(value) => {
+													(value:any) => {
 														return formatInput(value);
 													}
 												"
-												:parser="(value) => value.replace(/\￥\s?|(,*)/g, '')"
+												:parser="(value:any) => value.replace(/\￥\s?|(,*)/g, '')"
 												@change="countCharge(scope.row)"
 											/>
 											<!--                                            {{ verifyNumberComma(scope.row.salePrice.toFixed(2).toString()) }}-->
@@ -263,9 +264,13 @@ import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 import { formatAge } from '/@/utils/formatTime';
 import { CEMRecordItemGroupTypeEnum } from '/@/api-services/models/cemrecord-manage';
 import other from '/@/utils/other';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
 const CategroyProducts = defineAsyncComponent(() => import('/@/components/tree/categroyProducts.vue'));
 const isSidebarVisible = ref(false);
+const unitObject = ref<any>({});
+const unitData = ref<any>([]);
 const tabKey = ref('first');
 const sidebarWidth = ref('');
 const queryValue = ref();
@@ -323,16 +328,24 @@ const testData = ref<any>({
 	count: 0,
 });
 
+const loadUnitData = () => {
+    let productUnits = stores.productUnits;
+    unitData.value = productUnits ?? [];
+    unitData.value.forEach((item: any) => {
+        unitObject.value[item.id] = item.name;
+    });
+};
+
 //格式化
-const formatInput = (val) => {
+const formatInput = (val:any) => {
 	return verifyNumberComma(val);
 };
 
-const countCharge = (row) => {
+const countCharge = (row:any) => {
 	row.amountPrice = row.count * row.salePrice;
 };
 
-const deleteRow = async (index) => {
+const deleteRow = async (index:any) => {
 	tableData.value.splice(index, 1);
 };
 
@@ -355,7 +368,7 @@ const remoteMethod = async () => {
 	}
 };
 
-const rowClick = async (rows) => {
+const rowClick = async (rows:any) => {
 	if (rows) {
 		multipleTableRef.value!.toggleRowSelection(rows, true);
 	} else {
@@ -363,7 +376,7 @@ const rowClick = async (rows) => {
 	}
 };
 
-const handleNodeClick = async (item) => {
+const handleNodeClick = async (item:any) => {
 	tableData.value.push({
 		recordId: props.treatData.id,
 		regId: props.treatData.regId,
@@ -376,14 +389,14 @@ const handleNodeClick = async (item) => {
 		amountPrice: item.salePrice,
 		isEditPrice: 0,
 		remark: '',
-		unitName: item.outUnitName,
+		unitName: unitObject.value[item.outUnitId], 
 		unitId: item.outUnitId,
 	});
 };
 
 //处理数据
-const refreshData = async (rows) => {
-	var r = rows.reduce((all: any, item) => {
+const refreshData = async (rows:any) => {
+	var r = rows.reduce((all: any, item:any) => {
 		all.push({
 			recordId: props.treatData.id,
 			regId: props.treatData.regId,
@@ -396,7 +409,7 @@ const refreshData = async (rows) => {
 			amountPrice: item.salePrice,
 			isEditPrice: 0,
 			remark: '',
-			unitName: item.outUnitName,
+			unitName:unitObject.value[item.outUnitId], 
 			unitId: item.outUnitId,
 		});
 		return all;
@@ -405,7 +418,7 @@ const refreshData = async (rows) => {
 };
 
 //双击事件
-const toggleSelection = async (rows) => {
+const toggleSelection = async (rows:any) => {
 	let d = other.deepClone(selectRowList.value);
 	let netb = [] as any;
 	if (d.length > 0) {
@@ -422,11 +435,11 @@ const toggleSelection = async (rows) => {
 };
 
 //获取选中的行值
-const selectRow = async (se) => {
+const selectRow = async (se:any) => {
 	selectRowList.value = se;
 };
 
-const toggleSidebar = async (v) => {
+const toggleSidebar = async (v:any) => {
 	await nextTick(() => {
 		isSidebarVisible.value = !v ? true : false;
 		sidebarWidth.value = !v.value ? '' : '0';
@@ -452,7 +465,7 @@ const clear = () => {
 const onAddOption = () => {
 	isAdding.value = true;
 };
-const changeOrderGroup = (row) => {
+const changeOrderGroup = (row:any) => {
 	if (row.orderId) row.orderName = orderGroupObject.value[row.orderId];
 };
 /**
@@ -469,16 +482,21 @@ const loadOrderGroupData = async () => {
 		});
 };
 // 打开弹窗
-const openDialog = async (row) => {
+const openDialog = async (row:any) => {
+	await loadUnitData();
 	tableData.value = [];
 	isShowDialog.value = true;
 	if (row) {
+		row.cemRecordTestItem.forEach((item: any) => {
+			item.unitName = unitObject.value[item.unitId];
+		})
 		tableData.value = other.deepClone(row.cemRecordTestItem);
 		testData.value = row;
 	}
 	await nextTick(() => {
 		categroyProductsRef.value?.handleList(1);
 	});
+	console.log("tableData.value",tableData.value)
 	await loadOrderGroupData();
 };
 // 关闭弹窗

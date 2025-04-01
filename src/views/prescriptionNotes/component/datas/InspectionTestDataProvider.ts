@@ -570,7 +570,7 @@ export default
 	{
 		name: '检验报告设计',
 		value: 'InspectionTestModule',
-		type: 4,
+		type: 5,
 		f: InspectionTestDataProvider(),
-        paperType:'A4'
+        paperType:'A5'
 	}

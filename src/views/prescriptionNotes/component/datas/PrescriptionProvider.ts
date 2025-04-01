@@ -1,6 +1,6 @@
 
 import { hiprint } from 'vue-plugin-hiprint-signalr';
-import logoImg from '/@/assets/logo.png';
+
 //处方签
 export const PrescriptionProvider = function () {
 	var addElementTypes = function (context: any) {

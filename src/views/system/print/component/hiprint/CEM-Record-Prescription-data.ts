@@ -1,6 +1,6 @@
 
 export default {
-    title: 'xxxx检查化验单', 
+    title: 'xxxx处方笺', 
     customerName: '张三',
     cellPhone: '185xxxxxxxx',
     cardNumber:'C0000000001',

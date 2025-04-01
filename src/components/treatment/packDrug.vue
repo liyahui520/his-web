@@ -13,14 +13,15 @@
 				<el-table :data="tableData" stripe height="450px" highlight-current-row>
 					<el-table-column label="序号" type="index" width="55" show-overflow-tooltip />
 					<el-table-column label="项目信息" style="text-align: center">
-						<el-table-column prop="typeText" label="分组" min-width="100" show-overflow-tooltip> </el-table-column>
+						<el-table-column prop="orderName" label="分组" min-width="100" show-overflow-tooltip> </el-table-column>
 						<el-table-column prop="typeText" label="类型" min-width="80" show-overflow-tooltip />
 						<el-table-column prop="itemName" label="项目名称" min-width="150" show-overflow-tooltip />
 						<el-table-column prop="itemName" label="使用方式" min-width="150" show-overflow-tooltip>
 							<template #default="scope">
-								<el-select v-model="scope.row.dosingWay" filterable disabled placeholder="请选择使用方式" style="width: 100%">
+								<!-- <el-select v-model="scope.row.dosingWay" filterable disabled placeholder="请选择使用方式" style="width: 100%">
 									<el-option v-for="item in dosingWayData" :key="item.id" :label="item.label" :value="item.id"></el-option>
-								</el-select>
+								</el-select> -->
+								{{ dosingWayDataObject[scope.row.dosingWay] }}
 							</template>
 						</el-table-column>
 						<el-table-column prop="specific" label="规格" show-overflow-tooltip />
@@ -67,7 +68,7 @@
 							<el-input-number
 								class="input-number-width"
 								@change="
-									(val) => {
+									(val: any) => {
 										if (!val) form.amountPrice = 0;
 									}
 								"
@@ -114,6 +115,7 @@ const emit = defineEmits(['reloadTable']);
 const isShowDialog = ref(false);
 const form = ref<any>({});
 const dosingWayData = ref<any>([]);
+const dosingWayDataObject = ref<any>([]);
 const tableData = ref<any>([]);
 const ruleFormRef = ref();
 //自行删除非必填规则
@@ -126,19 +128,22 @@ const rules = ref<FormRules>({
 const getUsingMethods = async () => {
 	let res = getDictDataList('code_dosing_way');
 	dosingWayData.value = res ?? [];
+	dosingWayData.value.forEach((item: any) => {
+        dosingWayDataObject.value[item.id] = item.label;
+    });
 };
 
 // 打开弹窗
 const openDialog = async (data: any) => {
 	tableData.value = [];
 	isShowDialog.value = true;
-	data.forEach((element:any) => {
+	data.forEach((element: any) => {
 		element.isPack = true;
 		tableData.value.push(element);
 	});
 };
 
-const deleteRow = async (index:any) => {
+const deleteRow = async (index: any) => {
 	tableData.value.splice(index, 1);
 };
 

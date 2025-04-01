@@ -36,7 +36,7 @@
 				</el-form-item>
 				<el-form-item>
 					<el-button-group>
-						<el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'products:goods:query'"> 查询 </el-button>
+						<el-button type="primary" icon="ele-Search" @click="handleQuery" > 查询 </el-button>
 						<el-button icon="ele-Refresh" @click="() => (queryParams = { canOrder: true, canSale: true, isDiscount: true })"> 重置 </el-button>
 					</el-button-group>
 				</el-form-item>

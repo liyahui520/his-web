@@ -7,15 +7,6 @@
 			<div slot="header" class="clearfix" style="background-color: var(--el-color-primary-light-8); height: 30px; border-radius: 3px 3px 0 0" v-show="$props.isNew">
 				<p style="line-height: 30px; font-size: 14px; font-weight: 500; margin-left: 10px; float: left">检查化验</p>
 			</div>
-
-			<!--            <el-tabs :tab-position="'left'"  type="border-card" class="demo-tabs" style="height: 90%;width: 80%" >-->
-			<!--                <el-tab-pane label="检查化验">User</el-tab-pane>-->
-			<!--                <el-tab-pane label="试纸检查">Config</el-tab-pane>-->
-			<!--                <el-tab-pane label="超声检查">Role</el-tab-pane>-->
-			<!--                <el-tab-pane label="摄影检查">Task</el-tab-pane>-->
-			<!--                <el-tab-pane label="显微镜">Task</el-tab-pane>-->
-			<!--                <el-tab-pane label="化验费用">Task</el-tab-pane>-->
-			<!--            </el-tabs>-->
 			<div style="padding: 10px">
 				<Table
 					ref="tableRef"
@@ -332,7 +323,7 @@ const onInspection = async () => {
  * 预览化验项目
  * @param row 
  */
-const vieweTest=async (row)=>{
+const vieweTest=async (row:any)=>{
 	await getAPI(PrintAndPreviewApi)
 			.apiPrintAndPreviewGetTestPreviewPrintPost({
 				testId: row.id,

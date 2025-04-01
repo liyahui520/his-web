@@ -60,6 +60,9 @@ import tempProviders from './component/datas/PrescriptionProvider';
 import RecordPrescriptionData from './component/datas/RecordPrescriptionData';
 import InspectionTestDataProvider from './component/datas/InspectionTestDataProvider';
 import InspectionTestDataProviderData from './component/datas/InspectionTestDataProviderData';
+import RecordTestData from './component/datas/RecordTestData';
+import RecordTestProvider from './component/datas/RecordTestProvider';
+
 import { PrintTypeEnum } from '/@/api-services/models/template-json-manage/print-type-enum';
 
 const PrintCusView = defineAsyncComponent(() => import('./component/index.vue'));
@@ -79,9 +82,9 @@ const tableData = [
 	{
 		name: '化验单模板',
 		type: PrintTypeEnum.NUMBER_1001,
-		cn: 'chufang',
-		providers: tempProviders,
-		tempData: RecordPrescriptionData,
+		cn: 'huayan',
+		providers: RecordTestProvider,
+		tempData: RecordTestData,
 	},
 	{
 		name: '处方笺模板',
@@ -115,16 +118,15 @@ const tableData = [
 
 const resultTemp = [];
 
-const handleCurrentChange = (row) => {
+const handleCurrentChange = (row:any) => {
+	console.log("row",row);
 	currentTemplate.value = 'A5';
 	printParam.value.printType = row.type;
 	printParam.value.tempDatas = row.tempData;
 	printParam.value.Providers = row.providers;
 	activeItem.value = row.name;
 };
-const setCurrent = (row) => {
-	singleTableRef.value!.setCurrentRow(row);
-};
+
 onMounted(() => {
 	activeItem.value = tableData[0].name;
 });

@@ -18,18 +18,12 @@
 							:remote-method="Init"
 							:loading="loading"
 							value-key="diagnosisId"
-                            @change="signalSave"
+							@change="signalSave"
 						>
 							<el-option v-for="item in options" :key="item.diagnosisId" :label="item.name" :value="item">
 								<span style="float: left">{{ item.name }}</span>
 								<span style="float: right; color: var(--el-text-color-secondary); font-size: 13px">{{ item.name }}</span>
 							</el-option>
-							<!--                    <el-option-->
-							<!--                            v-for="item in options"-->
-							<!--                            :key="item"-->
-							<!--                            :label="item"-->
-							<!--                            :value="item"-->
-							<!--                    />-->
 						</el-select>
 					</el-form-item>
 					<el-form-item label="病情描述">
@@ -48,11 +42,9 @@ import { CEMRecordApi } from '/@/api-services';
 import { signalR } from '/@/views/cem/signalRCem';
 
 const emit = defineEmits(['save', 'saveStatus']);
-// 引入组件
-const Editor = defineAsyncComponent(() => import('/@/components/editor/index.vue'));
-const form = ref({});
+const form = ref<any>({});
 const loading = ref(false);
-const options = ref([]);
+const options = ref<any>([]);
 var props = defineProps({
 	treatData: {
 		type: Object,
@@ -85,42 +77,42 @@ const Init = async (val: any) => {
 const focus = async () => {
 	emit('saveStatus', false);
 };
-//保存
+/**
+ * 保存
+ */
 const save = async () => {
-	if (!props.treatData?.cemRecordDiagnoses?.id) await getAPI(CEMRecordApi).apiCEMRecordRegIdRecordIdAddDiagnosisPost(props.treatData.regId, props.treatData.id, form.value);
-	else await getAPI(CEMRecordApi).apiCEMRecordRegIdRecordIdEditDiagnosisPut(props.treatData.regId, props.treatData.id, form.value);
+	await getAPI(CEMRecordApi).apiCEMRecordRegIdRecordIdEditDiagnosisPut(props.treatData.regId, props.treatData.id, form.value);
 };
 
-const signalSave = async () => { 
-    
-	if (!props.treatData?.cemRecordDiagnoses?.id)
-		await signalR
-			.send('AddDiagnosis', form.value)
-			.then((_) => {
-				emit('saveStatus', true);})
-			.catch(function (err: any) {
-				console.log(err);
-			});
-	else
-	{
-        form.value.id=props.treatData?.cemRecordDiagnoses?.id;
-        await signalR
-			.send('EditDiagnosis', form.value)
-			.then((_) => { 
-				emit('saveStatus', true);})
-			.catch(function (err: any) {
-				console.log(err);
-			});
-    }
+const signalSave = async () => {
+	// if (!props.treatData?.cemRecordDiagnoses?.id)
+	// 	await signalR
+	// 		.send('AddDiagnosis', form.value)
+	// 		.then((_) => {
+	// 			emit('saveStatus', true);
+	// 		})
+	// 		.catch(function (err: any) {
+	// 			console.log(err);
+	// 		});
+	// else {
+	form.value.id = props.treatData?.cemRecordDiagnoses?.id;
+	await signalR
+		.send('EditDiagnosis', form.value)
+		.then((_) => {
+			emit('saveStatus', true);
+		})
+		.catch(function (err: any) {
+			console.log(err);
+		});
+	// }
 };
 
 defineExpose({ save });
 onMounted(async () => {
-    await signalR.on('EditDiagnosis',(_)=>{
-        console.log('-----11------',_)
-        props.treatData.cemRecordDiagnoses = _;
-        form.value = _;
-    })
+	await signalR.on('EditDiagnosis', (_) => {
+		props.treatData.cemRecordDiagnoses = _;
+		form.value = _;
+	});
 	await Init(' ');
 });
 </script>

@@ -194,7 +194,7 @@
 													v-if="scope.row.child == null || scope.row.child.length <= 0"
 													placeholder="请选择分组"
 													style="width: 100%; margin-right: 10px; line-height: 23px"
-													@change="(value:any) => changeOrderGroup(scope.row)"
+													@change="(value: any) => changeOrderGroup(scope.row)"
 												>
 													<el-option v-for="item in orderGroupData" :key="item.id" :label="item.name" :value="item.id"></el-option>
 													<template #footer>
@@ -408,8 +408,8 @@ const selectable = (row: any) => !row.isPack;
  * @param row
  */
 const packLoad = async (row: any) => {
-	row.child.reduce((all: [], item) => {
-		tableData.value.cemRecordPrescriptionItems = tableData.value.cemRecordPrescriptionItems.filter((i) => i.vKey != item.vKey);
+	row.child.reduce((all: [], item: any) => {
+		tableData.value.cemRecordPrescriptionItems = tableData.value.cemRecordPrescriptionItems.filter((i:any) => i.vKey != item.vKey);
 	}, []);
 	row.recordId = props.treatData?.id;
 	row.regId = props.treatData?.regId;
@@ -422,6 +422,10 @@ const pack = async () => {
 	let packRows = prescriptionItemTableRef.value?.getSelectionRows().filter((item: any) => item.isPack === false);
 	if (!packRows || packRows.length <= 0) {
 		ElMessage.warning('请先选择要打包的数据');
+		return;
+	}
+	if(packRows.length==1){
+		ElMessage.warning('请至少选择两条数据进行打包');
 		return;
 	}
 	packDrugRef.value?.openDialog(packRows);
@@ -669,18 +673,22 @@ const loadUnitData = async () => {
  * 打开弹窗
  * @param row 数据
  */
-const openDialog = async (row) => {
+const openDialog = async (row: any) => {
 	if (!row.cemRecordPrescriptionItems) {
 		row.cemRecordPrescriptionItems = [];
 	}
 	sourceData.value = other.deepClone(row);
-	loadUnitData();
-	loadManufacturerData();
-	loadProviderData();
-	loadBrandData();
+	await loadUnitData();
+	await loadManufacturerData();
+	await loadProviderData();
+	await loadBrandData();
 	isShowDialog.value = true;
 	tableData.value = other.deepClone(row);
-
+	console.log('表格数据 tableData.value', tableData.value);
+	if (tableData.value.cemRecordPrescriptionItems)
+		tableData.value.cemRecordPrescriptionItems.forEach((item: any) => {
+			item.vKey = generateGUID();
+		});
 	await loadOrderGroupData();
 	await getUsingMethods();
 };
@@ -709,7 +717,7 @@ const loadOrderGroupData = async () => {
  * 关闭之前验证数据是否发生过改变
  * @param done
  */
-const closeBefore = async (done) => {
+const closeBefore = async (done: any) => {
 	if (JSON.stringify(sourceData.value) != JSON.stringify(tableData.value)) {
 		ElMessageBox.confirm(`数据已修改，是否保存?`, '提示', {
 			confirmButtonText: '保存',

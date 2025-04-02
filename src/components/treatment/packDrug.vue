@@ -100,6 +100,7 @@ import commonFunction from '/@/utils/commonFunction';
 import Decimal from 'decimal.js';
 import type { FormRules } from 'element-plus';
 import { getDictDataList } from '/@/utils/dict-utils';
+import other from '/@/utils/other';
 
 const { generateGUID } = commonFunction();
 //父级传递来的参数
@@ -135,9 +136,11 @@ const getUsingMethods = async () => {
 
 // 打开弹窗
 const openDialog = async (data: any) => {
+	form.value = {};
 	tableData.value = [];
 	isShowDialog.value = true;
-	data.forEach((element: any) => {
+	var dataRow = other.deepClone(data);
+	dataRow.forEach((element: any) => {
 		element.isPack = true;
 		tableData.value.push(element);
 	});

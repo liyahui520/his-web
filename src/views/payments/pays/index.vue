@@ -329,6 +329,7 @@ const handleDeletePaymentCarts = (rows: any) => {
 						});
 						if (item.paymentCarts.length == 0) sourceParent.splice(indexParent, 1);
 					});
+					computeTotalAmount();
 				})
 				.catch(() => {
 					cartTableLoading.value = false;
@@ -365,7 +366,7 @@ const openPaymentMethods = async () => {
  */
 const handlePaymentAmountChange = (value: any) => {
 	let totalAmountValue = totalAmountComputed;
-	let actualPriceArray = multipleSelection.value.map((row) => new Decimal(row.actualPrice).toFixed(2, Decimal.ROUND_DOWN));
+	let actualPriceArray = multipleSelection.value.map((row:any) => new Decimal(row.actualPrice).toFixed(2, Decimal.ROUND_DOWN));
 	let priceResult = adjustAmounts(actualPriceArray, totalAmountValue.value, value);
 	priceResult.forEach((item: any, index: number) => {
 		multipleSelection.value[index].actualPrice = item;

@@ -82,14 +82,10 @@
 </template>
 
 <script lang="ts" setup name="treatmentinformation">
-import { onMounted, onUnmounted, reactive, ref, defineAsyncComponent, nextTick, watch } from 'vue';
-import { ElMessageBox, ElMessage } from 'element-plus';
+import { onMounted, ref, defineAsyncComponent, watch } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
-import { auth } from '/@/utils/authFunction';
-import { CEMRecordApi, CEMRecordApiFp, SysEnumApi } from '/@/api-services';
-import { verifyNumberComma, verifyNumberCnUppercase, verifyTextColor } from '/@/utils/toolsValidate';
-import { formatDate } from '/@/utils/formatTime';
-import { Check, Delete, Edit, Message, Search, Star, Printer, View, CircleCheck, SwitchButton, Right, Back } from '@element-plus/icons-vue';
+import { CEMRecordApi } from '/@/api-services';
+import { SwitchButton, Right, Back } from '@element-plus/icons-vue';
 import { storeToRefs } from 'pinia';
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
 import { useUserInfo } from '/@/stores/userInfo';

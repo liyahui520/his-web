@@ -174,7 +174,7 @@
 						</el-card>
 						<div>
 							<el-table :data="tableData" :height="screenInfo.height - 380" stripe highlight-current-row>
-								<el-table-column label="序号" type="index" width="55" show-overflow-tooltip />
+								<el-table-column label="序号" type="index" width="55" align="center" show-overflow-tooltip />
 								<el-table-column label="检验信息" style="text-align: center">
 									<el-table-column prop="typeText" label="分组" min-width="110">
 										<template #default="scope">
@@ -496,7 +496,6 @@ const openDialog = async (row:any) => {
 	await nextTick(() => {
 		categroyProductsRef.value?.handleList(1);
 	});
-	console.log("tableData.value",tableData.value)
 	await loadOrderGroupData();
 };
 // 关闭弹窗

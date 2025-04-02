@@ -63,12 +63,7 @@ const showDialog = (templte: any, printData: {}, isdialog = true, width = 210) =
 	state.width = width;
 	state.hiprintTemplate = hiprintTemplate;
 	state.printData = printData;
-	// state.hiprintTemplate.addPrintHtml({ options: { width: 140, height: 35, top: 180, left: 20, content:'<h1>123213123123</h1>' } });
-	console.log("hiprintTemplate",hiprintTemplate)
-	console.log("templte",templte)
-	console.log("printData",printData)
-	console.log("isdialog",isdialog)
-	console.log("width",width)
+	
 	nextTick(() => {
 		while (previewContentRef.value?.firstChild) {
 			previewContentRef.value.removeChild(previewContentRef.value.firstChild);

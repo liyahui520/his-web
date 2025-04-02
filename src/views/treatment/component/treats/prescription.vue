@@ -28,7 +28,6 @@
 					</template>
 					<template #itemName="scope">
 						<el-breadcrumb separator="|" v-if="!scope.row.doctorId">
-              
 							<el-breadcrumb-item><el-tag v-if="scope.row.isHospital" type="danger">院</el-tag>开单时间：{{ scope.row.createTime }}</el-breadcrumb-item>
 							<el-breadcrumb-item>总项：{{ scope.row.count }}</el-breadcrumb-item>
 							<el-breadcrumb-item> 总金额：{{ verifyNumberComma(scope.row?.amountPrice?.toFixed(2).toString() || '0.00') }} </el-breadcrumb-item>
@@ -36,7 +35,7 @@
 						</el-breadcrumb>
 						<span v-else>
 							<el-tooltip class="box-item" effect="dark" :content="scope.row.itemName" placement="top">
-								<span>{{ scope.row.itemName }}</span>
+								<span><el-tag type="success" v-if="scope.row.isMeal">[套]</el-tag> <el-tag type="warning" v-else-if="scope.row.isPack">[包]</el-tag>{{ scope.row.itemName }}</span>
 							</el-tooltip>
 						</span>
 					</template>
@@ -78,14 +77,13 @@
 					<template #empty> </template>
 				</Table>
 
-				<el-form label-width="120px" style="margin-top: 10px" label-suffix="："  :class="{ 'overlay-disabled':$props.disabled }">
+				<el-form label-width="120px" style="margin-top: 10px" label-suffix="：" :class="{ 'overlay-disabled': $props.disabled }">
 					<el-form-item label="治疗计划">
-						<el-input v-model="props.treatData.cemRecordPrescriptionRemark" type="textarea" :autosize="{ minRows: 2, maxRows: 8 }" @focus="focus" @blur="signalSave"/>
+						<el-input v-model="props.treatData.cemRecordPrescriptionRemark" type="textarea" :autosize="{ minRows: 2, maxRows: 8 }" @focus="focus" @blur="signalSave" />
 					</el-form-item>
 				</el-form>
 			</div>
 		</el-card>
-		<!-- <ProductDrag ref="productDragRef" :title="'处方项目开具'" :data="data" :treatData="treatData" @reloadTable="reloadTable" /> -->
 		<prescriptionDrug ref="prescriptionDrugRef" :title="'处方项目开具'" :data="data" :treatData="treatData" @reloadTable="reloadTable" />
 		<PrintView ref="printViewRef" />
 	</div>
@@ -97,17 +95,14 @@ import { getAPI } from '/@/utils/axios-utils';
 import { ElMessage } from 'element-plus';
 import { CEMRecordApi, PrintAndPreviewApi } from '/@/api-services';
 import { View, Printer, DocumentAdd, QuestionFilled } from '@element-plus/icons-vue';
-import { verifyNumberComma } from '/@/utils/toolsValidate'; 
+import { verifyNumberComma } from '/@/utils/toolsValidate';
 import { signalR } from '/@/views/cem/signalRCem';
 const PrintView = defineAsyncComponent(() => import('/@/components/print/index.vue'));
 const Table = defineAsyncComponent(() => import('/@/components/table/index.vue'));
-// const ProductDrag = defineAsyncComponent(() => import('/@/components/treatment/productDrugDrag.vue'));
 const prescriptionDrug = defineAsyncComponent(() => import('/@/components/treatment/prescriptionDrug.vue'));
 const tableRef = ref();
 const printViewRef = ref();
-// const productDragRef = ref();
 const prescriptionDrugRef = ref();
-const productDragTitle = ref('检验项目开具');
 
 var props = defineProps({
 	treatData: {
@@ -133,7 +128,7 @@ const focus = async () => {
 	emit('saveStatus', false);
 };
 
-const signalSave = async (val) => {
+const signalSave = async (val: any) => {
 	await signalR
 		.send('SavePrescriptionRemark', props.treatData.cemRecordPrescriptionRemark)
 		.then(() => {
@@ -310,7 +305,7 @@ const arraySpanMethod = ({ row, column, rowIndex, columnIndex }) => {
 	}
 };
 //删除总项
-const deletePrescription = async (row) => {
+const deletePrescription = async (row: any) => {
 	await getAPI(CEMRecordApi)
 		.apiCEMRecordRegIdRecordIdIdDeletePrescriptionDelete(row.regId, row.recordId, row.id)
 		.then((_) => {
@@ -325,7 +320,7 @@ const deletePrescription = async (row) => {
 };
 
 //删除单项
-const deletePrescriptionItem = async (row) => {
+const deletePrescriptionItem = async (row: any) => {
 	await getAPI(CEMRecordApi)
 		.apiCEMRecordRegIdRecordIdIdDeletePrescriptionItemDelete(row.regId, row.recordId, row.id)
 		.then((_) => {
@@ -368,7 +363,7 @@ const onInspection = async () => {
 };
 
 //预览报告
-const viewer = async (row) => {
+const viewer = async (row: any) => {
 	var r = await getAPI(PrintAndPreviewApi).apiPrintAndPreviewGetPrescriptionPreviewPrintPost({
 		prescriptionId: row.id,
 		recordId: row.recordId,
@@ -376,11 +371,11 @@ const viewer = async (row) => {
 	});
 	var data = r.data?.result;
 	var json = JSON.parse(data?.template as any);
-	printViewRef.value.showDialog(json, data?.binData, json?.panels[0].width);
+	printViewRef.value.showDialog(json, data?.binData, true, json?.panels[0].width);
 };
 
 //编辑
-const edit = async (row) => {
+const edit = async (row: any) => {
 	// productDragRef.value?.openDialog(row.row);
 	prescriptionDrugRef.value?.openDialog(row.row);
 };
@@ -390,7 +385,7 @@ const onSortHeader = (data: object[]) => {
 	tb.tableData.columns = data;
 };
 // 搜索点击时表单回调
-const onSearch = (data: EmptyObjectType) => {
+const onSearch = (data: any) => {
 	tb.tableData.param = Object.assign({}, tb.tableData.param, { ...data });
 	nextTick(() => {
 		tableRef.value.pageReset();

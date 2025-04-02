@@ -116,7 +116,7 @@ const focus = async () => {
 	emit('saveStatus', false);
 };
 
-const signalSave = async (val) => {
+const signalSave = async (val: any) => {
 	await signalR
 		.send('SaveRemark', props.treatData.cemRecordRemark)
 		.then(() => {
@@ -280,7 +280,7 @@ const arraySpanMethod = ({ row, column, rowIndex, columnIndex }) => {
 	}
 };
 //删除总项
-const deleteTest = async (testId) => {
+const deleteTest = async (testId: any) => {
 	await getAPI(CEMRecordApi)
 		.apiCEMRecordTestIdDeleteTestsDelete(testId)
 		.then((_) => {
@@ -295,7 +295,7 @@ const deleteTest = async (testId) => {
 };
 
 //删除单项
-const deleteTestItem = async (testId, testItemId) => {
+const deleteTestItem = async (testId: any, testItemId: any) => {
 	await getAPI(CEMRecordApi)
 		.apiCEMRecordTestIdTestItemIdDeleteTestsItemDelete(testId, testItemId)
 		.then((_) => {
@@ -341,7 +341,7 @@ const vieweTest=async (row:any)=>{
  * 预览检查报告
  * @param row 
  */
-const viewer = async (row) => {
+const viewer = async (row: any) => {
 	if (row.type == ProductTypeEnums.NUMBER_90001) {
 		await getAPI(PrintAndPreviewApi)
 			.apiPrintAndPreviewGetBscanPreviewPrintPost({
@@ -407,8 +407,7 @@ const viewer = async (row) => {
 };
 
 //编辑
-const edit = async (row) => {
-	console.log('row:::', row);
+const edit = async (row: any) => {
 	productDragRef.value?.openDialog(row.row);
 };
 
@@ -417,7 +416,7 @@ const onSortHeader = (data: object[]) => {
 	tb.tableData.columns = data;
 };
 // 搜索点击时表单回调
-const onSearch = (data: EmptyObjectType) => {
+const onSearch = (data: any) => {
 	tb.tableData.param = Object.assign({}, tb.tableData.param, { ...data });
 	nextTick(() => {
 		tableRef.value.pageReset();

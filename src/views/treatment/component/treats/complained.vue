@@ -66,6 +66,7 @@ import { IToolbarConfig } from '@wangeditor/editor';
 import { signalR } from '/@/views/cem/signalRCem'; 
 import { ElMessage } from 'element-plus';
 import other from '/@/utils/other';
+
 // 引入组件
 const Editor = defineAsyncComponent(() => import('/@/components/editor/index.vue')); 
 const TxtTemp = defineAsyncComponent(() => import('/@/components/cemtemplate/txttemp/index.vue')); 
@@ -97,17 +98,18 @@ watch(
 	}
 );
 
-const oldData = ref({ cemRecordZhuSu: {} });
+const oldData = ref<any>({ cemRecordZhuSu: {zhuSu:'',htmlZhuSu:'',pastHistory:'',htmlPastHistory:'',allergyHistory:'',htmlAllergyHistory:''} });
 
 const toolbarConfig: Partial<IToolbarConfig> = {
 	excludeKeys: ['group-image', 'group-video', 'fullScreen', 'insertLink', 'insertVideo', 'codeBlock'],
 };
 
-const save = (e) => {
+const save = (e:any) => {
+	console.log("保存",e)
 	emit('save', e);
 };
 
-const signalSave = async (val, html) => {
+const signalSave = async (val:any, html:any) => {
 	if (oldData.value?.cemRecordZhuSu?.zhuSu !== val) { 
 		await signalR
 			.send('SaveZhuSu', val, html)
@@ -124,7 +126,7 @@ const signalSave = async (val, html) => {
 	}
 };
 
-const updateZhuSuText = async (val) => {
+const updateZhuSuText = async (val:any) => {
   if (oldData.value?.cemRecordZhuSu?.zhuSu !== val)
 		    emit('saveStatus', false);
       else
@@ -132,11 +134,11 @@ const updateZhuSuText = async (val) => {
 	props.treatData.cemRecordZhuSu = Object.assign({}, props.treatData.cemRecordZhuSu, { zhuSu: val });
 };
 
-const updateZhuSuHtml = async (html) => { 
+const updateZhuSuHtml = async (html:any) => { 
 	props.treatData.cemRecordZhuSu = Object.assign({}, props.treatData.cemRecordZhuSu, { htmlZhuSu: html });
 };
 
-const signalPastHistorySave = async (val, html) => {
+const signalPastHistorySave = async (val:any, html:any) => {
 	if (oldData.value?.cemRecordZhuSu?.pastHistory !== val) { 
 		await signalR
 			.send('SaveZhuSuPastHistory', val, html)
@@ -152,7 +154,7 @@ const signalPastHistorySave = async (val, html) => {
 		// oldData.value = Object.assign({},  oldData.value, {cemRecordZhuSu:{pastHistory: val,htmlPastHistory: html}});
 	}
 };
-const updatePastHistoryText = async (val) => {
+const updatePastHistoryText = async (val:any) => {
   if (oldData.value?.cemRecordZhuSu?.pastHistory !== val)
 		    emit('saveStatus', false);
       else
@@ -160,11 +162,11 @@ const updatePastHistoryText = async (val) => {
 	props.treatData.cemRecordZhuSu = Object.assign({}, props.treatData.cemRecordZhuSu, { pastHistory: val });
 };
 
-const updatePastHistoryHtml = async (html) => {
+const updatePastHistoryHtml = async (html:any) => {
 	props.treatData.cemRecordZhuSu = Object.assign({}, props.treatData.cemRecordZhuSu, { htmlPastHistory: html });
 };
 
-const signalAllergyHistorySave = async (val, html) => {
+const signalAllergyHistorySave = async (val:any, html:any) => {
 	if (oldData.value?.cemRecordZhuSu?.allergyHistory !== val) {
 		await signalR
 			.send('SaveZhuSuAllergyHistory', val, html)
@@ -180,7 +182,7 @@ const signalAllergyHistorySave = async (val, html) => {
 	}
 };
 
-const updateAllergyHistoryText = async (val) => {
+const updateAllergyHistoryText = async (val:any) => {
 	
   if (oldData.value?.cemRecordZhuSu?.allergyHistory !== val)
 		    emit('saveStatus', false);
@@ -189,7 +191,7 @@ const updateAllergyHistoryText = async (val) => {
 	props.treatData.cemRecordZhuSu = Object.assign({}, props.treatData.cemRecordZhuSu, { allergyHistory: val });
 };
 
-const updateAllergyHistoryHtml = async (html) => {
+const updateAllergyHistoryHtml = async (html:any) => {
 	props.treatData.cemRecordZhuSu = Object.assign({}, props.treatData.cemRecordZhuSu, { htmlAllergyHistory: html });
 };
 

@@ -42,6 +42,14 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 
 import { cemStart, signalR } from '../signalRCem';
 import other from '/@/utils/other';
+const Septindex = defineAsyncComponent(() => import('/@/views/treatment/component/septindex.vue'));
+const Complained = defineAsyncComponent(() => import('/@/views/treatment/component/treats/complained.vue'));
+const Physical = defineAsyncComponent(() => import('/@/views/treatment/component/treats/physical.vue'));
+const InspectionTest = defineAsyncComponent(() => import('/@/views/treatment/component/treats/inspectionTest.vue'));
+const Diagnosis = defineAsyncComponent(() => import('/@/views/treatment/component/treats/diagnosis.vue'));
+const Prescription = defineAsyncComponent(() => import('/@/views/treatment/component/treats/prescription.vue'));
+const Advice = defineAsyncComponent(() => import('/@/views/treatment/component/treats/advice.vue'));
+
 const stores1 = useUserInfo();
 const { userInfos } = storeToRefs(stores1);
 const isvisitDoctor = ref(true);
@@ -80,14 +88,6 @@ var props = defineProps({
 		default: () => {},
 	},
 });
-
-const Septindex = defineAsyncComponent(() => import('/@/views/treatment/component/septindex.vue'));
-const Complained = defineAsyncComponent(() => import('/@/views/treatment/component/treats/complained.vue'));
-const Physical = defineAsyncComponent(() => import('/@/views/treatment/component/treats/physical.vue'));
-const InspectionTest = defineAsyncComponent(() => import('/@/views/treatment/component/treats/inspectionTest.vue'));
-const Diagnosis = defineAsyncComponent(() => import('/@/views/treatment/component/treats/diagnosis.vue'));
-const Prescription = defineAsyncComponent(() => import('/@/views/treatment/component/treats/prescription.vue'));
-const Advice = defineAsyncComponent(() => import('/@/views/treatment/component/treats/advice.vue'));
 
 watch(
 	() => props.data,

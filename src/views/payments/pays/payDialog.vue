@@ -1,6 +1,6 @@
 <template>
 	<div class="will-pay-container-dialog">
-		<el-dialog v-model="isShowDialog" width="85%" draggable :close-on-click-modal="false">
+		<el-dialog v-model="isShowDialog" width="85%" draggable :close-on-click-modal="false" @close="closeDialog">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
@@ -284,7 +284,7 @@ const handleDeletePaymentCarts = (rows: any) => {
 			});
 			await getAPI(PaymentCartsApi)
 				.apiPaymentCartsDeleteCartsPost(deleteCarts)
-				.then(() => {
+				.then(async () => {
 					cartTableLoading.value = false;
 					ElMessage.success('删除成功');
 					//删除选中集合
@@ -301,6 +301,7 @@ const handleDeletePaymentCarts = (rows: any) => {
 						});
 						if (item.paymentCarts.length == 0) sourceParent.splice(indexParent, 1);
 					});
+					await loadPaymentCarts();
 				})
 				.catch(() => {
 					cartTableLoading.value = false;

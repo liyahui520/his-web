@@ -169,7 +169,7 @@
 									<el-text tag="b" type="primary">
 										{{ verifyNumberComma(totalAmountComputed.toFixed(2).toString() ?? '0.00') }}
 									</el-text>
-									<el-button type="primary" style="margin-left: 20px" @click="savePrescription" :icon="DocumentAdd"> 保存处方项目 </el-button>
+									<el-button type="primary" style="margin-left: 20px" @click="savePrescription" :icon="DocumentAdd" > 保存处方项目 </el-button>
 									<el-button type="warning" @click="pack">打包</el-button>
 								</el-row>
 							</el-card>

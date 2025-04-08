@@ -65,8 +65,8 @@
 									</el-breadcrumb>
 								</div>
 								<div class="right-info">
-									<p class="amount">会员卡余额：{{ verifyNumberComma((customerFundData.cardBalance??0).toFixed(2)) || 0.0 }}</p>
-									<p class="amount">押金余额：{{ verifyNumberComma((customerFundData.depositAmount??0).toFixed(2)) || 0.0 }}</p>
+									<p class="amount">会员卡余额：{{ verifyNumberComma((customerFundData.cardBalance ?? 0).toFixed(2)) || 0.0 }}</p>
+									<p class="amount">押金余额：{{ verifyNumberComma((customerFundData.depositAmount ?? 0).toFixed(2)) || 0.0 }}</p>
 									<p class="amount">次卡余次：{{ customerFundData.secondaryCardBalance ?? 0 }}</p>
 								</div>
 							</div>
@@ -312,7 +312,7 @@ const handleDeletePaymentCarts = (rows: any) => {
 			});
 			await getAPI(PaymentCartsApi)
 				.apiPaymentCartsDeleteCartsPost(deleteCarts)
-				.then(() => {
+				.then(async () => {
 					cartTableLoading.value = false;
 					ElMessage.success('删除成功');
 					//删除选中集合
@@ -329,7 +329,7 @@ const handleDeletePaymentCarts = (rows: any) => {
 						});
 						if (item.paymentCarts.length == 0) sourceParent.splice(indexParent, 1);
 					});
-					computeTotalAmount();
+					await loadPaymentCarts();
 				})
 				.catch(() => {
 					cartTableLoading.value = false;
@@ -366,7 +366,7 @@ const openPaymentMethods = async () => {
  */
 const handlePaymentAmountChange = (value: any) => {
 	let totalAmountValue = totalAmountComputed;
-	let actualPriceArray = multipleSelection.value.map((row:any) => new Decimal(row.actualPrice).toFixed(2, Decimal.ROUND_DOWN));
+	let actualPriceArray = multipleSelection.value.map((row: any) => new Decimal(row.actualPrice).toFixed(2, Decimal.ROUND_DOWN));
 	let priceResult = adjustAmounts(actualPriceArray, totalAmountValue.value, value);
 	priceResult.forEach((item: any, index: number) => {
 		multipleSelection.value[index].actualPrice = item;
@@ -409,7 +409,7 @@ const handleActualPriceChange = (value: any, row: any) => {
  * 计算总金额
  */
 const computeTotalAmount = () => {
-	const totalAmountValue = multipleSelection.value.reduce((pre, item) => {
+	const totalAmountValue = multipleSelection.value.reduce((pre: any, item: any) => {
 		return new Decimal(pre).add(new Decimal(item.actualPrice));
 	}, 0);
 	const result = totalAmountValue.toFixed(2, Decimal.ROUND_UP);
@@ -444,8 +444,7 @@ const loadCustomer = async () => {
 	}
 };
 
-
-/** 
+/**
  * 选中用户事件
  * @param val 当前选中用户对象
  */
@@ -538,7 +537,7 @@ const loadCanDepositTypes = async () => {
 };
 
 const totalAmountComputed = computed(() => {
-	let totalAmountValue = multipleSelection.value.reduce((pre, item) => {
+	let totalAmountValue = multipleSelection.value.reduce((pre: any, item: any) => {
 		let accumulateAmount = new Decimal(pre).add(new Decimal(item.amountPrice));
 		return new Decimal(accumulateAmount);
 	}, 0);

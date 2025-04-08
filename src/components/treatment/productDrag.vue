@@ -9,7 +9,7 @@
 					<span>{{ props.title }}</span>
 				</div>
 			</template>
-			<div class="customer-row" :gutter="0" :style="{ height: screenInfo.height - 255 + 'px' }">
+			<div v-loading="submitLoading" element-loading-text="保存中，请勿关闭此页面！" class="customer-row" :gutter="0" :style="{ height: screenInfo.height - 255 + 'px' }">
 				<div style="position: absolute">
 					<el-card
 						:style="{ width: isSidebarVisible ? '10px' : '250px', float: 'left', transition: 'width 0.5s', height: screenInfo.height - 255 + 'px' }"
@@ -166,10 +166,7 @@
 										</el-table-column>
 									</el-table>
 								</el-popover>
-								<el-button type="primary" style="margin-left: 20px" @click="submit">保存检验项目</el-button>
-								<!-- <el-button type="success">打印</el-button>
-                                <el-button type="info">预览</el-button> -->
-								<!-- <el-button type="warning">打包</el-button> -->
+								<el-button type="primary" style="margin-left: 20px" @click="submit" >保存检验项目</el-button>
 							</el-row>
 						</el-card>
 						<div>
@@ -184,7 +181,7 @@
 												v-if="scope.row.child == null || scope.row.child.length <= 0"
 												placeholder="请选择分组"
 												style="width: 100%; margin-right: 10px; line-height: 23px"
-												@change="(value:any) => changeOrderGroup(scope.row)"
+												@change="(value: any) => changeOrderGroup(scope.row)"
 											>
 												<el-option v-for="item in orderGroupData" :key="item.id" :label="item.name" :value="item.id"></el-option>
 												<template #footer>
@@ -214,11 +211,11 @@
 											<el-input
 												v-model="scope.row.salePrice"
 												:formatter="
-													(value:any) => {
+													(value: any) => {
 														return formatInput(value);
 													}
 												"
-												:parser="(value:any) => value.replace(/\￥\s?|(,*)/g, '')"
+												:parser="(value: any) => value.replace(/\￥\s?|(,*)/g, '')"
 												@change="countCharge(scope.row)"
 											/>
 											<!--                                            {{ verifyNumberComma(scope.row.salePrice.toFixed(2).toString()) }}-->
@@ -241,14 +238,6 @@
 					</el-scrollbar>
 				</div>
 			</div>
-
-			<!-- 
-            <template #footer>
-				<span class="dialog-footer">
-					<el-button @click="cancel" size="default">取 消</el-button>
-					<el-button type="primary" @click="submit" size="default">确 定</el-button>
-				</span>
-            </template> -->
 		</el-dialog>
 	</div>
 </template>
@@ -256,7 +245,7 @@
 <script setup lang="ts" name="productDrag">
 import { reactive, ref, nextTick, onMounted, defineAsyncComponent } from 'vue';
 import { ElMessage, ElTable } from 'element-plus';
-import { DocumentAdd, DArrowLeft, DArrowRight, DeleteFilled } from '@element-plus/icons-vue';
+import { DocumentAdd, DArrowLeft, DArrowRight, DeleteFilled, Loading } from '@element-plus/icons-vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { ProductCategorysApi, ProductTestApi, CEMRecordApi } from '/@/api-services/api';
 import { verifyNumberComma, verifyTextColor } from '/@/utils/toolsValidate';
@@ -269,6 +258,7 @@ import { useUserInfo } from '/@/stores/userInfo';
 const stores = useUserInfo();
 const CategroyProducts = defineAsyncComponent(() => import('/@/components/tree/categroyProducts.vue'));
 const isSidebarVisible = ref(false);
+const submitLoading = ref(false);
 const unitObject = ref<any>({});
 const unitData = ref<any>([]);
 const tabKey = ref('first');
@@ -329,23 +319,23 @@ const testData = ref<any>({
 });
 
 const loadUnitData = () => {
-    let productUnits = stores.productUnits;
-    unitData.value = productUnits ?? [];
-    unitData.value.forEach((item: any) => {
-        unitObject.value[item.id] = item.name;
-    });
+	let productUnits = stores.productUnits;
+	unitData.value = productUnits ?? [];
+	unitData.value.forEach((item: any) => {
+		unitObject.value[item.id] = item.name;
+	});
 };
 
 //格式化
-const formatInput = (val:any) => {
+const formatInput = (val: any) => {
 	return verifyNumberComma(val);
 };
 
-const countCharge = (row:any) => {
+const countCharge = (row: any) => {
 	row.amountPrice = row.count * row.salePrice;
 };
 
-const deleteRow = async (index:any) => {
+const deleteRow = async (index: any) => {
 	tableData.value.splice(index, 1);
 };
 
@@ -368,7 +358,7 @@ const remoteMethod = async () => {
 	}
 };
 
-const rowClick = async (rows:any) => {
+const rowClick = async (rows: any) => {
 	if (rows) {
 		multipleTableRef.value!.toggleRowSelection(rows, true);
 	} else {
@@ -376,7 +366,7 @@ const rowClick = async (rows:any) => {
 	}
 };
 
-const handleNodeClick = async (item:any) => {
+const handleNodeClick = async (item: any) => {
 	tableData.value.push({
 		recordId: props.treatData.id,
 		regId: props.treatData.regId,
@@ -389,14 +379,14 @@ const handleNodeClick = async (item:any) => {
 		amountPrice: item.salePrice,
 		isEditPrice: 0,
 		remark: '',
-		unitName: unitObject.value[item.outUnitId], 
+		unitName: unitObject.value[item.outUnitId],
 		unitId: item.outUnitId,
 	});
 };
 
 //处理数据
-const refreshData = async (rows:any) => {
-	var r = rows.reduce((all: any, item:any) => {
+const refreshData = async (rows: any) => {
+	var r = rows.reduce((all: any, item: any) => {
 		all.push({
 			recordId: props.treatData.id,
 			regId: props.treatData.regId,
@@ -409,7 +399,7 @@ const refreshData = async (rows:any) => {
 			amountPrice: item.salePrice,
 			isEditPrice: 0,
 			remark: '',
-			unitName:unitObject.value[item.outUnitId], 
+			unitName: unitObject.value[item.outUnitId],
 			unitId: item.outUnitId,
 		});
 		return all;
@@ -418,7 +408,7 @@ const refreshData = async (rows:any) => {
 };
 
 //双击事件
-const toggleSelection = async (rows:any) => {
+const toggleSelection = async (rows: any) => {
 	let d = other.deepClone(selectRowList.value);
 	let netb = [] as any;
 	if (d.length > 0) {
@@ -435,11 +425,11 @@ const toggleSelection = async (rows:any) => {
 };
 
 //获取选中的行值
-const selectRow = async (se:any) => {
+const selectRow = async (se: any) => {
 	selectRowList.value = se;
 };
 
-const toggleSidebar = async (v:any) => {
+const toggleSidebar = async (v: any) => {
 	await nextTick(() => {
 		isSidebarVisible.value = !v ? true : false;
 		sidebarWidth.value = !v.value ? '' : '0';
@@ -465,7 +455,7 @@ const clear = () => {
 const onAddOption = () => {
 	isAdding.value = true;
 };
-const changeOrderGroup = (row:any) => {
+const changeOrderGroup = (row: any) => {
 	if (row.orderId) row.orderName = orderGroupObject.value[row.orderId];
 };
 /**
@@ -482,14 +472,14 @@ const loadOrderGroupData = async () => {
 		});
 };
 // 打开弹窗
-const openDialog = async (row:any) => {
+const openDialog = async (row: any) => {
 	await loadUnitData();
 	tableData.value = [];
 	isShowDialog.value = true;
 	if (row) {
 		row.cemRecordTestItem.forEach((item: any) => {
 			item.unitName = unitObject.value[item.unitId];
-		})
+		});
 		tableData.value = other.deepClone(row.cemRecordTestItem);
 		testData.value = row;
 	}
@@ -498,12 +488,8 @@ const openDialog = async (row:any) => {
 	});
 	await loadOrderGroupData();
 };
-// 关闭弹窗
-const closeDialog = () => {
-	ruleFormRef.value?.resetFields();
-	emit('reloadTable');
-	isShowDialog.value = false;
-};
+
+
 
 // 取消
 const cancel = () => {
@@ -518,8 +504,19 @@ const submit = async () => {
 		return;
 	}
 	testData.value.cemRecordTestItem = tableData.value;
-	if (testData.value.id > 0) await getAPI(CEMRecordApi).apiCEMRecordRegIdRecordIdEditTestsPut(props.treatData.regId, props.treatData.id, testData.value);
-	else await getAPI(CEMRecordApi).apiCEMRecordRegIdRecordIdAddTestsPost(props.treatData.regId, props.treatData.id, testData.value);
+	submitLoading.value = true;
+	if (testData.value.id > 0)
+		await getAPI(CEMRecordApi)
+			.apiCEMRecordRegIdRecordIdEditTestsPut(props.treatData.regId, props.treatData.id, testData.value)
+			.finally(() => {
+				submitLoading.value = false;
+			});
+	else
+		await getAPI(CEMRecordApi)
+			.apiCEMRecordRegIdRecordIdAddTestsPost(props.treatData.regId, props.treatData.id, testData.value)
+			.finally(() => {
+				submitLoading.value = false;
+			});
 	await cancel();
 };
 

@@ -102,7 +102,7 @@ export const useThemeConfig = defineStore('themeConfig', {
 			// 是否开启水印
 			isWatermark: true,
 			// 水印文案
-			watermarkText: '小医管理系统',
+			watermarkText: 'Voxa',
 
 			/**
 			 * 其它设置
@@ -135,11 +135,11 @@ export const useThemeConfig = defineStore('themeConfig', {
 			 * 全局网站标题 / 副标题
 			 */
 			// 网站主标题（菜单导航、浏览器当前网页标题）
-			globalTitle: '小医',
+			globalTitle: 'Voxa',
 			// 网站副标题（登录页顶部文字）
-			globalViceTitle: '小医管理系统',
+			globalViceTitle: 'Voxa',
 			// 网站副标题（登录页顶部文字）
-			globalViceTitleMsg: '站在巨人肩膀上的 .NET 通用权限开发框架',
+			globalViceTitleMsg: '',
 			// 版权和备案文字
 			copyright: 'Copyright © 2021-present Admin.NET All rights reserved.',
 			// 默认初始语言，可选值"<zh-cn|en|zh-tw>"，默认 zh-cn

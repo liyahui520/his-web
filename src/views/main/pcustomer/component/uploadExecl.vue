@@ -45,29 +45,28 @@
 			</template>
 		</el-dialog>
 		<importTemp ref="importTempRef" title="数据效验" />
-		<error ref="errorRef" title="模板数据异常" :errorMessage="message"/>
+		<error ref="errorRef" title="模板数据异常" :errorMessage="message" />
 	</div>
 </template>
 
 <script lang="ts" setup name="editDialog">
 import { ref, onMounted } from 'vue';
-import { ElMessage } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
 import { ImportPcuPetApi } from '/@/api-services';
 import { UploadFilled } from '@element-plus/icons-vue';
-import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus';
+import type { UploadRawFile } from 'element-plus';
 import importTemp from '/@/views/main/pcustomer/component/importTemp.vue';
 import error from '/@/components/message/error.vue';
 import { downloadByData, getFileName } from '/@/utils/download';
 import { genFileId } from 'element-plus';
 
 const file = ref<any>();
-const fileList = ref([]);
+const fileList = ref<any>([]);
 const importTempRef = ref();
 const errorRef = ref();
 const upload = ref();
 const message = ref('');
-const btnloading=ref(false);
+const btnloading = ref(false);
 //父级传递来的参数
 var props = defineProps({
 	title: {
@@ -91,15 +90,11 @@ const handleChange = (l: any, f: []) => {
 	file.value = l;
 	fileList.value = f;
 };
-const handleExceed = (files) => {
+const handleExceed = (files:any) => {
 	upload.value!.clearFiles();
 	const file = files[0] as UploadRawFile;
 	file.uid = genFileId();
 	upload.value!.handleStart(file);
-};
-// 关闭弹窗
-const closeDialog = (row) => {
-	isShowDialog.value = false;
 };
 
 // 取消
@@ -110,30 +105,35 @@ const cancel = () => {
 /**
  * 下载会员宠物导入模板
  */
-const downloadTemplate=async ()=>{
+const downloadTemplate = async () => {
 	let res = await getAPI(ImportPcuPetApi).apiImportPcuPetDownPcuTemplatePost({ responseType: 'blob' });
-    let fileName = getFileName(res.headers);
-    downloadByData(res.data as any, fileName);
-}
+	let fileName = getFileName(res.headers);
+	downloadByData(res.data as any, fileName);
+};
 
 const UploadFile = async () => {
 	if (fileList.value.length > 0) {
-		btnloading.value=true;
-		message.value='';
-		var r = await getAPI(ImportPcuPetApi).apiImportPcuPetUploadPcuPostForm(fileList.value[0]?.raw);
-		if (!r.data?.result?.scuess) {
-			r.data?.result?.data.forEach(element => {
-				message.value+=`第`+element.rowIndex+'行：';
-				Object.keys(element.fieldErrors).forEach(key=>{
-					message.value+='['+key+']:'+element.fieldErrors[key]+'   '
-				});
-				message.value+="\r\n";
+		btnloading.value = true;
+		message.value = '';
+		await getAPI(ImportPcuPetApi)
+			.apiImportPcuPetUploadPcuPostForm(fileList.value[0]?.raw)
+			.then((r: any) => {
+				if (!r.data?.result?.scuess) {
+					r.data?.result?.data.forEach((element: any) => {
+						message.value += `第` + element.rowIndex + '行：';
+						Object.keys(element.fieldErrors).forEach((key) => {
+							message.value += '[' + key + ']:' + element.fieldErrors[key] + '   ';
+						});
+						message.value += '\r\n';
+					});
+					errorRef.value?.openDialog();
+				} else {
+					importTempRef.value?.openDialog(r.data?.result?.data);
+				}
+			})
+			.finally(() => {
+				btnloading.value = false;
 			});
-			errorRef.value?.openDialog();
-		} else {
-			importTempRef.value?.openDialog(r.data?.result?.data);
-		}
-		btnloading.value=false;
 	}
 };
 

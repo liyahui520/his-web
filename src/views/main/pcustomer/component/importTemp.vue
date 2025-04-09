@@ -1,6 +1,6 @@
 <template>
 	<div class="import-container">
-		<el-dialog v-model="isShowDialog" :fullscreen="true" draggable :close-on-click-modal="false">
+		<el-dialog v-model="isShowDialog" :fullscreen="true" draggable :close-on-click-modal="false" @close="closeDialog">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle">
@@ -15,8 +15,8 @@
 			<template #footer>
 				<span class="dialog-footer">
 					<el-text class="mx-1" type="primary" style="margin-right: 10px">待导入总条数：{{ PropVirtTableS.tables.length }}条</el-text>
-					<el-button @click="cancel" size="default">取 消</el-button>
-					<el-button type="primary" @click="submit" size="default">数据上传</el-button>
+					<el-button @click="closeDialog" size="default">取 消</el-button>
+					<el-button type="primary" @click="submit" size="default" :loading="submitLoading">数据上传</el-button>
 				</span>
 			</template>
 		</el-dialog>
@@ -31,10 +31,7 @@ import { ImportPcuPetApi } from '/@/api-services';
 import { ElButton } from 'element-plus';
 
 const Table = defineAsyncComponent(() => import('/@/components/table/tableV2.vue'));
-const getEditlevelData = ref<any>([]);
-const getEditsourceidData = ref<any>([]);
-const getEditsexData = ref<any>([]);
-const address = ref<any>([]);
+const submitLoading = ref(false);
 //父级传递来的参数
 var props = defineProps({
 	title: {
@@ -201,12 +198,6 @@ let PropVirtTableS = reactive({
 	},
 });
 
-const selectedValue = ref(null);
-const options = ref([
-	{ value: '0', label: '未知' },
-	{ value: '1', label: '男' },
-	{ value: '2', label: '女' },
-]);
 
 const isShowDialog = ref(false);
 
@@ -220,21 +211,21 @@ const openDialog = async (row: any) => {
 // 关闭弹窗
 const closeDialog = () => {
 	isShowDialog.value = false;
+	submitLoading.value = false;
 };
 
-// 取消
-const cancel = () => {
-	isShowDialog.value = false;
-};
 
 // 提交
 const submit = async () => {
 	if (PropVirtTableS.tables.length > 0) {
+		submitLoading.value = true;
 		await getAPI(ImportPcuPetApi)
 			.apiImportPcuPetUploadServePcuPost(PropVirtTableS.tables)
 			.then(() => {
 				ElMessage.success('导入成功');
 				closeDialog();
+			}).finally(()=>{
+				submitLoading.value = false;
 			});
 	} else {
 		ElMessage.warning('未识别到有效数据');

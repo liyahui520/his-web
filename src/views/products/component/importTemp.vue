@@ -1,6 +1,6 @@
 <template>
 	<div class="import-container">
-		<el-dialog v-model="isShowDialog" :fullscreen="true" draggable :close-on-click-modal="false">
+		<el-dialog v-model="isShowDialog" :fullscreen="true" draggable :close-on-click-modal="false" @close="cancel">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle">
@@ -16,7 +16,7 @@
 				<span class="dialog-footer">
 					<el-text class="mx-1" type="primary" style="margin-right: 10px">待导入总条数：{{ PropVirtTableS.tables.length }}条</el-text>
 					<el-button @click="cancel" size="default">取 消</el-button>
-					<el-button type="primary" @click="submit" size="default">数据上传</el-button>
+					<el-button type="primary" @click="submit" size="default" :loading="submitLoading">数据上传</el-button>
 				</span>
 			</template>
 		</el-dialog>
@@ -33,7 +33,7 @@ import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 import { useUserInfo } from '/@/stores/userInfo';
 
 const Table = defineAsyncComponent(() => import('/@/components/table/tableV2.vue'));
-
+const submitLoading = ref(false);
 const tableRef = ref();
 const productType = ref<any>(-1);
 //父级传递来的参数
@@ -235,21 +235,24 @@ const openDialog = async (row: any, usingMethodData: any, dosingWayData: any, ty
 // 取消
 const cancel = () => {
 	isShowDialog.value = false;
+	submitLoading.value = false;
 };
 
 // 提交
 const submit = async () => {
 	if (PropVirtTableS.tables.length > 0) {
+		submitLoading.value = true;
 		await getAPI(ImportProductApi)
 			.apiImportProductSaveProductDrugInputPost(productType.value, PropVirtTableS.tables)
 			.then(async () => {
 				ElMessage.success('导入成功');
-
 				await useUserInfo().reloadProductUnitList();
 				await useUserInfo().reloadProductBrandList();
 				await useUserInfo().reloadProductManufacturerList();
 				await useUserInfo().reloadProductProviderList();
 				cancel();
+			}).finally(()=>{
+				submitLoading.value = false;
 			});
 	} else {
 		ElMessage.warning('未识别到有效数据');

@@ -61,6 +61,7 @@ const editPcustomerTitle = ref('');
 const editPetTitle = ref('');
 const editSingDialogRef  = ref();
 const pcuDetailsRef = ref();
+const getLevelDataObject = ref<any>({});
 const tb = reactive<TableDemoState>({
 	tableData: {
 		// 表头内容（必传，注意格式）
@@ -253,7 +254,7 @@ const openAddPcustomer = () => {
 
 const openDetail = async (row:any) => {
 	// await router.push('/pcu/detail?id=' + row.id);
-	pcuDetailsRef.value.openDialog(row);
+	pcuDetailsRef.value.openDialog(row,getLevelDataObject.value);
 };
 
 // 打开编辑页面
@@ -274,6 +275,7 @@ const getLevels=async ()=>{
 			// getlevelData.value = res.data?.result ?? []; 
 			let result = res.data?.result ?? [];
 			result.forEach((itme: any) => {
+				getLevelDataObject.value[itme.id] = itme.name;
 				tb.tableData.search[1].options?.push({ value: itme.id, label: itme.name });
 			});
 		});

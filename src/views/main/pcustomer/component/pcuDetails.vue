@@ -27,7 +27,7 @@
 								{{ getSingCustomer.cellPhone ?? '-' }}
 							</el-tag>
 						</el-breadcrumb-item>
-						<el-breadcrumb-item>{{ getLevelDataArr[getSingCustomer.level] ?? '-' }}</el-breadcrumb-item>
+						<el-breadcrumb-item>{{ getLevelDataObject[getSingCustomer.level] ?? '-' }}</el-breadcrumb-item>
 						<el-breadcrumb-item>{{ getsourceidDataArr[getSingCustomer.sourceId] ?? '-' }} </el-breadcrumb-item>
 					</el-breadcrumb>
 				</el-col>
@@ -67,21 +67,22 @@
 <script lang="ts" setup name="detailNo">
 import { ref, onMounted, reactive } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
-import { PcustomerApi, PPetsApi, MemberLevelApi,SysDictDataApi } from '/@/api-services/api';
+import { PcustomerApi, PPetsApi } from '/@/api-services/api';
 import router from '/@/router';
 import CardPet from '/@/views/main/ppets/component/cardPet.vue';
 import CardAdd from '/@/views/main/ppets/component/cardAdd.vue';
 import EditPet from '../../ppets/component/editDialog.vue';
 import { Search } from '@element-plus/icons-vue';
 import { getDictDataList } from '/@/utils/dict-utils';
+import other from '/@/utils/other';
+
 
 const getSingCustomer = ref<any>({});
 const getPPets = ref<any>([]);
-const getlevelData = ref<any>([]);
 const getsourceidData = ref<any>([]);
 const getEditsexData = ref<any>([]);
 const getEditsexDataArr = reactive<any>([]);
-const getLevelDataArr = reactive<any>([]);
+const getLevelDataObject = ref<any>({});
 const getsourceidDataArr = reactive<any>([]);
 const editDialogRef = ref();
 const editPetTitle = ref('');
@@ -101,15 +102,6 @@ const initData = async (row:any) => {
 	const res = await getAPI(PcustomerApi).apiPcustomerIdGetGet(row.id);
 	getSingCustomer.value = res.data?.result ?? [];
 
-	await getAPI(MemberLevelApi)
-		.apiMemberLevelListPost({})
-		.then((resData) => {
-			getlevelData.value = resData.data?.result ?? [];
-			getlevelData.value.forEach((s:any) => {
-				getLevelDataArr[s.id] = s.name;
-			});
-		});
-
 	getsourceidData.value =getDictDataList('code_customer_source');
 	getsourceidData.value.forEach((s:any) => {
 		getsourceidDataArr[s.code] = s.label;
@@ -119,14 +111,16 @@ const initData = async (row:any) => {
 		getEditsexDataArr[s.code] = s.label;
 	});
     pets.value =await getPetsListView(row.id);
-	getPPets.value = await getPetsListView(row.id);
+	getPPets.value =other.deepClone(pets.value );
     petLoading.value = false;
 };
 
 // 打开弹窗
-const openDialog = async (row: any) => {
+const openDialog = async (row: any,getLevelObject:any) => {
     drawerShow.value = true;
-    await initData(row);
+	getLevelDataObject.value=getLevelObject;
+	var customer=other.deepClone(row);
+    await initData(customer);
 
 }
 

@@ -253,7 +253,7 @@ const dates = ref<any>([
 ])
 
 const printBillNote = async (row: any) => {
-    const result = await getAPI(ConsumptionApi).apiConsumptionPrintBillNotePost({ id: row.id, customerId: row.customerId, noteType: 0 });
+    const result = await getAPI(ConsumptionApi).apiConsumptionPrintBillNotePost({ id: row.id, customerId: row.customerId, noteType: 1 });
     const info = result.data.result ?? {};
     if (info.template) {
         var dataInfo = { ...info, title: '消费清单' };

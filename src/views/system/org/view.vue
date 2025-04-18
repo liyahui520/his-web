@@ -174,7 +174,7 @@ const validateAddress = (rule: any, value: any, callback: any) => {
 const rules = ref<FormRules>({
 	orgName: [{ required: true, message: '请输入机构名称！', trigger: 'blur' }],
 	logo: [{ required: true, message: '请上传医院Logo！', trigger: 'change' }],
-	addressDetails: [{ required: true, message: '请输入请输入地址详情！', trigger: 'blur' }],
+	addressDetails: [{ required: true, message: '请输入地址详情！', trigger: 'blur' }],
 	contact: [{ required: true, message: '请输入联系人！', trigger: 'blur' }],
 	contactPhone: [{ required: true, message: '请输入联系方式！', trigger: 'blur' }],
 	address: [{ validator: validateAddress, trigger: 'change' }],

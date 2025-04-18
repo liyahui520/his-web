@@ -195,6 +195,29 @@ export interface UpdateTenantInput {
     orderNo?: number;
 
     /**
+     * 地址
+     *
+     * @type {string}
+     * @memberof UpdateTenantInput
+     */
+    address?: string | null;
+
+    /**
+     * 地址
+     *
+     * @type {string}
+     * @memberof UpdateTenantInput
+     */
+    addressText?: string | null;
+
+    /**
+     * 详细地址
+     *
+     * @type {string}
+     * @memberof UpdateTenantInput
+     */
+    addressDetails?: string | null;
+    /**
      * 备注
      *
      * @type {string}

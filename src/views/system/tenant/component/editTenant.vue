@@ -9,7 +9,7 @@
 			</template>
 			<el-form :model="state.ruleForm" ref="ruleFormRef" label-width="auto">
 				<el-tabs v-loading="state.loading" v-model="state.selectedTabName">
-					<el-tab-pane label="基本信息" style="height: 400px; overflow-y: auto; overflow-x: hidden">
+					<el-tab-pane label="基本信息" style="height: 500px; overflow-y: auto; overflow-x: hidden">
 						<el-row :gutter="35">
 							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 								<el-form-item label="租户类型" :rules="[{ required: true, message: '租户类型不能为空', trigger: 'blur' }]">
@@ -100,6 +100,25 @@
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+								<el-form-item label="地址" prop="address" :rules="[{ validator: validateAddress, trigger: 'change' }]">
+									<el-cascader
+										v-model="state.ruleForm.address"
+										style="width: 100%"
+										ref="cascaderRef"
+										placeholder="请选择地址"
+										:options="options"
+										:props="customProps"
+										@change="handleAddressChange"
+										filterable
+									/>
+								</el-form-item>
+							</el-col>
+							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+								<el-form-item label="地址详情" prop="addressDetails" :rules="[{ required: true, message: '请输入地址详情！', trigger: 'blur' }]">
+									<el-input v-model="state.ruleForm.addressDetails" clearable="" />
+								</el-form-item>
+							</el-col>
+							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 								<el-form-item label="备注">
 									<el-input v-model="state.ruleForm.remark" placeholder="请输入备注内容" clearable type="textarea" />
 								</el-form-item>
@@ -114,6 +133,7 @@
 										<img v-if="state.ruleForm.logo" :src="state.ruleForm.logo" class="avatar" style="max-width: 100px; max-height: 100px; object-fit: contain" />
 										<SvgIcon v-else class="avatar-uploader-icon" name="ele-Plus" :size="28" />
 									</el-upload>
+									
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
@@ -168,27 +188,61 @@
 <script lang="ts" setup name="sysEditTenant">
 import { reactive, ref } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
-import { SysTenantApi, SysUserRegWayApi } from '/@/api-services/api';
+import { SysTenantApi } from '/@/api-services/api';
 import { UpdateTenantInput } from '/@/api-services/models';
 import { UploadInstance } from 'element-plus';
 import { fileToBase64 } from '/@/utils/base64Conver';
 import GSysDict from '/@/components/sysDict/sysDict.vue';
+import { useUserInfo } from '/@/stores/userInfo';
 
+const stores = useUserInfo();
 const props = defineProps({
 	title: String,
 });
+const cascaderRef = ref();
 const emits = defineEmits(['handleQuery']);
 const uploadRef = ref<UploadInstance>();
 const ruleFormRef = ref();
+const options = ref<any>([]);
 const state = reactive({
 	loading: false,
 	selectedTabName: '0',
 	isShowDialog: false,
 	file: undefined as any,
-	regWayData: [] as Array<any>,
+	//regWayData: [] as Array<any>,
 	ruleForm: {} as UpdateTenantInput,
 });
+/**
+ * 处理地址变更
+ * @param value
+ */
+ const handleAddressChange = (value: any) => {
+	state.ruleForm.addressText = cascaderRef.value.getCheckedNodes()[0].pathLabels.join('');
+};
+/**
+ * 验证机构地址
+ * @param rule
+ * @param value
+ * @param callback
+ */
 
+ const validateAddress = (rule: any, value: any, callback: any) => {
+	if (!value) {
+		return callback(new Error('请选择地址！'));
+	}
+	callback();
+};
+const customProps = {
+	multiple: false, // 启用多选
+	emitPath: false, // 只返回该节点的值
+	value: 'id', // 自定义当前数组的键名 - value
+	label: 'name', // 自定义当前数组的键名 - label
+	children: 'children', // 自定义当前数组的键名 - children
+	expandTrigger: 'click', // 次级菜单的展开方式 - click/hover
+};
+const loadRegion = async () => {
+	options.value = stores.sysRegions;
+};
 // 通过onChange方法获得文件列表
 const handleUploadChange = (file: any) => {
 	uploadRef.value!.clearFiles();
@@ -203,9 +257,10 @@ const openDialog = async (row: any) => {
 	state.ruleForm = JSON.parse(JSON.stringify(row));
 	state.ruleForm.icp ??= '省ICP备12345678号';
 	state.ruleForm.icpUrl ??= 'https://beian.miit.gov.cn';
-	state.ruleForm.copyright ??= `Copyright \u00a9 ${new Date().getFullYear()}-present xxxxx All rights reserved.`;
+	state.ruleForm.copyright ??= `Copyright \u00a9 ${new Date().getFullYear()}-present Voxa All rights reserved.`;
 	state.isShowDialog = true;
-	state.regWayData = await getAPI(SysUserRegWayApi).apiSysUserRegWayListPost({ tenantId: row.id }).then((res) => res.data.result ?? []);
+	await loadRegion();
+	//state.regWayData = await getAPI(SysUserRegWayApi).apiSysUserRegWayListPost({ tenantId: row.id }).then((res) => res.data.result ?? []);
 };
 
 // 关闭弹窗

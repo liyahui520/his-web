@@ -25,7 +25,7 @@
 							</el-button-group>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" icon="ele-Plus" @click="openAddOrg" > 新增 </el-button>
+							<el-button type="primary" icon="ele-Plus" @click="openAddOrg"> 新增 </el-button>
 						</el-form-item>
 					</el-form>
 				</el-card>
@@ -50,9 +50,9 @@
 						</el-table-column>
 						<el-table-column label="操作" width="210" fixed="right" align="center" show-overflow-tooltip>
 							<template #default="scope">
-								<el-button icon="ele-Edit" text type="primary" @click="openEditOrg(scope.row)" > 编辑 </el-button>
-								<el-button icon="ele-Delete" text type="danger" @click="delOrg(scope.row)" > 删除 </el-button>
-								<el-button icon="ele-CopyDocument" text type="primary" @click="openCopyOrg(scope.row)" > 复制 </el-button>
+								<el-button icon="ele-Edit" text type="primary" @click="openEditOrg(scope.row)"> 编辑 </el-button>
+								<el-button icon="ele-Delete" text type="danger" @click="delOrg(scope.row)"> 删除 </el-button>
+								<el-button icon="ele-CopyDocument" text type="primary" @click="openCopyOrg(scope.row)"> 复制 </el-button>
 							</template>
 						</el-table-column>
 					</el-table>
@@ -67,6 +67,7 @@
 <script lang="ts" setup name="sysOrg">
 import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
+import { Splitpanes, Pane } from 'splitpanes';
 import 'splitpanes/dist/splitpanes.css';
 import OrgTree from '/@/views/system/org/component/orgTree.vue';
 import EditOrg from '/@/views/system/org/component/editOrg.vue';

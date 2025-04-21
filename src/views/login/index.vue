@@ -119,7 +119,11 @@ const getTenantInfo = async () => {
 .login-container {
 	height: 100%;
 	background: var(--el-color-white);
-	background-image: url('../../assets/bg.svg');
+	background-image: url('../../assets/bg.png');
+	background-size: cover;// 100% auto;
+		background-position:center;// 50% calc(50% - 15px);
+		// background-attachment: fixed;
+		background-repeat: no-repeat;
 	// background-color: rgba(53, 62, 84);
 	.login-left {
 		width: 50%;
@@ -171,15 +175,16 @@ const getTenantInfo = async () => {
 	.login-right {
 		width: 50%;
 		float: right;
-		background: var(--el-color-white);
-		background-image: url('../../assets/bg.svg');
-		background-size: 100% auto;
-		background-position: 50% calc(50% - 15px);
-		background-attachment: fixed;
+		// background: var(--el-color-white);
+		// background-image: url('../../assets/bg.svg');
+		background-size: cover;// 100% auto;
+		background-position:center;// 50% calc(50% - 15px);
+		// background-attachment: fixed;
 		background-repeat: no-repeat;
 		.login-right-warp {
-			border: 1px solid var(--el-color-primary-light-3);
-			border-radius: 3px;
+			// border: 1px solid var(--el-color-primary-light-3);
+			// box-shadow: 3px 3px 35px #cccccc, -3px -3px 35px #cccccc;
+			border-radius: 20px;
 			height: 500px;
 			position: relative;
 			overflow: hidden;

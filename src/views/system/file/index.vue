@@ -13,7 +13,7 @@
 				</el-form-item>
 				<el-form-item>
 					<el-button-group>
-						<el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'sysFile:page'"> 查询 </el-button>
+						<el-button type="primary" icon="ele-Search" @click="handleQuery" > 查询 </el-button>
 						<el-button icon="ele-Refresh" @click="resetQuery"> 重置 </el-button>
 					</el-button-group>
 				</el-form-item>
@@ -76,10 +76,10 @@
 				</el-table-column>
 				<el-table-column label="操作" width="260" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
-						<el-button icon="ele-View" size="small" text type="primary" @click="openFilePreviewDialog(scope.row)" v-auth="'sysFile:delete'"> 预览 </el-button>
-						<el-button icon="ele-Download" size="small" text type="primary" @click="downloadFile(scope.row)" v-auth="'sysFile:downloadFile'"> 下载 </el-button>
-						<el-button icon="ele-Delete" size="small" text type="danger" @click="delFile(scope.row)" v-auth="'sysFile:delete'"> 删除 </el-button>
-						<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditSysFile(scope.row)" v-auth="'sysFile:update'"> 编辑 </el-button>
+						<el-button icon="ele-View" size="small" text type="primary" @click="openFilePreviewDialog(scope.row)"> 预览 </el-button>
+						<el-button icon="ele-Download" size="small" text type="primary" @click="downloadFile(scope.row)" > 下载 </el-button>
+						<el-button icon="ele-Delete" size="small" text type="danger" @click="delFile(scope.row)" > 删除 </el-button>
+						<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditSysFile(scope.row)"> 编辑 </el-button>
 					</template>
 				</el-table-column>
 			</el-table>

@@ -18,9 +18,9 @@ export const useThemeConfig = defineStore('themeConfig', {
 			 * 顶栏设置
 			 */
 			// 默认顶栏导航背景颜色
-			topBar: '#FFFFFF',
+			topBar: '#A4B4FB',
 			// 默认顶栏导航字体颜色
-			topBarColor: '#000000',
+			topBarColor: '#FFFFFF',
 			// 是否开启顶栏背景颜色渐变
 			isTopBarColorGradual: false,
 

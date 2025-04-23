@@ -1,6 +1,6 @@
 <template>
 	<div class="instorage-add-container">
-		<el-dialog v-model="isShowDialog" ref="instorageForm" draggable :close-on-click-modal="false" :fullscreen="true" :destroy-on-close="true" @closed="dialogClosed">
+		<el-dialog v-model="isShowDialog" ref="instorageForm" draggable :close-on-click-modal="false" width="90%"  :destroy-on-close="true" @closed="dialogClosed">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle">
@@ -39,7 +39,7 @@
 					<el-form-item>
 						<el-button type="primary" icon="ele-Plus" size="small" v-if="!isDisabledValue" @click="openAddProduct" v-auth="'instorage:add'" round> 选择产品 </el-button>
 					</el-form-item>
-					<el-table ref="tableRef" :data="queryParams.inStorageDetails" style="height: calc(100vh - 390px)" tooltip-effect="light">
+					<el-table ref="tableRef" :data="queryParams.inStorageDetails" style="height: calc(100vh - 400px)" tooltip-effect="light">
 						<el-table-column type="index" label="序号" width="55" align="center" fixed="" />
 						<el-table-column prop="typeName" label="项目类别" width="100" align="left" show-overflow-tooltip="" />
 						<el-table-column prop="categoryName" label="目录" width="100" align="left" show-overflow-tooltip="" />
@@ -128,7 +128,7 @@
 										style="width: 100%"
 									></el-input-number>
 								</el-form-item>
-								
+
 								<div v-else>{{ twoFloorNum(scope.row.amount || '0.00') }}</div>
 							</template>
 						</el-table-column>
@@ -160,7 +160,7 @@
 								<div v-else>{{ twoFloorNum(scope.row.inPrice || '0.00') }}</div>
 							</template>
 						</el-table-column>
-						<el-table-column prop="singPrice" width="150"  label="入库单价">
+						<el-table-column prop="singPrice" width="150" label="入库单价">
 							<template #default="scope">
 								{{ twoFloorNum(scope.row.singPrice || '0.00') }}
 							</template>
@@ -210,7 +210,7 @@ import type { FormRules } from 'element-plus';
 import { useUserInfo } from '/@/stores/userInfo';
 import other from '/@/utils/other';
 import Decimal from 'decimal.js';
-import commonFunction from "/@/utils/commonFunction";
+import commonFunction from '/@/utils/commonFunction';
 const { twoFloorNum } = commonFunction();
 
 const stores = useUserInfo();
@@ -343,8 +343,8 @@ const remove = async (row: any, index: number) => {
  * @param data
  */
 const importProduct = async (data: any) => {
-	data.forEach((v) => {
-		const found = queryParams.value.inStorageDetails.find((obj) => obj.productId === v.id && obj.categoryId === v.categoryId);
+	data.forEach((v: any) => {
+		const found = queryParams.value.inStorageDetails.find((obj: any) => obj.productId === v.id && obj.categoryId === v.categoryId);
 		if (!found)
 			queryParams.value.inStorageDetails.push({
 				productId: v.id,
@@ -367,10 +367,9 @@ const importProduct = async (data: any) => {
 	});
 };
 
-
 // 打开弹窗
 const openDialog = async (isEdit: boolean, row: any, isDisabled: boolean = false, isHeddin: boolean = false) => {
-	queryParams.value={};
+	queryParams.value = {};
 	isEditValue.value = isEdit;
 	isDisabledValue.value = isDisabled;
 	isHiddenValue.value = isHeddin;
@@ -378,6 +377,7 @@ const openDialog = async (isEdit: boolean, row: any, isDisabled: boolean = false
 	await getProductProviders();
 	queryParams.value = other.deepClone(row);
 	isShowDialog.value = true;
+	if (orderTypes.value && orderTypes.value.length > 0) queryParams.value.type = orderTypes.value[0].value;
 };
 
 // 关闭弹窗
@@ -410,7 +410,7 @@ const submit = () => {
 		queryParams.value.providerName = providersObject.value[queryParams.value.providerId];
 		queryParams.value.inCount = queryParams.value.inStorageDetails.length;
 		queryParams.value.amount = new Decimal(inStoreTotalAmount.value).toNumber();
-		
+
 		if (queryParams.value.id != undefined && queryParams.value.id > 0) {
 			await getAPI(InStorageApi).apiInStorageIdEditPost(queryParams.value.id, queryParams.value);
 		} else {

@@ -96,3 +96,7 @@ export * from './cemrecord-item-group-add-input';
 export * from './cemrecord-item-group-input';
 export * from './cemrecord-item-group-output';
 export * from './cemrecord-item-group-type-enum';
+export * from './outpatient-trans-hospital-input';
+export * from './admin-result-sql-sugar-paged-list-in-hospital-record-output';
+export * from './in-hospital-record-input';
+export * from './in-hospital-record-output';

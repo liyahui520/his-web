@@ -107,8 +107,6 @@ var props = defineProps({
 	pet: {} as any,
 });
 
-//父级传递来的函数，用于回调
-const emit = defineEmits(['reloadTable']);
 const ruleFormRef = ref();
 const isShowDialog = ref(false);
 const ruleForm = ref<any>({});
@@ -125,19 +123,25 @@ const openDialog = async () => {
 	getUsersData.value = userList.value;
 	getRegisters.value = await getRegisterProducts();
 	isShowDialog.value = true;
+
+	ruleForm.value.regType = regTypes.value[0].value;
+	ruleForm.value.doctorId = getUsersData.value[0].id;
+	if (getRegisters.value && getRegisters.value.length > 0) ruleForm.value.itemId = getRegisters.value[0].id;
 };
 
-// 关闭弹窗
+/**
+ * 关闭弹窗
+ */
 const closeDialog = () => {
 	ruleFormRef.value?.resetFields();
-	emit('reloadTable');
 	isShowDialog.value = false;
 };
 
-// 取消
+/**
+ * 取消
+ */
 const cancel = () => {
 	ruleFormRef.value?.resetFields();
-	emit('reloadTable');
 	isShowDialog.value = false;
 };
 

@@ -302,5 +302,5 @@ export function calculateDaysBetweenDates(date1:Date, date2:Date) {
     // 将毫秒数差转换为天数
     const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
 
-    return Math.round(diffInDays);
+    return Math.max(1,Math.round(diffInDays));
 }

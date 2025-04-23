@@ -61,18 +61,22 @@ import addNurse from './addNurse.vue';
 import { formatDate } from '/@/utils/formatTime';
 import { ElMessageBox, ElMessage } from 'element-plus';
 
+//父级传递来的函数，用于回调
+const emit = defineEmits(['reloadData']);
 const isShowDialog = ref<any>(false);
 const tableData = ref<any>([]);
 const loading = ref<any>(false);
 const currentRowInfo = ref<any>({});
 const addNurseRef = ref();
 const inHospitalTypeValue = ref<any>(0);
+const isLoading=ref<any>(false);
 /**
  * 打开页面
  * @param row 当前行数据
  */
 const openDialog = async (row: any, inHospitalType: number) => {
 	isShowDialog.value = true;
+	isLoading.value=false;
 	currentRowInfo.value = row;
 	inHospitalTypeValue.value = inHospitalType;
 	await loadNurseData();
@@ -91,6 +95,7 @@ const delInHospitalNurses = async (row: any) => {
 			await getAPI(InHospitalApi)
 				.apiInHospitalDeleteInHospitalsNursesPost({ id: row.id, customerId: currentRowInfo.value.customerId, inHospitalId: currentRowInfo.value.id, ver: row.ver })
 				.then(async (res) => {
+					isLoading.value = true;
 					ElMessage.success('删除成功');
 					await loadNurseData();
 				});
@@ -108,6 +113,7 @@ const openNurses = () => {
  * 选择护理以后的回调
  */
 const selectCallBack = async () => {
+	isLoading.value = true;
 	await loadNurseData();
 };
 
@@ -127,6 +133,9 @@ const loadNurseData = async () => {
 
 const submit = () => {
 	isShowDialog.value = false;
+	if(isLoading.value){
+		emit('reloadData');
+	}
 };
 
 // 页面加载时

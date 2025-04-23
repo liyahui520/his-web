@@ -118,11 +118,9 @@
 				<medicalPcustomer ref="refmedicalPcustomer" />
 			</el-col>
 			<el-col :span="13" style="height: 100%">
-				<medicalDetails @selectPcuReload="selectPcu" />
+				<medicalDetails @selectPcuReload="selectPcu"  />
 			</el-col>
 		</el-row>
-
-		<!--        </el-card>-->
 
 		<AddPcustomer ref="petEditDialogRef" :title="editPetTitle" @reloadTable="handleQuery" />
 		<!-- <AddPPet ref="editDialogRef"
@@ -143,6 +141,7 @@ const { dateEntityFormatYMD, scale2Format } = commonFunction();
 import { PcustomerApi } from '/@/api-services/api';
 import commonFunction from '/@/utils/commonFunction';
 
+const businessTableType=ref('')
 //新增会员
 const AddPcustomer = defineAsyncComponent(() => import('/@/views/main/pcustomer/component/editDialog.vue'));
 //新增会员
@@ -159,6 +158,13 @@ const editDialogNewRef = ref();
 const editPetTitle = ref('新增会员');
 // const editDialogRef = ref();
 const queryParams = debounceRef({ type: 1, parmarm: '' },5000);
+
+/**
+ * 刷新对应业务表
+ */
+const reloadBusiness=(val:any)=>{
+	
+}
 
 const remoteMethod = async (query: string) => {
 	if (query) {

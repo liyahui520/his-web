@@ -1,6 +1,6 @@
 <template>
 	<div class="inHospital-nurseView">
-		<el-dialog v-model="isShowDialog" title="选择住院宠物" width="50%" draggable :close-on-click-modal="false">
+		<el-dialog v-model="isShowDialog" title="选择住院宠物" width="60%" draggable :close-on-click-modal="false">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
@@ -15,9 +15,9 @@
 					<el-form-item label="手机号码">
 						<el-input v-model="queryParams.cellPhone" clearable placeholder="请输入手机号码" />
 					</el-form-item>
-					<el-form-item label="会员编号">
+					<!-- <el-form-item label="会员编号">
 						<el-input v-model="queryParams.cardNumber" clearable placeholder="请输入会员编号" />
-					</el-form-item>
+					</el-form-item> -->
 					<el-form-item label="宠物名称">
 						<el-input v-model="queryParams.petName" clearable placeholder="请输入宠物名称" />
 					</el-form-item>

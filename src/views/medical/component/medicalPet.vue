@@ -3,8 +3,8 @@
 		class="box-card"
 		:style="
 			props.pet?.petStatus == '-1' || props.pet?.petStatus == '0'
-				? 'width:360px;height: 150px;border-radius: 15px 15px 0px 0px;filter:grayscale(1)'
-				: 'width:360px;height: 150px;border-radius: 15px 15px 0px 0px;'
+				? 'width:357px;height: 150px;border-radius: 15px 15px 0px 0px;filter:grayscale(1)'
+				: 'width:357px;height: 150px;border-radius: 15px 15px 0px 0px;'
 		"
 		:body-style="{ padding: '0px' }"
 	>
@@ -87,8 +87,8 @@
 		class="box-card"
 		:style="
 			props.pet?.petStatus == '-1' || props.pet?.petStatus == '0'
-				? 'border-top: 0px; width:360px;height: 80px;border-radius:0px 0px 15px 15px;padding:3px;margin-top: -1px;text-align: center;filter:grayscale(1)'
-				: 'border-top: 0px; width:360px;height: 80px;border-radius:0px 0px 15px 15px;padding:3px;margin-top: -1px;text-align: center;'
+				? 'border-top: 0px; width:357px;height: 80px;border-radius:0px 0px 15px 15px;padding:3px;margin-top: -1px;text-align: center;filter:grayscale(1)'
+				: 'border-top: 0px; width:357px;height: 80px;border-radius:0px 0px 15px 15px;padding:3px;margin-top: -1px;text-align: center;'
 		"
 		:body-style="{ padding: '0px' }"
 	>
@@ -129,7 +129,7 @@
 	</el-card>
 	<EditPet ref="editDialogRef" :title="editPetTitle" @reloadTable="petReloadTable" />
 	<AddReservation ref="AddReservationRef" :title="AddReservationTitle" :pcustomer="props.pcustomer" :pet="props.pet" />
-	<Reg ref="regRef" :pcustomer="props.pcustomer" :pet="props.pet" />
+	<Reg ref="regRef" :pcustomer="props.pcustomer" :pet="props.pet" @reloadReg="reloadReg" />
 	<Vaccination ref="vaccinationRef" :customerInfo="props.pcustomer" :petInfo="props.pet" />
 	<SaleGoods ref="saleGoodsRef" @reloadTable="reloadCustomerInfo" />
 	<SaleServices ref="saleServicesRef" @reloadTable="reloadCustomerInfo" />

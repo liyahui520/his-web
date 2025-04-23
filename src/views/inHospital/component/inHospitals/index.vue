@@ -1,6 +1,6 @@
 <template>
-	<div class="in-hospitals-container" >
-		<el-card shadow="never" :body-style="{ paddingBottom: '0' }" style="margin-bottom: 8px;">
+	<div class="in-hospitals-container">
+		<el-card shadow="never" :body-style="{ paddingBottom: '0' }" style="margin-bottom: 8px">
 			<el-form :model="queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="客户名称">
 					<el-input v-model="queryParams.customerName" clearable placeholder="请输入客户名称" />
@@ -37,10 +37,9 @@
 			</el-form>
 		</el-card>
 		<el-card class="data-class" shadow="never" v-loading="cardLoading">
-			<span :style="'float: left;margin-right: 16px;margin-bottom: 16px;'" :key="item.id"
-                v-for="item in inHospitalData">
-				<zYCard :item="item" @openNurses="openNurses" @openRooms="openRooms" @openDays="openDays" @outHospital="outHospital" @openPrescription="openPrescription" @openTests="openTests"/>
-            </span>
+			<span :style="'float: left;margin-right: 16px;margin-bottom: 16px;'" :key="item.id" v-for="item in inHospitalData">
+				<zYCard :item="item" @openNurses="openNurses" @openRooms="openRooms" @openDays="openDays" @outHospital="outHospital" @openPrescription="openPrescription" @openTests="openTests" />
+			</span>
 			<!--<el-row v-if="inHospitalData.length > 0" :gutter="20">
 				 <el-col :span="6" style="margin-bottom: 10px" v-for="(item, index) in inHospitalData" :key="item.id">
 					<el-card class="item-class" shadow="always">
@@ -131,7 +130,7 @@
 
 		<prescriptions ref="prescriptionsRef"></prescriptions>
 		<tests ref="testsRef"></tests>
-		<nurses ref="nursesRef"></nurses>
+		<nurses ref="nursesRef" @reloadData="handleQuery"></nurses>
 		<rooms ref="roomsRef"></rooms>
 		<dailys ref="dailysRef"></dailys>
 		<addHospital ref="addHospitalRef" @reloadTable="handleQuery"></addHospital>
@@ -139,7 +138,7 @@
 </template>
 
 <script lang="ts" setup name="inHospitalHospital">
-import { ref, onMounted,defineAsyncComponent } from 'vue';
+import { ref, onMounted, defineAsyncComponent } from 'vue';
 import { InHospitalTypeEnum } from '/@/api-services/models/cemrecord-manage/in-hospital-type-enum';
 import { InHospitalCostTypeEnum } from '/@/api-services/models/cemrecord-manage/in-hospital-cost-type-enum';
 import { getAPI } from '/@/utils/axios-utils';
@@ -170,7 +169,7 @@ const queryParams = ref({
 });
 const inHospitalData = ref<any>([]);
 /**
- * 
+ *
  */
 const handleQuery = async () => {
 	cardLoading.value = true;
@@ -179,8 +178,10 @@ const handleQuery = async () => {
 		.then((res) => {
 			cardLoading.value = false;
 			inHospitalData.value = res.data.result?.items ?? [];
+		})
+		.finally(() => {
+			cardLoading.value = false;
 		});
-	cardLoading.value = false;
 };
 /**
  * 添加住院

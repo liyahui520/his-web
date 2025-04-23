@@ -39,9 +39,16 @@
 				</el-col>
 				<el-col :span="18">
 					<el-row :gutter="10" style="margin-bottom: 5px">
-						<el-col :span="24">
+						<!-- <el-col :span="24">
 							<el-text style="font-weight: 800; font-size: 18px">{{ props?.item?.customerName }}</el-text>
 							<el-tag type="success" size="small" style="margin-left: 5px; margin-right: 5px" effect="dark">{{ props?.item?.levelText }}</el-tag>
+							<el-tag type="primary" size="small">{{ props?.item?.cellPhone }}</el-tag>
+						</el-col> -->
+						<el-col :span="24">
+							<el-text style="font-weight: 800; font-size: 18px">{{ props?.item?.customerName }}</el-text>
+							<el-tag type="success" size="small" style="margin-left: 5px;" effect="dark">{{ props?.item?.levelText }}</el-tag>
+						</el-col>
+						<el-col style="margin-top: 2px;">
 							<el-tag type="primary" size="small">{{ props?.item?.cellPhone }}</el-tag>
 						</el-col>
 					</el-row>
@@ -52,7 +59,7 @@
 								<el-breadcrumb-item>
 									<el-text truncated :title="props?.item?.petKindText">{{ props?.item?.petKindText ?? '-' }}</el-text>
 								</el-breadcrumb-item>
-								<el-breadcrumb-item style="width: 180px" truncated :title="props?.item?.petVarietieText">{{ props?.item?.petVarietieText ?? '-' }}</el-breadcrumb-item>
+								<el-breadcrumb-item truncated :title="props?.item?.petVarietieText">{{ props?.item?.petVarietieText ?? '-' }}</el-breadcrumb-item>
 							</el-breadcrumb>
 						</el-col>
 					</el-row>

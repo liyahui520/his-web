@@ -117,7 +117,7 @@
 			</el-row> -->
 			<!-- <el-empty v-else  description="暂无留观信息"> </el-empty> -->
 		</el-card>
-		<nurses ref="nursesRef"></nurses>
+		<nurses ref="nursesRef" @reloadData="handleQuery"></nurses>
 		<rooms ref="roomsRef"></rooms>
 		<dailys ref="dailysRef"></dailys>
 		<addFosterCares ref="addFosterCaresRef" @reloadTable="handleQuery"></addFosterCares>
@@ -160,9 +160,9 @@ const handleQuery = async () => {
 		.then((res) => {
 			cardLoading.value = false;
 			inHospitalData.value = res.data.result?.items ?? [];
-			console.log("inHospitalData.value",inHospitalData.value)
+		}).finally(()=>{
+			cardLoading.value = false;
 		});
-	cardLoading.value = false;
 };
 /**
  * 添加留观

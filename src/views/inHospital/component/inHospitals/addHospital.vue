@@ -1,6 +1,6 @@
 <template>
 	<div class="in-hospitals-add-hospital">
-		<el-dialog v-model="isShowDialog" :title="props.title" width="60%" draggable :close-on-click-modal="false">
+		<el-dialog v-model="isShowDialog" :title="props.title" width="70%" draggable :close-on-click-modal="false">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
@@ -20,11 +20,15 @@
 								</el-col>
 								<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 									<el-form-item label="会员名称" prop="customerName">
-										<el-input disabled v-model="ruleForm.customerName" style="max-width: 600px" placeholder="请选择用户" class="input-with-select">
+										<el-text style="margin-right: 10px;">{{ ruleForm.customerName }} </el-text>
+										<el-button v-if="!ruleForm.customerName" :icon="Search" @click="searchPetDialog"  circle />
+										<el-button v-else :icon="Switch" @click="searchPetDialog"  circle />
+
+										<!-- <el-input disabled v-model="ruleForm.customerName" style="max-width: 600px" placeholder="请选择用户" class="input-with-select">
 											<template #append>
 												<el-button :icon="Search" @click="searchPetDialog" />
 											</template>
-										</el-input>
+										</el-input> -->
 									</el-form-item>
 								</el-col>
 								<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
@@ -52,8 +56,8 @@
 									</el-form-item>
 								</el-col>
 								<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
-									<el-form-item label="备注">
-										<el-input type="textarea" v-model="ruleForm.remark" placeholder="请输入备注" maxlength="200"></el-input>
+									<el-form-item label="入院描述">
+										<el-input type="textarea" v-model="ruleForm.remark" placeholder="请输入入院描述" maxlength="200"></el-input>
 									</el-form-item>
 								</el-col>
 							</el-row>
@@ -64,22 +68,22 @@
 							<el-text type="danger">注：只能选择一个笼位。</el-text>
 							<el-table ref="tableDataRef" :data="tableData" v-loading="loading" style="height: 490px" tooltip-effect="light" row-key="id" border empty-text="暂无空余笼位">
 								<el-table-column type="selection" align="center" width="55" />
-								<el-table-column label="名称" prop="name" width="180" />
-								<el-table-column label="位置" prop="location" width="180" />
-								<el-table-column label="大小" prop="size" width="180" />
-								<el-table-column label="销售价格" align="center" show-overflow-tooltip="">
+								<el-table-column label="名称" prop="name" width="150" show-overflow-tooltip="" />
+								<el-table-column label="位置" prop="location" width="120" show-overflow-tooltip="" />
+								<el-table-column label="大小" prop="size" width="120" show-overflow-tooltip="" />
+								<el-table-column label="销售价格" align="left" show-overflow-tooltip="">
 									<template #default="scope">
 										<div v-if="scope.row.inHospitalCostType == 0">{{ verifyNumberComma(scope.row?.salePrice?.toFixed(2).toString() || '0.00') }} / {{ scope.row.inHospitalCostTypeText }}</div>
 										<div v-if="scope.row.inHospitalCostType == 1">{{ verifyNumberComma(scope.row?.monthSalePrice?.toFixed(2).toString() || '0.00') }} / {{ scope.row.inHospitalCostTypeText }}</div>
 									</template>
 								</el-table-column>
-								<el-table-column prop="name" label="会员价格" align="center" show-overflow-tooltip="">
+								<el-table-column label="会员价格" align="left" show-overflow-tooltip="">
 									<template #default="scope">
 										<div v-if="scope.row.inHospitalCostType == 0">{{ verifyNumberComma(scope.row?.memberPrice?.toFixed(2).toString() || '0.00') }} / {{ scope.row.inHospitalCostTypeText }}</div>
 										<div v-if="scope.row.inHospitalCostType == 1">{{ verifyNumberComma(scope.row?.monthMemberPrice?.toFixed(2).toString() || '0.00') }} / {{ scope.row.inHospitalCostTypeText }}</div>
 									</template>
 								</el-table-column>
-								<el-table-column label="状态" align="center" width="150">
+								<el-table-column label="状态" align="center" width="100">
 									<template #default="scope">
 										<el-tag type="success" v-if="scope.row.isEnable">启用</el-tag>
 										<el-tag type="info" v-else>禁用</el-tag>
@@ -106,7 +110,7 @@ import { ElMessage } from 'element-plus';
 import type { FormRules } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
 import { InHospitalApi } from '/@/api-services/api';
-import { Search } from '@element-plus/icons-vue';
+import { Search,Switch } from '@element-plus/icons-vue';
 import searchPet from '../component/searchPet.vue';
 import { verifyNumberComma } from '/@/utils/toolsValidate';
 import { useUserInfo } from '/@/stores/userInfo';
@@ -143,11 +147,11 @@ const rules = ref<FormRules>({
 // 打开弹窗
 const openDialog = async (row: any) => {
 	ruleForm.value =  other.deepClone(row);
-	ruleForm.value.headId=null;
 	getUserList();
+	ruleForm.value.headId= userList.value[0].id;
+	ruleForm.value.headName = doctorUserObject.value[ruleForm.value.headId];
 	ruleForm.value.startTime = formatDate(new Date(), 'YYYY-mm-dd');
 	isShowDialog.value = true;
-	console.log("123",row)
 	await loadRoomsData();
 };
 /**

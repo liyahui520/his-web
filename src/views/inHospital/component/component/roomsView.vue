@@ -1,6 +1,6 @@
 <template>
 	<div class="inHospital-roomsView">
-		<el-dialog v-model="isShowDialog" title="住院笼位" width="50%" draggable :close-on-click-modal="false">
+		<el-dialog v-model="isShowDialog" title="住院笼位" width="70%" draggable :close-on-click-modal="false">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
@@ -129,6 +129,7 @@ const changeRoom = (row: any) => {
 					nowVer: row.ver,
 				})
 				.then(async () => {
+					submit();
 					ElMessage.success('变更成功');
 					currentRowInfo.value.roomId= row.id;
 					currentRowInfo.value.roomName=row.name;

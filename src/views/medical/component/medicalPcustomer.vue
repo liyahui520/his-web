@@ -121,6 +121,7 @@ const SecondaryCardsView = defineAsyncComponent(() => import('/@/components/seco
 const stores = useTagsViewRoutes();
 const { isTagsViewCurrenFull, iswindow } = storeToRefs(stores);
 
+
 const getPPets = ref<any>([]);
 const pcustomerDetail = ref<any>({});
 const editDialogRef = ref();
@@ -143,7 +144,6 @@ const initData = async (val: any) => {
     getPPets.value = await getPetsListView(val);
     pcustomerDetail.value = await getPcustomerDetail(val);
 }
-
 const pcustomerInitData = async () => {
     pculoding.value = true;
     pcustomerDetail.value = await getPcustomerDetail(pcustomerDetail.value.id);

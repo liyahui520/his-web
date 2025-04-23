@@ -7,6 +7,9 @@
 			<el-tab-pane label="留观" name="fosterCare">
 				<fosterCare v-show="activeName === 'fosterCare'" ref="fosterCareRef"></fosterCare>
 			</el-tab-pane>
+			<el-tab-pane label="记录" name="records">
+				<records v-show="activeName === 'records'" ref="recordsRef"></records>
+			</el-tab-pane>
 			<el-tab-pane label="笼位" name="cage">
 				<cage v-show="activeName === 'cage'" ref="cageRef"></cage>
 			</el-tab-pane>
@@ -24,11 +27,13 @@ const inHospital = defineAsyncComponent(() => import('./component/inHospitals/in
 const fosterCare = defineAsyncComponent(() => import('./component/fosterCares/index.vue'));
 const cage = defineAsyncComponent(() => import('./component/cages/index.vue'));
 const nurse = defineAsyncComponent(() => import('./component/nurses/index.vue'));
+const records = defineAsyncComponent(() => import('./component/records/index.vue'));
 
 const activeName = ref('inHospital');
 
 const inHospitalRef= ref();
 const fosterCareRef= ref();
+const recordsRef= ref();
 const cageRef= ref();
 const nurseRef= ref();
 

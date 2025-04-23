@@ -99,6 +99,11 @@ onMounted(async () => {
 		await getAPI(SysAuthApi).apiSysAuthLogoutPost();
 		clearAccessTokens();
 	});
+
+	signalR.off('ReceiveMessage');
+	signalR.on('ReceiveMessage', (data: any) => {
+		console.log('ReceiveMessage', data);
+	});
 });
 
 // 通知提示节流

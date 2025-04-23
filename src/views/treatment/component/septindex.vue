@@ -9,19 +9,14 @@
 				<div style="padding: 5px">
 					<el-row :gutter="5" align="middle" justify="space-between">
 						<el-col :span="15">
-							<el-avatar
-								v-if="
-									props.data?.pPetsInfo?.petImageUrl != void 0 &&
-									props.data?.pPetsInfo?.petImageUrl != null &&
-									props.data?.pPetsInfo?.petImageUrl != '' &&
-									props.data?.pPetsInfo?.petImageUrl != 'null' &&
-									props.data?.pPetsInfo?.petImageUrl != 'undefined'
-								"
+							<el-avatar 
 								:size="60"
 								style="float: left; text-align: center"
 								:src="props.data?.pPetsInfo?.petImageUrl"
-							/>
-							<el-avatar v-else :size="60" style="float: left; text-align: center" :src="'src/assets/in-hospitals/animal.png'" />
+							>
+						<img v-if="props?.data?.pPetsInfo?.petKind === '1300010000001'" src="https://img.huimopei.com/img/Default/Dog.png" />
+							<img v-else-if="props?.data?.pPetsInfo?.petKind === '1300010000002'" src="https://img.huimopei.com/img/Default/Cat.png" />
+							<img v-else src="https://img.huimopei.com/img/Default/default.png" /></el-avatar> 
 							<div style="float: left; text-align: center; margin-left: 20px">
 								<el-breadcrumb separator="|" style="line-height: 35px">
 									<el-breadcrumb-item>

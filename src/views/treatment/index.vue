@@ -50,7 +50,7 @@ const toggleSidebar = (v) => {
   })
 }
 
-const selectItem = async (row) => {
+const selectItem = async (row:any) => {
   pcuload.value = true;
   console.log(row)
   await nextTick(async () => {
@@ -82,13 +82,16 @@ onMounted(async () => {
     line-height: 40px;
     text-align: center;
     position: absolute;
-    top: 50%;
+    top: 0%;
     margin-right: -36px;
-    right: 20px;
-    border: 0;
-    color: #0f9bfc;
+    right: 25px; 
+    color:var(--el-color-white);
     background-color: var(--el-color-white);
     padding: 4px 10px;
+    border-radius: 0px 15px 15px 0px;
+    border: 1px solid var(--el-color-primary);
+    border-left: 0px;
+    z-index: 999999;
   }
 
   .side-left-close {

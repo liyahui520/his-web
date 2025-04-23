@@ -24,14 +24,16 @@
 				<div style="float: left; text-align: center">
 					<div style="text-align: center">
 						<el-avatar
-							v-if="props.pet.petImageUrl != void 0 && props.pet.petImageUrl != null && props.pet.petImageUrl != '' && props.pet.petImageUrl != 'null' && props.pet.petImageUrl != 'undefined'"
-							:size="80"
+							 :size="80"
 							style="background-color: white"
 							shape="square"
-							:src="props.pet.petImageUrl"
-                            @error="errorHandler"
-						/>
-						<el-avatar v-else :size="80" style="background-color: white" shape="square" src="src/assets/in-hospitals/animal.png" @error="errorHandler" />
+							:src="props.pet.petImageUrl" 
+						>
+						<img v-if="props?.pet?.petKind === '1300010000001'" src="https://img.huimopei.com/img/Default/Dog.png" />
+							<img v-else-if="props?.pet?.petKind === '1300010000002'" src="https://img.huimopei.com/img/Default/Cat.png" />
+							<img v-else src="https://img.huimopei.com/img/Default/default.png" />
+					</el-avatar>
+						<!-- <el-avatar v-else :size="80" style="background-color: white" shape="square" src="src/assets/in-hospitals/animal.png" @error="errorHandler" /> -->
 <!-- 
 						<el-avatar :size="80" :src="props.pet.petImageUrl" @error="errorHandler">
 							<img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />

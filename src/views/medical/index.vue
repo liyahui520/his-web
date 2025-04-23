@@ -54,7 +54,10 @@
 											<div style="float: left; text-align: center">
 												<div style="text-align: center">
 													<el-avatar :size="60" :src="pet?.petImageUrl" @error="errorHandler">
-														<img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
+														
+											<img v-if="pet?.petKind === '1300010000001'" src="https://img.huimopei.com/img/Default/Dog.png" />
+												<img v-else-if="pet?.petKind === '1300010000002'" src="https://img.huimopei.com/img/Default/Cat.png" />
+												<img v-else src="https://img.huimopei.com/img/Default/default.png" />
 													</el-avatar>
 												</div>
 												<span style="font-size: 12px; line-height: 12px; color: #8d8d91">{{  dateEntityFormatYMD(pet?.createTime) }}</span>

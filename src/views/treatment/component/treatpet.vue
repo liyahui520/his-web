@@ -13,13 +13,12 @@
         <el-col :span="24" style="padding-left: 10px">
           <div style="float: left;text-align: center">
             <div style="text-align: center">
-              <el-avatar v-if="props.data?.pPetsInfo?.petImageUrl != void 0 && props.data?.pPetsInfo?.petImageUrl != null && props.data?.pPetsInfo?.petImageUrl != '' && props.data?.pPetsInfo?.petImageUrl != 'null' && props.data?.pPetsInfo?.petImageUrl != 'undefined'" :src="props.data?.pPetsInfo?.petImageUrl" :size="50">
-                <img :src="props.data?.pPetsInfo?.petImageUrl"/>
-              </el-avatar>
-              <el-avatar v-else :src="'src/assets/in-hospitals/animal.png'" :size="50">
-              </el-avatar>
-              
-
+              <el-avatar   :src="props.data?.pPetsInfo?.petImageUrl" :size="50">
+                
+						<img v-if="props?.data?.pPetsInfo?.petKind === '1300010000001'" src="https://img.huimopei.com/img/Default/Dog.png" />
+							<img v-else-if="props?.data?.pPetsInfo?.petKind === '1300010000002'" src="https://img.huimopei.com/img/Default/Cat.png" />
+							<img v-else src="https://img.huimopei.com/img/Default/default.png" />
+              </el-avatar>   
             </div>
             <span><el-text style="max-width: 60px;font-size: 12px;line-height: 20px;color: #8d8d91;overflow: inherit"
                            truncated :title="props.data?.createTime">
@@ -82,28 +81,10 @@
 </template>
 
 <script lang="ts" setup name="treatpet">
-import {onMounted, onUnmounted, reactive, ref, defineAsyncComponent, nextTick} from "vue";
-import {ElMessageBox, ElMessage} from "element-plus";
+import {onMounted, onUnmounted, reactive, ref, defineAsyncComponent, nextTick} from "vue"; 
 import {getAPI} from '/@/utils/axios-utils';
 import {auth} from '/@/utils/authFunction';
-import {CEMRecordApi, RegistersApi} from "/@/api-services";
-import {
-  verifyNumberComma, verifyNumberCnUppercase, verifyTextColor
-} from '/@/utils/toolsValidate';
-import {formatDate} from "/@/utils/formatTime";
-import {
-  Check,
-  Delete,
-  Edit,
-  Message,
-  Search,
-  Star,
-  Printer,
-  View,
-  CircleCheck,
-  SwitchButton,
-  Right, Back, Switch
-} from '@element-plus/icons-vue'
+import {CEMRecordApi, RegistersApi} from "/@/api-services"; 
 import commonFunction from "/@/utils/commonFunction";
 import {RegistersStatusEnum} from "/@/api-services/models/register-manage";
 
@@ -178,7 +159,7 @@ onMounted(async () => {
     .link {
       position: relative;
       right: -200px;
-      top: -95px;
+      top: -100px;
       display: block;
       width: 23px;
       padding: 20px 5px;

@@ -6,7 +6,7 @@
 					<!-- 侧边栏内容 -->
 					<SidebarPet @select-item="selectItem" />
 				</el-card>
-				<el-button @click="toggleSidebar(isSidebarVisible)" :icon="isSidebarVisible ? DArrowLeft : DArrowRight" class="side-left"></el-button>
+				<el-button @click="toggleSidebar(isSidebarVisible)" :title="isSidebarVisible?'隐藏':'显示'" :icon="isSidebarVisible ? DArrowLeft : DArrowRight" class="side-left"></el-button>
 			</div>
 		</el-aside>
 		<el-container style="padding: 0px; margin: 0px; min-width: 1100px">
@@ -74,13 +74,16 @@ onMounted(async () => {});
 		line-height: 40px;
 		text-align: center;
 		position: absolute;
-		top: 50%;
+		top: 0%;
 		margin-right: -36px;
-		right: 20px;
+		right: 22px;
 		border: 0;
 		color: #0f9bfc;
 		background-color: var(--el-color-white);
 		padding: 4px 10px;
+		border-radius: 0px 18px 18px 0px;
+		border: 1px solid var(--el-color-primary);
+		border-left: 0px; 
 	}
 
 	.side-left-close {

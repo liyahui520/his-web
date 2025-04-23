@@ -29,7 +29,12 @@
 								<div class="pet-card">
 									<div class="pet-item" v-for="(pItem, pIndex) in item.pets" :key="pIndex">
 										<div class="pet-img" @click="handleCheckedPetChange(pItem.id)">
-											<img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" alt="" />
+											<!-- <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" alt="" /> -->
+											<el-avatar   :src="pItem?.petImageUrl" :size="40"> 
+													<img v-if="pItem?.petKind === '1300010000001'" src="https://img.huimopei.com/img/Default/Dog.png" />
+														<img v-else-if="pItem?.petKind === '1300010000002'" src="https://img.huimopei.com/img/Default/Cat.png" />
+														<img v-else src="https://img.huimopei.com/img/Default/default.png" />
+										</el-avatar>  
 											<div class="active-pet" v-if="cartsTableParams.petIds?.includes(pItem.id)">
 												<el-icon :size="20" color="#fff">
 													<Select />

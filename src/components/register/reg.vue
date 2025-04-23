@@ -66,7 +66,7 @@
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="备注" prop="content">
-							<el-input v-model="ruleForm.content" type="textarea" :rows="2" placeholder="详细地址" clearable="" />
+							<el-input v-model="ruleForm.content" type="textarea" :rows="2" placeholder="" clearable="" />
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -122,6 +122,7 @@ const openDialog = async () => {
 	regTypes.value = await getEnums('RegType');
 	getUsersData.value = userList.value;
 	getRegisters.value = await getRegisterProducts();
+	ruleForm.value = { regType:regTypes.value[0].value, doctorId: userList.value[0].id, itemId: getRegisters.value[0].id };
 	isShowDialog.value = true;
 
 	ruleForm.value.regType = regTypes.value[0].value;

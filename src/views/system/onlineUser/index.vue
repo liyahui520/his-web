@@ -103,6 +103,12 @@ onMounted(async () => {
 	signalR.off('ReceiveMessage');
 	signalR.on('ReceiveMessage', (data: any) => {
 		console.log('ReceiveMessage', data);
+		ElNotification({
+			title: data.title,
+			message: data.message,
+			type: 'success',
+			position: 'top-right',
+		});
 	});
 });
 

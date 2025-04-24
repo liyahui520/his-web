@@ -57,11 +57,12 @@
 					</template>
 				</el-table-column>
 				<el-table-column prop="description" label="入院描述" align="left" show-overflow-tooltip=""/>
-				<!-- <el-table-column label="操作" width="120" align="center" show-overflow-tooltip="">
+				<el-table-column label="操作" width="120" align="center" show-overflow-tooltip="">
 					<template #default="scope">
-						<el-button icon="ele-Search" size="small" text="" type="primary" > 查看 </el-button>
+						<el-button size="small" text="" type="primary" @click="openInfo(scope.row)"> 详情 </el-button>
+						<el-button v-if="scope.row.inHospitalType == 0" size="small" text="" type="primary" @click="openRecordInfo(scope.row)" > 查看病例 </el-button>
 					</template>
-				</el-table-column> -->
+				</el-table-column>
 			</el-table>
 			<el-pagination
 				v-model:currentPage="tableParams.page"
@@ -74,19 +75,22 @@
 				layout="total, sizes, prev, pager, next, jumper"
 			/>
 		</el-card>
+		<infos ref="infosRef"></infos>
 	</div>
 </template>
 
 <script lang="ts" setup name="inHospitalRecords">
-import { ref } from 'vue';
+import { ref,defineAsyncComponent } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { InHospitalApi } from '/@/api-services/api';
-import { verifyNumberComma } from '/@/utils/toolsValidate';
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
 import { storeToRefs } from 'pinia';
+import { ElMessage } from 'element-plus';
 
+const infos = defineAsyncComponent(() => import('./info.vue'));
 const storesTagsViewRoutes = useTagsViewRoutes();
 const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
+const infosRef=ref();
 //日期范围值
 const inDates = ref<any>([]);
 const outDates = ref<any>([]);
@@ -137,8 +141,24 @@ const shortcuts = [
 		},
 	},
 ];
+/**
+ * 查看详情
+ */
+const openInfo=(row:any)=>{
+	infosRef.value.openDialog(row);
+}
+/**
+ * 跳转至病例
+ * @param row 
+ */
+const openRecordInfo=(row:any)=>{
+    
+	ElMessage.info('此功能还在开发中，敬请期待！');
+}
 
-// 查询操作
+/**
+ * 查询操作
+ */
 const handleQuery = async () => {
 	loading.value = true;
 	if (inDates.value != null) {
@@ -158,19 +178,28 @@ const handleQuery = async () => {
         queryParams.value.outEndTime = null;
     }
 	queryParams.value.inHospitalType = inHospitalType.value == -1 ? null : inHospitalType.value;
-	var res = await getAPI(InHospitalApi).apiInHospitalGetInHospitalRecordsPost(Object.assign(queryParams.value, tableParams.value));
-	tableData.value = res.data.result?.items ?? [];
-	tableParams.value.total = res.data.result?.total;
-	loading.value = false;
+	await getAPI(InHospitalApi).apiInHospitalGetInHospitalRecordsPost(Object.assign(queryParams.value, tableParams.value)).then((res:any)=>{
+		tableData.value = res.data.result?.items ?? [];
+		tableParams.value.total = res.data.result?.total;
+	}).finally(()=>{
+		loading.value = false;
+	});
+	
 };
 
-// 改变页面容量
+/**
+ * 改变页面容量
+ * @param val 
+ */
 const handleSizeChange = (val: number) => {
 	tableParams.value.pageSize = val;
 	handleQuery();
 };
 
-// 改变页码序号
+/**
+ * 改变页码序号
+ * @param val 
+ */
 const handleCurrentChange = (val: number) => {
 	tableParams.value.page = val;
 	handleQuery();

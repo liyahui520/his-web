@@ -1,5 +1,5 @@
 <template>
-	<div class="inHospital-nurseView">
+	<div class="inHospital-addDailys">
 		<el-dialog v-model="isShowDialog" title="添加日常" width="30%" draggable :close-on-click-modal="false">
 			<template #header>
 				<div style="color: #fff">
@@ -18,11 +18,11 @@
 							<el-input type="textarea" v-model="ruleForm.content" placeholder="请输入记录内容" maxlength="500"></el-input>
 						</el-form-item>
 					</el-col>
-					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+					<!-- <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="备注" prop="remark">
 							<el-input type="textarea" v-model="ruleForm.remark" placeholder="请输入备注" maxlength="500"></el-input>
 						</el-form-item>
-					</el-col>
+					</el-col> -->
 
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="图片">
@@ -68,7 +68,7 @@
 	</div>
 </template>
 
-<script lang="ts" setup name="inHospital-nurseView">
+<script lang="ts" setup name="inHospital-addDailys">
 import { ref, onMounted } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { InHospitalApi, SysFileApi } from '/@/api-services';
@@ -88,6 +88,9 @@ const ruleForm = ref<any>();
 const rules = ref<FormRules>({
 	content: [{ required: true, message: '请输入记录内容！', trigger: 'blur' }],
 });
+/**
+ * 处理图片预览
+ */
 const handlePictureCardPreview = (file: any) => {
 	dialogImageUrl.value = file.url!;
 	dialogVisible.value = true;
@@ -117,7 +120,7 @@ const openDialog = async (data: any) => {
 	imageRef.value?.clearFiles();
 };
 /**
- *
+ * 图片上传
  * @param options
  */
 const uploadPetImageUrlHandle = async (options: any) => {
@@ -133,7 +136,7 @@ const uploadPetImageUrlHandle = async (options: any) => {
 const submit = async () => {
 	ruleFormRef.value.validate(async (isValid: boolean, fields?: any) => {
 		if (isValid) {
-			ruleForm.value.dailyImages = uploadFiles.value.map((item) => {
+			ruleForm.value.dailyImages = uploadFiles.value.map((item:any) => {
 				return { fileUrl: item.url, fileId: item.id };
 			});
 			await getAPI(InHospitalApi)
@@ -155,7 +158,7 @@ defineExpose({ openDialog });
 </script>
 
 <style lang="scss" scoped>
-.inHospital-nurseView {
+.inHospital-addDailys {
 	:deep(.el-dialog__footer) {
 		padding-top: 0px !important;
 	}

@@ -18,10 +18,25 @@
  * @enum {string}
  */
 export enum InHospitalPayStatus {
+    /**
+     * 待支付
+     */
     NUMBER_0 = 0,
+    /**
+     * 已支付
+     */
     NUMBER_1 = 1,
+    /**
+     * 部分已退款
+     */
     NUMBER_2 = 2,
+    /**
+     * 已退款
+     */
     NUMBER_3 = 3,
+    /**
+     * 已删除
+     */
     NUMBER_4 = 4
 }
 

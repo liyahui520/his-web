@@ -31,6 +31,21 @@ export interface InHospitalRecordOutput {
     id?: number;
 
     /**
+     * 病例Id
+     *
+     * @type {number}
+     * @memberof InHospitalDetailInput
+     */
+    recordId?: number;
+
+    /**
+     * 挂号Id
+     *
+     * @type {number}
+     * @memberof InHospitalDetailInput
+     */
+    regId?: number;
+    /**
      * 病历编号
      *
      * @type {string}

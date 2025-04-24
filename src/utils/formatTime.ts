@@ -294,13 +294,13 @@ export function calculateDaysBetweenDates(date1:Date, date2:Date) {
     start.setHours(0, 0, 0, 0);
 
     const end = new Date(date2);
-    end.setHours(0, 0, 0, 0);
+    // end.setHours(0, 0, 0, 0);
 
     // 计算两个日期的毫秒数差
     const diffInMilliseconds = end.getTime() - start.getTime();
 
     // 将毫秒数差转换为天数
-    const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
-
-    return Math.max(1,Math.round(diffInDays));
+    const diffInDays = diffInMilliseconds / (1000 * 60 * 60);
+	
+    return Math.max(1,Math.ceil(diffInDays/24));
 }

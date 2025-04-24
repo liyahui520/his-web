@@ -100,3 +100,6 @@ export * from './outpatient-trans-hospital-input';
 export * from './admin-result-sql-sugar-paged-list-in-hospital-record-output';
 export * from './in-hospital-record-input';
 export * from './in-hospital-record-output';
+export * from './admin-result-in-hospital-detail-output';
+export * from './in-hospital-detail-input';
+export * from './in-hospital-detail-output';

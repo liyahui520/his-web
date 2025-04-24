@@ -48,7 +48,9 @@ import {
 	InHospitalDeleteDailysInput,
 	InHospitalRecordInput,
 	OutpatientTransHospitalInput,
-	AdminResultSqlSugarPagedListInHospitalRecordOutput
+	AdminResultSqlSugarPagedListInHospitalRecordOutput,
+	InHospitalDetailInput,
+	AdminResultInHospitalDetailOutput
 } from '../../models/cemrecord-manage';
 /**
  * InHospitalApi - axios parameter creator
@@ -56,6 +58,56 @@ import {
  */
 export const InHospitalApiAxiosParamCreator = function (configuration?: Configuration) {
 	return {
+
+        /**
+         * 
+         * @summary 获取住院详情
+         * @param {InHospitalDetailInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiInHospitalGetInHospitalsDetailPost: async (body?: InHospitalDetailInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/inHospital/get-in-hospitals-detail`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+		
 		/**
          * 
          * @summary 住院记录查询
@@ -1138,6 +1190,21 @@ export const InHospitalApiAxiosParamCreator = function (configuration?: Configur
  */
 export const InHospitalApiFp = function (configuration?: Configuration) {
 	return {
+
+        /**
+         * 
+         * @summary 获取住院详情
+         * @param {InHospitalDetailInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiInHospitalGetInHospitalsDetailPost(body?: InHospitalDetailInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultInHospitalDetailOutput>>> {
+            const localVarAxiosArgs = await InHospitalApiAxiosParamCreator(configuration).apiInHospitalGetInHospitalsDetailPost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
 		 /**
          * 
          * @summary 住院记录查询
@@ -1495,6 +1562,16 @@ export const InHospitalApiFactory = function (configuration?: Configuration, bas
 
         /**
          * 
+         * @summary 获取住院详情
+         * @param {InHospitalDetailInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiInHospitalGetInHospitalsDetailPost(body?: InHospitalDetailInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultInHospitalDetailOutput>> {
+            return InHospitalApiFp(configuration).apiInHospitalGetInHospitalsDetailPost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 住院记录查询
          * @param {InHospitalRecordInput} [body] 请求参数
          * @param {*} [options] Override http request option.
@@ -1770,6 +1847,17 @@ export const InHospitalApiFactory = function (configuration?: Configuration, bas
  */
 export class InHospitalApi extends BaseAPI {
 
+    /**
+     * 
+     * @summary 获取住院详情
+     * @param {InHospitalDetailInput} [body] 请求参数
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof InHospitalApi
+     */
+    public async apiInHospitalGetInHospitalsDetailPost(body?: InHospitalDetailInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultInHospitalDetailOutput>> {
+        return InHospitalApiFp(this.configuration).apiInHospitalGetInHospitalsDetailPost(body, options).then((request) => request(this.axios, this.basePath));
+    }
     /**
      * 
      * @summary 住院记录查询

@@ -33,11 +33,6 @@
 							<img v-else-if="props?.pet?.petKind === '1300010000002'" src="https://img.huimopei.com/img/Default/Cat.png" />
 							<img v-else src="https://img.huimopei.com/img/Default/default.png" />
 					</el-avatar>
-						<!-- <el-avatar v-else :size="80" style="background-color: white" shape="square" src="src/assets/in-hospitals/animal.png" @error="errorHandler" /> -->
-<!-- 
-						<el-avatar :size="80" :src="props.pet.petImageUrl" @error="errorHandler">
-							<img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" />
-						</el-avatar> -->
 					</div>
 					<span style="font-size: 12px; line-height: 30px; color: #8d8d91">{{ dateEntityFormatYMD(props.pet.createTime) }}</span>
 				</div>
@@ -131,7 +126,7 @@
 	</el-card>
 	<EditPet ref="editDialogRef" :title="editPetTitle" @reloadTable="petReloadTable" />
 	<AddReservation ref="AddReservationRef" :title="AddReservationTitle" :pcustomer="props.pcustomer" :pet="props.pet" />
-	<Reg ref="regRef" :pcustomer="props.pcustomer" :pet="props.pet" @reloadReg="reloadReg" />
+	<Reg ref="regRef" :pcustomer="props.pcustomer" :pet="props.pet" />
 	<Vaccination ref="vaccinationRef" :customerInfo="props.pcustomer" :petInfo="props.pet" />
 	<SaleGoods ref="saleGoodsRef" @reloadTable="reloadCustomerInfo" />
 	<SaleServices ref="saleServicesRef" @reloadTable="reloadCustomerInfo" />

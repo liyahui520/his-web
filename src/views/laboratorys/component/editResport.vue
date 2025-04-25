@@ -195,6 +195,7 @@ const openDialog = async (row: any) => {
 	if (editType.value) {
 		ruleForm.value = { ...ruleForm.value, inspectDoctorName: '', assistantName: '' };
 	}
+	if (!ruleForm.value.inspectDoctorId) ruleForm.value.inspectDoctorId = doctorUserData.value[0].id;
 };
 const disabledDate = (date: any) => {
 	return new Date(date) <= new Date(addDaysToDate(new Date(), -1));

@@ -13,9 +13,6 @@
  */
 
 import { OutOrderTypeEnum } from './out-order-type-enum';
-import {
-    OutOrderTypeEnum,
-} from ".";
 
 /**
  * 出库明细分页请求参数

@@ -13,9 +13,6 @@
  */
 
 import { InStockItemsPageOutput } from './in-stock-items-page-output';
-import {
-    InStockItemsPageOutput,
-} from ".";
 
 /**
  * 分页泛型集合

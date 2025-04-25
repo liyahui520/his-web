@@ -75,7 +75,7 @@ export interface SaveBscanInspectInput {
      * @type {Date}
      * @memberof SaveBscanInspectInput
      */
-    checkTime?: Date | null;
+    checkTime?: string | null;
 
     /**
      * 报告医生Id(sys_user.id)
@@ -99,7 +99,7 @@ export interface SaveBscanInspectInput {
      * @type {Date}
      * @memberof SaveBscanInspectInput
      */
-    reportTime?: Date | null;
+    reportTime?: string | null;
 
     /**
      * 助理Id(sys_user.id)

@@ -57,11 +57,11 @@
 					</el-table-column>
 					<el-table-column label="支付状态" align="center" width="100"  show-overflow-tooltip="">
 						<template #default="scope">
-						<el-tag type="success" v-if="hospitalDetailInfo.inHospitalPayStatus == 0">待支付</el-tag>
-						<el-tag type="primary" v-else-if="hospitalDetailInfo.inHospitalPayStatus == 1">已支付</el-tag>
-						<el-tag type="warning" v-else-if="hospitalDetailInfo.inHospitalPayStatus == 2">部分已退款</el-tag>
-						<el-tag type="info" v-else-if="hospitalDetailInfo.inHospitalPayStatus == 3">已退款</el-tag>
-						<el-tag type="danger" v-else-if="hospitalDetailInfo.inHospitalPayStatus == 4">已删除</el-tag>
+						<el-tag type="success" v-if="scope.row.payStatus == 0">待支付</el-tag>
+						<el-tag type="primary" v-else-if="scope.row.payStatus == 1">已支付</el-tag>
+						<el-tag type="warning" v-else-if="scope.row.payStatus == 2">部分已退款</el-tag>
+						<el-tag type="info" v-else-if="scope.row.payStatus == 3">已退款</el-tag>
+						<el-tag type="danger" v-else-if="scope.row.payStatus == 4">已删除</el-tag>
 						</template>
 					</el-table-column>
 					<el-table-column label="创建时间" width="150" align="center">

@@ -34,7 +34,7 @@
 						<el-breadcrumb separator="\">
 							<el-breadcrumb-item>{{ props?.pet?.petGenderText ?? '-' }}</el-breadcrumb-item>
 							<el-breadcrumb-item>
-								<el-text style="width: 80px" truncated :title="props?.pet?.petVarietieText">{{ props?.pet?.petVarietieText ?? '-' }}</el-text>
+								<el-text truncated :title="props?.pet?.petVarietieText">{{ props?.pet?.petVarietieText ?? '-' }}</el-text>
 							</el-breadcrumb-item>
 							<el-breadcrumb-item>{{ props?.pet?.petColorText ?? '-' }}</el-breadcrumb-item>
 							<el-breadcrumb-item>{{ scale2Format(props?.pet?.petWeight) }}Kg</el-breadcrumb-item>

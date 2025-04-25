@@ -104,10 +104,10 @@ export interface XrayInspectDto {
     /**
      * 检查时间
      *
-     * @type {Date}
+     * @type {string}
      * @memberof XrayInspectDto
      */
-    checkTime?: Date | null;
+    checkTime?: string | null;
 
     /**
      * 报告医生Id(sys_user.id)
@@ -128,10 +128,10 @@ export interface XrayInspectDto {
     /**
      * 报告时间
      *
-     * @type {Date}
+     * @type {string}
      * @memberof XrayInspectDto
      */
-    reportTime?: Date | null;
+    reportTime?: string | null;
 
     /**
      * 诊疗摄影检查检查图像

@@ -131,7 +131,7 @@
 									<el-option v-for="item in doctorUserData" :key="item.id" :label="item.realName" :value="item.id" />
 								</el-select>
 								<span style="padding: 10px"> | </span>
-								<el-date-picker v-model="saveXrayInspectForm.checkTime" format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" type="datetime" placeholder="请选择检查时间" />
+								<el-date-picker v-model="saveXrayInspectForm.checkTime" format="YYYY-MM-DD" value-format="YYYY-MM-DD" type="date" placeholder="请选择检查时间" />
 							</div>
 						</el-form-item>
 						<el-form-item label="报告医生：">
@@ -140,7 +140,7 @@
 									<el-option v-for="item in doctorUserData" :key="item.id" :label="item.realName" :value="item.id" />
 								</el-select>
 								<span style="padding: 10px"> | </span>
-								<el-date-picker v-model="saveXrayInspectForm.reportTime" format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" type="datetime" placeholder="请选择报告时间" />
+								<el-date-picker v-model="saveXrayInspectForm.reportTime" format="YYYY-MM-DD" value-format="YYYY-MM-DD" type="date" placeholder="请选择报告时间" />
 							</div>
 						</el-form-item>
 						<el-form-item label="助理：">
@@ -177,6 +177,7 @@ import { UploadFilled } from '@element-plus/icons-vue';
 // 描述列表样式开始
 import { Tickets, User } from '@element-plus/icons-vue';
 import type { ComponentSize } from 'element-plus';
+import { formatDate } from '/@/utils/formatTime';
 
 //父级传递来的函数，用于回调
 const emit = defineEmits(['reloadTable']);
@@ -225,7 +226,6 @@ const openDialog = async (row: any) => {
 	previewImage.imgs = [];
 	getUserList();
 	isShowDrawer.value = true;
-
 	await getXrayInspectResult(row.id);
 };
 
@@ -244,7 +244,7 @@ const iconStyle = computed(() => {
 		large: '8px',
 		default: '6px',
 		small: '4px',
-	};
+	} as any;
 	return {
 		marginRight: marginMap[size.value] || marginMap.default,
 	};
@@ -283,11 +283,11 @@ const getXrayInspectResult = async (cEMRecordTestItemId: number) => {
 
 		saveXrayInspectForm.checkDoctorId = result.checkDoctorId;
 		saveXrayInspectForm.checkDoctorName = result.checkDoctorName;
-		saveXrayInspectForm.checkTime = result.checkTime;
+		saveXrayInspectForm.checkTime = formatDate(new Date(result.checkTime as any), 'YYYY-mm-dd');
 
 		saveXrayInspectForm.reportDoctorId = result.reportDoctorId;
 		saveXrayInspectForm.reportDoctorName = result.reportDoctorName;
-		saveXrayInspectForm.reportTime = result.reportTime;
+		saveXrayInspectForm.reportTime = formatDate(new Date(result.reportTime as any), 'YYYY-mm-dd');
 
 		saveXrayInspectForm.xrayInspectImgList = result.xrayInspectImgList as Array<SaveXrayInspectImgInput>;
 		result.xrayInspectImgList?.forEach((element) => {
@@ -298,14 +298,14 @@ const getXrayInspectResult = async (cEMRecordTestItemId: number) => {
 		saveXrayInspectForm.xrayTips = null;
 		saveXrayInspectForm.xrayPropose = null;
 
-		saveXrayInspectForm.checkDoctorId = null;
-		saveXrayInspectForm.checkDoctorName = null;
-		saveXrayInspectForm.checkTime = null;
+		saveXrayInspectForm.checkDoctorId = doctorUserData.value[0].id;
+		saveXrayInspectForm.checkDoctorName = doctorUserObject.value[doctorUserData.value[0].id];
+		saveXrayInspectForm.checkTime = formatDate(new Date(), 'YYYY-mm-dd');
+		saveXrayInspectForm.reportDoctorId = doctorUserData.value[0].id;
+		saveXrayInspectForm.reportDoctorName = doctorUserObject.value[doctorUserData.value[0].id];
+		saveXrayInspectForm.reportTime = formatDate(new Date(), 'YYYY-mm-dd');
 
-		saveXrayInspectForm.reportDoctorId = null;
-		saveXrayInspectForm.reportDoctorName = null;
-		saveXrayInspectForm.reportTime = null;
-
+		console.log('进的空值', saveXrayInspectForm);
 		saveXrayInspectForm.xrayInspectImgList = [];
 		previewImage.imgs = [];
 	}

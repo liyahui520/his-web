@@ -13,9 +13,6 @@
  */
 
 import { SqlSugarPagedListInStockItemsPageOutput } from './sql-sugar-paged-list-in-stock-items-page-output';
-import {
-    SqlSugarPagedListInStockItemsPageOutput,
-} from ".";
 
 /**
  * 全局返回结果

@@ -38,7 +38,7 @@
 							</el-col>
 							<el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20" class="mb20">
 								<el-form-item label="Logo" prop="logo">
-									<el-upload list-type="picture-card" :disabled="!isEdit" :limit="1" :show-file-list="false" :http-request="uploadPetImageUrlHandle">
+									<el-upload list-type="picture-card" :disabled="!isEdit" :show-file-list="false"  :autoUpload="false" :onChange="uploadPetImageUrlHandle">
 										<img v-if="ruleForm.logo" :src="ruleForm.logo" style="width: 100%; height: 100%; object-fit: contain" />
 										<el-icon v-else>
 											<Plus />
@@ -180,8 +180,8 @@ const rules = ref<FormRules>({
 	address: [{ validator: validateAddress, trigger: 'change' }],
 });
 
-const uploadPetImageUrlHandle = async (options: UploadRequestOptions) => {
-	const res = await getAPI(SysFileApi).apiSysFileUploadFilePostForm(options.file);
+const uploadPetImageUrlHandle = async (file: any) => {
+	const res = await getAPI(SysFileApi).apiSysFileUploadFilePostForm(file.raw);
 	ruleForm.value.logo = res.data.result?.url;
 	ruleForm.value.logoId = res.data.result?.id;
 };

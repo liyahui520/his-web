@@ -129,29 +129,29 @@
 					</el-form-item>
 					<el-form-item label="检查医生：">
 						<div>
-							<el-select v-model="saveMicroInspectForm.checkDoctorId" placeholder="请选择检查医生" style="width: 200px" >
+							<el-select v-model="saveMicroInspectForm.checkDoctorId" placeholder="请选择检查医生" style="width: 200px">
 								<el-option v-for="item in doctorUserData" :key="item.id" :label="item.realName" :value="item.id" />
 							</el-select>
 							<span style="padding: 10px"> | </span>
-							<el-date-picker v-model="saveMicroInspectForm.checkTime" format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" type="datetime" placeholder="请选择检查时间" />
+							<el-date-picker v-model="saveMicroInspectForm.checkTime" format="YYYY-MM-DD" value-format="YYYY-MM-DD" type="date" placeholder="请选择检查时间" />
 						</div>
 					</el-form-item>
 					<el-form-item label="报告医生：">
 						<div>
-							<el-select v-model="saveMicroInspectForm.reportDoctorId" placeholder="请选择报告医生" style="width: 200px" >
+							<el-select v-model="saveMicroInspectForm.reportDoctorId" placeholder="请选择报告医生" style="width: 200px">
 								<el-option v-for="item in doctorUserData" :key="item.id" :label="item.realName" :value="item.id" />
 							</el-select>
 							<span style="padding: 10px"> | </span>
-							<el-date-picker v-model="saveMicroInspectForm.reportTime" format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" type="datetime" placeholder="请选择报告时间" />
+							<el-date-picker v-model="saveMicroInspectForm.reportTime" format="YYYY-MM-DD" value-format="YYYY-MM-DD" type="date" placeholder="请选择报告时间" />
 						</div>
 					</el-form-item>
-						<el-form-item label="助理：">
-							<div>
-								<el-select v-model="saveMicroInspectForm.assistantId" placeholder="请选择助理" style="width: 200px;">
-									<el-option v-for="item in doctorUserData" :key="item.id" :label="item.realName" :value="item.id" />
-								</el-select>
-							</div>
-						</el-form-item>
+					<el-form-item label="助理：">
+						<div>
+							<el-select v-model="saveMicroInspectForm.assistantId" placeholder="请选择助理" style="width: 200px">
+								<el-option v-for="item in doctorUserData" :key="item.id" :label="item.realName" :value="item.id" />
+							</el-select>
+						</div>
+					</el-form-item>
 				</el-form>
 			</div>
 		</div>
@@ -178,6 +178,7 @@ import { UploadFilled } from '@element-plus/icons-vue';
 // 描述列表样式开始
 import { Tickets, User } from '@element-plus/icons-vue';
 import type { ComponentSize } from 'element-plus';
+import { formatDate } from '/@/utils/formatTime';
 
 //父级传递来的函数，用于回调
 const emit = defineEmits(['reloadTable']);
@@ -246,7 +247,7 @@ const iconStyle = computed(() => {
 		large: '8px',
 		default: '6px',
 		small: '4px',
-	};
+	} as any;
 	return {
 		marginRight: marginMap[size.value] || marginMap.default,
 	};
@@ -266,8 +267,8 @@ const saveMicroInspectForm = reactive({
 	reportDoctorId: null,
 	reportDoctorName: null,
 	reportTime: null,
-	assistantId:null,
-	assistantName:null,
+	assistantId: null,
+	assistantName: null,
 	microInspectImgList: [] as Array<SaveMicroImgInspectInput>,
 } as SaveMicroInspectInput);
 
@@ -287,12 +288,11 @@ const getmicroInspectResult = async (cEMRecordTestItemId: number) => {
 
 		saveMicroInspectForm.checkDoctorId = result.checkDoctorId;
 		saveMicroInspectForm.checkDoctorName = result.checkDoctorName;
-		saveMicroInspectForm.checkTime = result.checkTime;
+		saveMicroInspectForm.checkTime = formatDate(new Date(result.checkTime as any), 'YYYY-mm-dd');
 
 		saveMicroInspectForm.reportDoctorId = result.reportDoctorId;
 		saveMicroInspectForm.reportDoctorName = result.reportDoctorName;
-		saveMicroInspectForm.reportTime = result.reportTime;
-
+		saveMicroInspectForm.reportTime = formatDate(new Date(result.reportTime as any), 'YYYY-mm-dd');
 		saveMicroInspectForm.microInspectImgList = result.microInspectImgList as Array<SaveMicroImgInspectInput>;
 
 		result.microInspectImgList?.forEach((element) => {
@@ -304,13 +304,13 @@ const getmicroInspectResult = async (cEMRecordTestItemId: number) => {
 		saveMicroInspectForm.microPropose = null;
 		saveMicroInspectForm.microInspectPart = null;
 
-		saveMicroInspectForm.checkDoctorId = null;
-		saveMicroInspectForm.checkDoctorName = null;
-		saveMicroInspectForm.checkTime = null;
+		saveMicroInspectForm.checkDoctorId = doctorUserData.value[0].id;
+		saveMicroInspectForm.checkDoctorName = doctorUserObject.value[doctorUserData.value[0].id];
+		saveMicroInspectForm.checkTime = formatDate(new Date(), 'YYYY-mm-dd');
 
-		saveMicroInspectForm.reportDoctorId = null;
-		saveMicroInspectForm.reportDoctorName = null;
-		saveMicroInspectForm.reportTime = null;
+		saveMicroInspectForm.reportDoctorId = doctorUserData.value[0].id;
+		saveMicroInspectForm.reportDoctorName = doctorUserObject.value[doctorUserData.value[0].id];
+		saveMicroInspectForm.reportTime = formatDate(new Date(), 'YYYY-mm-dd');
 
 		saveMicroInspectForm.microInspectImgList = [];
 		previewImage.imgs = [];
@@ -327,7 +327,9 @@ const save = async () => {
 	saveMicroInspectForm.checkDoctorName = doctorUserObject.value[saveMicroInspectForm.checkDoctorId ?? 0];
 	saveMicroInspectForm.reportDoctorName = doctorUserObject.value[saveMicroInspectForm.reportDoctorId ?? 0];
 	saveMicroInspectForm.assistantName = doctorUserObject.value[saveMicroInspectForm.assistantId ?? 0];
-	await getAPI(MicroInspectApi).apiMicroInspectSavePost(saveMicroInspectForm).then((res) => {
+	await getAPI(MicroInspectApi)
+		.apiMicroInspectSavePost(saveMicroInspectForm)
+		.then((res) => {
 			saveLoading.value = false;
 			ElMessage({
 				message: '报告保存成功',

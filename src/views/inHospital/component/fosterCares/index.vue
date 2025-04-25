@@ -37,9 +37,10 @@
 			</el-form>
 		</el-card>
 		<el-card class="data-class" shadow="never" v-loading="cardLoading">
-			<span :style="'float: left;margin-right: 16px;margin-bottom: 16px;'" :key="item.id" v-for="item in inHospitalData">
+			<span v-if="inHospitalData.length > 0" :style="'float: left;margin-right: 16px;margin-bottom: 16px;'" :key="item.id" v-for="item in inHospitalData">
 				<jYCard :item="item" @openNurses="openNurses" @openRooms="openRooms" @openDays="openDays" @outHospital="outHospital" />
 			</span>
+			<el-empty v-else  description="暂无留观信息"> </el-empty>
 		</el-card>
 		<nurses ref="nursesRef" @reloadData="handleQuery"></nurses>
 		<rooms ref="roomsRef"></rooms>

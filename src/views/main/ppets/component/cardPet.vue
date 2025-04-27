@@ -78,8 +78,6 @@ import commonFunction from '/@/utils/commonFunction';
 import EditPet from './editDialog.vue';
 import { ref } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
-import { SysPetConfigApi } from '/@/api-services';
-
 const { dateEntityFormatYMD, scale2Format } = commonFunction();
 
 const emit = defineEmits(['petsReload']);
@@ -93,23 +91,6 @@ const petReloadTable = async () => {
 	emit('petsReload');
 };
 
-/**
- * 获取宠物种类
- */
-const getSysPetKind = async () => {
-	const res = await getAPI(SysPetConfigApi).apiSysPetKindGet();
-	return res.data.result ?? [];
-};
-
-/**
- * 种类值变更事件
- * @param kindId
- * @constructor
- */
-const KindChange = async (kindId) => {
-	if (!kindId) return;
-	const res = await getAPI(SysPetConfigApi).apiSysPetVarietieGetByKindId(kindId);
-};
 
 /**
  * 修改宠物

@@ -306,9 +306,10 @@ import type { FormRules } from 'element-plus';
 import { Plus } from '@element-plus/icons-vue';
 import { getAPI } from '/@/utils/axios-utils';
 import p from 'js-pinyin';
-import { ProductDrugsApi, SysPetConfigApi } from '/@/api-services/api';
+import { ProductDrugsApi } from '/@/api-services/api';
 import { useUserInfo } from '/@/stores/userInfo';
 import other from '/@/utils/other';
+import { getKinds} from '/@/utils/dict-utils';
 
 const stores = useUserInfo();
 //父级传递来的参数
@@ -354,8 +355,7 @@ const getEditpetKindData = ref<any>([]);
  * 获取宠物种类
  */
 const getSysPetKind = async () => {
-	const res = await getAPI(SysPetConfigApi).apiSysPetKindGet();
-	getEditpetKindData.value = res.data.result ?? [];
+	getEditpetKindData.value = getKinds() ?? [];
 };
 
 //转换拼音

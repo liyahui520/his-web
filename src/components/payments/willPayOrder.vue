@@ -48,10 +48,13 @@
 <script lang="ts" setup name="list">
 import { defineAsyncComponent, onMounted, reactive, ref, nextTick } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
-import { SysPetConfigApi, PaymentCartsApi } from '/@/api-services';
+import { PaymentCartsApi } from '/@/api-services';
 import { useUserInfo } from '/@/stores/userInfo';
 import { storeToRefs } from 'pinia';
 import commonFunction from '/@/utils/commonFunction';
+import { getKinds} from '/@/utils/dict-utils';
+
+
 const { twoFloorNum } = commonFunction();
 
 // 引入组件
@@ -235,8 +238,8 @@ const getData = async (par: any) => {
 };
 
 const loadPetKind = async () => {
-	let result = await getAPI(SysPetConfigApi).apiSysPetKindGet();
-	let kindData = result.data.result ?? ([] as any);
+	let result = getKinds();
+	let kindData =result ?? ([] as any);
 	kindData.forEach((item: any) => {
 		petKindObject.value[item.id] = item.name;
 	});

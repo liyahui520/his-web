@@ -8,7 +8,7 @@
 					<!-- <span class="login-left-logo-text-msg">{{ getThemeConfig.globalViceTitleMsg }}</span> -->
 				</div>
 			</div>
-			<el-carousel height="500px" class="login-carousel">
+			<!-- <el-carousel height="500px" class="login-carousel">
 				<el-carousel-item>
 					<img :src="loginIconTwo" class="login-icon-group-icon" />
 				</el-carousel-item>
@@ -18,7 +18,7 @@
 				<el-carousel-item>
 					<img :src="loginIconTwo2" class="login-icon-group-icon" />
 				</el-carousel-item>
-			</el-carousel>
+			</el-carousel> -->
 		</div>
 		<div class="login-right flex">
 			<div class="login-right-warp flex-margin">

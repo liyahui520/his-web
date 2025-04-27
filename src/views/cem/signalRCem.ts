@@ -2,7 +2,7 @@ import * as SignalR from '@microsoft/signalr';
 import { ElNotification } from 'element-plus';
 import { getToken,getTempToken } from '/@/utils/axios-utils';
 let connection = new SignalR.HubConnectionBuilder()
-.configureLogging(SignalR.LogLevel.Information)
+.configureLogging(SignalR.LogLevel.Error)
 .withUrl(`${window.__env__.VITE_API_URL}/hubs/cem?regId=1&recordId=1&token=${getToken()}`, { transport: SignalR.HttpTransportType.WebSockets, skipNegotiation: true })
 .withAutomaticReconnect({
     nextRetryDelayInMilliseconds: () => {
@@ -14,7 +14,7 @@ const cemStart = (regId,recordId)=>{
 // 初始化SignalR对象
 connection.stop();
 connection = new SignalR.HubConnectionBuilder()
-.configureLogging(SignalR.LogLevel.Information)
+.configureLogging(SignalR.LogLevel.Error)
 .withUrl(`${window.__env__.VITE_API_URL}/hubs/cem?regId=${regId}&recordId=${recordId}&token=${getToken()}`, { transport: SignalR.HttpTransportType.WebSockets, skipNegotiation: true })
 .withAutomaticReconnect({
     nextRetryDelayInMilliseconds: () => {

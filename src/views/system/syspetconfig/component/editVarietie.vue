@@ -40,14 +40,14 @@
 import { reactive, ref } from 'vue';
 import p from 'js-pinyin';
 import { getAPI } from '/@/utils/axios-utils';
-import { SysPetConfigApi } from '/@/api-services/api';
+import { SysPcuPetConfigApi } from '/@/api-services/api';
 import { EditSysPetVarietieInput } from '/@/api-services/models/pets/varietie/edit-pet-varietie-input';
 import other from '/@/utils/other';
 
 const emits = defineEmits(['submitRefreshDictData']);
 const props = defineProps({
 	title: String,
-	kindId: Number,
+	kindId: String,
 });
 
 const ruleFormRef = ref();
@@ -84,9 +84,9 @@ const submit = () => {
 	ruleFormRef.value.validate(async (valid: boolean) => {
 		if (!valid) return;
 		if (state.ruleForm.id != undefined && state.ruleForm.id > 0) {
-			await getAPI(SysPetConfigApi).apiSysPetUpdateVarietie(state.ruleForm.id, state.ruleForm);
+			await getAPI(SysPcuPetConfigApi).apiSysPcuPetConfigIdEditVarietiePut(state.ruleForm.id, state.ruleForm);
 		} else {
-			await getAPI(SysPetConfigApi).apiSysPetAddVarietie(state.ruleForm);
+			await getAPI(SysPcuPetConfigApi).apiSysPcuPetConfigAddVarietiePost(state.ruleForm);
 		}
 		closeDialog();
 	});

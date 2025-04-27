@@ -46,3 +46,13 @@ export function getDictDataList(dicName: string): any {
 export function getDictDataListInt(dicName: string): any {
 	return stores.getDictIntDatasByCode(dicName);
 }
+
+//获取种类
+export function getKinds():any{
+	return stores.getAllKinds();
+}
+
+//根据种类获取品种
+export function getVarietiesByKindId(kindId:string):any{
+	return stores.getVarietiesByKindId(kindId);
+}

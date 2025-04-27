@@ -166,10 +166,10 @@ import type { FormRules } from 'element-plus';
 import { Plus, Watch } from '@element-plus/icons-vue';
 import { UploadRequestOptions } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
-import { SysPetConfigApi, PPetsApi, SysFileApi,SysDictDataApi } from '/@/api-services/api';
+import { PPetsApi, SysFileApi,SysDictDataApi } from '/@/api-services/api';
 import {  AddPPetsInput, PPets, UpdatePPetsInput } from '/@/api-services/models/pcu-manage';
 import other from '/@/utils/other';
-import { getDictDataList} from '/@/utils/dict-utils';
+import { getDictDataList,getKinds,getVarietiesByKindId} from '/@/utils/dict-utils';
  
 const getEditpetKindData = ref<any>([]);
 const getEditpetVarietieData = ref<any>([]); 
@@ -244,8 +244,8 @@ const uploadPetImageUrlHandle = async (options: UploadRequestOptions) => {
  * 获取宠物种类
  */
 const getSysPetKind = async () => {
-	const res = await getAPI(SysPetConfigApi).apiSysPetKindGet();
-	return res.data.result ?? [];
+	const res = getKinds();
+	return res??[];//.data.result ?? [];
 };
 
 /**
@@ -256,8 +256,8 @@ const getSysPetKind = async () => {
 const KindChange = async (kindId: any) => {
 	if (!kindId) return;
 	ruleForm.value.petVarietie = null;
-	const res = await getAPI(SysPetConfigApi).apiSysPetVarietieGetByKindId(kindId);
-	getEditpetVarietieData.value = res.data.result ?? [];
+	const res = getVarietiesByKindId(kindId);
+	getEditpetVarietieData.value = res??[];//.data.result ?? [];
 };
 
 // 页面加载时

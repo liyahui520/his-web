@@ -23,7 +23,9 @@ declare interface UserInfosState {
 	productBrands:T[];
 	productTypes:T[];
 	sysRegions:T[];
-	sysOrgInfo:T
+	sysOrgInfo:T,
+	petKinds:T[],
+	petVarieties:T[]
 }
 
 // 路由缓存列表

@@ -26,9 +26,9 @@
                 <el-table-column prop="createTime" label="修改时间" align="center" show-overflow-tooltip />
                 <el-table-column label="操作" width="210" fixed="right" align="center" show-overflow-tooltip>
                     <template #default="scope">
-                        <el-button icon="ele-Edit" size="small" text type="primary" @click="openEditDictType(scope.row)" v-auth="'sysPcuPetConfig:edit-kind'" v-if="!scope.row.isAdmin"> 编辑 </el-button>
-                        <el-button icon="ele-Memo" size="small" text type="primary" @click="openDictDataDialog(scope.row)" > 品种列表 </el-button>
-                        <el-button icon="ele-Delete" size="small" text type="danger" @click="delDictType(scope.row)" v-auth="'sysPcuPetConfig:delete-kind'" v-if="!scope.row.isAdmin"> 删除 </el-button>
+                        <el-button icon="ele-Edit" size="small"  link type="primary" @click="openEditDictType(scope.row)" v-auth="'sysPcuPetConfig:edit-kind'" v-if="!scope.row.isAdmin"> 编辑 </el-button>
+                        <el-button icon="ele-Memo" size="small"  link type="primary" @click="openDictDataDialog(scope.row)" > 品种列表 </el-button>
+                        <el-button icon="ele-Delete" size="small"  link type="danger" @click="delDictType(scope.row)" v-auth="'sysPcuPetConfig:delete-kind'" v-if="!scope.row.isAdmin"> 删除 </el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -56,7 +56,7 @@
     import EditKind from './component/editKind.vue'
     import VarietieDialog from './component/varietieDialog.vue'
     import { getAPI } from '/@/utils/axios-utils';
-    import { SysPetConfigApi } from '/@/api-services/api';
+    import { SysPcuPetConfigApi } from '/@/api-services/api';
     import {PagePetKindInput} from "/@/api-services/models/pets/kind/page-pet-kind-input";
     import {PetKindOutPut} from "/@/api-services/models/pets/kind/pet-kind-output";
     
@@ -97,7 +97,7 @@
     const handleQuery = async () => {
         state.loading = true;
         let params = Object.assign(state.queryParams, state.tableParams);
-        var res = await getAPI(SysPetConfigApi).apiSysPetPageKind(params);
+        var res = await getAPI(SysPcuPetConfigApi).apiSysPcuPetConfigPageKindPost(params);
         state.petKindData = res.data.result?.items ?? [];
         state.tableParams.total = res.data.result?.total;
         state.loading = false;
@@ -135,7 +135,7 @@
             type: 'warning',
         })
             .then(async () => {
-                await getAPI(SysPetConfigApi).apiSysPetDeleteKind(row.id);
+                await getAPI(SysPcuPetConfigApi).apiSysPcuPetConfigIdDeleteKindDelete(row.id);
                await handleQuery();
                 ElMessage.success('删除成功');
             })

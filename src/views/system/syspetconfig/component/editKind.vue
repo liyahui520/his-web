@@ -40,7 +40,7 @@
 import { reactive, ref } from 'vue';
 import p from 'js-pinyin';
 import { getAPI } from '/@/utils/axios-utils';
-import { SysPetConfigApi } from '/@/api-services/api';
+import { SysPcuPetConfigApi } from '/@/api-services/api';
 import { EditSysPetKindInput } from '/@/api-services/models/pets/kind/edit-pet-kind-input';
 import other from '/@/utils/other';
 
@@ -80,9 +80,9 @@ const submit = () => {
 	ruleFormRef.value.validate(async (valid: boolean) => {
 		if (!valid) return;
 		if (state.ruleForm.id != undefined && state.ruleForm.id > 0) {
-			await getAPI(SysPetConfigApi).apiSysPetUpdateKind(state.ruleForm.id, state.ruleForm);
+			await getAPI(SysPcuPetConfigApi).apiSysPcuPetConfigIdEditKindPut(state.ruleForm.id, state.ruleForm);
 		} else {
-			await getAPI(SysPetConfigApi).apiSysPetAddKind(state.ruleForm);
+			await getAPI(SysPcuPetConfigApi).apiSysPcuPetConfigAddKindPost(state.ruleForm);
 		}
 		closeDialog();
 	});

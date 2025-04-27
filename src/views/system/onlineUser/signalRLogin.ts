@@ -4,7 +4,7 @@ import { getTempToken } from '/@/utils/axios-utils';
 
 // 初始化SignalR对象
 const connection = new SignalR.HubConnectionBuilder()
-	.configureLogging(SignalR.LogLevel.Information)
+	.configureLogging(SignalR.LogLevel.Error)
 	.withUrl(`${window.__env__.VITE_API_URL}/hubs/onlineUser?access_temp_token=${getTempToken()}`, { transport: SignalR.HttpTransportType.WebSockets, skipNegotiation: true })
 	.withAutomaticReconnect({
 		nextRetryDelayInMilliseconds: () => {

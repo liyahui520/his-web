@@ -17,5 +17,5 @@ export interface PagePetVarietieInput extends BasePageInput<[]> {
     /**
      * 种类id
      */
-    kindId:number;
+    kindId:string | "0";
 }

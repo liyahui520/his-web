@@ -12,19 +12,20 @@
  * Do not edit the class manually.
  */
 
+import { SysPetVarietie } from './sys-pet-varietie';
  /**
  * 全局返回结果
  *
  * @export
- * @interface AdminResultObject
+ * @interface AdminResultListSysPetVarietie
  */
-export interface AdminResultObject {
+export interface AdminResultListSysPetVarietie {
 
     /**
      * 状态码
      *
      * @type {number}
-     * @memberof AdminResultObject
+     * @memberof AdminResultListSysPetVarietie
      */
     code?: number;
 
@@ -32,7 +33,7 @@ export interface AdminResultObject {
      * 类型success、warning、error
      *
      * @type {string}
-     * @memberof AdminResultObject
+     * @memberof AdminResultListSysPetVarietie
      */
     type?: string | null;
 
@@ -40,23 +41,23 @@ export interface AdminResultObject {
      * 错误信息
      *
      * @type {string}
-     * @memberof AdminResultObject
+     * @memberof AdminResultListSysPetVarietie
      */
     message?: string | null;
 
     /**
      * 数据
      *
-     * @type {any}
-     * @memberof AdminResultObject
+     * @type {Array<SysPetVarietie>}
+     * @memberof AdminResultListSysPetVarietie
      */
-    result?: any | null;
+    result?: Array<SysPetVarietie> | null;
 
     /**
      * 附加数据
      *
      * @type {any}
-     * @memberof AdminResultObject
+     * @memberof AdminResultListSysPetVarietie
      */
     extras?: any | null;
 
@@ -64,7 +65,7 @@ export interface AdminResultObject {
      * 时间
      *
      * @type {Date}
-     * @memberof AdminResultObject
+     * @memberof AdminResultListSysPetVarietie
      */
     time?: Date;
 }

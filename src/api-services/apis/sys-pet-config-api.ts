@@ -5,33 +5,31 @@ import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-// @ts-ignore
-import { AddSysPetKindInput } from '../models/pets/kind/add-pet-kind-input';
-import {PagePetKindInput} from '../models/pets/kind/page-pet-kind-input';
-import {PetKindOutPut} from "/@/api-services/models/pets/kind/pet-kind-output";
-import {BaseOuput} from "/@/api-services/models/base/base-ouput";
-import {EditSysPetKindInput} from "/@/api-services/models/pets/kind/edit-pet-kind-input";
-import {PagePetKindOutPut} from "/@/api-services/models/pets/kind/page-pet-kind-output";
-import {AddSysPetVarietieInput} from "/@/api-services/models/pets/varietie/add-pet-varietie-input";
-import {PagePetVarietieInput} from "/@/api-services/models/pets/varietie/page-pet-varietieinput";
-import {EditSysPetVarietieInput} from "/@/api-services/models/pets/varietie/edit-pet-varietie-input";
-import {PetVarietieOutPut} from "/@/api-services/models/pets/varietie/pet-varietie-output";
-import {PagePetVarietieOutPut} from "/@/api-services/models/pets/varietie/page-pet-varietie-output";
-import { Local, Session } from '../../utils/storage';
+import { AddSysPetKindInput } from '../models';
+import { AddSysPetVarietieInput } from '../models';
+import { AdminResultListSysPetKind } from '../models';
+import { AdminResultListSysPetVarietie } from '../models';
+import { AdminResultObject } from '../models';
+import { AdminResultSqlSugarPagedListSysPetKind } from '../models';
+import { AdminResultSqlSugarPagedListSysPetVarietie } from '../models';
+import { PageSysPetKindInput } from '../models';
+import { PageSysPetVarietieInput } from '../models';
+import { UpdateSysPetKindInput } from '../models';
+import { UpdateSysPetVarietieInput } from '../models';
 /**
  * SysPetConfigApi - axios parameter creator
  * @export
  */
-export const SysPetConfigApiAxiosParamCreator = function (configuration?: Configuration) {
+export const SysPcuPetConfigApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         *
-         * @summary 增加种类
-         * @param {AddOrgInput} [body]
+         * 
+         * @summary 新增宠物种类
+         * @param {AddSysPetKindInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysPetAddKind: async (body?: AddSysPetKindInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysPcuPetConfigAddKindPost: async (body?: AddSysPetKindInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sysPcuPetConfig/add-kind`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -44,6 +42,13 @@ export const SysPetConfigApiAxiosParamCreator = function (configuration?: Config
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
 
@@ -57,7 +62,6 @@ export const SysPetConfigApiAxiosParamCreator = function (configuration?: Config
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            // @ts-ignore
             const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
@@ -67,185 +71,13 @@ export const SysPetConfigApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         *
-         * @summary 删除种类
-         * @param {number} [kindId]
+         * 
+         * @summary 新增宠物品种
+         * @param {AddSysPetVarietieInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysPetDeleteKind: async (kindId?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            if (kindId === null || kindId === undefined) {
-                throw new RequiredError('kindId','参数kindId不可为空');
-            }
-            const localVarPath = `/api/sysPcuPetConfig/`+kindId+`/delete-kind`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            // const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            // localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
-
-        /**
-         *
-         * @summary 获取种类分页列表
-         * @param {PagePetKindInput} [body]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiSysPetPageKind: async (body?: PagePetKindInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysPcuPetConfig/page-kind`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            // @ts-ignore
-            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
-
-        /**
-         *
-         * @summary 获取种类列表
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiSysPetKindGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysPcuPetConfig/get-kind`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
-
-        /**
-         *
-         * @summary 更新种类
-         * @param {AddOrgInput} [body]
-         * @param id 种类id
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiSysPetUpdateKind: async (id:number, body?: EditSysPetKindInput,options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            if (id === null || id === undefined) {
-                throw new RequiredError('id','参数kindId不可为空');
-            }
-            const localVarPath = `/api/sysPcuPetConfig/`+id+`/edit-kind`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            // @ts-ignore
-            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
-
-        /**
-         *
-         * @summary 增加品种
-         * @param {AddOrgInput} [body]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiSysPetAddVarietie: async (body?: AddSysPetVarietieInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysPcuPetConfigAddVarietiePost: async (body?: AddSysPetVarietieInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sysPcuPetConfig/add-varietie`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -258,6 +90,13 @@ export const SysPetConfigApiAxiosParamCreator = function (configuration?: Config
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
 
@@ -271,7 +110,6 @@ export const SysPetConfigApiAxiosParamCreator = function (configuration?: Config
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            // @ts-ignore
             const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
@@ -281,30 +119,31 @@ export const SysPetConfigApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         *
-         * @summary 删除品种
-         * @param {number} [id]
+         * 
+         * @summary 获取宠物种类列表【下拉框】
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysPetDeleteVarietie: async (id?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            if (id === null || id === undefined) {
-                throw new RequiredError('id','参数id不可为空');
-            }
-            const localVarPath = `/api/sysPcuPetConfig/`+id+`/delete-varietie`;
+        apiSysPcuPetConfigGetAllKindGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysPcuPetConfig/get-all-kind`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
-
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -316,37 +155,38 @@ export const SysPetConfigApiAxiosParamCreator = function (configuration?: Config
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            // const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            // localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
                 options: localVarRequestOptions,
             };
         },
-
         /**
-         *
-         * @summary 获取品种分页列表
-         * @param {PagePetKindInput} [body]
+         * 
+         * @summary 获取宠物品种列表【下拉框】
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysPetPageVarietie: async (body?: PagePetVarietieInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysPcuPetConfig/page-varietie`;
+        apiSysPcuPetConfigGetAllVarietieGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysPcuPetConfig/get-all-varietie`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
             if (configuration) {
                 baseOptions = configuration.baseOptions;
             }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
-
-            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -358,23 +198,62 @@ export const SysPetConfigApiAxiosParamCreator = function (configuration?: Config
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            // @ts-ignore
-            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
-            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
             return {
                 url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
                 options: localVarRequestOptions,
             };
         },
-
         /**
-         *
-         * @summary 获取品种列表
+         * 
+         * @summary 获取宠物种类列表
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysPetVarietieGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysPcuPetConfigGetKindGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysPcuPetConfig/get-kind`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 分页品种列表
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysPcuPetConfigGetVarietieGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sysPcuPetConfig/get-varietie`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -387,6 +266,13 @@ export const SysPetConfigApiAxiosParamCreator = function (configuration?: Config
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -404,20 +290,119 @@ export const SysPetConfigApiAxiosParamCreator = function (configuration?: Config
                 options: localVarRequestOptions,
             };
         },
-
         /**
-         *
-         * @summary 更新品种
-         * @param {AddOrgInput} [body]
-         * @param id 品种id
+         * 
+         * @summary 删除种类
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysPetUpdateVarietie: async (id:number, body?: EditSysPetVarietieInput,options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysPcuPetConfigIdDeleteKindDelete: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
             if (id === null || id === undefined) {
-                throw new RequiredError('id','参数kindId不可为空');
+                throw new RequiredError('id','Required parameter id was null or undefined when calling apiSysPcuPetConfigIdDeleteKindDelete.');
             }
-            const localVarPath = `/api/sysPcuPetConfig/`+id+`/edit-varietie`;
+            const localVarPath = `/api/sysPcuPetConfig/{id}/delete-kind`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 删除品种
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysPcuPetConfigIdDeleteVarietieDelete: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling apiSysPcuPetConfigIdDeleteVarietieDelete.');
+            }
+            const localVarPath = `/api/sysPcuPetConfig/{id}/delete-varietie`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 更新宠物种类
+         * @param {number} id 种类id
+         * @param {UpdateSysPetKindInput} [body] 更新实体
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysPcuPetConfigIdEditKindPut: async (id: number, body?: UpdateSysPetKindInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling apiSysPcuPetConfigIdEditKindPut.');
+            }
+            const localVarPath = `/api/sysPcuPetConfig/{id}/edit-kind`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -429,6 +414,13 @@ export const SysPetConfigApiAxiosParamCreator = function (configuration?: Config
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
 
@@ -442,7 +434,6 @@ export const SysPetConfigApiAxiosParamCreator = function (configuration?: Config
             localVarUrlObj.search = (new URLSearchParams(query)).toString();
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            // @ts-ignore
             const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
 
@@ -451,17 +442,74 @@ export const SysPetConfigApiAxiosParamCreator = function (configuration?: Config
                 options: localVarRequestOptions,
             };
         },
-
-
         /**
-         *
-         * @summary 跟进种类id获取品种列表
-         * @param {number} kindId
+         * 
+         * @summary 更新宠物品种
+         * @param {number} id 品种id
+         * @param {UpdateSysPetVarietieInput} [body] 更新实体
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysPetVarietieGetByKindId: async (kindId:number,options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysPcuPetConfig/`+kindId+`/get-varietie`;
+        apiSysPcuPetConfigIdEditVarietiePut: async (id: number, body?: UpdateSysPetVarietieInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            if (id === null || id === undefined) {
+                throw new RequiredError('id','Required parameter id was null or undefined when calling apiSysPcuPetConfigIdEditVarietiePut.');
+            }
+            const localVarPath = `/api/sysPcuPetConfig/{id}/edit-varietie`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 跟进种类id  获取宠物品种信息
+         * @param {number} kindId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysPcuPetConfigKindIdGetVarietieGet: async (kindId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'kindId' is not null or undefined
+            if (kindId === null || kindId === undefined) {
+                throw new RequiredError('kindId','Required parameter kindId was null or undefined when calling apiSysPcuPetConfigKindIdGetVarietieGet.');
+            }
+            const localVarPath = `/api/sysPcuPetConfig/{kindId}/get-varietie`
+                .replace(`{${"kindId"}}`, encodeURIComponent(String(kindId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -473,6 +521,13 @@ export const SysPetConfigApiAxiosParamCreator = function (configuration?: Config
             const localVarQueryParameter = {} as any;
 
             // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
 
             const query = new URLSearchParams(localVarUrlObj.search);
             for (const key in localVarQueryParameter) {
@@ -490,168 +545,405 @@ export const SysPetConfigApiAxiosParamCreator = function (configuration?: Config
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary 跟进种类id  获取宠物品种信息
+         * @param {number} kindId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysPcuPetConfigKindIdMiniGetVarietieGet: async (kindId: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'kindId' is not null or undefined
+            if (kindId === null || kindId === undefined) {
+                throw new RequiredError('kindId','Required parameter kindId was null or undefined when calling apiSysPcuPetConfigKindIdMiniGetVarietieGet.');
+            }
+            const localVarPath = `/api/sysPcuPetConfig/{kindId}/mini-get-varietie`
+                .replace(`{${"kindId"}}`, encodeURIComponent(String(kindId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取宠物种类列表
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysPcuPetConfigMiniGetKindGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysPcuPetConfig/mini-get-kind`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 分页获取种类
+         * @param {PageSysPetKindInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysPcuPetConfigPageKindPost: async (body?: PageSysPetKindInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysPcuPetConfig/page-kind`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 分页获取品种
+         * @param {PageSysPetVarietieInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysPcuPetConfigPageVarietiePost: async (body?: PageSysPetVarietieInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysPcuPetConfig/page-varietie`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
 /**
- * PetConfigApi - functional programming interface
+ * SysPcuPetConfigApi - functional programming interface
  * @export
  */
-export const SysPetConfigApiFp = function(configuration?: Configuration) {
+export const SysPcuPetConfigApiFp = function(configuration?: Configuration) {
     return {
         /**
-         *
-         * @summary 新增种类
-         * @param {AddSysPetKindInput} [body]
+         * 
+         * @summary 新增宠物种类
+         * @param {AddSysPetKindInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysPetAddKind(body?: AddSysPetKindInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysPetConfigApiAxiosParamCreator(configuration).apiSysPetAddKind(body, options);
+        async apiSysPcuPetConfigAddKindPost(body?: AddSysPetKindInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysPcuPetConfigApiAxiosParamCreator(configuration).apiSysPcuPetConfigAddKindPost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
             };
         },
         /**
-         *
+         * 
+         * @summary 新增宠物品种
+         * @param {AddSysPetVarietieInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigAddVarietiePost(body?: AddSysPetVarietieInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysPcuPetConfigApiAxiosParamCreator(configuration).apiSysPcuPetConfigAddVarietiePost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取宠物种类列表【下拉框】
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigGetAllKindGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultObject>>> {
+            const localVarAxiosArgs = await SysPcuPetConfigApiAxiosParamCreator(configuration).apiSysPcuPetConfigGetAllKindGet(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取宠物品种列表【下拉框】
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigGetAllVarietieGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultObject>>> {
+            const localVarAxiosArgs = await SysPcuPetConfigApiAxiosParamCreator(configuration).apiSysPcuPetConfigGetAllVarietieGet(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取宠物种类列表
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigGetKindGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysPetKind>>> {
+            const localVarAxiosArgs = await SysPcuPetConfigApiAxiosParamCreator(configuration).apiSysPcuPetConfigGetKindGet(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 分页品种列表
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigGetVarietieGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysPetVarietie>>> {
+            const localVarAxiosArgs = await SysPcuPetConfigApiAxiosParamCreator(configuration).apiSysPcuPetConfigGetVarietieGet(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 删除种类
-         * @param {number} [kindId]
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysPetDeleteKind(kindId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysPetConfigApiAxiosParamCreator(configuration).apiSysPetDeleteKind(kindId, options);
+        async apiSysPcuPetConfigIdDeleteKindDelete(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysPcuPetConfigApiAxiosParamCreator(configuration).apiSysPcuPetConfigIdDeleteKindDelete(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
             };
         },
         /**
-         *
-         * @summary 获取种类分页列表
-         * @param {PagePetKindInput} body 主键Id
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysPetPageKind(body?:PagePetKindInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<BaseOuput<PagePetKindOutPut>>>> {
-            const localVarAxiosArgs = await SysPetConfigApiAxiosParamCreator(configuration).apiSysPetPageKind(body, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-
-        /**
-         *
-         * @summary 获取种类列表
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysPetKindGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<BaseOuput<PetKindOutPut>>>> {
-            const localVarAxiosArgs = await SysPetConfigApiAxiosParamCreator(configuration).apiSysPetKindGet(options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-
-        /**
-         *
-         * @summary 更新种类
-         * @param {number} [id]
-         * @param {UpdateOrgInput} [body]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysPetUpdateKind(id:number,body?: EditSysPetKindInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysPetConfigApiAxiosParamCreator(configuration).apiSysPetUpdateKind(id,body, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         *
-         * @summary 新增品种
-         * @param {AddSysPetKindInput} [body]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysPetAddVarietie(body?: AddSysPetVarietieInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysPetConfigApiAxiosParamCreator(configuration).apiSysPetAddVarietie(body, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         *
+         * 
          * @summary 删除品种
-         * @param {number} [kindId]
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysPetDeleteVarietie(kindId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysPetConfigApiAxiosParamCreator(configuration).apiSysPetDeleteVarietie(kindId, options);
+        async apiSysPcuPetConfigIdDeleteVarietieDelete(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysPcuPetConfigApiAxiosParamCreator(configuration).apiSysPcuPetConfigIdDeleteVarietieDelete(id, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
             };
         },
         /**
-         *
-         * @summary 获取品种分页列表
-         * @param {PagePetKindInput} body 主键Id
+         * 
+         * @summary 更新宠物种类
+         * @param {number} id 种类id
+         * @param {UpdateSysPetKindInput} [body] 更新实体
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysPetPageVarietie(body?:PagePetVarietieInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<BaseOuput<PagePetVarietieOutPut>>>> {
-            const localVarAxiosArgs = await SysPetConfigApiAxiosParamCreator(configuration).apiSysPetPageVarietie(body, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-
-        /**
-         *
-         * @summary 获取品种列表
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysPetVarietieGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<BaseOuput<PetVarietieOutPut>>>> {
-            const localVarAxiosArgs = await SysPetConfigApiAxiosParamCreator(configuration).apiSysPetVarietieGet(options);
+        async apiSysPcuPetConfigIdEditKindPut(id: number, body?: UpdateSysPetKindInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysPcuPetConfigApiAxiosParamCreator(configuration).apiSysPcuPetConfigIdEditKindPut(id, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
             };
         },
         /**
-         *
-         * @summary 更新品种
-         * @param {number} [id]
-         * @param {UpdateOrgInput} [body]
+         * 
+         * @summary 更新宠物品种
+         * @param {number} id 品种id
+         * @param {UpdateSysPetVarietieInput} [body] 更新实体
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysPetUpdateVarietie(id:number,body?: EditSysPetVarietieInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysPetConfigApiAxiosParamCreator(configuration).apiSysPetUpdateVarietie(id,body, options);
+        async apiSysPcuPetConfigIdEditVarietiePut(id: number, body?: UpdateSysPetVarietieInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysPcuPetConfigApiAxiosParamCreator(configuration).apiSysPcuPetConfigIdEditVarietiePut(id, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
             };
         },
         /**
-         *
-         * @summary 根据种类id获取品种信息
-         * @param {number} [id]
-         * @param {UpdateOrgInput} [body]
+         * 
+         * @summary 跟进种类id  获取宠物品种信息
+         * @param {number} kindId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysPetVarietieGetByKindId(id:number,options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<any>>> {
-            const localVarAxiosArgs = await SysPetConfigApiAxiosParamCreator(configuration).apiSysPetVarietieGetByKindId(id, options);
+        async apiSysPcuPetConfigKindIdGetVarietieGet(kindId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysPetVarietie>>> {
+            const localVarAxiosArgs = await SysPcuPetConfigApiAxiosParamCreator(configuration).apiSysPcuPetConfigKindIdGetVarietieGet(kindId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 跟进种类id  获取宠物品种信息
+         * @param {number} kindId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigKindIdMiniGetVarietieGet(kindId: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysPetVarietie>>> {
+            const localVarAxiosArgs = await SysPcuPetConfigApiAxiosParamCreator(configuration).apiSysPcuPetConfigKindIdMiniGetVarietieGet(kindId, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取宠物种类列表
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigMiniGetKindGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysPetKind>>> {
+            const localVarAxiosArgs = await SysPcuPetConfigApiAxiosParamCreator(configuration).apiSysPcuPetConfigMiniGetKindGet(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 分页获取种类
+         * @param {PageSysPetKindInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigPageKindPost(body?: PageSysPetKindInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListSysPetKind>>> {
+            const localVarAxiosArgs = await SysPcuPetConfigApiAxiosParamCreator(configuration).apiSysPcuPetConfigPageKindPost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 分页获取品种
+         * @param {PageSysPetVarietieInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigPageVarietiePost(body?: PageSysPetVarietieInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListSysPetVarietie>>> {
+            const localVarAxiosArgs = await SysPcuPetConfigApiAxiosParamCreator(configuration).apiSysPcuPetConfigPageVarietiePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -661,261 +953,328 @@ export const SysPetConfigApiFp = function(configuration?: Configuration) {
 };
 
 /**
- * PetConfigApi - factory interface
+ * SysPcuPetConfigApi - factory interface
  * @export
  */
-export const SysPetConfigApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+export const SysPcuPetConfigApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     return {
         /**
-         *
-         * @summary 增加种类
-         * @param {AddOrgInput} [body]
+         * 
+         * @summary 新增宠物种类
+         * @param {AddSysPetKindInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysPetAddKind(body?: AddSysPetKindInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysPetConfigApiFp(configuration).apiSysPetAddKind(body, options).then((request) => request(axios, basePath));
+        async apiSysPcuPetConfigAddKindPost(body?: AddSysPetKindInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysPcuPetConfigApiFp(configuration).apiSysPcuPetConfigAddKindPost(body, options).then((request) => request(axios, basePath));
         },
         /**
-         *
+         * 
+         * @summary 新增宠物品种
+         * @param {AddSysPetVarietieInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigAddVarietiePost(body?: AddSysPetVarietieInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysPcuPetConfigApiFp(configuration).apiSysPcuPetConfigAddVarietiePost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取宠物种类列表【下拉框】
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigGetAllKindGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
+            return SysPcuPetConfigApiFp(configuration).apiSysPcuPetConfigGetAllKindGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取宠物品种列表【下拉框】
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigGetAllVarietieGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
+            return SysPcuPetConfigApiFp(configuration).apiSysPcuPetConfigGetAllVarietieGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取宠物种类列表
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigGetKindGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysPetKind>> {
+            return SysPcuPetConfigApiFp(configuration).apiSysPcuPetConfigGetKindGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 分页品种列表
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigGetVarietieGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysPetVarietie>> {
+            return SysPcuPetConfigApiFp(configuration).apiSysPcuPetConfigGetVarietieGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 删除种类
-         * @param {number} [kindId]
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysPetDeleteKind(kindId:number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysPetConfigApiFp(configuration).apiSysPetDeleteKind(kindId, options).then((request) => request(axios, basePath));
+        async apiSysPcuPetConfigIdDeleteKindDelete(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysPcuPetConfigApiFp(configuration).apiSysPcuPetConfigIdDeleteKindDelete(id, options).then((request) => request(axios, basePath));
         },
         /**
-         *
-         * @summary 获取种类分页列表
-         * @param {PagePetKindInput} body
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysPetPageKind(body?: PagePetKindInput, options?: AxiosRequestConfig): Promise<AxiosResponse<BaseOuput<PagePetKindOutPut>>> {
-            return SysPetConfigApiFp(configuration).apiSysPetPageKind(body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         *
-         * @summary 更新种类
-         * @param {number} [id] 种类Id
-         * @param {UpdateOrgInput} [body]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysPetUpdateKind(id:number,body?: EditSysPetKindInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysPetConfigApiFp(configuration).apiSysPetUpdateKind(id,body, options).then((request) => request(axios, basePath));
-        },
-
-        /**
-         *
-         * @summary 获取种类列表
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysPetKindGet(options?: AxiosRequestConfig): Promise<AxiosResponse<BaseOuput<PetKindOutPut>>> {
-            return SysPetConfigApiFp(configuration).apiSysPetKindGet(options).then((request) => request(axios, basePath));
-        },
-
-        /*****************************************************  品种 ***************************************************/
-        /**
-         *
-         * @summary 增加品种
-         * @param {AddOrgInput} [body]
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysPetAddVarietie(body?: AddSysPetVarietieInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysPetConfigApiFp(configuration).apiSysPetAddVarietie(body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         *
+         * 
          * @summary 删除品种
-         * @param {number} [kindId]
+         * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysPetDeleteVarietie(kindId:number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysPetConfigApiFp(configuration).apiSysPetDeleteVarietie(kindId, options).then((request) => request(axios, basePath));
+        async apiSysPcuPetConfigIdDeleteVarietieDelete(id: number, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysPcuPetConfigApiFp(configuration).apiSysPcuPetConfigIdDeleteVarietieDelete(id, options).then((request) => request(axios, basePath));
         },
         /**
-         *
-         * @summary 获取品种分页列表
-         * @param {PagePetKindInput} body
+         * 
+         * @summary 更新宠物种类
+         * @param {number} id 种类id
+         * @param {UpdateSysPetKindInput} [body] 更新实体
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysPetPageVarietie(body?: PagePetVarietieInput, options?: AxiosRequestConfig): Promise<AxiosResponse<BaseOuput<PagePetKindOutPut>>> {
-            return SysPetConfigApiFp(configuration).apiSysPetPageVarietie(body, options).then((request) => request(axios, basePath));
+        async apiSysPcuPetConfigIdEditKindPut(id: number, body?: UpdateSysPetKindInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysPcuPetConfigApiFp(configuration).apiSysPcuPetConfigIdEditKindPut(id, body, options).then((request) => request(axios, basePath));
         },
         /**
-         *
-         * @summary 更新品种
-         * @param {number} [id] 种类Id
-         * @param {UpdateOrgInput} [body]
+         * 
+         * @summary 更新宠物品种
+         * @param {number} id 品种id
+         * @param {UpdateSysPetVarietieInput} [body] 更新实体
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysPetUpdateVarietie(id:number,body?: EditSysPetVarietieInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysPetConfigApiFp(configuration).apiSysPetUpdateVarietie(id,body, options).then((request) => request(axios, basePath));
+        async apiSysPcuPetConfigIdEditVarietiePut(id: number, body?: UpdateSysPetVarietieInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysPcuPetConfigApiFp(configuration).apiSysPcuPetConfigIdEditVarietiePut(id, body, options).then((request) => request(axios, basePath));
         },
-
         /**
-         *
-         * @summary 获取品种列表
+         * 
+         * @summary 跟进种类id  获取宠物品种信息
+         * @param {number} kindId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysPetVarietieGet(options?: AxiosRequestConfig): Promise<AxiosResponse<BaseOuput<PetVarietieOutPut>>> {
-            return SysPetConfigApiFp(configuration).apiSysPetVarietieGet(options).then((request) => request(axios, basePath));
+        async apiSysPcuPetConfigKindIdGetVarietieGet(kindId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysPetVarietie>> {
+            return SysPcuPetConfigApiFp(configuration).apiSysPcuPetConfigKindIdGetVarietieGet(kindId, options).then((request) => request(axios, basePath));
         },
-
         /**
-         *
-         * @summary 根据种类id获取品种信息
-         * @param {number} [id]
-         * @param {UpdateOrgInput} [body]
+         * 
+         * @summary 跟进种类id  获取宠物品种信息
+         * @param {number} kindId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysPetVarietieGetByKindId(id:number,options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
-            return SysPetConfigApiFp(configuration).apiSysPetVarietieGetByKindId(id,options).then((request) => request(axios, basePath));
+        async apiSysPcuPetConfigKindIdMiniGetVarietieGet(kindId: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysPetVarietie>> {
+            return SysPcuPetConfigApiFp(configuration).apiSysPcuPetConfigKindIdMiniGetVarietieGet(kindId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取宠物种类列表
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigMiniGetKindGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysPetKind>> {
+            return SysPcuPetConfigApiFp(configuration).apiSysPcuPetConfigMiniGetKindGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 分页获取种类
+         * @param {PageSysPetKindInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigPageKindPost(body?: PageSysPetKindInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListSysPetKind>> {
+            return SysPcuPetConfigApiFp(configuration).apiSysPcuPetConfigPageKindPost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 分页获取品种
+         * @param {PageSysPetVarietieInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysPcuPetConfigPageVarietiePost(body?: PageSysPetVarietieInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListSysPetVarietie>> {
+            return SysPcuPetConfigApiFp(configuration).apiSysPcuPetConfigPageVarietiePost(body, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * PetConfigApi - object-oriented interface
+ * SysPcuPetConfigApi - object-oriented interface
  * @export
- * @class SysOrgApi
+ * @class SysPcuPetConfigApi
  * @extends {BaseAPI}
  */
-export class SysPetConfigApi extends BaseAPI {
+export class SysPcuPetConfigApi extends BaseAPI {
     /**
-     *
-     * @summary 新增种类
-     * @param {AddOrgInput} [body]
+     * 
+     * @summary 新增宠物种类
+     * @param {AddSysPetKindInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysOrgApi
+     * @memberof SysPcuPetConfigApi
      */
-    public async apiSysPetAddKind(body?: AddSysPetKindInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysPetConfigApiFp(this.configuration).apiSysPetAddKind(body, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysPcuPetConfigAddKindPost(body?: AddSysPetKindInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysPcuPetConfigApiFp(this.configuration).apiSysPcuPetConfigAddKindPost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
-     *
+     * 
+     * @summary 新增宠物品种
+     * @param {AddSysPetVarietieInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysPcuPetConfigApi
+     */
+    public async apiSysPcuPetConfigAddVarietiePost(body?: AddSysPetVarietieInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysPcuPetConfigApiFp(this.configuration).apiSysPcuPetConfigAddVarietiePost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取宠物种类列表【下拉框】
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysPcuPetConfigApi
+     */
+    public async apiSysPcuPetConfigGetAllKindGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultObject>> {
+        return SysPcuPetConfigApiFp(this.configuration).apiSysPcuPetConfigGetAllKindGet(options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取宠物品种列表【下拉框】
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysPcuPetConfigApi
+     */
+    public async apiSysPcuPetConfigGetAllVarietieGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultObject>> {
+        return SysPcuPetConfigApiFp(this.configuration).apiSysPcuPetConfigGetAllVarietieGet(options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取宠物种类列表
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysPcuPetConfigApi
+     */
+    public async apiSysPcuPetConfigGetKindGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysPetKind>> {
+        return SysPcuPetConfigApiFp(this.configuration).apiSysPcuPetConfigGetKindGet(options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 分页品种列表
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysPcuPetConfigApi
+     */
+    public async apiSysPcuPetConfigGetVarietieGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysPetVarietie>> {
+        return SysPcuPetConfigApiFp(this.configuration).apiSysPcuPetConfigGetVarietieGet(options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
      * @summary 删除种类
-     * @param {DeleteOrgInput} [body]
+     * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysOrgApi
+     * @memberof SysPcuPetConfigApi
      */
-    public async apiSysPetDeleteKind(id:number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysPetConfigApiFp(this.configuration).apiSysPetDeleteKind(id, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysPcuPetConfigIdDeleteKindDelete(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysPcuPetConfigApiFp(this.configuration).apiSysPcuPetConfigIdDeleteKindDelete(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
-     *
-     * @summary 获取机构分页列表
-     * @param {PagePetKindInput} body 主键Id
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SysOrgApi
-     */
-    public async apiSysPetPageKind(body?: PagePetKindInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<BaseOuput<PagePetKindOutPut>>> {
-        return SysPetConfigApiFp(this.configuration).apiSysPetPageKind(body, options).then((request) => request(this.axios, this.basePath));
-    }
-    /**
-     *
-     * @summary 更新种类
-     * @param {EditSysPetKindInput} [body]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SysOrgApi
-     */
-    public async apiSysPetUpdateKind(id:number,body?: EditSysPetKindInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysPetConfigApiFp(this.configuration).apiSysPetUpdateKind(id,body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     *
-     * @summary 获取种类列表
-     * @param {EditSysPetKindInput} [body]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SysOrgApi
-     */
-    public async apiSysPetKindGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<BaseOuput<PetKindOutPut>>> {
-        return SysPetConfigApiFp(this.configuration).apiSysPetKindGet(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /******************************************************** 品种  *************************************************************/
-    /**
-     *
-     * @summary 新增品种
-     * @param {AddOrgInput} [body]
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SysOrgApi
-     */
-    public async apiSysPetAddVarietie(body?: AddSysPetVarietieInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysPetConfigApiFp(this.configuration).apiSysPetAddVarietie(body, options).then((request) => request(this.axios, this.basePath));
-    }
-    /**
-     *
+     * 
      * @summary 删除品种
-     * @param {DeleteOrgInput} [body]
+     * @param {number} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysOrgApi
+     * @memberof SysPcuPetConfigApi
      */
-    public async apiSysPetDeleteVarietie(id:number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysPetConfigApiFp(this.configuration).apiSysPetDeleteVarietie(id, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysPcuPetConfigIdDeleteVarietieDelete(id: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysPcuPetConfigApiFp(this.configuration).apiSysPcuPetConfigIdDeleteVarietieDelete(id, options).then((request) => request(this.axios, this.basePath));
     }
     /**
-     *
-     * @summary 获取品种分页列表
-     * @param {PagePetKindInput} body 主键Id
+     * 
+     * @summary 更新宠物种类
+     * @param {number} id 种类id
+     * @param {UpdateSysPetKindInput} [body] 更新实体
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysOrgApi
+     * @memberof SysPcuPetConfigApi
      */
-    public async apiSysPetPageVarietie(body?: PagePetVarietieInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<BaseOuput<PagePetVarietieOutPut>>> {
-        return SysPetConfigApiFp(this.configuration).apiSysPetPageVarietie(body, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysPcuPetConfigIdEditKindPut(id: number, body?: UpdateSysPetKindInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysPcuPetConfigApiFp(this.configuration).apiSysPcuPetConfigIdEditKindPut(id, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
-     *
-     * @summary 更新品种
-     * @param {EditSysPetKindInput} [body]
+     * 
+     * @summary 更新宠物品种
+     * @param {number} id 品种id
+     * @param {UpdateSysPetVarietieInput} [body] 更新实体
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysOrgApi
+     * @memberof SysPcuPetConfigApi
      */
-    public async apiSysPetUpdateVarietie(id:number,body?: EditSysPetVarietieInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysPetConfigApiFp(this.configuration).apiSysPetUpdateVarietie(id,body, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysPcuPetConfigIdEditVarietiePut(id: number, body?: UpdateSysPetVarietieInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysPcuPetConfigApiFp(this.configuration).apiSysPcuPetConfigIdEditVarietiePut(id, body, options).then((request) => request(this.axios, this.basePath));
     }
-
     /**
-     *
-     * @summary 获取品种列表
-     * @param {EditSysPetKindInput} [body]
+     * 
+     * @summary 跟进种类id  获取宠物品种信息
+     * @param {number} kindId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof SysOrgApi
+     * @memberof SysPcuPetConfigApi
      */
-    public async apiSysPetVarietieGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<BaseOuput<PetVarietieOutPut>>> {
-        return SysPetConfigApiFp(this.configuration).apiSysPetVarietieGet(options).then((request) => request(this.axios, this.basePath));
+    public async apiSysPcuPetConfigKindIdGetVarietieGet(kindId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysPetVarietie>> {
+        return SysPcuPetConfigApiFp(this.configuration).apiSysPcuPetConfigKindIdGetVarietieGet(kindId, options).then((request) => request(this.axios, this.basePath));
     }
-
     /**
-     *
-     * @summary 根据种类id获取品种信息
-     * @param {number} [id]
-     * @param {UpdateOrgInput} [body]
+     * 
+     * @summary 跟进种类id  获取宠物品种信息
+     * @param {number} kindId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
+     * @memberof SysPcuPetConfigApi
      */
-    async apiSysPetVarietieGetByKindId(id:number,options?: AxiosRequestConfig): Promise<AxiosResponse<any>> {
-        return SysPetConfigApiFp(this.configuration).apiSysPetVarietieGetByKindId(id,options).then((request) => request(this.axios, this.basePath));
+    public async apiSysPcuPetConfigKindIdMiniGetVarietieGet(kindId: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysPetVarietie>> {
+        return SysPcuPetConfigApiFp(this.configuration).apiSysPcuPetConfigKindIdMiniGetVarietieGet(kindId, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取宠物种类列表
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysPcuPetConfigApi
+     */
+    public async apiSysPcuPetConfigMiniGetKindGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysPetKind>> {
+        return SysPcuPetConfigApiFp(this.configuration).apiSysPcuPetConfigMiniGetKindGet(options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 分页获取种类
+     * @param {PageSysPetKindInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysPcuPetConfigApi
+     */
+    public async apiSysPcuPetConfigPageKindPost(body?: PageSysPetKindInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListSysPetKind>> {
+        return SysPcuPetConfigApiFp(this.configuration).apiSysPcuPetConfigPageKindPost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 分页获取品种
+     * @param {PageSysPetVarietieInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysPcuPetConfigApi
+     */
+    public async apiSysPcuPetConfigPageVarietiePost(body?: PageSysPetVarietieInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListSysPetVarietie>> {
+        return SysPcuPetConfigApiFp(this.configuration).apiSysPcuPetConfigPageVarietiePost(body, options).then((request) => request(this.axios, this.basePath));
     }
 }

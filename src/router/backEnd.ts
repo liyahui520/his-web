@@ -50,6 +50,8 @@ export async function initBackEndControlRoutes() {
 	await useUserInfo().reloadProductTypesList();
 	await useUserInfo().reloadSysRegionsList();
 	await useUserInfo().reloadSysOrgExts();
+	await useUserInfo().reloadGetKinds();
+	await useUserInfo().reloadpetVarieties();
 	// 获取路由菜单数据
 	const res = await getBackEndControlRoutes();
 	// 无登录权限时，添加判断

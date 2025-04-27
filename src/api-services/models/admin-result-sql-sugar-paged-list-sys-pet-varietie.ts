@@ -12,19 +12,20 @@
  * Do not edit the class manually.
  */
 
+import { SqlSugarPagedListSysPetVarietie } from './sql-sugar-paged-list-sys-pet-varietie';
  /**
  * 全局返回结果
  *
  * @export
- * @interface AdminResultObject
+ * @interface AdminResultSqlSugarPagedListSysPetVarietie
  */
-export interface AdminResultObject {
+export interface AdminResultSqlSugarPagedListSysPetVarietie {
 
     /**
      * 状态码
      *
      * @type {number}
-     * @memberof AdminResultObject
+     * @memberof AdminResultSqlSugarPagedListSysPetVarietie
      */
     code?: number;
 
@@ -32,7 +33,7 @@ export interface AdminResultObject {
      * 类型success、warning、error
      *
      * @type {string}
-     * @memberof AdminResultObject
+     * @memberof AdminResultSqlSugarPagedListSysPetVarietie
      */
     type?: string | null;
 
@@ -40,23 +41,21 @@ export interface AdminResultObject {
      * 错误信息
      *
      * @type {string}
-     * @memberof AdminResultObject
+     * @memberof AdminResultSqlSugarPagedListSysPetVarietie
      */
     message?: string | null;
 
     /**
-     * 数据
-     *
-     * @type {any}
-     * @memberof AdminResultObject
+     * @type {SqlSugarPagedListSysPetVarietie}
+     * @memberof AdminResultSqlSugarPagedListSysPetVarietie
      */
-    result?: any | null;
+    result?: SqlSugarPagedListSysPetVarietie;
 
     /**
      * 附加数据
      *
      * @type {any}
-     * @memberof AdminResultObject
+     * @memberof AdminResultSqlSugarPagedListSysPetVarietie
      */
     extras?: any | null;
 
@@ -64,7 +63,7 @@ export interface AdminResultObject {
      * 时间
      *
      * @type {Date}
-     * @memberof AdminResultObject
+     * @memberof AdminResultSqlSugarPagedListSysPetVarietie
      */
     time?: Date;
 }

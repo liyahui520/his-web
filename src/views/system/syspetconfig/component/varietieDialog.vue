@@ -43,8 +43,8 @@
 <!--                    <el-table-column prop="remark" label="备注" show-overflow-tooltip />-->
                     <el-table-column label="操作" width="140" fixed="right" align="center" show-overflow-tooltip>
                         <template #default="scope">
-                            <el-button icon="ele-Edit" size="small" text type="primary" @click="openEditDictData(scope.row)"> 编辑 </el-button>
-                            <el-button icon="ele-Delete" size="small" text type="danger" @click="delDictData(scope.row)"> 删除 </el-button>
+                            <el-button icon="ele-Edit" size="small"  link type="primary" @click="openEditDictData(scope.row)"> 编辑 </el-button>
+                            <el-button icon="ele-Delete" size="small"  link type="danger" @click="delDictData(scope.row)"> 删除 </el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -72,7 +72,7 @@
     import EditVaritie from './editVarietie.vue';
 
     import { getAPI } from '/@/utils/axios-utils';
-    import { SysPetConfigApi } from '/@/api-services/api';
+    import { SysPcuPetConfigApi } from '/@/api-services/api';
     import {PetVarietieOutPut} from "/@/api-services/models/pets/varietie/pet-varietie-output";
     import {PagePetVarietieInput} from "/@/api-services/models/pets/varietie/page-pet-varietieinput";
     const editaritieRef = ref<InstanceType<typeof EditVaritie>>()
@@ -113,7 +113,7 @@
     const handleQuery = async () => {
         state.loading = true;
         let params = Object.assign(state.queryParams, state.tableParams);
-        var res = await getAPI(SysPetConfigApi).apiSysPetPageVarietie(params);
+        var res = await getAPI(SysPcuPetConfigApi).apiSysPcuPetConfigPageVarietiePost(params);
         state.dictDataData = res.data.result?.items ?? [];
         state.tableParams.total = res.data.result?.total;
         state.loading = false;
@@ -145,7 +145,7 @@
             type: 'warning',
         })
             .then(async () => {
-                await getAPI(SysPetConfigApi).apiSysPetDeleteVarietie(row.id);
+                await getAPI(SysPcuPetConfigApi).apiSysPcuPetConfigIdDeleteVarietieDelete(row.id);
                 await handleQuery();
                 ElMessage.success('删除成功');
             })

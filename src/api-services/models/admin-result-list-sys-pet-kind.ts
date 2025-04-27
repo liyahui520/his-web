@@ -12,19 +12,20 @@
  * Do not edit the class manually.
  */
 
+import { SysPetKind } from './sys-pet-kind';
  /**
  * 全局返回结果
  *
  * @export
- * @interface AdminResultObject
+ * @interface AdminResultListSysPetKind
  */
-export interface AdminResultObject {
+export interface AdminResultListSysPetKind {
 
     /**
      * 状态码
      *
      * @type {number}
-     * @memberof AdminResultObject
+     * @memberof AdminResultListSysPetKind
      */
     code?: number;
 
@@ -32,7 +33,7 @@ export interface AdminResultObject {
      * 类型success、warning、error
      *
      * @type {string}
-     * @memberof AdminResultObject
+     * @memberof AdminResultListSysPetKind
      */
     type?: string | null;
 
@@ -40,23 +41,23 @@ export interface AdminResultObject {
      * 错误信息
      *
      * @type {string}
-     * @memberof AdminResultObject
+     * @memberof AdminResultListSysPetKind
      */
     message?: string | null;
 
     /**
      * 数据
      *
-     * @type {any}
-     * @memberof AdminResultObject
+     * @type {Array<SysPetKind>}
+     * @memberof AdminResultListSysPetKind
      */
-    result?: any | null;
+    result?: Array<SysPetKind> | null;
 
     /**
      * 附加数据
      *
      * @type {any}
-     * @memberof AdminResultObject
+     * @memberof AdminResultListSysPetKind
      */
     extras?: any | null;
 
@@ -64,7 +65,7 @@ export interface AdminResultObject {
      * 时间
      *
      * @type {Date}
-     * @memberof AdminResultObject
+     * @memberof AdminResultListSysPetKind
      */
     time?: Date;
 }

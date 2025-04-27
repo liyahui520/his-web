@@ -5,7 +5,19 @@ import { useThemeConfig } from '/@/stores/themeConfig';
 import { i18n } from "/@/i18n";
 
 import { getAPI } from '/@/utils/axios-utils';
-import { SysAuthApi, SysConstApi, SysDictTypeApi, SysUserApi, ProductUnitsApi, ProductBrandsApi, ProductProvidersApi, ProductManufacturersApi, SysProductTypeApi,SysRegionApi,SysOrgExtApi } from '/@/api-services/api';
+import { SysAuthApi, 
+	SysConstApi, 
+	SysDictTypeApi, 
+	SysUserApi, 
+	ProductUnitsApi, 
+	ProductBrandsApi, 
+	ProductProvidersApi, 
+	ProductManufacturersApi, 
+	SysProductTypeApi,
+	SysRegionApi,
+	SysOrgExtApi,
+	SysPcuPetConfigApi
+ } from '/@/api-services/api';
 
 
 const { t } = i18n.global;
@@ -27,6 +39,8 @@ export const useUserInfo = defineStore('userInfo', {
 		productTypes: [] as any,
 		sysRegions: [] as any,
 		sysOrgInfo:{} as any,
+		petKinds:[] as any,
+		petVarieties:[] as any
 	}),
 	getters: {
 		// // 获取系统常量列表
@@ -170,6 +184,28 @@ export const useUserInfo = defineStore('userInfo', {
 				const sysOrgInfo = await this.getSysOrgExts();
 				Session.set('sysOrgInfo', sysOrgInfo);
 				this.sysOrgInfo = sysOrgInfo;
+			}
+		},
+		async reloadGetKinds() {
+			Session.remove('petKinds');
+			// 存储字典信息到浏览器缓存
+			if (Session.get('petKinds')) {
+				this.petKinds = Session.get('petKinds');
+			} else {
+				const petKinds = await this.getKinds();
+				Session.set('petKinds', petKinds);
+				this.petKinds = petKinds;
+			}
+		},
+		async reloadpetVarieties() {
+			Session.remove('petVarieties');
+			// 存储字典信息到浏览器缓存
+			if (Session.get('petVarieties')) {
+				this.petVarieties = Session.get('petVarieties');
+			} else {
+				const petVarieties = await this.getVarieties();
+				Session.set('petVarieties', petVarieties);
+				this.petVarieties = petVarieties;
 			}
 		},
 		// 获取当前用户信息
@@ -432,6 +468,46 @@ export const useUserInfo = defineStore('userInfo', {
 				}
 			});
 		},
+
+		/**
+		 * 获取种类
+		 */
+		getKinds(){
+			return new Promise((resolve) => {
+				if (this.petKinds && this.petKinds.length > 0) {
+					resolve(this.petKinds);
+				} else {
+					getAPI(SysPcuPetConfigApi)
+						.apiSysPcuPetConfigGetAllKindGet()
+						.then(async (res: any) => {
+							resolve(res.data.result ?? {});
+						});
+				}
+			});
+		},
+		getAllKinds(){
+			return this.petKinds;
+		},
+		/**
+		 * 获取品种
+		 * @returns 
+		 */
+		getVarieties(){
+			return new Promise((resolve) => {
+				if (this.petVarieties && this.petVarieties.length > 0) {
+					resolve(this.petVarieties);
+				} else {
+					getAPI(SysPcuPetConfigApi)
+						.apiSysPcuPetConfigGetAllVarietieGet()
+						.then(async (res: any) => {
+							resolve(res.data.result ?? {});
+						});
+				}
+			});
+		},
+		getVarietiesByKindId(kindId : string){
+			return this.petVarieties[kindId];
+		}
 	},
 });
 

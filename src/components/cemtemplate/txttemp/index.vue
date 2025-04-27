@@ -12,11 +12,12 @@
 			<template #action="scope">
                 <el-button size="small" text type="primary" @click="append(scope.row.content)"> 追加 </el-button>
                 <el-button size="small" text type="primary" @click="add(scope.row.content)"> 覆盖 </el-button>
-                <el-button size="small" text type="info"> 编辑 </el-button>
-                <el-button size="small" text type="danger"> 删除 </el-button>
+                <el-button size="small" text type="info" @click="edit(scope.row)"> 编辑 </el-button>
+                <el-button size="small" text type="danger" @click="del(scope.row)"> 删除 </el-button>
                 </template>
             </Table>
 		</el-dialog>
+        <TxtEditTemp ref="TxtEditTempRef" @reload="reload"/>
 	</div>
 </template>
 
@@ -24,7 +25,8 @@
 import { reactive, nextTick, ref,defineAsyncComponent } from 'vue';  
 const Table = defineAsyncComponent(() => import('/@/components/table/index.vue'));
 import { getAPI } from '/@/utils/axios-utils';
-import { CemTemplateApi } from '/@/api-services/api';
+import { CemTemplateApi } from '/@/api-services/api'; 
+const TxtEditTemp = defineAsyncComponent(() => import('/@/components/cemtemplate/txttemp/edit.vue')); 
 import { emit } from 'process';
 const props = defineProps({
 	title: {
@@ -32,6 +34,7 @@ const props = defineProps({
 		default: () => '',
 	},
 });
+const TxtEditTempRef = ref();
 const tableDrugsRef = ref();
 const emits = defineEmits(['uploadCropperImg','update:append','update:add']); 
 // 定义变量内容
@@ -128,7 +131,7 @@ const getData = async (par: any) => {
 }
 
 // 拖动显示列排序回调
-const onSortHeader = (data: object[]) => {
+const onSortHeader =async (data: object[]) => {
     tb.tableData.columns = data;
 };
 
@@ -138,7 +141,7 @@ const selectionChange = async (d) => {
 }
 
 // 打开弹窗
-const openDialog = (d) => { 
+const openDialog =async (d) => { 
 	state.isShowDialog = true;
     tb.tableData.param.type = d;
     tableDrugsRef.value?.handleList();
@@ -146,36 +149,60 @@ const openDialog = (d) => {
 	});
 };
 // 关闭弹窗
-const closeDialog = () => { 
+const closeDialog = async () => { 
 	state.isShowDialog = false;
 };
 // 取消
-const onCancel = () => {
+const onCancel = async () => {
 	closeDialog();
 };
 
 //保存
-const onSubmit = ()=>{
-
+const onSubmit = (row:any)=>{ 
 }
 
 /**
  * 追加
  */
-const append=(content:any)=>{
-    emits('update:append',content);
+const append=async (content:any)=>{
+    emits('update:append',content,tb.tableData.param.type);
 }
 
 /**
  * 覆盖
  */
- const add=(content:any)=>{
-    emits('update:add',content);
+ const add=async (content:any)=>{
+    emits('update:add',content,tb.tableData.param.type);
+}
+
+/**
+ * 删除
+ * @param row 
+ */
+const del =async (row:any)=>{ 
+    await getAPI(CemTemplateApi).apiCemTemplateIdDeleteDelete(row.id); 
+    tableDrugsRef.value?.handleList();
+}
+
+/**
+ * 修改
+ * @param row 
+ */
+const edit = async(row:any)=>{
+   await TxtEditTempRef.value?.openDialog(row);
+}
+
+/**
+ * 刷新
+ */
+const reload = async() =>{
+    tableDrugsRef.value?.handleList();
 }
 
 // 暴露变量
 defineExpose({
 	openDialog,
+    onCancel
 });
 </script>
 

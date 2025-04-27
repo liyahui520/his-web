@@ -1,23 +1,23 @@
 <template>
-    <div class="sys-pet-config-container">
-        <el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
+    <div class="sys-pet-config-container" :class="isTagsViewCurrenFull ? 'tab-cus-full-Content' : 'tab-cus-Content'">
+        <el-card shadow="never" :body-style="{ paddingBottom: '0', border: '0px' }">
             <el-form :model="state.queryParams" ref="queryForm" :inline="true">
                 <el-form-item label="" prop="name">
                     <el-input placeholder="种类名称/种类拼音" clearable @keyup.enter="handleQuery" v-model="state.queryParams.params" />
                 </el-form-item>
                 <el-form-item>
                     <el-button-group>
-                        <el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'sysPcuPetConfig:page-kind'"> 查询 </el-button>
+                        <el-button type="primary" icon="ele-Search" @click="handleQuery" > 查询 </el-button>
                         <el-button icon="ele-Refresh" @click="resetQuery"> 重置 </el-button>
                     </el-button-group>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" icon="ele-Plus" @click="openAddKind" v-auth="'sysPcuPetConfig:add-kind'"> 新增 </el-button>
+                    <el-button type="primary" icon="ele-Plus" @click="openAddKind" > 新增 </el-button>
                 </el-form-item>
             </el-form>
         </el-card>
 
-        <el-card class="full-table" shadow="hover"  style="margin-top: 8px">
+        <el-card class="full-table" shadow="never" :body-style="{ border: '0px' }" style="overflow: auto; margin-top: 8px">
             <el-table :data="state.petKindData" style="width: 100%" v-loading="state.loading" border>
                 <el-table-column type="index" label="序号" width="55" align="center" />
                 <el-table-column prop="name" label="种类名称" show-overflow-tooltip />
@@ -59,6 +59,13 @@
     import { SysPetConfigApi } from '/@/api-services/api';
     import {PagePetKindInput} from "/@/api-services/models/pets/kind/page-pet-kind-input";
     import {PetKindOutPut} from "/@/api-services/models/pets/kind/pet-kind-output";
+    
+    import { useUserInfo } from '/@/stores/userInfo';
+    import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
+    import { storeToRefs } from 'pinia';
+    const storesTagsViewRoutes = useTagsViewRoutes();
+    const stores = useUserInfo();
+    const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
     const editKindRef = ref<InstanceType<typeof EditKind>>();
     const varietieDialog = ref<InstanceType<typeof VarietieDialog>>()
     const state = reactive({

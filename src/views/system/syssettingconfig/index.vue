@@ -7,6 +7,9 @@
 				<el-tab-pane label="业务参数" name="sysConfig">
 					<SysOrgConfig />
 				</el-tab-pane>
+				<el-tab-pane label="宠物品种" name="petConfig">
+					<PetConfig />
+				</el-tab-pane>
 			</el-tabs>
 		</div> 
 </template>
@@ -16,6 +19,7 @@ import { ref, defineAsyncComponent } from 'vue';
 
 const SysOrgConfig = defineAsyncComponent(() => import('./component/orgConfig.vue'));
 const SysPcuPetConfig = defineAsyncComponent(() => import('./component/pcuPetConfig.vue'));
+const PetConfig = defineAsyncComponent(() => import('/@/views/system/syspetconfig/index.vue')); 
 
 const activeName = ref('pcupetConfig');
 </script>

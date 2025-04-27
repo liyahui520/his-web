@@ -11,6 +11,9 @@
 				<el-form-item label="模板名称" prop="name">
 					<el-input v-model="ruleForm.name" />
 				</el-form-item>
+                <el-form-item label="内容" prop="content">
+					<el-input v-model="ruleForm.content" :rows="6" type="textarea"/>
+				</el-form-item>
 			</el-form>
 			<template #footer>
 				<span class="dialog-footer">
@@ -40,9 +43,10 @@ const ruleForm = ref({ name: '', content: '' });
 
 const rules = {
 	name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
+	content: [{ required: true, message: '请输入内容', trigger: 'blur' }],
 };
 
-const emits = defineEmits(['uploadCropperImg']);
+const emits = defineEmits(['reload']);
 // 定义变量内容
 const state = reactive({
 	isShowDialog: false,
@@ -52,10 +56,8 @@ const state = reactive({
 });
 
 // 打开弹窗
-const openDialog = (t, content) => {
-	ruleForm.value={ name: '', content: '' }
-	type.value = t;
-	ruleForm.value.content = content;
+const openDialog = (content:any) => {
+	ruleForm.value=JSON.parse(JSON.stringify(content)); 
 	state.isShowDialog = true;
 	nextTick(() => {});
 };
@@ -69,14 +71,14 @@ const onCancel = () => {
 };
 
 //保存
-const onSubmit = async () => {
-	// ruleFormRef.value.va
+const onSubmit = async () => { 
 	ruleFormRef.value.validate(async (isValid: boolean, fields?: any) => {
 		if (isValid) {
 			await getAPI(CemTemplateApi)
-				.apiCemTemplateTypeAddPost(type.value, ruleForm.value)
+				.apiCemTemplateTypeIdEditPut(ruleForm.value.type,ruleForm.value.id, ruleForm.value)
 				.then((_) => {
-					ElMessage.success("保存成功")
+					ElMessage.success("保存成功");
+                    emits("reload");
 					closeDialog();
 				});
 		} else {

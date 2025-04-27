@@ -55,7 +55,7 @@
 			</el-form>
 		</el-card>
 		<!-- @update:append="append" -->
-		<TxtTemp ref="txtTempRef" :title="txtTitle"/>
+		<TxtTemp ref="txtTempRef" :title="txtTitle" @update:add="addTempText" @update:append="appendTempText"/>
 		<TxtAddTemp ref="txtAddTempRef" :title="addTxtTitle"/>
 	</div>
 </template>
@@ -66,6 +66,7 @@ import { IToolbarConfig } from '@wangeditor/editor';
 import { signalR } from '/@/views/cem/signalRCem'; 
 import { ElMessage } from 'element-plus';
 import other from '/@/utils/other';
+import { json } from 'stream/consumers';
 
 // 引入组件
 const Editor = defineAsyncComponent(() => import('/@/components/editor/index.vue')); 
@@ -208,9 +209,53 @@ const selectZhusuTemp = async()=>{
  */
  const addZhusuTemp = async()=>{
 	if(props.treatData.cemRecordZhuSu.zhuSu)
-	txtAddTempRef.value.openDialog(0,props.treatData.cemRecordZhuSu.zhuSu);
+	txtAddTempRef.value.openDialog(0,props.treatData.cemRecordZhuSu.htmlZhuSu);
 	else
 	ElMessage.warning('请先输入主诉内容')
+}
+
+/**
+ * 覆盖文本
+ * @param content 
+ * @param type 
+ */
+const addTempText = async(content:any,type:Number)=>{ 
+	//覆盖主诉文本
+	if(type===0){
+		props.treatData.cemRecordZhuSu = Object.assign({}, props.treatData.cemRecordZhuSu, { zhuSu: content,htmlZhuSu:content });
+	}else if(type===1){
+		props.treatData.cemRecordZhuSu = Object.assign({}, props.treatData.cemRecordZhuSu, { pastHistory: content,htmlPastHistory:content });
+	}else{ 
+		props.treatData.cemRecordZhuSu = Object.assign({}, props.treatData.cemRecordZhuSu, { allergyHistory: content,htmlAllergyHistory:content });
+	}
+	ElMessage.success("覆盖成功");
+	txtTempRef.value?.onCancel();
+}
+
+/**
+ * 
+ * @param content 追加文本
+ * @param type 
+ */
+const appendTempText = async(content:any,type:Number) =>{
+	
+	let j=JSON.parse(JSON.stringify(props.treatData.cemRecordZhuSu));
+	//追加主诉文本
+	if(type===0){
+		let str=j.zhuSu + content;
+		let htmlStr= `<p style="line-height: 1.5;">`+j?.zhuSu + content+`</p>`;  
+		props.treatData.cemRecordZhuSu = Object.assign({}, props.treatData.cemRecordZhuSu, { zhuSu: str,htmlZhuSu:htmlStr });
+	}else if(type===1){
+		let str=j.pastHistory + content;
+		let htmlStr= `<p style="line-height: 1.5;">`+j?.pastHistory + content+`</p>`;  
+		props.treatData.cemRecordZhuSu = Object.assign({}, props.treatData.cemRecordZhuSu, { pastHistory: str,htmlPastHistory:htmlStr });
+	}else{
+		let str=j.allergyHistory + content;
+		let htmlStr= `<p style="line-height: 1.5;">`+j?.allergyHistory + content+`</p>`;  
+		props.treatData.cemRecordZhuSu = Object.assign({}, props.treatData.cemRecordZhuSu, { allergyHistory: str,htmlAllergyHistory:htmlStr });
+	}
+	ElMessage.success("操作成功");
+	txtTempRef.value?.onCancel();
 }
 
 /**
@@ -243,8 +288,8 @@ const selectZhusuTemp = async()=>{
  * 保存现病史模板
  */
  const addAllergyHistoryTemp = async()=>{
-	if(props.treatData.cemRecordZhuSu.AllergyHistory)
-	txtAddTempRef.value.openDialog(2,props.treatData.cemRecordZhuSu.AllergyHistory);
+	if(props.treatData.cemRecordZhuSu.allergyHistory)
+	txtAddTempRef.value.openDialog(2,props.treatData.cemRecordZhuSu.allergyHistory);
 	else
 	ElMessage.warning('请先输入现病史内容')
 }

@@ -1,7 +1,7 @@
 <template>
     <div style="position: relative;"  class="editor-container">
     <Toolbar :editor="editorRef" :mode="mode" :defaultConfig="props.toolbarConfig"  /> 
-      <Editor :defaultConfig="editorConfig" v-model="valueHtml" @onCreated="handleCreated" :style="{height}" :defaultContent="jsonContent" 
+      <Editor :defaultConfig="editorConfig" v-model="valueHtml" @onCreated="handleCreated" :style="{height}"  :defaultContent="jsonContent"
         @onChange="onChange" @keydown.enter.native="keyDown" />
       <mention-modal v-if="isShowModal" @hideMentionModal="hideMentionModal" @insertMention="insertMention"
         :position="position" :tempList="tempList"></mention-modal> 
@@ -16,7 +16,8 @@
   import MentionModal from './MentionModal.vue'
   import {conf } from "../editor/elem"
   import { mention } from '../editor/cusdom'
-import { parseHtmlConf } from '../editor/parseElemsHtml'
+  import { parseHtmlConf } from '../editor/parseElemsHtml'
+  import { IEditorConfig } from '@wangeditor/editor'
   // 注册插件
   Boot.registerModule(mentionModule)
     Boot.registerElemToHtml(conf); 
@@ -31,37 +32,41 @@ import { parseHtmlConf } from '../editor/parseElemsHtml'
     toolbarConfig?:object,
     tempList?: object
   }>(), {
-    content: '' ,
+    content:  [
+        {
+            type: 'paragraph',
+            children: [
+                { text: '', fontFamily: '微软雅黑', fontSize: '16px'}
+            ],
+            lineHeight: 2
+        },
+    ], 
     height:'',
     mode:'default',
     toolbarConfig:{
-		toolbarKeys:["blockquote","insertLink","insertVideo","codeBlock","fullScreen","group-more-style","emotion","group-video", "todo", "uploadImage"]
-       
+		toolbarKeys:["blockquote","insertLink","insertVideo","codeBlock","fullScreen","group-more-style","emotion","group-video", "todo", "uploadImage"],
+    lineHeight:2
     },
     tempList:[{}]
   })
-
+ 
   const jsonContent =reactive([
         {
           type: "paragraph",
-          children: [{ text: "" }],
-          fontSize: "14px",
-          fontFamily: "微软雅黑",
+          children: [{ text: "",fontFamily:"微软雅黑",fontSize:'14px' }],
           lineHeight: 2,
         },
       ],)
 
   // 编辑器实例，必须用 shallowRef
-  const editorRef = shallowRef()
-  
+  const editorRef = shallowRef() 
   // const valueHtml = ref('<p>你好<span data-w-e-type="mention" data-w-e-is-void data-w-e-is-inline data-value="A张三" data-info="%7B%22id%22%3A%22a%22%7D">@A张三</span></p>')
   const valueHtml = ref('')
   const isShowModal = ref(false)
   
   watch(() => props.content, (val: string) => {
     nextTick(() => {
-      valueHtml.value = val
-      console.log('val',val)
+      valueHtml.value = val 
     })
   })
   
@@ -83,8 +88,7 @@ import { parseHtmlConf } from '../editor/parseElemsHtml'
   const showMentionModal = () => {
     // 对话框的定位是根据富文本框的光标位置来确定的
     nextTick(() => {
-      const editor = editorRef.value
-      console.log(editor.getSelectionPosition());
+      const editor = editorRef.value 
       position.value = editor.getSelectionPosition()
     })
     isShowModal.value = true
@@ -92,21 +96,21 @@ import { parseHtmlConf } from '../editor/parseElemsHtml'
   const hideMentionModal = () => {
     isShowModal.value = false
   }
-  const editorConfig = {
-    placeholder: '',
-  
+  const editorConfig:Partial<IEditorConfig> = {
+    placeholder: '', 
     EXTEND_CONF: {
       mentionConfig: {
         showModal: showMentionModal,
         hideModal: hideMentionModal,
-      },
+      }, 
+      lineHeight:{
+        defaultValue:2
+      }
     },
   }
   
 const emit = defineEmits(['update:getHtml', 'update:getText', 'update:Print', 'update:PrintView', 'update:blur']);
-  const onChange = (editor: any) => {
-    console.log('changed html', editor.getHtml())
-    console.log('changed content', editor.children)
+  const onChange = (editor: any) => { 
     emit('update:getHtml', editor.getHtml());
 	emit('update:getText', editor.getText());
   }

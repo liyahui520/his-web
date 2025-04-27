@@ -13,7 +13,11 @@
  */
 
 /**
- * 账户资金类型<br />&nbsp;充值 Recharge = 0<br />&nbsp;消费 Consume = 1<br />&nbsp;退款 Refund = 2<br />&nbsp;退单 ChargeBack = 3<br />
+ * 账户资金类型<br />&nbsp;
+ * 充值 Recharge = 0<br />&nbsp;
+ * 消费 Consume = 1<br />&nbsp;
+ * 退款 Refund = 2<br />&nbsp;
+ * 退单 ChargeBack = 3<br />
  * @export
  * @enum {string}
  */

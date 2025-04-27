@@ -37,11 +37,11 @@
         :row-class-name="tableRowClassName">
         <template v-slot:command>
           <el-row>
-            <el-button type="primary" style="margin-left: 10px" plain size="small" @click="openRechargeCardRef"
+            <el-button type="primary" style="margin-left: 10px" plain  @click="openRechargeCardRef"
               v-auth="'customer:card:rancharge'">
               充值
             </el-button>
-            <el-button type="danger" plain size="small" :disabled="cardInfo.totalAmount <= 0"
+            <el-button type="danger" plain :disabled="cardInfo.totalAmount <= 0"
               @click="openReturnAmountRef" v-auth="'customer:card:return'">退款</el-button>
           </el-row>
         </template>

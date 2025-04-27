@@ -41,15 +41,6 @@
 									<el-breadcrumb-item>
 										{{ props.data?.pcutomerDetail?.sourceText }}
 									</el-breadcrumb-item>
-									<!--                            <el-breadcrumb-item>-->
-									<!--                                押金：￥0.00-->
-									<!--                            </el-breadcrumb-item>-->
-									<!--                            <el-breadcrumb-item>-->
-									<!--                                会员卡：￥0.00-->
-									<!--                            </el-breadcrumb-item>-->
-									<!--                            <el-breadcrumb-item>-->
-									<!--                                账户：￥0.00-->
-									<!--                            </el-breadcrumb-item>-->
 								</el-breadcrumb>
 								<el-breadcrumb separator="|" style="line-height: 25px">
 									<el-breadcrumb-item>
@@ -74,17 +65,17 @@
 									<el-breadcrumb-item>
 										<el-tag size="small" type="success" v-if="props.data?.pPetsInfo?.petIsDeworming == 1"> 已驱虫 </el-tag>
 										<el-tag size="small" type="warning" v-if="props.data?.pPetsInfo?.petIsDeworming == 0"> 未驱虫 </el-tag>
-										<el-tag size="small" type="danger" v-if="props.data?.pPetsInfo?.petIsDeworming == -1"> 未知 </el-tag>
+										<el-tag size="small" type="danger" v-if="props.data?.pPetsInfo?.petIsDeworming == -1"> 驱虫未知 </el-tag>
 									</el-breadcrumb-item>
 									<el-breadcrumb-item>
 										<el-tag size="small" type="success" v-if="props.data?.pPetsInfo?.petIsVaccinated == 1">已接种 </el-tag>
 										<el-tag size="small" type="warning" v-if="props.data?.pPetsInfo?.petIsVaccinated == 0">未接种 </el-tag>
-										<el-tag size="small" type="danger" v-if="props.data?.pPetsInfo?.petIsVaccinated == -1">未知 </el-tag>
+										<el-tag size="small" type="danger" v-if="props.data?.pPetsInfo?.petIsVaccinated == -1">接种未知 </el-tag>
 									</el-breadcrumb-item>
 									<el-breadcrumb-item>
 										<el-tag size="small" type="success" v-if="props.data?.pPetsInfo?.petIsSterilization == 1">已绝育 </el-tag>
 										<el-tag size="small" type="warning" v-if="props.data?.pPetsInfo?.petIsSterilization == 0">未绝育 </el-tag>
-										<el-tag size="small" type="danger" v-if="props.data?.pPetsInfo?.petIsSterilization == -1">未知 </el-tag>
+										<el-tag size="small" type="danger" v-if="props.data?.pPetsInfo?.petIsSterilization == -1">绝育未知 </el-tag>
 									</el-breadcrumb-item>
 								</el-breadcrumb>
 							</div>
@@ -171,12 +162,12 @@ const endRecord = async () => {
 	emit('endRecord');
 };
 
-const priviewRecord = async (recordId) => {
+const priviewRecord = async (recordId:any) => {
 	var r = await getAPI(PrintAndPreviewApi).apiPrintAndPreviewRecordIdGetRecordPreviewPrintPost(recordId, {
 		hasZhuSu: true,
 		hasPhysical: true,
 		hasPrescriptions: true,
-		hasTests: false,
+		hasTests: true,
 		hasDiagnoses: true,
 		hasAdvice: true,
 		hasFollow: true,

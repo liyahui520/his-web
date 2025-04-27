@@ -69,7 +69,7 @@
             <template #footer>
                 <span class="dialog-footer">
                     <el-button size="default" @click="cancel">取 消</el-button>
-                    <el-button :disabled="computedTotalAmout <= 0" type="primary" size="default"
+                    <el-button :disabled="computedTotalAmout <= 0" type="primary" size="default" :loading="submitLoading" 
                         @click="submitForm"><el-icon>
                             <Wallet />
                         </el-icon>退 款</el-button>
@@ -108,6 +108,7 @@ const ruleFormRef = ref();
 const depositInfo = ref<any>({});
 const depositList = ref<any>({});
 const canDepositTypes = ref<any>([]);
+    const submitLoading = ref(false);
 const ruleForm = ref<ReturnDepositInput>({
     id: "0",
     customerId: "0",
@@ -161,13 +162,17 @@ const submitForm = async () => {
     }
     else if (computedTotalAmout.value < 0) return;
     ruleForm.value.changeAmount=computedTotalAmout.value;
+    submitLoading.value = true;
     await getAPI(MemberDepositApi).apiMemberDepositReturnDepositPost(ruleForm.value).then((res) => {
         ElMessage.success('退款成功');
         closeDialog();
     }).catch((err) => {
         ElMessage.error(err.data.message);
         closeDialog();
-    });
+    })
+		.finally(() => {
+			submitLoading.value = false;
+		});
 };
 
 

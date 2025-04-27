@@ -177,7 +177,7 @@
 import { ref, defineAsyncComponent } from 'vue';
 import { addDaysToDate, addWeeksToDate, addMonthsToDate, addYearsToDate } from '/@/utils/formatTime';
 import { getAPI } from '/@/utils/axios-utils';
-import { SMSTemplateApi,VaccinationApi } from '/@/api-services/api';
+import { SMSTemplateApi, VaccinationApi } from '/@/api-services/api';
 import commonFunction from '/@/utils/commonFunction';
 import { storeToRefs } from 'pinia';
 import { formatDate } from '/@/utils/formatTime';
@@ -218,7 +218,7 @@ const intervalUnitData = ref<any>([
 
 const smsTemplateItems = ref<any>([]);
 
-const intervalUnitFunction =ref<any>({
+const intervalUnitFunction = ref<any>({
 	Year: (startTime: Date, interval: number) => {
 		return addYearsToDate(startTime, interval);
 	},
@@ -231,7 +231,7 @@ const intervalUnitFunction =ref<any>({
 	Day: (startTime: Date, interval: number) => {
 		return addDaysToDate(startTime, interval);
 	},
-}) ;
+});
 //删除驱虫疫苗
 const deleteVaccination = (index: number) => {
 	ruleForm.value.vaccinationInfos.splice(index, 1);
@@ -258,12 +258,12 @@ const rules = ref<FormRules>({
  * @param row
  * @param index
  */
-const handleRowChange = (row: any, index:any) => {
+const handleRowChange = (row: any, index: any) => {
 	//判断集合中grouping一样的情况下此后的expectVaccinations都会推迟指定日期
 	for (let i = index + 1; i < ruleForm.value.vaccinationInfos.length; i++) {
 		let info = ruleForm.value.vaccinationInfos[i];
 		if (row.grouping == info.grouping) {
-			ruleForm.value.vaccinationInfos[i].expectVaccinations = intervalUnitFunction[info.intervalUnit](new Date(row.expectVaccinations), info.interval);
+			ruleForm.value.vaccinationInfos[i].expectVaccinations = intervalUnitFunction.value[info.intervalUnit](new Date(row.expectVaccinations), info.interval);
 		} else break;
 	}
 };
@@ -285,7 +285,7 @@ const intervalChange = (row: any, index: any) => {
 			startTime = new Date(ruleForm.value.vaccinationInfos[index - 1].expectVaccinations);
 		}
 	}
-	row.expectVaccinations = intervalUnitFunction[row.intervalUnit](startTime, row.interval);
+	row.expectVaccinations = intervalUnitFunction.value[row.intervalUnit](startTime, row.interval);
 	handleRowChange(row, index);
 };
 /**
@@ -300,7 +300,7 @@ const intervalUnitChange = (row: any, index: any) => {
 			startTime = new Date(ruleForm.value.vaccinationInfos[index - 1].expectVaccinations);
 		}
 	}
-	row.expectVaccinations = intervalUnitFunction[row.intervalUnit](startTime, row.interval);
+	row.expectVaccinations = intervalUnitFunction.value[row.intervalUnit](startTime, row.interval);
 	handleRowChange(row, index);
 };
 
@@ -335,7 +335,7 @@ const checkProductChange = (value: any) => {
 		let expectVaccinations = '';
 		let interval = i * value.interval;
 		interval = interval == 0 ? 1 : interval;
-		expectVaccinations = intervalUnitFunction[value.intervalUnit](startTime, interval);
+		expectVaccinations = intervalUnitFunction.value[value.intervalUnit](startTime, interval);
 		ruleForm.value.vaccinationInfos.push({
 			id: 0,
 			customerId: ruleForm.value.customerInfo.id,
@@ -442,16 +442,15 @@ const submit = async () => {
 			if (!isEdit.value)
 				await getAPI(VaccinationApi)
 					.apiVaccinationAddVaccinationPost(values)
-					.catch((res) => {
+					.finally(() => {
 						submitLoading.value = false;
 					});
 			else
 				await getAPI(VaccinationApi)
 					.apiVaccinationEditVaccinationPost(values)
-					.catch((res) => {
+					.finally(() => {
 						submitLoading.value = false;
 					});
-			if (submitLoading.value) isShowDialog.value = false;
 		}
 	});
 };

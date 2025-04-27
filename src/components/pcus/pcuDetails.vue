@@ -10,7 +10,7 @@
       <el-tag class="mx-1" type="success" effect="light">{{ pcustomer.levelText ?? '-' }}</el-tag>
     </el-breadcrumb-item>
     <el-breadcrumb-item>{{ pcustomer.cellPhone ?? '-' }}</el-breadcrumb-item>
-    <el-breadcrumb-item>{{ pcustomer.sourceText ?? '-' }}</el-breadcrumb-item>
+    <!-- <el-breadcrumb-item>{{ pcustomer.sourceText ?? '-' }}</el-breadcrumb-item> -->
   </el-breadcrumb>
 </template>
 <script lang="ts" setup >

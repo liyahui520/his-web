@@ -36,7 +36,7 @@
                 <template v-slot:command>
                     <div style="display: flex;">
                         <div>
-                            <el-select v-model="cardId" placeholder="请选择次卡" size="small" style="width: 200px;"
+                            <el-select v-model="cardId" placeholder="请选择次卡" style="width: 200px;"
                                 @change="secondaryCardChange">
                                 <el-option v-for="item in secondaryCardTypes" :key="item.id"
                                     :label="item.cardName + '（ ' + item.canCount + ' ）'" :value="item.id" />

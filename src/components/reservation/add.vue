@@ -20,24 +20,23 @@
 						<el-tag class="mx-1" type="success" effect="light">{{ pcustomer.levelText ?? '-' }}</el-tag>
 					</el-breadcrumb-item>
 					<el-breadcrumb-item>{{ pcustomer.cellPhone ?? '-' }}</el-breadcrumb-item>
-					<el-breadcrumb-item>{{ pcustomer.sourceText ?? '-' }}</el-breadcrumb-item>
-					<el-breadcrumb-item>{{}}</el-breadcrumb-item>
+					
 				</el-breadcrumb>
 				<el-breadcrumb separator="|" style="margin: 5px 0px; line-height: 2">
 					<el-breadcrumb-item>{{ props.pet.petName ?? '-' }}</el-breadcrumb-item>
 					<el-breadcrumb-item>
 						<el-tag type="warning">{{ props.pet.petRecordNumber ?? '-' }}</el-tag>
 					</el-breadcrumb-item>
-					<el-breadcrumb-item>{{ props.pet.petKindName ?? '-' }}</el-breadcrumb-item>
-					<el-breadcrumb-item>{{ props.pet.petGenderText ?? '-' }}</el-breadcrumb-item>
-					<el-breadcrumb-item>{{ props.pet.petVarietieName ?? '-' }}</el-breadcrumb-item>
-					<el-breadcrumb-item>{{ props.pet.petColorText ?? '-' }}</el-breadcrumb-item>
+					<el-breadcrumb-item>性别：{{ props.pet.petGenderText ?? '-' }}</el-breadcrumb-item>
+					<el-breadcrumb-item>种类：{{ props.pet.petKindName ?? '-' }}</el-breadcrumb-item>
+					<el-breadcrumb-item>品种：{{ props.pet.petVarietieName ?? '-' }}</el-breadcrumb-item>
+					<el-breadcrumb-item>颜色：{{ props.pet.petColorText ?? '-' }}</el-breadcrumb-item>
 					<el-breadcrumb-item>{{ scale2Format(props.pet.petWeight) ?? '-' }}Kg</el-breadcrumb-item>
 				</el-breadcrumb>
 			</el-card>
 
 			<el-form :model="ruleForm" ref="ruleFormRef" label-width="80px" :rules="rules">
-				<el-card shadow="always" style="margin-top: 8px;height: 350px;">
+				<el-card shadow="always" style="margin-top: 8px; height: 450px">
 					<el-row :gutter="35">
 						<el-form-item v-show="false">
 							<el-input v-model="ruleForm.id" />
@@ -127,7 +126,7 @@ import { storeToRefs } from 'pinia';
 import other from '/@/utils/other';
 import { useUserInfo } from '/@/stores/userInfo';
 import { getDictDataList } from '/@/utils/dict-utils';
-
+import { addDaysToDate } from '/@/utils/formatTime';
 
 const stores = useUserInfo();
 //父级传递来的参数
@@ -145,7 +144,7 @@ const departments = ref<any>([]);
 const { scale2Format } = commonFunction();
 const address = ref<any>([]);
 const getUsersData = ref<any>([]);
-const { userList,sysOrgInfo } = storeToRefs(stores);
+const { userList, sysOrgInfo } = storeToRefs(stores);
 const defaultTime = new Date();
 //父级传递来的函数，用于回调
 const emit = defineEmits(['reloadTable']);
@@ -204,7 +203,7 @@ const templateChange = (value: any) => {
 };
 // 打开弹窗
 const openDialog = async (row: any) => {
-	smsTemplateItems.value.push({ label: '机构名称', value: sysOrgInfo.value.orgName  });
+	smsTemplateItems.value.push({ label: '机构名称', value: sysOrgInfo.value.orgName });
 	smsTemplateItems.value.push({ label: '机构地址', value: `${sysOrgInfo.value.addressText}${sysOrgInfo.value.addressDetails}` });
 	smsTemplateItems.value.push({ label: '机构联系方式', value: sysOrgInfo.value.contactPhone });
 	smsTemplateItems.value.push({ label: '宠主姓名', value: props.pcustomer?.name });
@@ -216,6 +215,11 @@ const openDialog = async (row: any) => {
 	ruleForm.value = other.deepClone(row);
 	address.value = ruleForm.value.address ? JSON.parse(ruleForm.value.address) : [];
 	isShowDialog.value = true;
+	ruleForm.value.type = ReservationTypeEnums.value[0].value;
+	ruleForm.value.departmentId = departments.value[0].id;
+	ruleForm.value.doctorId = getUsersData.value[0].id;
+	defaultTime.setHours(10, 0, 0, 0);
+	ruleForm.value.reservationTime = addDaysToDate(defaultTime, 1);
 };
 
 /**

@@ -23,14 +23,14 @@
                 :row-class-name="tableRowClassName">
                 <template v-slot:command>
                     <el-row>
-                        <el-select v-model="typeId" placeholder="请选择押金类型" size="small" style="width: 240px;"
+                        <el-select v-model="typeId" placeholder="请选择押金类型"  style="width: 240px;"
                             @change="depositTypeChange">
                             <el-option v-for="item in depositTypes" :key="item.id"
                                 :label="item.name + '（ ' + item.totalAmount + ' ）'" :value="item.id" />
                         </el-select>
-                        <el-button type="primary" style="margin-left: 10px" plain size="small"
+                        <el-button type="primary" style="margin-left: 10px" plain 
                             @click="openRechargeAmountRef"  v-auth="'customer:deposit:rancharge'"> 充值 </el-button>
-                        <el-button type="danger" plain size="small" @click="openReturnAmountRef"  v-auth="'customer:deposit:return'">退款</el-button>
+                        <el-button type="danger" plain  @click="openReturnAmountRef"  v-auth="'customer:deposit:return'">退款</el-button>
                     </el-row>
                 </template>
                 <template v-slot:columncommand>
@@ -215,7 +215,7 @@ const openDialog = async () => {
 };
 
 const tableRowClassName = ({ row, rowIndex }: { row: any, rowIndex: number }) => {
-    if (row.changeType == 1) {
+    if (row.changeType == 2) {
         return 'table-class-text-red'
     }
     return ''
@@ -325,10 +325,8 @@ defineExpose({ openDialog });
 </script>
 <style scoped lang="scss">
 .deposits-view-container {
-    :deep(.el-table__body) {
-        .table-class-text-red {
-            color: #F56C6C !important;
-        }
-    }
+    :deep(.table-class-text-red) {
+    color: #F56C6C !important;
+  }
 }
 </style>

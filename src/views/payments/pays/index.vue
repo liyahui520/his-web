@@ -66,7 +66,7 @@
 										</el-breadcrumb-item>
 										<el-breadcrumb-item>{{ customerFundData.cardNumber ?? '-' }}</el-breadcrumb-item>
 										<el-breadcrumb-item>{{ customerFundData.cellPhone ?? '-' }}</el-breadcrumb-item>
-										<el-breadcrumb-item>{{ customerFundData.sexText ?? '' }}</el-breadcrumb-item>
+										<!-- <el-breadcrumb-item>{{ customerFundData.sexText ?? '' }}</el-breadcrumb-item> -->
 									</el-breadcrumb>
 								</div>
 								<div class="right-info">

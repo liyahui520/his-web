@@ -12,11 +12,9 @@
  * Do not edit the class manually.
  */
 
-import { OutOrderTypeEnum } from './out-order-type-enum';
-import { ProductTypeEnums } from './product-type-enums';
-import {
-    OutOrderTypeEnum,ProductTypeEnums,
-} from ".";
+import { OutOrderTypeEnum } from '../in-storage-manage/out-order-type-enum';
+import { ProductTypeEnums } from '../product-manage/product-type-enums';
+
 
 /**
  * 出库明细输出参数

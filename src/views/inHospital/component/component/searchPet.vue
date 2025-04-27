@@ -10,16 +10,16 @@
 			<el-card shadow="never" :body-style="{ paddingBottom: '0' }">
 				<el-form :model="queryParams" ref="queryForm" :inline="true">
 					<el-form-item label="会员名称">
-						<el-input v-model="queryParams.name" clearable placeholder="请输入会员名称" />
+						<el-input v-model="queryParams.name" placeholder="请输入会员名称" />
 					</el-form-item>
 					<el-form-item label="手机号码">
-						<el-input v-model="queryParams.cellPhone" clearable placeholder="请输入手机号码" />
+						<el-input v-model="queryParams.cellPhone" placeholder="请输入手机号码" />
 					</el-form-item>
 					<!-- <el-form-item label="会员编号">
 						<el-input v-model="queryParams.cardNumber" clearable placeholder="请输入会员编号" />
 					</el-form-item> -->
 					<el-form-item label="宠物名称">
-						<el-input v-model="queryParams.petName" clearable placeholder="请输入宠物名称" />
+						<el-input v-model="queryParams.petName" placeholder="请输入宠物名称" />
 					</el-form-item>
 
 					<el-form-item>

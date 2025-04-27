@@ -72,10 +72,10 @@ export interface SaveXrayInspectInput {
     /**
      * 检查时间
      *
-     * @type {Date}
+     * @type {string}
      * @memberof SaveXrayInspectInput
      */
-    checkTime?: Date | null;
+    checkTime?: string | null;
 
     /**
      * 报告医生Id(sys_user.id)
@@ -96,10 +96,10 @@ export interface SaveXrayInspectInput {
     /**
      * 报告时间
      *
-     * @type {Date}
+     * @type {string}
      * @memberof SaveXrayInspectInput
      */
-    reportTime?: Date | null;
+    reportTime?: string | null;
 
 
     /**

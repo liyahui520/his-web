@@ -23,7 +23,6 @@
 							<img v-else-if="props?.pet?.petKind === '1300010000002'" src="https://img.huimopei.com/img/Default/Cat.png" />
 							<img v-else src="https://img.huimopei.com/img/Default/default.png" />
 						</el-avatar> 
-						<!-- <el-avatar v-else :size="80" :src="'src/assets/in-hospitals/animal.png'" @error="errorHandler"> </el-avatar> -->
 					</div>
 					<span style="font-size: 12px; line-height: 30px; color: #8d8d91">{{ dateEntityFormatYMD(props?.pet?.createTime) }}</span>
 				</div>
@@ -35,7 +34,7 @@
 						<el-breadcrumb separator="\">
 							<el-breadcrumb-item>{{ props?.pet?.petGenderText ?? '-' }}</el-breadcrumb-item>
 							<el-breadcrumb-item>
-								<el-text style="width: 80px" truncated :title="props?.pet?.petVarietieText">{{ props?.pet?.petVarietieText ?? '-' }}</el-text>
+								<el-text truncated :title="props?.pet?.petVarietieText">{{ props?.pet?.petVarietieText ?? '-' }}</el-text>
 							</el-breadcrumb-item>
 							<el-breadcrumb-item>{{ props?.pet?.petColorText ?? '-' }}</el-breadcrumb-item>
 							<el-breadcrumb-item>{{ scale2Format(props?.pet?.petWeight) }}Kg</el-breadcrumb-item>

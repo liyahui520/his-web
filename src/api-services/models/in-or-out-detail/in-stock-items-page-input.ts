@@ -13,9 +13,6 @@
  */
 
 import { OrderTypeEnum } from './order-type-enum';
-import {
-    OrderTypeEnum,
-} from ".";
 
 /**
  * 

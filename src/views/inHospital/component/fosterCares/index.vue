@@ -1,6 +1,6 @@
 <template>
 	<div class="in-hospitals-container">
-		<el-card shadow="never" :body-style="{ paddingBottom: '0' }" style="margin-bottom: 8px;">
+		<el-card shadow="never" :body-style="{ paddingBottom: '0' }" style="margin-bottom: 8px">
 			<el-form :model="queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="客户名称">
 					<el-input v-model="queryParams.customerName" clearable placeholder="请输入客户名称" />
@@ -37,85 +37,10 @@
 			</el-form>
 		</el-card>
 		<el-card class="data-class" shadow="never" v-loading="cardLoading">
-			<!-- <el-row v-if="inHospitalData.length > 0"  :gutter="20">
-				<el-col :span="6" style="margin-bottom: 10px" v-for="(item, index) in inHospitalData" :key="item.id"> -->
-					<span :style="'float: left;margin-right: 16px;margin-bottom: 16px;'" :key="item.id"
-                v-for="item in inHospitalData">
-				<jYCard :item="item" @openNurses="openNurses" @openRooms="openRooms" @openDays="openDays" @outHospital="outHospital"/>
-            </span>
-					<!-- <el-card class="item-class" shadow="always">
-						<template #header>
-							
-							<div style="justify-content: space-between; display: flex">
-								<div>
-									<el-text
-										>{{ item.roomName }}&nbsp;&nbsp;&nbsp;&nbsp;
-
-										<el-tooltip effect="dark" content="负责人" placement="top"
-											><el-tag type="primary">{{ item.headName }}</el-tag>
-										</el-tooltip></el-text
-									>
-								</div>
-								<div>
-									<el-tooltip effect="dark" content="住院时间" placement="top">
-										<el-text>{{ formatDate(new Date(item.startTime), 'YYYY-mm-dd') }}</el-text>
-									</el-tooltip>
-								</div>
-							</div>
-						</template>
-						<template #default>
-							<el-row>
-								<el-col :span="5">
-									<el-avatar v-if="item.petImageUrl!=void 0 && item.petImageUrl!=null && item.petImageUrl!='' && item.petImageUrl!='null' && item.petImageUrl!='undefined'" :size="60" style="background-color: white" shape="square" :src="item.petImageUrl" />
-									<el-avatar v-else :size="60" style="background-color: white" shape="square" src="src/assets/in-hospitals/animal.png" />
-								
-								</el-col>
-								<el-col :span="19">
-									<el-row :gutter="10" style="margin-bottom: 10px">
-										<el-col :span="8">{{ item.customerName }}</el-col>
-										<el-col :span="8">{{ item.levelText }}</el-col>
-										<el-col :span="8">{{ item.cellPhone }}</el-col>
-									</el-row>
-									<el-row :gutter="10">
-										<el-col :span="8">{{ item.petName }}</el-col>
-										<el-col :span="8">{{ item.petKindText }}</el-col>
-										<el-col :span="8">{{ item.petVarietieText }}</el-col>
-									</el-row>
-								</el-col>
-							</el-row>
-						</template>
-						<template #footer>
-							<el-row :gutter="10">
-								<el-col :span="6">
-									<div class="item-footer-class" @click="openNurses(item)">
-										<el-avatar :size="40" style="background-color: white" shape="square" src="src/assets/in-hospitals/huli.png" />
-										<div><el-text>护理</el-text></div>
-									</div>
-								</el-col>
-								<el-col :span="6">
-									<div class="item-footer-class" @click="openRooms(item)">
-										<el-avatar :size="40" style="background-color: white" shape="square" src="src/assets/in-hospitals/longweiguanli.png" />
-										<div><el-text>笼位</el-text></div>
-									</div>
-								</el-col>
-								<el-col :span="6">
-									<div class="item-footer-class" @click="openDays(item)">
-										<el-avatar :size="40" style="background-color: white" shape="square" src="src/assets/in-hospitals/richangjiandu.png" />
-										<div><el-text>日常</el-text></div>
-									</div>
-								</el-col>
-								<el-col :span="6">
-									<div class="item-footer-class" @click="outHospital(item)" v-loading="item.outHospitalLoading">
-										<el-avatar :size="40" style="background-color: white" shape="square" src="src/assets/in-hospitals/chuyuan.png" />
-										<div><el-text>结束留观</el-text></div>
-									</div>
-								</el-col>
-							</el-row>
-						</template>
-					</el-card> -->
-				<!-- </el-col>
-			</el-row> -->
-			<!-- <el-empty v-else  description="暂无留观信息"> </el-empty> -->
+			<span v-if="inHospitalData.length > 0" :style="'float: left;margin-right: 16px;margin-bottom: 16px;'" :key="item.id" v-for="item in inHospitalData">
+				<jYCard :item="item" @openNurses="openNurses" @openRooms="openRooms" @openDays="openDays" @outHospital="outHospital" />
+			</span>
+			<el-empty v-else  description="暂无留观信息"> </el-empty>
 		</el-card>
 		<nurses ref="nursesRef" @reloadData="handleQuery"></nurses>
 		<rooms ref="roomsRef"></rooms>
@@ -125,7 +50,7 @@
 </template>
 
 <script lang="ts" setup name="inHospitalFosterCares">
-import { ref, onMounted ,defineAsyncComponent} from 'vue';
+import { ref, onMounted, defineAsyncComponent } from 'vue';
 import { InHospitalTypeEnum } from '/@/api-services/models/cemrecord-manage/in-hospital-type-enum';
 import { InHospitalCostTypeEnum } from '/@/api-services/models/cemrecord-manage/in-hospital-cost-type-enum';
 import { getAPI } from '/@/utils/axios-utils';
@@ -133,7 +58,7 @@ import { InHospitalApi } from '/@/api-services/api';
 import nurses from '../component/nurseView.vue';
 import rooms from '../component/roomsView.vue';
 import dailys from '../component/dailysView.vue';
-import { formatDate,formatAge } from '/@/utils/formatTime';
+import { formatDate, formatAge } from '/@/utils/formatTime';
 import addFosterCares from './addFosterCares.vue';
 
 const jYCard = defineAsyncComponent(() => import('../component/jYCard.vue'));
@@ -160,7 +85,8 @@ const handleQuery = async () => {
 		.then((res) => {
 			cardLoading.value = false;
 			inHospitalData.value = res.data.result?.items ?? [];
-		}).finally(()=>{
+		})
+		.finally(() => {
 			cardLoading.value = false;
 		});
 };
@@ -189,7 +115,6 @@ const openAddInHospital = () => {
 		remark: '',
 	});
 };
-
 
 /**
  * 出院

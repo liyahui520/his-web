@@ -40,16 +40,33 @@
 							{{ formatDate(new Date(scope.row.startTime), 'YYYY-mm-dd') }}
 						</template>
 					</el-table-column>
-					<el-table-column label="销售价格" align="center" show-overflow-tooltip="">
+					<el-table-column v-if="hospitalDetailInfo.inHospitalPayStatus == 0" label="销售价格" align="center" show-overflow-tooltip="">
 						<template #default="scope">
 							<div v-if="scope.row.inHospitalCostType == 0">{{ verifyNumberComma(scope.row?.salePrice?.toFixed(2).toString() || '0.00') }} / {{ scope.row.inHospitalCostTypeText }}</div>
 							<div v-if="scope.row.inHospitalCostType == 1">{{ verifyNumberComma(scope.row?.monthSalePrice?.toFixed(2).toString() || '0.00') }} / {{ scope.row.inHospitalCostTypeText }}</div>
 						</template>
 					</el-table-column>
-					<el-table-column label="会员价格" align="center" show-overflow-tooltip="">
+					<el-table-column v-if="hospitalDetailInfo.inHospitalPayStatus == 0" label="会员价格" align="center" show-overflow-tooltip="">
 						<template #default="scope">
 							<div v-if="scope.row.inHospitalCostType == 0">{{ verifyNumberComma(scope.row?.memberPrice?.toFixed(2).toString() || '0.00') }} / {{ scope.row.inHospitalCostTypeText }}</div>
 							<div v-if="scope.row.inHospitalCostType == 1">{{ verifyNumberComma(scope.row?.monthMemberPrice?.toFixed(2).toString() || '0.00') }} / {{ scope.row.inHospitalCostTypeText }}</div>
+						</template>
+					</el-table-column>
+					<el-table-column v-if="hospitalDetailInfo.inHospitalPayStatus != 0" label="付款金额" align="center" show-overflow-tooltip="">
+						<template #default="scope">{{ verifyNumberComma(scope.row?.actualAmount?.toFixed(2).toString() || '0.00') }} </template>
+					</el-table-column>
+					<el-table-column label="支付状态" align="center" width="100"  show-overflow-tooltip="">
+						<template #default="scope">
+						<el-tag type="success" v-if="scope.row.payStatus == 0">待支付</el-tag>
+						<el-tag type="primary" v-else-if="scope.row.payStatus == 1">已支付</el-tag>
+						<el-tag type="warning" v-else-if="scope.row.payStatus == 2">部分已退款</el-tag>
+						<el-tag type="info" v-else-if="scope.row.payStatus == 3">已退款</el-tag>
+						<el-tag type="danger" v-else-if="scope.row.payStatus == 4">已删除</el-tag>
+						</template>
+					</el-table-column>
+					<el-table-column label="创建时间" width="150" align="center">
+						<template #default="scope">
+							{{ formatDate(new Date(scope.row.createTime), 'YYYY-mm-dd HH:MM:SS') }}
 						</template>
 					</el-table-column>
 				</el-table>

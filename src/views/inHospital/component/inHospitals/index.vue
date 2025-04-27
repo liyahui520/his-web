@@ -37,95 +37,11 @@
 			</el-form>
 		</el-card>
 		<el-card class="data-class" shadow="never" v-loading="cardLoading">
-			<span :style="'float: left;margin-right: 16px;margin-bottom: 16px;'" :key="item.id" v-for="item in inHospitalData">
+			<span v-if="inHospitalData.length > 0" :style="'float: left;margin-right: 16px;margin-bottom: 16px;'" :key="item.id" v-for="item in inHospitalData">
 				<zYCard :item="item" @openNurses="openNurses" @openRooms="openRooms" @openDays="openDays" @outHospital="outHospital" @openPrescription="openPrescription" @openTests="openTests" />
 			</span>
-			<!--<el-row v-if="inHospitalData.length > 0" :gutter="20">
-				 <el-col :span="6" style="margin-bottom: 10px" v-for="(item, index) in inHospitalData" :key="item.id">
-					<el-card class="item-class" shadow="always">
-						<template #header>
-							<div style="justify-content: space-between; display: flex">
-								<div>
-									<el-text
-										>{{ item.roomName }}&nbsp;&nbsp;&nbsp;&nbsp;
-
-										<el-tooltip effect="dark" content="负责人" placement="top"
-											><el-tag type="primary">{{ item.headName }}</el-tag>
-										</el-tooltip></el-text
-									>
-								</div>
-								<div>
-									<el-tooltip effect="dark" content="住院时间" placement="top">
-										<el-text>{{ formatDate(new Date(item.startTime), 'YYYY-mm-dd') }}</el-text>
-									</el-tooltip>
-								</div>
-							</div>
-						</template>
-						<template #default>
-							<el-row>
-								<el-col :span="5">
-									<el-avatar v-if="item.petImageUrl!=void 0 && item.petImageUrl!=null && item.petImageUrl!='' && item.petImageUrl!='null' && item.petImageUrl!='undefined'" :size="60" style="background-color: white" shape="square" :src="item.petImageUrl" />
-									<el-avatar v-else :size="60" style="background-color: white" shape="square" src="src/assets/in-hospitals/animal.png" />
-								
-								</el-col>
-								<el-col :span="19">
-									<el-row :gutter="10" style="margin-bottom: 10px">
-										<el-col :span="8">{{ item.customerName }}</el-col>
-										<el-col :span="8">{{ item.levelText }}</el-col>
-										<el-col :span="8">{{ item.cellPhone }}</el-col>
-									</el-row>
-									<el-row :gutter="10">
-										<el-col :span="8">{{ item.petName }}</el-col>
-										<el-col :span="8">{{ item.petKindText }}</el-col>
-										<el-col :span="8">{{ item.petVarietieText }}</el-col>
-									</el-row>
-								</el-col>
-							</el-row>
-						</template>
-						<template #footer>
-							<el-row :gutter="10">
-								<el-col :span="4">
-									<div class="item-footer-class" @click="openPrescription(item)">
-										<el-avatar :size="40" style="background-color: white" shape="square" src="src/assets/in-hospitals/chufang.png" />
-										<div><el-text>处方</el-text></div>
-									</div>
-								</el-col>
-								<el-col :span="4">
-									<div class="item-footer-class" @click="openTests(item)">
-										<el-avatar :size="40" style="background-color: white" shape="square" src="src/assets/in-hospitals/huayan.png" />
-										<div><el-text>化验</el-text></div>
-									</div>
-								</el-col>
-								<el-col :span="4">
-									<div class="item-footer-class" @click="openNurses(item)">
-										<el-avatar :size="40" style="background-color: white" shape="square" src="src/assets/in-hospitals/huli.png" />
-										<div><el-text>护理</el-text></div>
-									</div>
-								</el-col>
-								<el-col :span="4">
-									<div class="item-footer-class" @click="openRooms(item)">
-										<el-avatar :size="40" style="background-color: white" shape="square" src="src/assets/in-hospitals/longweiguanli.png" />
-										<div><el-text>笼位</el-text></div>
-									</div>
-								</el-col>
-								<el-col :span="4">
-									<div class="item-footer-class" @click="openDays(item)">
-										<el-avatar :size="40" style="background-color: white" shape="square" src="src/assets/in-hospitals/richangjiandu.png" />
-										<div><el-text>日常</el-text></div>
-									</div>
-								</el-col>
-								<el-col :span="4">
-									<div class="item-footer-class" @click="outHospital(item)" v-loading="item.outHospitalLoading">
-										<el-avatar :size="40" style="background-color: white" shape="square" src="src/assets/in-hospitals/chuyuan.png" />
-										<div><el-text>出院</el-text></div>
-									</div>
-								</el-col>
-							</el-row>
-						</template>
-					</el-card>
-				</el-col> 
-			</el-row>
-			<el-empty v-else description="暂无住院信息"> </el-empty>-->
+			
+			<el-empty v-else description="暂无住院信息"> </el-empty>
 		</el-card>
 
 		<prescriptions ref="prescriptionsRef"></prescriptions>

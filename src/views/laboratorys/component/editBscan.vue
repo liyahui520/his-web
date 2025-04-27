@@ -131,7 +131,7 @@
 									<el-option v-for="item in doctorUserData" :key="item.id" :label="item.realName" :value="item.id" />
 								</el-select>
 								<span style="padding: 10px"> | </span>
-								<el-date-picker v-model="saveBscanInspectForm.checkTime" type="datetime" format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" placeholder="请选择检查时间" />
+								<el-date-picker v-model="saveBscanInspectForm.checkTime" type="date" format="YYYY-MM-DD" value-format="YYYY-MM-DD" placeholder="请选择检查时间" />
 							</div>
 						</el-form-item>
 						<el-form-item label="报告医生：">
@@ -140,7 +140,7 @@
 									<el-option v-for="item in doctorUserData" :key="item.id" :label="item.realName" :value="item.id" />
 								</el-select>
 								<span style="padding: 10px"> | </span>
-								<el-date-picker v-model="saveBscanInspectForm.reportTime" type="datetime" format="YYYY-MM-DD HH:mm:ss" value-format="YYYY-MM-DD HH:mm:ss" placeholder="请选择报告时间" />
+								<el-date-picker v-model="saveBscanInspectForm.reportTime" type="date" format="YYYY-MM-DD" value-format="YYYY-MM-DD" placeholder="请选择报告时间" />
 							</div>
 						</el-form-item>
 						<el-form-item label="助理：">
@@ -177,6 +177,7 @@ import { UploadFilled } from '@element-plus/icons-vue';
 // 描述列表样式开始
 import { Tickets, User } from '@element-plus/icons-vue';
 import type { ComponentSize } from 'element-plus';
+import { formatDate } from '/@/utils/formatTime';
 
 const stores = useUserInfo();
 const { userList } = storeToRefs(stores);
@@ -246,7 +247,7 @@ const iconStyle = computed(() => {
 		large: '8px',
 		default: '6px',
 		small: '4px',
-	};
+	} as any;
 	return {
 		marginRight: marginMap[size.value] || marginMap.default,
 	};
@@ -285,11 +286,11 @@ const getBscanInspectResult = async (cEMRecordTestItemId: number) => {
 
 		saveBscanInspectForm.checkDoctorId = result.checkDoctorId;
 		saveBscanInspectForm.checkDoctorName = result.checkDoctorName;
-		saveBscanInspectForm.checkTime = result.checkTime;
+		saveBscanInspectForm.checkTime = formatDate(new Date(result.checkTime as any), 'YYYY-mm-dd');
 
 		saveBscanInspectForm.reportDoctorId = result.reportDoctorId;
 		saveBscanInspectForm.reportDoctorName = result.reportDoctorName;
-		saveBscanInspectForm.reportTime = result.reportTime;
+		saveBscanInspectForm.reportTime = formatDate(new Date(result.reportTime as any), 'YYYY-mm-dd');
 
 		saveBscanInspectForm.bscanInspectImgList = result.bscanInspectImgList as Array<SaveBscanInspectImgInput>;
 		result.bscanInspectImgList?.forEach((element) => {
@@ -300,13 +301,13 @@ const getBscanInspectResult = async (cEMRecordTestItemId: number) => {
 		saveBscanInspectForm.bscanTips = null;
 		saveBscanInspectForm.bscanPropose = null;
 
-		saveBscanInspectForm.checkDoctorId = null;
-		saveBscanInspectForm.checkDoctorName = null;
-		saveBscanInspectForm.checkTime = null;
+		saveBscanInspectForm.checkDoctorId = doctorUserData.value[0].id;
+		saveBscanInspectForm.checkDoctorName = doctorUserObject.value[doctorUserData.value[0].id];
+		saveBscanInspectForm.checkTime =formatDate(new Date(), 'YYYY-mm-dd');
 
-		saveBscanInspectForm.reportDoctorId = null;
-		saveBscanInspectForm.reportDoctorName = null;
-		saveBscanInspectForm.reportTime = null;
+		saveBscanInspectForm.reportDoctorId = doctorUserData.value[0].id;
+		saveBscanInspectForm.reportDoctorName = doctorUserObject.value[doctorUserData.value[0].id];
+		saveBscanInspectForm.reportTime =formatDate(new Date(), 'YYYY-mm-dd');
 
 		saveBscanInspectForm.bscanInspectImgList = [];
 		previewImage.imgs = [];

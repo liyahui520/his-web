@@ -1184,28 +1184,71 @@ export const InspectionTestDataProvider = function () {
 								align: 'left',
 								field: 'resultValue',
 								formatter: function (value, row, index, options) {
-									if (!isNaN(row.resultValue)) {
-										var resultHtml =
-											'<div ><div style="height:20px;border: solid 1px #ccc;display: flex;flex-wrap: wrap;position: relative;box-sizing: border-box;"><div style="max-width: 33.33%;flex: 0 0 33.33%;">';
-										if (row.resultValue < row.minValue) {
-											var shiftingProportion = (row.minValue - row.resultValue) / (row.maxValue - row.minValue);
-											var result = shiftingProportion > 1 ? 0 : 1 - shiftingProportion >= 0.95 ? 95 : (1 - shiftingProportion) * 100;
-											resultHtml = resultHtml + '<div style="width: 10%;background-color: #909399;height: 100%;margin-left: ' + result + '%;" ></div>';
-										}
-										resultHtml = resultHtml + '</div><div style="max-width: 33.33%;flex: 0 0 33.33%;border-left: solid 2px #ccc;border-right: solid 2px #ccc;" >';
-										if (row.resultValue >= row.minValue && row.resultValue <= row.maxValue) {
-											var shiftingProportion = (row.resultValue / (row.maxValue - row.minValue)) * 100;
-											resultHtml = resultHtml + '<div style="width: 10%;background-color: #67C23A;height: 100%;margin-left: ' + shiftingProportion + '%;" ></div>';
-										}
-										resultHtml = resultHtml + '</div><div style="max-width: 33.33%;flex: 0 0 33.33%;">';
-										if (row.resultValue > row.maxValue) {
-											const shiftingProportion = (row.resultValue - row.maxValue) / (row.maxValue - row.minValue);
-											var result = shiftingProportion > 1 ? 95 : shiftingProportion * 100;
-											resultHtml = resultHtml + '<div style="width: 10%;background-color: #F56C6C;height: 100%;margin-left: ' + result + '%;" >';
-										}
-										resultHtml = resultHtml + '</div></div></div></div>';
-										return resultHtml;
+									
+									if (isNaN(row.resultValue)) {
+										return '';
 									}
+									var maxValue =row.maxValue;
+									var minValue =row.minValue;
+									var resultValue =row.resultValue;
+									const range = maxValue - minValue;
+									const isExtremeLow = resultValue < minValue;
+									const isExtremeHigh = resultValue > maxValue;
+									
+									// 新计算逻辑：小值越小时越靠近左侧
+									let leftPosition = '0%';
+									if (isExtremeLow) {
+										const deviation =Math.abs((minValue - resultValue) / minValue); // 强化小值偏移
+										if(deviation<1)leftPosition =  (1-deviation) * 100 + '%';
+										else if(deviation > 1 && deviation<2) leftPosition =  (deviation-1) * 100 + '%';
+										else if(deviation >=2 ) leftPosition =  '0%';
+									}
+									
+									// 新计算逻辑：大值越大时越靠近右侧
+									let rightPosition = '0%';
+									if (isExtremeHigh) {
+										const deviation = Math.abs((resultValue - maxValue) / maxValue); // 强化大值偏移
+										if(deviation<1)leftPosition =  (1-deviation) * 100 + '%';
+										else if(deviation > 1 && deviation<2) leftPosition =  (deviation-1) * 100 + '%';
+										else if(deviation >=2 ) leftPosition =  '0%';
+										rightPosition = Math.min(deviation * 100, 95) + '%';
+									}
+						
+									let indicatorHtml = '';
+									if (isExtremeLow) {
+										indicatorHtml = `
+											<div style="width:150px; height:20px; border:1px solid #ccc; display:flex; position:relative; ">
+												<div style="width:33.33%; height:100%; position:relative; overflow:hidden;">
+													<div style="width:10%; height:100%; background:#909399; position:absolute; left:${leftPosition};"></div>
+												</div>
+												<div style="width:33.33%; height:100%; border-left:2px solid #ccc; border-right:2px solid #ccc;"></div>
+												<div style="width:33.33%; height:100%;"></div>
+											</div>
+										`;
+									} else if (isExtremeHigh) {
+										indicatorHtml = `
+											<div style="width:150px; height:20px; border:1px solid #ccc; display:flex; position:relative; ">
+												<div style="width:33.33%; height:100%;"></div>
+												<div style="width:33.33%; height:100%; border-left:2px solid #ccc; border-right:2px solid #ccc;"></div>
+												<div style="width:33.33%; height:100%; position:relative; overflow:hidden;">
+													<div style="width:10%; height:100%; background:#F56C6C; position:absolute; left:${rightPosition};"></div>
+												</div>
+											</div>
+										`;
+									} else {
+										const positionPercent = ((resultValue - minValue) / range) * 100;
+										indicatorHtml = `
+											<div style="width:150px; height:20px; border:1px solid #ccc; display:flex; position:relative; ">
+												<div style="width:33.33%; height:100%;"></div>
+												<div style="width:33.33%; height:100%; border-left:2px solid #ccc; border-right:2px solid #ccc; position:relative; overflow:hidden;">
+													<div style="width:10%; height:100%; background:#67C23A; position:absolute; left:${positionPercent}%;"></div>
+												</div>
+												<div style="width:33.33%; height:100%;"></div>
+											</div>
+										`;
+									}
+						
+									return indicatorHtml;
 								},
 							},
 						],

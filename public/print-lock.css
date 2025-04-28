@@ -91,7 +91,7 @@
   background-color: transparent;
   background-repeat: repeat;
   padding: 0 0 0 0;
-  border: 0.75pt none rgb(0, 0, 0);
+  border: 0.75pt none #333333;
   direction: ltr;
   font-family: 'SimSun';
   font-size: 9pt;
@@ -117,7 +117,7 @@
 .hiprint-printElement-longText {
   background-color: transparent;
   background-repeat: repeat;
-  border: 0.75pt none rgb(0, 0, 0);
+  border: 0.75pt none #333333;
   direction: ltr;
   font-family: 'SimSun';
   font-size: 9pt;
@@ -140,8 +140,9 @@
 .hiprint-printElement-table {
   background-color: transparent;
   background-repeat: repeat;
-  color: rgb(0, 0, 0);
-  border-color: rgb(0, 0, 0);
+  color:#333333;
+   /* #333333; */
+  border-color: #333333;
   border-style: none;
   direction: ltr;
   font-family: 'SimSun';
@@ -169,9 +170,9 @@ table.hiprint-printElement-tableTarget {
 }
 
 .hiprint-printElement-tableTarget, .hiprint-printElement-tableTarget tr, .hiprint-printElement-tableTarget td {
-  border-color: rgb(0, 0, 0);
+  border-color: #333333;
   /*border-style: none;*/
-  /*border: 1px solid rgb(0, 0, 0);*/
+  /*border: 1px solid #333333;*/
   font-weight: normal;
   direction: ltr;
   padding-bottom: 0pt;
@@ -254,26 +255,26 @@ table.hiprint-printElement-tableTarget {
 }
 
 .hiprint-printElement-vline, .hiprint-printElement-hline {
-  border: 0px none rgb(0, 0, 0);
+  border: 0px none #333333;
 
 }
 
 .hiprint-printElement-vline {
   border-left: 0.75pt solid #000;
-  border-right: 0px none rgb(0, 0, 0) !important;
-  border-bottom: 0px none rgb(0, 0, 0) !important;
-  border-top: 0px none rgb(0, 0, 0) !important;
+  border-right: 0px none #333333 !important;
+  border-bottom: 0px none #333333 !important;
+  border-top: 0px none #333333 !important;
 }
 
 .hiprint-printElement-hline {
   border-top: 0.75pt solid #000;
-  border-right: 0px none rgb(0, 0, 0) !important;
-  border-bottom: 0px none rgb(0, 0, 0) !important;
-  border-left: 0px none rgb(0, 0, 0) !important;
+  border-right: 0px none #333333 !important;
+  border-bottom: 0px none #333333 !important;
+  border-left: 0px none #333333 !important;
 }
 
 .hiprint-printElement-oval, .hiprint-printElement-rect {
-  border: 0.75pt solid #000;
+  border: 0.75pt solid #333333;
 }
 
 .hiprint-text-content-middle {

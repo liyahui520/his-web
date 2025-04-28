@@ -430,7 +430,7 @@ defineExpose({ hiprintTemplate, state, InitmodeList });
 }
 :deep(.prop-tabs .prop-tab-items li.active) {
 	color: var(--el-color-primary);
-	border-bottom: 2px solid var(--el-color-primary);
+	border-bottom: 1px solid var(--el-color-primary);
 }
 :deep(.ant-modal-body) {
 	padding: 0px;

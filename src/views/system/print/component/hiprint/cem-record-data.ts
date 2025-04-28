@@ -40,12 +40,7 @@ export default {
         bcs:'2',
         heartRate:'2',
     },
-    prescriptions:[
-        // {
-            // billingTime:'2024-07-30 16:39:10',
-            // amountPrice:'16.9',
-            // count:'58',
-            // items:[
+    prescriptions:[ 
                 {billingTime:'2024-07-30 16:39:10',itemName:'氟欣安',typeText:'药品',unitName:'瓶',specific:'1*50ml',useDose:'1',dayNum:'1',amountCount:'1',count:'1',salePrice:'1',amountPrice:'11'},
                 {billingTime:'2024-07-30 16:39:10',itemName:'氟欣安',typeText:'药品',unitName:'瓶',specific:'1*50ml',useDose:'1',dayNum:'1',amountCount:'1',count:'1',salePrice:'1',amountPrice:'11'},
                 {billingTime:'2024-07-30 16:39:10',itemName:'氟欣安',typeText:'药品',unitName:'瓶',specific:'1*50ml',useDose:'1',dayNum:'1',amountCount:'1',count:'1',salePrice:'1',amountPrice:'11'},
@@ -75,8 +70,14 @@ export default {
                 {itemName:'氟欣安',typeText:'药品',unitName:'瓶',specific:'1*50ml',useDose:'1',dayNum:'1',amountCount:'1',count:'1',salePrice:'1',amountPrice:'11'},
                 {itemName:'氟欣安',typeText:'药品',unitName:'瓶',specific:'1*50ml',useDose:'1',dayNum:'1',amountCount:'1',count:'1',salePrice:'1',amountPrice:'11'},
                 {itemName:'氟欣安',typeText:'药品',unitName:'瓶',specific:'1*50ml',useDose:'1',dayNum:'1',amountCount:'1',count:'1',salePrice:'1',amountPrice:'11'},
-                {itemName:'氟欣安',typeText:'药品',unitName:'瓶',specific:'1*50ml',useDose:'1',dayNum:'1',amountCount:'1',count:'1',salePrice:'1',amountPrice:'11'},
-        //    ]
-        // }
+                {itemName:'氟欣安',typeText:'药品',unitName:'瓶',specific:'1*50ml',useDose:'1',dayNum:'1',amountCount:'1',count:'1',salePrice:'1',amountPrice:'11'}, 
+    ],
+    tests:[
+        {billingTime:'2024-07-30 16:39:10',itemName:'氟欣安',typeText:'药品',unitName:'瓶',amountCount:'1',count:'1',salePrice:'1',amountPrice:'11'},
+        {billingTime:'2024-07-30 16:39:10',itemName:'氟欣安',typeText:'药品',unitName:'瓶',amountCount:'1',count:'1',salePrice:'1',amountPrice:'11'},
+        {billingTime:'2024-07-30 16:39:10',itemName:'氟欣安',typeText:'药品',unitName:'瓶',amountCount:'1',count:'1',salePrice:'1',amountPrice:'11'},
+        {billingTime:'2024-07-30 16:39:10',itemName:'氟欣安',typeText:'药品',unitName:'瓶',amountCount:'1',count:'1',salePrice:'1',amountPrice:'11'},
+        {billingTime:'2024-07-30 16:39:10',itemName:'氟欣安',typeText:'药品',unitName:'瓶',amountCount:'1',count:'1',salePrice:'1',amountPrice:'11'},
+        {billingTime:'2024-07-30 16:39:10',itemName:'氟欣安',typeText:'药品',unitName:'瓶',amountCount:'1',count:'1',salePrice:'1',amountPrice:'11'}
     ]
 };

@@ -2620,7 +2620,7 @@ export const CEMRecord = function () {
 					columnResizable: true, //列宽是否能调整
 					columnAlignEditable: true, //列对齐是否调整
 
-					groupFormatter: `function(colTotal,tableData,printData,groupData,options){ return '<td colspan="4">开单时间：'+groupData.billingTime+'</td>' }`,
+					groupFormatter: `function(colTotal,tableData,printData,groupData,options){ return '<td colspan="4"  style="border:1px solid red">开单时间：'+groupData.billingTime+'</td>' }`,
 					columns: [
 						[
 							// 	{
@@ -2650,22 +2650,137 @@ export const CEMRecord = function () {
 						],
 					],
 				},
+				// {
+				// 	tid: 'CEMRecord.prescriptions1',
+				// 	title: '处方集合',
+				// 	data: '<p class="html-prescriptions" style="margin:0;font-size:13px">开单时间：2024/08/14 11:01:57</p><table class="cus-table" style="width:100%;table-layout:auto"><thead><tr><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">项目名称</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单位</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">规格</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单次用量</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">数量</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单价</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">总金额</th></tr></thead><tbody><tr><td>双氧水</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥2.80</td><td>￥2.80</td></tr><tr><td>碘伏</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥6.20</td><td>￥6.20</td></tr><tr><td>酒精</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥4.64</td><td>￥4.64</td></tr><tr><td>新洁尔灭</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥3.00</td><td>￥3.00</td></tr><tr><td>氟欣安</td><td>瓶</td><td>1*50ml</td><td>1.0000</td><td>1</td><td>￥2.60</td><td>￥2.60</td></tr><tr><td>奥普乐注射液</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥3.20</td><td>￥3.20</td></tr><tr><td>素高捷疗眼膏</td><td>g</td><td></td><td>1.0000</td><td>1</td><td>￥40.00</td><td>￥40.00</td></tr><tr><td>拜有利针剂100ml</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥2.20</td><td>￥2.20</td></tr><tr><td>赛瑞宁20ml</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥34.00</td><td>￥34.00</td></tr><tr><td>痛立定针</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥1.83</td><td>￥1.83</td></tr><tr><td>2%麻佛微素注射液</td><td>ml</td><td>100ml/瓶</td><td>1.0000</td><td>1</td><td>￥2.60</td><td>￥2.60</td></tr><tr><td>止血宁</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥30.00</td><td>￥30.00</td></tr><tr><td>通灭</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥3.00</td><td>￥3.00</td></tr><tr><td>科特壮</td><td></td><td></td><td>1.0000</td><td>1</td><td>￥1.80</td><td>￥1.80</td></tr><tr><td>润康滴眼液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥17.85</td><td>￥17.85</td></tr><tr><td>维克 眼净125ml</td><td>瓶</td><td>125ml</td><td>1.0000</td><td>1</td><td>￥75.00</td><td>￥75.00</td></tr><tr><td>贝复舒</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥38.00</td><td>￥38.00</td></tr><tr><td>托百士</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥26.94</td><td>￥26.94</td></tr><tr><td>百灵金方明目液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥20.00</td><td>￥20.00</td></tr><tr><td>acyliovir滴眼液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥6.00</td><td>￥6.00</td></tr></tbody></table>',
+				// 	type: 'longText',
+				// 	options: {
+				// 		field: 'prescriptions',
+				// 		testData:
+				// 			'<p class="html-prescriptions" style="margin:0;font-size:13px">开单时间：2024/08/14 11:01:57</p><table class="cus-table" style="width:100%;table-layout:auto"><thead><tr><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">项目名称</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单位</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">规格</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单次用量</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">数量</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单价</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">总金额</th></tr></thead><tbody><tr><td>双氧水</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥2.80</td><td>￥2.80</td></tr><tr><td>碘伏</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥6.20</td><td>￥6.20</td></tr><tr><td>酒精</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥4.64</td><td>￥4.64</td></tr><tr><td>新洁尔灭</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥3.00</td><td>￥3.00</td></tr><tr><td>氟欣安</td><td>瓶</td><td>1*50ml</td><td>1.0000</td><td>1</td><td>￥2.60</td><td>￥2.60</td></tr><tr><td>奥普乐注射液</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥3.20</td><td>￥3.20</td></tr><tr><td>素高捷疗眼膏</td><td>g</td><td></td><td>1.0000</td><td>1</td><td>￥40.00</td><td>￥40.00</td></tr><tr><td>拜有利针剂100ml</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥2.20</td><td>￥2.20</td></tr><tr><td>赛瑞宁20ml</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥34.00</td><td>￥34.00</td></tr><tr><td>痛立定针</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥1.83</td><td>￥1.83</td></tr><tr><td>2%麻佛微素注射液</td><td>ml</td><td>100ml/瓶</td><td>1.0000</td><td>1</td><td>￥2.60</td><td>￥2.60</td></tr><tr><td>止血宁</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥30.00</td><td>￥30.00</td></tr><tr><td>通灭</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥3.00</td><td>￥3.00</td></tr><tr><td>科特壮</td><td></td><td></td><td>1.0000</td><td>1</td><td>￥1.80</td><td>￥1.80</td></tr><tr><td>润康滴眼液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥17.85</td><td>￥17.85</td></tr><tr><td>维克 眼净125ml</td><td>瓶</td><td>125ml</td><td>1.0000</td><td>1</td><td>￥75.00</td><td>￥75.00</td></tr><tr><td>贝复舒</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥38.00</td><td>￥38.00</td></tr><tr><td>托百士</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥26.94</td><td>￥26.94</td></tr><tr><td>百灵金方明目液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥20.00</td><td>￥20.00</td></tr><tr><td>acyliovir滴眼液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥6.00</td><td>￥6.00</td></tr></tbody></table>',
+				// 		fontSize: 10.5,
+				// 		textAlign: 'left',
+				// 		hideTitle: true,
+				// 		fontFamily: 'Microsoft YaHei',
+				// 		textContentVerticalAlign: 'middle',
+				// 	},
+				// },
 				{
-					tid: 'CEMRecord.prescriptions1',
-					title: '处方集合',
-					data: '<p class="html-prescriptions" style="margin:0;font-size:13px">开单时间：2024/08/14 11:01:57</p><table class="cus-table" style="width:100%;table-layout:auto"><thead><tr><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">项目名称</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单位</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">规格</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单次用量</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">数量</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单价</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">总金额</th></tr></thead><tbody><tr><td>双氧水</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥2.80</td><td>￥2.80</td></tr><tr><td>碘伏</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥6.20</td><td>￥6.20</td></tr><tr><td>酒精</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥4.64</td><td>￥4.64</td></tr><tr><td>新洁尔灭</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥3.00</td><td>￥3.00</td></tr><tr><td>氟欣安</td><td>瓶</td><td>1*50ml</td><td>1.0000</td><td>1</td><td>￥2.60</td><td>￥2.60</td></tr><tr><td>奥普乐注射液</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥3.20</td><td>￥3.20</td></tr><tr><td>素高捷疗眼膏</td><td>g</td><td></td><td>1.0000</td><td>1</td><td>￥40.00</td><td>￥40.00</td></tr><tr><td>拜有利针剂100ml</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥2.20</td><td>￥2.20</td></tr><tr><td>赛瑞宁20ml</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥34.00</td><td>￥34.00</td></tr><tr><td>痛立定针</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥1.83</td><td>￥1.83</td></tr><tr><td>2%麻佛微素注射液</td><td>ml</td><td>100ml/瓶</td><td>1.0000</td><td>1</td><td>￥2.60</td><td>￥2.60</td></tr><tr><td>止血宁</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥30.00</td><td>￥30.00</td></tr><tr><td>通灭</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥3.00</td><td>￥3.00</td></tr><tr><td>科特壮</td><td></td><td></td><td>1.0000</td><td>1</td><td>￥1.80</td><td>￥1.80</td></tr><tr><td>润康滴眼液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥17.85</td><td>￥17.85</td></tr><tr><td>维克 眼净125ml</td><td>瓶</td><td>125ml</td><td>1.0000</td><td>1</td><td>￥75.00</td><td>￥75.00</td></tr><tr><td>贝复舒</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥38.00</td><td>￥38.00</td></tr><tr><td>托百士</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥26.94</td><td>￥26.94</td></tr><tr><td>百灵金方明目液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥20.00</td><td>￥20.00</td></tr><tr><td>acyliovir滴眼液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥6.00</td><td>￥6.00</td></tr></tbody></table>',
+					tid: 'CEMRecord.cemRecordPrescriptionRemark',
+					title: '治疗计划',
+					customText: '治疗计划',
+					custom: true,
 					type: 'longText',
 					options: {
-						field: 'prescriptions',
-						testData:
-							'<p class="html-prescriptions" style="margin:0;font-size:13px">开单时间：2024/08/14 11:01:57</p><table class="cus-table" style="width:100%;table-layout:auto"><thead><tr><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">项目名称</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单位</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">规格</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单次用量</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">数量</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单价</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">总金额</th></tr></thead><tbody><tr><td>双氧水</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥2.80</td><td>￥2.80</td></tr><tr><td>碘伏</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥6.20</td><td>￥6.20</td></tr><tr><td>酒精</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥4.64</td><td>￥4.64</td></tr><tr><td>新洁尔灭</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥3.00</td><td>￥3.00</td></tr><tr><td>氟欣安</td><td>瓶</td><td>1*50ml</td><td>1.0000</td><td>1</td><td>￥2.60</td><td>￥2.60</td></tr><tr><td>奥普乐注射液</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥3.20</td><td>￥3.20</td></tr><tr><td>素高捷疗眼膏</td><td>g</td><td></td><td>1.0000</td><td>1</td><td>￥40.00</td><td>￥40.00</td></tr><tr><td>拜有利针剂100ml</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥2.20</td><td>￥2.20</td></tr><tr><td>赛瑞宁20ml</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥34.00</td><td>￥34.00</td></tr><tr><td>痛立定针</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥1.83</td><td>￥1.83</td></tr><tr><td>2%麻佛微素注射液</td><td>ml</td><td>100ml/瓶</td><td>1.0000</td><td>1</td><td>￥2.60</td><td>￥2.60</td></tr><tr><td>止血宁</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥30.00</td><td>￥30.00</td></tr><tr><td>通灭</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥3.00</td><td>￥3.00</td></tr><tr><td>科特壮</td><td></td><td></td><td>1.0000</td><td>1</td><td>￥1.80</td><td>￥1.80</td></tr><tr><td>润康滴眼液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥17.85</td><td>￥17.85</td></tr><tr><td>维克 眼净125ml</td><td>瓶</td><td>125ml</td><td>1.0000</td><td>1</td><td>￥75.00</td><td>￥75.00</td></tr><tr><td>贝复舒</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥38.00</td><td>￥38.00</td></tr><tr><td>托百士</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥26.94</td><td>￥26.94</td></tr><tr><td>百灵金方明目液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥20.00</td><td>￥20.00</td></tr><tr><td>acyliovir滴眼液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥6.00</td><td>￥6.00</td></tr></tbody></table>',
+						field: 'cemRecordPrescriptionRemark',
+						height: 16,
 						fontSize: 10.5,
 						textAlign: 'left',
 						hideTitle: true,
 						fontFamily: 'Microsoft YaHei',
 						textContentVerticalAlign: 'middle',
+						testData: '治疗计划',
+						lineHeight: 15,
 					},
 				},
+			]),
+			new hiprint.PrintElementTypeGroup('【化验明细】', [
+				{
+					tid: 'CEMRecord.tests',
+					title: '明细数据',
+					type: 'table',
+					options: {
+						field: 'tests',
+						fields: [
+							// { text: '产品明细', field: 'itemdetails' },
+							{ text: '名称', field: 'itemName' },
+							// { text: '类型', field: 'typeText' },
+							{ text: '单位', field: 'unitName' }, 
+							{ text: '单价', field: 'salePrice' },
+							{ text: '数量', field: 'count' },
+							{ text: '总金额', field: 'amountPrice' },
+							{ text: '开单时间', field: 'billingTime' },
+						],
+
+						// {
+						// 	width: 546,
+						// 	title: "类型",
+						// 	field: "product_type",
+						// 	checked: true,
+						// 	columnId: "product_type",
+						// 	fixed: false,
+						// 	rowspan: 1,
+						// 	colspan: 1,
+						// 	align: "left",
+						// 	renderFormatter: "function(value,row,index,options){let rowTemplate = '';rowTemplate+= ` <div class='products'><div class='mg-row col-25'><span class='title'>开单时间：</span><span class='info'>${row.billingTime}</span></div><div class='custom-table'><div class='custom-th'><div class='w-20 center'><span>名称</span></div><div class='w-10 left'><span>单位</span></div><div class='w-10 center'><span>规格</span></div><div class='w-10 center'><span>用量</span></div><div class='w-10 left'><span>天数</span></div><div class='w-10 left'><span>单价</span></div><div class='w-10 left'><span>数量</span></div><div class='w-10 left'><span>总金额</span></div></div>`;for(var i = 0;i < row.items?.length;i++){rowTemplate+= `<div class='custom-tr'><div class='w-20 center'><span>${row.items[i].itemName}</span></div><div class='w-10 left'><span>${row.items[i].unitName}</span></div><div class='w-10 center'><span>${row.items[i].specific}</span></div><div class='w-10 center'><span>${row.items[i].useDose}</span></div><div class='w-10 left'><span>${row.items[i].dayNum}</span></div><div class='w-10 left'><span>${row.items[i].salePrice}</span></div><div class='w-10 left'><span>${row.items[i].count}</span></div><div class='w-10 left'><span>${row.items[i].amountPrice}</span></div></div>`}rowTemplate+= `</div></div>`;return rowTemplate}",
+						// 	tableQRCodeLevel: 0,
+						// 	tableSummaryTitle: true,
+						// 	tableSummary: ""
+						// 	}
+						tableBorder: 'noBorder',
+						tableHeaderBorder: 'noBorder',
+						tableHeaderCellBorder: 'noBorder',
+						tableHeaderBackground: '#ffffff',
+						tableHeaderFontSize: 9,
+						tableBodyRowBorder: 'noBorder',
+						tableBodyCellBorder: 'noBorder',
+						tableFooterBorder: 'noBorder',
+						tableFooterCellBorder: 'noBorder',
+					},
+					groupFields: ['billingTime'],
+					groupFieldsFormatter: "function(type,options,d){ return ['billingTime'] }",
+					// groupFormatter: "function(colTotal,tableData,printData,groupData,options){ console.log('groupData',groupData) return groupData.billingTime }",
+					editable: true,
+					columnDisplayEditable: true, //列显示是否能编辑
+					columnDisplayIndexEditable: true, //列顺序显示是否能编辑
+					columnTitleEditable: true, //列标题是否能编辑
+					columnResizable: true, //列宽是否能调整
+					columnAlignEditable: true, //列对齐是否调整
+
+					groupFormatter: `function(colTotal,tableData,printData,groupData,options){ return '<td colspan="4" style="border:1px solid red">开单时间：'+groupData.billingTime+'</td>' }`,
+					columns: [
+						[
+							// 	{
+							// 	width: 546,
+							// 	title: "类型",
+							// 	field: "itemdetails",
+							// 	checked: true,
+							// 	columnId: "itemdetails",
+							// 	fixed: false,
+							// 	rowspan: 1,
+							// 	colspan: 1,
+							// 	align: "left",
+							// 	renderFormatter: "function(value,row,index,options){let rowTemplate = '';rowTemplate+= ` <div class='products'><div class='mg-row col-100'><span class='title'>开单时间：</span><span class='info'>${row.billingTime}</span></div><div class='custom-table'><div class='custom-th'><div class='w-20 center'><span>名称</span></div><div class='w-10 left'><span>单位</span></div><div class='w-10 center'><span>规格</span></div><div class='w-10 center'><span>用量</span></div><div class='w-10 left'><span>天数</span></div><div class='w-15 left'><span>单价</span></div><div class='w-10 left'><span>数量</span></div><div class='w-15 left'><span>总金额</span></div></div>`;for(var i = 0;i < row.items?.length;i++){rowTemplate+= `<div class='custom-tr'><div class='w-20 center'><span>${row.items[i].itemName}</span></div><div class='w-10 left'><span>${row.items[i].unitName}</span></div><div class='w-10 center'><span>${row.items[i].specific}</span></div><div class='w-10 center'><span>${row.items[i].useDose}</span></div><div class='w-10 left'><span>${row.items[i].dayNum}</span></div><div class='w-15 left'><span>${row.items[i].salePrice}</span></div><div class='w-10 left'><span>${row.items[i].count}</span></div><div class='w-15 left'><span>${row.items[i].amountPrice}</span></div></div>`}rowTemplate+= `</div></div><style>.products{display:flex;flex-wrap:wrap;position:relative;box-sizing:border-box;border:0 solid #c8c9cc;padding:5pt;margin-bottom:5pt}.products .mg-row{display:flex;margin-bottom:5pt}.col-25{max-width:25%;flex:0 0 25%}.col-33{max-width:33.3333333333%;flex:0 0 33.3333333333%}.col-50{max-width:50%;flex:0 0 50%}.col-75{max-width:75%;flex:0 0 75%}.col-100{width:100%;flex:0 0 100%}.custom-table{width:100%}.custom-table .left{text-align:left}.custom-table .right{text-align:right}.custom-table .center{text-align:center}.custom-table .custom-th,.custom-table .custom-tr{display:block;font-size:0}.custom-table .custom-th div:last-child,.custom-table .custom-tr div:last-child{border-right:0 solid #000}.custom-table .custom-th div,.custom-table .custom-tr div{font-size:10pt;display:inline-block;padding:2pt 0;border-left:0 solid #000;border-bottom:0 solid #000;vertical-align:top}.custom-table .custom-th div span,.custom-table .custom-tr div span{margin:0 5pt}.custom-table .custom-th div{border-top:0 solid #000;padding:5px 5px 5px 0;font-weight:500}.custom-table .w-9{width:9%}.custom-table .w-10{width:10%}.custom-table .w-15{width:15%}.custom-table .w-20{width:20%}.custom-table .w-25{width:25%}.custom-table .w-30{width:30%}.custom-table .w-40{width:40%}</style>`;return rowTemplate}",
+							// 	tableQRCodeLevel: 0,
+							// 	tableSummaryTitle: false,
+							// 	tableSummary: ""
+							// }
+							{ title: '名称', align: 'left', field: 'itemName', width: 100 },
+							// { title: '开单时间', align: 'left', field: 'billingTime', width: 100 },
+							{ title: '单位', align: 'left', field: 'unitName', width: 100 },  
+							{ title: '单价', align: 'left', field: 'salePrice', width: 80 },
+							{ title: '数量', align: 'left', field: 'count', width: 60 },
+							{ title: '总金额', align: 'left', field: 'amountPrice', width: 80 },
+						],
+					],
+				},
+				// {
+				// 	tid: 'CEMRecord.prescriptions1',
+				// 	title: '处方集合',
+				// 	data: '<p class="html-prescriptions" style="margin:0;font-size:13px">开单时间：2024/08/14 11:01:57</p><table class="cus-table" style="width:100%;table-layout:auto"><thead><tr><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">项目名称</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单位</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">规格</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单次用量</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">数量</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单价</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">总金额</th></tr></thead><tbody><tr><td>双氧水</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥2.80</td><td>￥2.80</td></tr><tr><td>碘伏</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥6.20</td><td>￥6.20</td></tr><tr><td>酒精</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥4.64</td><td>￥4.64</td></tr><tr><td>新洁尔灭</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥3.00</td><td>￥3.00</td></tr><tr><td>氟欣安</td><td>瓶</td><td>1*50ml</td><td>1.0000</td><td>1</td><td>￥2.60</td><td>￥2.60</td></tr><tr><td>奥普乐注射液</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥3.20</td><td>￥3.20</td></tr><tr><td>素高捷疗眼膏</td><td>g</td><td></td><td>1.0000</td><td>1</td><td>￥40.00</td><td>￥40.00</td></tr><tr><td>拜有利针剂100ml</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥2.20</td><td>￥2.20</td></tr><tr><td>赛瑞宁20ml</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥34.00</td><td>￥34.00</td></tr><tr><td>痛立定针</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥1.83</td><td>￥1.83</td></tr><tr><td>2%麻佛微素注射液</td><td>ml</td><td>100ml/瓶</td><td>1.0000</td><td>1</td><td>￥2.60</td><td>￥2.60</td></tr><tr><td>止血宁</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥30.00</td><td>￥30.00</td></tr><tr><td>通灭</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥3.00</td><td>￥3.00</td></tr><tr><td>科特壮</td><td></td><td></td><td>1.0000</td><td>1</td><td>￥1.80</td><td>￥1.80</td></tr><tr><td>润康滴眼液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥17.85</td><td>￥17.85</td></tr><tr><td>维克 眼净125ml</td><td>瓶</td><td>125ml</td><td>1.0000</td><td>1</td><td>￥75.00</td><td>￥75.00</td></tr><tr><td>贝复舒</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥38.00</td><td>￥38.00</td></tr><tr><td>托百士</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥26.94</td><td>￥26.94</td></tr><tr><td>百灵金方明目液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥20.00</td><td>￥20.00</td></tr><tr><td>acyliovir滴眼液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥6.00</td><td>￥6.00</td></tr></tbody></table>',
+				// 	type: 'longText',
+				// 	options: {
+				// 		field: 'prescriptions',
+				// 		testData:
+				// 			'<p class="html-prescriptions" style="margin:0;font-size:13px">开单时间：2024/08/14 11:01:57</p><table class="cus-table" style="width:100%;table-layout:auto"><thead><tr><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">项目名称</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单位</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">规格</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单次用量</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">数量</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">单价</th><th style="letter-spacing:2px;text-align:left;padding:6px 6px 6px 12px">总金额</th></tr></thead><tbody><tr><td>双氧水</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥2.80</td><td>￥2.80</td></tr><tr><td>碘伏</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥6.20</td><td>￥6.20</td></tr><tr><td>酒精</td><td>瓶</td><td>-</td><td>1.0000</td><td>1</td><td>￥4.64</td><td>￥4.64</td></tr><tr><td>新洁尔灭</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥3.00</td><td>￥3.00</td></tr><tr><td>氟欣安</td><td>瓶</td><td>1*50ml</td><td>1.0000</td><td>1</td><td>￥2.60</td><td>￥2.60</td></tr><tr><td>奥普乐注射液</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥3.20</td><td>￥3.20</td></tr><tr><td>素高捷疗眼膏</td><td>g</td><td></td><td>1.0000</td><td>1</td><td>￥40.00</td><td>￥40.00</td></tr><tr><td>拜有利针剂100ml</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥2.20</td><td>￥2.20</td></tr><tr><td>赛瑞宁20ml</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥34.00</td><td>￥34.00</td></tr><tr><td>痛立定针</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥1.83</td><td>￥1.83</td></tr><tr><td>2%麻佛微素注射液</td><td>ml</td><td>100ml/瓶</td><td>1.0000</td><td>1</td><td>￥2.60</td><td>￥2.60</td></tr><tr><td>止血宁</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥30.00</td><td>￥30.00</td></tr><tr><td>通灭</td><td>ml</td><td></td><td>1.0000</td><td>1</td><td>￥3.00</td><td>￥3.00</td></tr><tr><td>科特壮</td><td></td><td></td><td>1.0000</td><td>1</td><td>￥1.80</td><td>￥1.80</td></tr><tr><td>润康滴眼液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥17.85</td><td>￥17.85</td></tr><tr><td>维克 眼净125ml</td><td>瓶</td><td>125ml</td><td>1.0000</td><td>1</td><td>￥75.00</td><td>￥75.00</td></tr><tr><td>贝复舒</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥38.00</td><td>￥38.00</td></tr><tr><td>托百士</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥26.94</td><td>￥26.94</td></tr><tr><td>百灵金方明目液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥20.00</td><td>￥20.00</td></tr><tr><td>acyliovir滴眼液</td><td>瓶</td><td></td><td>1.0000</td><td>1</td><td>￥6.00</td><td>￥6.00</td></tr></tbody></table>',
+				// 		fontSize: 10.5,
+				// 		textAlign: 'left',
+				// 		hideTitle: true,
+				// 		fontFamily: 'Microsoft YaHei',
+				// 		textContentVerticalAlign: 'middle',
+				// 	},
+				// },
 				{
 					tid: 'CEMRecord.cemRecordPrescriptionRemark',
 					title: '治疗计划',

@@ -17,7 +17,7 @@ export default {
     petPZ:'短尾猫',  //宠物种类
     petAge:'1年10月', //宠物年龄
     petWeight:'2.6Kg', //宠物体重
-    petColor:'红色',  //宠物颜色
+    petColor:'红色',  //宠物毛色
     doctorName:'李医生',  //检查医生
     doctorPhone:'17777777777',  //检查医生电话
     orgPhone:'021-25639281',  //医院电话

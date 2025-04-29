@@ -431,7 +431,7 @@ export const InspectionTestDataProvider = function () {
 					},
 					{
 						tid: 'InspectionTestDataProvider.petColor',
-						title: '宠物颜色',
+						title: '宠物毛色',
 						data: '红色',
 						type: 'text',
 						options: {

@@ -86,8 +86,8 @@
 								<el-option v-for="(item, index) in getEditpetBloodData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>
-						<el-form-item  label="宠物颜色" prop="pet.petColor">
-							<el-select filterable v-model="ruleForm.pet.petColor" placeholder="请选择宠物颜色">
+						<el-form-item  label="宠物毛色" prop="pet.petColor">
+							<el-select filterable v-model="ruleForm.pet.petColor" placeholder="请选择宠物毛色">
 								<el-option v-for="(item, index) in getEditpetColorData" :key="index" :value="item.value" :label="item.label">{{ item.label }} </el-option>
 							</el-select>
 						</el-form-item>

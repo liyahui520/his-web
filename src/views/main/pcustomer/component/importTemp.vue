@@ -161,7 +161,7 @@ let PropVirtTableS = reactive({
 			// ],
 		},
 		petColorText: {
-			title: '宠物颜色',
+			title: '宠物毛色',
 			width: 100,
 			// type: 'select',
 			// multiple: false,

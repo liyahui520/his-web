@@ -178,7 +178,7 @@ export interface GetPrintCEMRecordInfoOutput {
     petKindText?: string | null;
 
     /**
-     * 宠物颜色
+     * 宠物毛色
      *
      * @type {string}
      * @memberof GetPrintCEMRecordInfoOutput
@@ -208,7 +208,7 @@ export interface GetPrintCEMRecordInfoOutput {
     petWeight?: string | null;
 
     /**
-     * 宠物颜色别名
+     * 宠物毛色别名
      *
      * @type {string}
      * @memberof GetPrintCEMRecordInfoOutput

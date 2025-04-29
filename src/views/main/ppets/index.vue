@@ -39,7 +39,7 @@
 				<el-table-column prop="petKind" label="宠物种类" fixed="" show-overflow-tooltip="" />
 				<el-table-column prop="petVarietie" label="宠物种类" fixed="" show-overflow-tooltip="" />
 				<el-table-column prop="petBlood" label="宠物血型" fixed="" show-overflow-tooltip="" />
-				<el-table-column prop="petColor" label="宠物颜色" fixed="" show-overflow-tooltip="" />
+				<el-table-column prop="petColor" label="宠物毛色" fixed="" show-overflow-tooltip="" />
 				<el-table-column prop="petWeight" label="宠物体重" fixed="" show-overflow-tooltip="" />
 				<el-table-column prop="petIsSterilization" label="是否绝育" show-overflow-tooltip="">
 					<template #default="scope">

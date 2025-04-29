@@ -125,7 +125,7 @@ export interface PcustomerFastInput {
     petBlood?: number;
 
     /**
-     * 宠物颜色
+     * 宠物毛色
      *
      * @type {number}
      * @memberof PcustomerFastInput

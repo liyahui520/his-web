@@ -126,7 +126,7 @@ export interface ReportPrintTestOptput {
     petVarietieText?: string | null;
 
     /**
-     * 宠物颜色
+     * 宠物毛色
      *
      * @type {string}
      * @memberof ReportPrintTestOptput

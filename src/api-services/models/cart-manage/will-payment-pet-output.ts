@@ -101,7 +101,7 @@ export interface WillPaymentPetOutput {
     petBloodText?: string | null;
 
     /**
-     * 宠物颜色别名
+     * 宠物毛色别名
      *
      * @type {string}
      * @memberof WillPaymentPetOutput

@@ -40,10 +40,10 @@
 					</template>
 					<template #itemName="scope">
 						<el-breadcrumb separator="|" v-if="!scope.row.doctorId">
-							<el-breadcrumb-item><el-tag v-if="scope.row.isHospital" type="danger">院</el-tag>开单时间：{{ scope.row.createTime }}</el-breadcrumb-item>
-							<el-breadcrumb-item>总项：{{ scope.row.count }}</el-breadcrumb-item>
-							<el-breadcrumb-item> 总金额：{{ verifyNumberComma(scope.row?.amountPrice?.toFixed(2).toString() || '0.00') }} </el-breadcrumb-item>
-							<el-breadcrumb-item></el-breadcrumb-item>
+							<el-breadcrumb-item style="height:24px"><el-tag v-if="scope.row.isHospital" type="danger">院</el-tag>开单时间：{{ scope.row.createTime }}</el-breadcrumb-item>
+							<el-breadcrumb-item style="height:24px">总项：{{ scope.row.count }}</el-breadcrumb-item>
+							<el-breadcrumb-item style="height:24px"> 总金额：{{ verifyNumberComma(scope.row?.amountPrice?.toFixed(2).toString() || '0.00') }} </el-breadcrumb-item>
+							<el-breadcrumb-item style="height:24px"></el-breadcrumb-item>
 						</el-breadcrumb>
 						<span v-else>
 							{{ scope.row.itemName }}

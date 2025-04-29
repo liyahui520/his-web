@@ -45,9 +45,19 @@
 							<el-breadcrumb separator="\" style="font-size: 12px">
 								<el-breadcrumb-item>{{ props?.item?.petName ?? '-' }}</el-breadcrumb-item>
 								<el-breadcrumb-item>
-									<el-text truncated :title="props?.item?.petKindText">{{ props?.item?.petKindText ?? '-' }}</el-text>
+									<el-text truncated :title="props?.item?.petKindText">
+										<template v-if="props?.item?.petKindText">
+											{{ props?.item?.petKindText == '其他' ? '种类：其他' : props?.item?.petKindText }}
+										</template>
+										<template v-else> 种类：其他 </template>
+									</el-text>
 								</el-breadcrumb-item>
-								<el-breadcrumb-item truncated :title="props?.item?.petVarietieText">{{ props?.item?.petVarietieText ?? '-' }}</el-breadcrumb-item>
+								<el-breadcrumb-item truncated :title="props?.item?.petVarietieText">
+									<template v-if="props?.item?.petVarietieText">
+										{{ props?.item?.petVarietieText == '其他' ? '品种：其他' : props?.item?.petVarietieText }}
+									</template>
+									<template v-else> 品种：其他 </template>
+								</el-breadcrumb-item>
 							</el-breadcrumb>
 						</el-col>
 					</el-row>

@@ -197,7 +197,7 @@ export interface ImportPcustomerDto {
     petVarietie?: number | null;
 
     /**
-     * 宠物颜色别名
+     * 宠物毛色别名
      *
      * @type {string}
      * @memberof ImportPcustomerDto
@@ -205,7 +205,7 @@ export interface ImportPcustomerDto {
     petColorText?: string | null;
 
     /**
-     * 宠物颜色
+     * 宠物毛色
      *
      * @type {string}
      * @memberof ImportPcustomerDto

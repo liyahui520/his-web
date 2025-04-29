@@ -11,7 +11,7 @@ export default {
     petAge:'1年2个月',
     petKindText:'宠物种类',
     petVarietieText:'宠物品种',
-    petColorText:'宠物颜色',
+    petColorText:'宠物毛色',
     petIdentityNumber:'Q0000001',
     printTime:'2024-10-01 12:00:00',
     createTime:'2024-10-01 12:00:00',

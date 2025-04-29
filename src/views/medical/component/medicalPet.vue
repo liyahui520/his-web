@@ -23,18 +23,14 @@
 			<el-col :span="24" style="padding-left: 10px">
 				<div style="float: left; text-align: center">
 					<div style="text-align: center">
-						<el-avatar
-							 :size="80"
-							style="background-color: white"
-							shape="square"
-							:src="props.pet.petImageUrl" 
-						>
-						<img v-if="props?.pet?.petKind === '1300010000001'" src="https://img.huimopei.com/img/Default/Dog.png" />
+						<el-avatar :size="60" style="background-color: white" shape="square" :src="props.pet.petImageUrl">
+							<img v-if="props?.pet?.petKind === '1300010000001'" src="https://img.huimopei.com/img/Default/Dog.png" />
 							<img v-else-if="props?.pet?.petKind === '1300010000002'" src="https://img.huimopei.com/img/Default/Cat.png" />
 							<img v-else src="https://img.huimopei.com/img/Default/default.png" />
-					</el-avatar>
+						</el-avatar>
 					</div>
-					<span style="font-size: 12px; line-height: 30px; color: #8d8d91">{{ dateEntityFormatYMD(props.pet.createTime) }}</span>
+					<span style="font-size: 12px; line-height: 20px; color: #8d8d91">{{ dateEntityFormatYMD(props.pet.createTime) }}</span>
+					<div style="line-height: 20px">{{ scale2Format(props.pet.petWeight) }}Kg</div>
 				</div>
 				<div style="float: left; margin-left: 10px">
 					<div>
@@ -42,12 +38,26 @@
 					</div>
 					<div style="margin-top: 10px">
 						<el-breadcrumb separator="\">
-							<el-breadcrumb-item>{{ props.pet.petGenderText ?? '-' }}</el-breadcrumb-item>
 							<el-breadcrumb-item>
-								<el-text style="max-width: 80px" truncated :title="props.pet.petVarietieText">{{ props.pet.petVarietieText ?? '-' }}</el-text>
+								<template v-if="props.pet.petGenderText">
+									{{ props.pet.petGenderText == '其他' ? '性别其他' : props.pet.petGenderText }}
+								</template>
+								<template v-else> 性别：其他 </template>
 							</el-breadcrumb-item>
-							<el-breadcrumb-item>{{ props.pet.petColorText ?? '-' }}</el-breadcrumb-item>
-							<el-breadcrumb-item>{{ scale2Format(props.pet.petWeight) }}Kg</el-breadcrumb-item>
+							<el-breadcrumb-item>
+								<el-text style="max-width: 80px" truncated :title="props.pet.petVarietieText">
+									<template v-if="props.pet.petVarietieText">
+										{{ props.pet.petVarietieText == '其他' ? '品种其他' : props.pet.petVarietieText }}
+									</template>
+									<template v-else> 品种：其他 </template>
+								</el-text>
+							</el-breadcrumb-item>
+							<el-breadcrumb-item>
+								<template v-if="props.pet.petColorText">
+									{{ props.pet.petColorText == '未知' ? '毛色：未知' : props.pet.petColorText }}
+								</template>
+								<template v-else> 毛色：未知 </template>
+							</el-breadcrumb-item>
 						</el-breadcrumb>
 					</div>
 					<div style="margin-top: 12px">
@@ -55,17 +65,17 @@
 							<el-breadcrumb-item>
 								<el-tag size="small" type="success" v-if="props.pet?.petIsDeworming == 1">已驱虫</el-tag>
 								<el-tag size="small" type="info" v-if="props.pet?.petIsDeworming == 0">未驱虫</el-tag>
-								<el-tag size="small" type="danger" v-if="props.pet?.petIsDeworming == -1">未知</el-tag>
+								<el-tag size="small" type="danger" v-if="props.pet?.petIsDeworming == -1">驱虫未知</el-tag>
 							</el-breadcrumb-item>
 							<el-breadcrumb-item>
 								<el-tag size="small" type="success" v-if="props.pet?.petIsVaccinated == 1">已接种</el-tag>
 								<el-tag size="small" type="info" v-if="props.pet?.petIsVaccinated == 0">未接种</el-tag>
-								<el-tag size="small" type="danger" v-if="props.pet?.petIsVaccinated == -1">未知</el-tag>
+								<el-tag size="small" type="danger" v-if="props.pet?.petIsVaccinated == -1">接种未知</el-tag>
 							</el-breadcrumb-item>
 							<el-breadcrumb-item>
 								<el-tag size="small" type="success" v-if="props.pet?.petIsSterilization == 1">已绝育</el-tag>
 								<el-tag size="small" type="info" v-if="props.pet?.petIsSterilization == 0">未绝育</el-tag>
-								<el-tag size="small" type="danger" v-if="props.pet?.petIsSterilization == -1">未知</el-tag>
+								<el-tag size="small" type="danger" v-if="props.pet?.petIsSterilization == -1">绝育未知</el-tag>
 							</el-breadcrumb-item>
 							<!--                            <el-breadcrumb-item>250天</el-breadcrumb-item>-->
 						</el-breadcrumb>
@@ -176,10 +186,9 @@ const petReloadTable = async () => {
 /**
  * 打开诊疗记录
  */
-const openMedicalRecords=()=>{
-	
+const openMedicalRecords = () => {
 	petCEMRecordsRef.value.openDialog({ customerId: props.pcustomer.id, petId: props.pet.id });
-}
+};
 /**
  * 打开消费记录
  */

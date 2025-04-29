@@ -5,7 +5,7 @@
     <el-breadcrumb-item>
       <el-tag class="mx-1" type="danger" effect="light">{{ pcustomer.cardNumber ?? '-' }}</el-tag>
     </el-breadcrumb-item>
-    <el-breadcrumb-item>{{ pcustomer.sexText ?? '-' }}</el-breadcrumb-item>
+    <el-breadcrumb-item>性别：{{ pcustomer.sexText ?? '-' }}</el-breadcrumb-item>
     <el-breadcrumb-item>
       <el-tag class="mx-1" type="success" effect="light">{{ pcustomer.levelText ?? '-' }}</el-tag>
     </el-breadcrumb-item>

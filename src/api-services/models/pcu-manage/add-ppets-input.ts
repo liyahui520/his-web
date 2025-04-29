@@ -161,7 +161,7 @@ export interface AddPPetsInput {
     petBlood?: string | null;
 
     /**
-     * 宠物颜色
+     * 宠物毛色
      *
      * @type {string}
      * @memberof AddPPetsInput

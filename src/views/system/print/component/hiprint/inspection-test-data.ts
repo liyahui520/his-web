@@ -11,7 +11,7 @@ export default {
     petName:'木子',  //宠物名称
     petGenderText:'雌',  //宠物性别
     petWeight:'2.6Kg', //宠物体重
-    petColorText:'红色',  //宠物颜色
+    petColorText:'红色',  //宠物毛色
     petKindText:'猫',  //宠物种类
     petVarietieText:'短尾猫',  //宠物品种
     petIdentityNumber:'A321321321',  //宠物品种

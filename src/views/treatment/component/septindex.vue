@@ -22,7 +22,7 @@
 									<el-breadcrumb-item>
 										{{ props.data?.pcutomerDetail?.name }}
 									</el-breadcrumb-item>
-									<el-breadcrumb-item>
+									<el-breadcrumb-item>性别：
 										{{ props.data?.pcutomerDetail?.sexText }}
 									</el-breadcrumb-item>
 									<el-breadcrumb-item>
@@ -47,16 +47,22 @@
 										{{ props.data?.pPetsInfo?.petName }}
 									</el-breadcrumb-item>
 									<el-breadcrumb-item>
-										{{ props.data?.pPetsInfo?.petKindText }}
+										<template v-if="props.data?.pPetsInfo?.petKindText">
+											{{ props.data?.pPetsInfo?.petKindText == '其他' ? '种类：其他' : props.data?.pPetsInfo?.petKindText }}
+										</template>
+										<template v-else> 种类：其他 </template>
 									</el-breadcrumb-item>
 									<el-breadcrumb-item>
-										{{ props.data?.pPetsInfo?.petVarietieText }}
-										<!-- <el-text style="width: 120px" truncated>
-											{{ props.data?.pPetsInfo?.petVarietieText }}
-										</el-text> -->
+										<template v-if="props.data?.pPetsInfo?.petVarietieText">
+											{{ props.data?.pPetsInfo?.petVarietieText == '其他' ? '品种：其他' : props.data?.pPetsInfo?.petVarietieText }}
+										</template>
+										<template v-else> 种类：其他 </template>
 									</el-breadcrumb-item>
 									<el-breadcrumb-item>
-										{{ props.data?.pPetsInfo?.petGenderText }}
+										<template v-if="props.data?.pPetsInfo?.petGenderText">
+											{{ props.data?.pPetsInfo?.petGenderText == '其他' ? '性别：其他' : props.data?.pPetsInfo?.petGenderText }}
+										</template>
+										<template v-else> 性别：其他 </template>
 									</el-breadcrumb-item>
 									<el-breadcrumb-item> {{ props.data?.pPetsInfo?.petWeight }}Kg </el-breadcrumb-item>
 									<el-breadcrumb-item>

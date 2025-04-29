@@ -444,12 +444,14 @@ const submit = async () => {
 					.apiVaccinationAddVaccinationPost(values)
 					.finally(() => {
 						submitLoading.value = false;
+						cancel();
 					});
 			else
 				await getAPI(VaccinationApi)
 					.apiVaccinationEditVaccinationPost(values)
 					.finally(() => {
 						submitLoading.value = false;
+						cancel();
 					});
 		}
 	});

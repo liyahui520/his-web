@@ -152,7 +152,7 @@ export interface GetCEMRecordInfoOutput {
     petKindText?: string | null;
 
     /**
-     * 宠物颜色
+     * 宠物毛色
      *
      * @type {string}
      * @memberof GetCEMRecordInfoOutput
@@ -160,7 +160,7 @@ export interface GetCEMRecordInfoOutput {
     petColor?: string | null;
 
     /**
-     * 宠物颜色别名
+     * 宠物毛色别名
      *
      * @type {string}
      * @memberof GetCEMRecordInfoOutput

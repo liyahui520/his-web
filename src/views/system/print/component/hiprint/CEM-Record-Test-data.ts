@@ -11,7 +11,7 @@ export default {
     petBirthDate:'2000-01-01',
     petKindText:'宠物种类',
     petVarietieText:'宠物品种',
-    petColorText:'宠物颜色',
+    petColorText:'宠物毛色',
     petWeight:'0.00Kg',
     petRecordNumber:'R0000000001',
     allName:'',

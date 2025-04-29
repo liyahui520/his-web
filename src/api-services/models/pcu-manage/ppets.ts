@@ -219,7 +219,7 @@ export interface PPets {
     petBloodText?: string | null;
 
     /**
-     * 宠物颜色
+     * 宠物毛色
      *
      * @type {string}
      * @memberof PPets
@@ -227,7 +227,7 @@ export interface PPets {
     petColor?: string | null;
 
     /**
-     * 宠物颜色别名
+     * 宠物毛色别名
      *
      * @type {string}
      * @memberof PPets

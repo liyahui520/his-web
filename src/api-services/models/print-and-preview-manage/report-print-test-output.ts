@@ -126,7 +126,7 @@ export interface ReportPrintTestOutput {
     petWeight?: number | null;
 
     /**
-     * 宠物颜色
+     * 宠物毛色
      *
      * @type {string}
      * @memberof ReportPrintTestOutput

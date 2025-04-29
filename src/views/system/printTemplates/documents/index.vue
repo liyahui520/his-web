@@ -163,7 +163,7 @@ const items = ref<any>([
 	{ id: 12, label: '宠物病例编号' },
 	{ id: 13, label: '宠物性别' },
 	{ id: 14, label: '宠物年龄' },
-	{ id: 15, label: '宠物颜色' },
+	{ id: 15, label: '宠物毛色' },
 	{ id: 16, label: '宠物体重' },
 ]);
 

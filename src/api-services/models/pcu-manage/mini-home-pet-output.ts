@@ -93,7 +93,7 @@ export interface MiniHomePetOutput {
     petBlood?: string | null;
 
     /**
-     * 宠物颜色
+     * 宠物毛色
      *
      * @type {string}
      * @memberof MiniHomePetOutput

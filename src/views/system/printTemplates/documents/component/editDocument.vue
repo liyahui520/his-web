@@ -81,7 +81,7 @@ const items = ref<any>([
   { label: '宠物病例编号' },
   { label: '宠物性别' },
   { label: '宠物年龄' },
-  { label: '宠物颜色' },
+  { label: '宠物毛色' },
   { label: '宠物体重' }
 ])
 //父级传递来的函数，用于回调

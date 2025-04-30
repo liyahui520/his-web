@@ -303,7 +303,6 @@ const loadRegist = async (id: any) => {
 	await getAPI(RegistersApi)
 		.apiRegistersGetIdGet(id)
 		.then((res: any) => {
-			console.log('res：：：', res);
 			data.value = res.data?.result;
 			treatData.value = data.value?.cemRecord;
 		});

@@ -52,7 +52,6 @@ const toggleSidebar = (v) => {
 
 const selectItem = async (row:any) => {
   pcuload.value = true;
-  console.log(row)
   await nextTick(async () => {
     rowData.value = Object.assign({}, row, {ramdex: Date.now()});
     if (rowData.value?.cemRecord?.status === 2)

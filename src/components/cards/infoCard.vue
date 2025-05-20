@@ -1,16 +1,19 @@
 <template>
     <div class="info-card-container">
-      <div class="top" >
-        <div>{{ info.title }}</div>
-        <div>
-          <el-tooltip class="item" effect="light" :content="info.iconTip" placement="top">
-            <i class="fa fa-question-circle" style="font-size:14px;margin-left:5px;color:#CCCCCCFF;" />
-          </el-tooltip>
-        </div>
-      </div>
+      <!-- <div class="top" >
+        <div>{{ info.title }}</div> 
+      </div> -->
       <div class="bottom" >
-        <div>{{ info.value }}</div>
-        <div class="icon-div" :style="{'background-color':info.bgColor}"><i :class="[info.icon]" :style="{'font-size':'20px',color:info.color}" /></div>
+        <!-- <el-statistic :title="info.title" :value="info.value">
+        <template #suffix>
+          <el-icon style="vertical-align: -0.125em">
+            <ChatLineRound />
+          </el-icon>
+        </template>
+      </el-statistic> -->
+      <el-statistic :title="info.title" :value="info.value" />
+        <!-- <div>{{ info.value }}</div> -->
+        <!-- <div class="icon-div" :style="{'background-color':info.bgColor}"><i :class="[info.icon]" :style="{'font-size':'20px',color:info.color}" /></div> -->
       </div>
     </div>
   </template>
@@ -51,7 +54,7 @@ var props = defineProps({
   <style lang="scss" scoped>
   .info-card-container{
       background-color: white;
-      border-radius: 20px;
+      border-radius: 15px;
       padding: 20px 24px;
       min-width: 240px;
       width: 240px;

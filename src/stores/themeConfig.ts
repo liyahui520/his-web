@@ -18,9 +18,9 @@ export const useThemeConfig = defineStore('themeConfig', {
 			 * 顶栏设置
 			 */
 			// 默认顶栏导航背景颜色
-			topBar: '#A4B4FB',
+			topBar: '#FFFFFF',
 			// 默认顶栏导航字体颜色
-			topBarColor: '#FFFFFF',
+			topBarColor: '#000000',
 			// 是否开启顶栏背景颜色渐变
 			isTopBarColorGradual: false,
 
@@ -111,7 +111,7 @@ export const useThemeConfig = defineStore('themeConfig', {
 			// 定义的值与 `/src/layout/navBars/tagsView/tagsView.vue` 中的 class 同名
 			tagsStyle: 'tags-style-one',
 			// 主页面切换动画: Animate.css
-			animation: 'fade-left',
+			animation: 'slide-left',
 			// 分栏高亮风格：可选值"<columns-round|columns-card>"，默认 columns-round
 			columnsAsideStyle: 'columns-round',
 			// 分栏布局风格：可选值"<columns-horizontal|columns-vertical>"，默认 columns-horizontal

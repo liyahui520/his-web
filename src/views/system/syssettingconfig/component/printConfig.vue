@@ -1,11 +1,11 @@
 <template>
-	<div class="pcuPetConfig-container">
+	<div class="printConfig-container">
 		<el-card shadow="never" style="overflow: auto">
-			<template #header>会员参数 </template>
+			<template #header>打印机参数 </template>
 			<span>
 				<el-row :gutter="20" style="align-items: center">
 					<el-divider direction="vertical" style="font-weight: 800; border: 2px solid var(--el-color-primary)" />
-					<el-text class="w-150px mb-2" truncated>会员编号设置 </el-text>
+					<el-text class="w-150px mb-2" truncated>远程打印机设置 </el-text>
 				</el-row>
 				<el-text class="w-150px mb-2" style="margin-left: 20px; font-size: 12px; color: #666666; line-height: 30px" truncated
 					>创建会员时自动生成会员编码，可以手动自定义前缀和起始编号以便方便后续使用。

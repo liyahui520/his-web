@@ -55,11 +55,14 @@
     </el-col>
   </el-row> -->
 	<div>
-		<el-card shadow="never" class="about">
-			<template #header> 
-			<span style=""> 当前时钟 </span>
-			<span style="font-size: 12px;color: #999999;"> 更新时间：{{ formatDate(new Date(), 'YYYY-mm-dd HH:MM:SS') }} </span>
-		</template>
+    	<el-space wrap>
+				<template v-for="(item, index) in cardInfo">
+					<el-col>
+						<InfoCard :info="item" class="info-card" />
+					</el-col>
+				</template>
+			</el-space>
+		<!-- <el-card shadow="never" class="about" :body-style="{ 'background-color': 'transparent' }" style="background-color: transparent;"> 
 			<el-space wrap>
 				<template v-for="(item, index) in cardInfo">
 					<el-col>
@@ -67,7 +70,7 @@
 					</el-col>
 				</template>
 			</el-space>
-		</el-card>
+		</el-card> -->
 
 		<!-- <el-row :gutter="20" style="text-align: center;">
         <el-col :xs="24" :sm="24" :lg="6" :span="6" style="width:100px;">
@@ -118,6 +121,8 @@ import { getAPI } from '/@/utils/axios-utils';
 import { OrderSummaryApi } from '/@/api-services';
 import Decimal from 'decimal.js';
 import { addMonthsToDate, formatDate } from '/@/utils/formatTime';
+import { color } from 'echarts';
+import { tr } from 'element-plus/es/locale';
 
 const InfoCard = defineAsyncComponent(() => import('/@/components/cards/infoCard.vue'));
 
@@ -185,6 +190,6 @@ reloadData();
 
 <style lang="scss" scoped>
  .about{
-  min-height: 120px;
+  min-height: 80px;
  }
 </style>

@@ -1,9 +1,9 @@
 import { nextTick } from 'vue';
 import * as svg from '@element-plus/icons-vue';
 // import 本地样式类名数组
-import { iconfonntClassList } from '/@/theme/iconfont/font_2298093_rnp72ifj3ba.ts';
-import { fontAwesomeClassList } from '/@/theme/font-awesome/font-awesome.ts';
-// import { iconcustomerfonntClassList } from '/@/theme/font-customer/iconfont.ts' //'/@/theme/iconfont/font_2298093_rnp72ifj3ba.ts';
+import { iconfonntClassList } from '/@/theme/iconfont/font_2298093_rnp72ifj3ba';
+import { fontAwesomeClassList } from '/@/theme/font-awesome/font-awesome';
+import { iconcustomerfonntClassList } from '/@/theme/font-common/font-common' //'/@/theme/iconfont/font_2298093_rnp72ifj3ba.ts';
 
 // 获取阿里字体图标
 const getAlicdnIconfont = () => {
@@ -27,9 +27,9 @@ const getAlicdnIconfont = () => {
 			// 从本地读取阿里字体
 			if (sheetsIconList.length == 0) {
 
-				// for (let i = 0; i < iconcustomerfonntClassList.length; i++) {
-				// 	sheetsIconList.push(iconcustomerfonntClassList[i]);
-				// }
+				for (let i = 0; i < iconcustomerfonntClassList.length; i++) {
+					sheetsIconList.push(iconcustomerfonntClassList[i]);
+				}
 				for (let i = 0; i < iconfonntClassList.length; i++) {
 					sheetsIconList.push(iconfonntClassList[i]);
 				}

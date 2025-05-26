@@ -136,3 +136,5 @@ export * from './apis/sys-template-api';
 export * from './apis/sys-tenant-config-api';
 
 export * from './apis/sys-update-api';
+
+export * from './apis/call-number-manage/call-number-api'

@@ -144,7 +144,7 @@ import { MemberCardStatusEnum } from '/@/api-services/models/card-manage';
 import { Delete, Plus } from '@element-plus/icons-vue'
 import { addDaysToDate, addYearsToDate } from "/@/utils/formatTime";
 import commonFunction from '/@/utils/commonFunction';
-import { ProductTypeEnums } from '/@/api-services/models/product-manage';;
+import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 import other from '/@/utils/other';
 
 

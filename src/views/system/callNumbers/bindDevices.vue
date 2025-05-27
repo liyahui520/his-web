@@ -1,5 +1,5 @@
 <template>
-	<div class="systemCallNumberRooms-container">
+	<div class="systemCallNumberBindDevices-container">
 		<el-card shadow="never" :body-style="{ paddingBottom: '0' }">
 			<el-form :model="queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="诊室名称">
@@ -9,12 +9,6 @@
 				<el-form-item>
 					<el-button-group>
 						<el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'call:rooms:query'"> 查询 </el-button>
-						<el-button icon="ele-Refresh" @click="() => (queryParams = {})"> 重置</el-button>
-					</el-button-group>
-				</el-form-item>
-				<el-form-item>
-					<el-button-group>
-						<el-button icon="ele-Plus" @click="openAddCallRoom" v-auth="'call:rooms:add'"> 新增 </el-button>
 					</el-button-group>
 				</el-form-item>
 			</el-form>
@@ -23,19 +17,20 @@
 			<el-table :data="tableData" style="height: calc(100vh - 235px)" v-loading="loading" tooltip-effect="light" border row-key="id">
 				<el-table-column type="index" label="序号" width="55" align="center" fixed="" />
 				<el-table-column prop="name" label="诊室名称" align="center" show-overflow-tooltip="" />
-				<el-table-column prop="status" label="状态" align="center">
+				<el-table-column prop="deviceIdentity" label="设备" align="center" show-overflow-tooltip="" />
+				<el-table-column prop="status" label="绑定状态" align="center">
 					<template #default="scope">
-						<el-tag :type="scope.row.status == 0 ? 'success' : 'danger'" disable-transitions>
-							{{ scope.row.status == 0 ? '启用' : '禁用' }}
-						</el-tag>
+                        <el-tag v-if="scope.row.deviceIdentity" type="success">已绑定</el-tag>
+                        <el-tag v-else type="danger">未绑定</el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column prop="sortIndex" label="排序" align="center" show-overflow-tooltip="" />
-				<el-table-column prop="createTime" label="创建时间" align="center" show-overflow-tooltip="" />
-				<el-table-column label="操作" width="160" align="center" show-overflow-tooltip="" v-if="auth('call:rooms:update') || auth('call:rooms:delete')">
+				<el-table-column prop="sortIndex" label="诊室排序" align="center" show-overflow-tooltip="" />
+				<el-table-column label="操作" width="160" align="center" show-overflow-tooltip="" v-if="auth('call:bindDevices:bind')">
 					<template #default="scope">
-						<el-button icon="ele-Edit" size="small" text="" type="primary" @click="openEditCallRoom(scope.row)" v-auth="'call:rooms:update'"> 编辑 </el-button>
-						<el-button icon="ele-Delete" size="small" text="" type="danger" @click="delCallRoom(scope.row)" v-auth="'call:rooms:delete'"> 删除 </el-button>
+						<el-button icon="ele-Monitor" v-if="!scope.row.deviceIdentity" size="small" text="" type="primary" @click="openEditCallRoom(scope.row)" v-auth="'call:bindDevices:bind'">
+							绑定
+						</el-button>
+						<!-- <el-button icon="ele-Monitor" v-else size="small" text="" type="primary" @click="openEditCallRoom(scope.row)" v-auth="'call:bindDevices:bind'"> 绑定 </el-button> -->
 					</template>
 				</el-table-column>
 			</el-table>
@@ -46,9 +41,8 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { ElMessageBox, ElMessage } from 'element-plus';
 import { auth } from '/@/utils/authFunction';
-import editDialog from './component/editRoomDialog.vue';
+import editDialog from './component/bindDeviceDialog.vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { CallNumberApi } from '/@/api-services/api';
 
@@ -62,11 +56,12 @@ const tableParams = ref({
 	total: 0,
 });
 const editCallRoomTitle = ref('');
+const deviceData = ref<any>([]);
 
 // 查询操作
 const handleQuery = async () => {
 	loading.value = true;
-	var res = await getAPI(CallNumberApi).apiCallNumberGetCallRoomListGet(Object.assign(queryParams.value, tableParams.value));
+	var res = await getAPI(CallNumberApi).apiCallNumberGetCallRoomUseListGet(Object.assign(queryParams.value, tableParams.value));
 	tableData.value = res.data.result ?? [];
 	if (queryParams.value.name) {
 		tableData.value = tableData.value.filter((item: any) => item.name.includes(queryParams.value.name));
@@ -74,32 +69,19 @@ const handleQuery = async () => {
 	loading.value = false;
 };
 
-// 打开新增页面
-const openAddCallRoom = () => {
-	editCallRoomTitle.value = '添加诊室';
-	editDialogRef.value.openDialog({ sortIndex: 0, status: 0 });
-};
-
 // 打开编辑页面
 const openEditCallRoom = (row: any) => {
 	editCallRoomTitle.value = '编辑诊室';
-	editDialogRef.value.openDialog({ ...row });
+	if (row.deviceSettingId == 0) row.deviceSettingId = null;
+	editDialogRef.value.openDialog({ ...row }, deviceData.value);
 };
-
-// 删除
-const delCallRoom = (row: any) => {
-	ElMessageBox.confirm(`确定要删除吗?`, '提示', {
-		confirmButtonText: '确定',
-		cancelButtonText: '取消',
-		type: 'warning',
-	})
-		.then(async () => {
-			await getAPI(CallNumberApi).apiCallNumberDeleteCallRoomPost(row);
-			handleQuery();
-			ElMessage.success('删除成功');
-		})
-		.catch(() => {});
+/**
+ * 加载所有设备
+ */
+const loadDevices = async () => {
+	var res = await getAPI(CallNumberApi).apiCallNumberGetCallDevicesGet();
+	deviceData.value = res.data.result ?? [];
 };
-
 handleQuery();
+loadDevices();
 </script>

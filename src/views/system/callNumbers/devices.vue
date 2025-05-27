@@ -50,7 +50,7 @@ import { CallNumberApi } from '/@/api-services/api';
 const editDialogRef = ref();
 const loading = ref(false);
 const tableData = ref<any>([]);
-const queryParams = ref<any>({name:''});
+const queryParams = ref<any>({ name: '' });
 const editCallDeviceTitle = ref('');
 
 // 查询操作
@@ -58,13 +58,16 @@ const handleQuery = async () => {
 	loading.value = true;
 	var res = await getAPI(CallNumberApi).apiCallNumberGetCallDeviceListGet();
 	tableData.value = res.data.result ?? [];
+	if (queryParams.value.name) {
+		tableData.value = tableData.value.filter((item: any) => item.name.includes(queryParams.value.name));
+	}
 	loading.value = false;
 };
 
 // 打开新增页面
-const openAddCallDevice= () => {
+const openAddCallDevice = () => {
 	editCallDeviceTitle.value = '添加设备';
-	editDialogRef.value.openDialog({times:1,rate:1,pitch:0});
+	editDialogRef.value.openDialog({ times: 1, rate: 1, pitch: 0 });
 };
 
 // 打开编辑页面

@@ -41,7 +41,6 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { ElMessageBox, ElMessage } from 'element-plus';
 import { auth } from '/@/utils/authFunction';
 import editDialog from './component/editDeviceDialog.vue';
 import { getAPI } from '/@/utils/axios-utils';
@@ -76,20 +75,6 @@ const openEditCallDevice = (row: any) => {
 	editDialogRef.value.openDialog({ ...row });
 };
 
-// 删除
-const delCallDevice = (row: any) => {
-	ElMessageBox.confirm(`确定要删除吗?`, '提示', {
-		confirmButtonText: '确定',
-		cancelButtonText: '取消',
-		type: 'warning',
-	})
-		.then(async () => {
-			await getAPI(CallNumberApi).apiCallNumberDeleteCallRoomPost(row);
-			handleQuery();
-			ElMessage.success('删除成功');
-		})
-		.catch(() => {});
-};
 
 handleQuery();
 </script>

@@ -64,6 +64,13 @@
 							</el-select>
 						</el-form-item>
 					</el-col>
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="挂号诊室" prop="roomId">
+							<el-select placeholder="请选择挂号诊室" v-model="ruleForm.roomId">
+								<el-option v-for="(item, index) in roomsList" :key="index" :value="item.id" :label="item.name">{{ item.name }} </el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="备注" prop="content">
 							<el-input v-model="ruleForm.content" type="textarea" :rows="2" placeholder="" clearable="" />
@@ -86,7 +93,7 @@ import commonFunction from '/@/utils/commonFunction';
 import { ref, onMounted } from 'vue';
 import type { FormRules } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
-import { SysEnumApi, ProductRegistersApi, RegistersApi } from '/@/api-services';
+import { SysEnumApi, ProductRegistersApi, RegistersApi, CallNumberApi } from '/@/api-services';
 import { useUserInfo } from '/@/stores/userInfo';
 import { storeToRefs } from 'pinia';
 
@@ -97,6 +104,7 @@ const getUsersData = ref<any>([]);
 const stores = useUserInfo();
 const { userList } = storeToRefs(stores);
 const getRegisters = ref<any>([]);
+const roomsList = ref<any>([]);
 //父级传递来的参数
 var props = defineProps({
 	title: {
@@ -115,19 +123,29 @@ const rules = ref<FormRules>({
 	regType: [{ required: true, message: '请选择病历分类！', trigger: 'change' }],
 	doctorId: [{ required: true, message: '请选择预约医生！', trigger: 'change' }],
 	itemId: [{ required: true, message: '请选择挂号项目！', trigger: 'change' }],
+	roomId: [{ required: true, message: '请选择挂号诊室！', trigger: 'change' }],
 });
 
 // 打开弹窗
 const openDialog = async () => {
+	await loadRooms();
 	regTypes.value = await getEnums('RegType');
 	getUsersData.value = userList.value;
 	getRegisters.value = await getRegisterProducts();
-	ruleForm.value = { regType:regTypes.value[0].value, doctorId: userList.value[0].id, itemId: getRegisters.value[0].id };
+	ruleForm.value = { regType: regTypes.value[0].value, doctorId: userList.value[0].id, itemId: getRegisters.value[0].id };
 	isShowDialog.value = true;
 
 	ruleForm.value.regType = regTypes.value[0].value;
 	ruleForm.value.doctorId = getUsersData.value[0].id;
 	if (getRegisters.value && getRegisters.value.length > 0) ruleForm.value.itemId = getRegisters.value[0].id;
+	if (roomsList.value && roomsList.value.length > 0) ruleForm.value.roomId = roomsList.value[0].id;
+};
+/**
+ * 加载可选诊室
+ */
+const loadRooms = async () => {
+	var r = await getAPI(CallNumberApi).apiCallNumberGetCallRoomUseListGet();
+	roomsList.value = r.data.result ?? [];
 };
 
 /**

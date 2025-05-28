@@ -104,6 +104,18 @@ export interface RegistersDto {
      */
     reservationId?: number | null;
     /**
+     * 诊室Id
+     * @type {number}
+     * @memberof RegistersDto
+     */
+    roomId?: number | null;
+    /**
+     * 叫号编码
+     * @type {number}
+     * @memberof RegistersDto
+     */
+    callNumber?: number;
+    /**
      * 
      * @type {RegistersStatusEnum}
      * @memberof RegistersDto

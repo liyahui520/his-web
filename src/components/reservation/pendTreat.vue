@@ -92,6 +92,15 @@ const tb = reactive<TableDemoState>({
         showOverflowTooltip: true
       },
       {
+        prop: 'roomName',
+        minWidth: 120,
+        label: '诊室',
+        headerAlign: 'center',
+        align: 'center',
+        isCheck: true,
+        showOverflowTooltip: true
+      },
+      {
         prop: 'createTime',
         label: '创建日期',
         minWidth: 140,

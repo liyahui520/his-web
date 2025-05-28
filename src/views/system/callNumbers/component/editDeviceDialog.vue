@@ -139,55 +139,6 @@ const sliderMark = ref({
 const rules = ref<FormRules>({
 	deviceIdentity: [{ required: true, message: '请输入设备标识！', trigger: 'blur' }],
 });
-// /**
-//  * 处理滑块描述文本
-//  */
-// const handleSliderMark=()=>{
-// 	sliderMark.value={
-// 		times:{
-// 			1:'1次',
-// 			2:'2次',
-// 			3:'3次',
-// 			4:'4次',
-// 			5:'5次',
-// 		},
-// 		rate:{
-// 			0.1:'0.1',
-// 			0.2:'0.2',
-// 			0.3:'0.3',
-// 			0.4:'0.4',
-// 			0.5:'0.5',
-// 			0.6:'0.6',
-// 			0.7:'0.7',
-// 			0.8:'0.8',
-// 			0.9:'0.9',
-// 			1.0:'1.0',
-// 		},
-// 		pitch:{
-// 			0.1:'0.1',
-// 			0.2:'0.2',
-// 			0.3:'0.3',
-// 			0.4:'0.4',
-// 			0.5:'0.5',
-// 			0.6:'0.6',
-// 			0.7:'0.7',
-// 			0.8:'0.8',
-// 			0.9:'0.9',
-// 			1.0:'1.0',
-// 			1.1:'1.1',
-// 			1.2:'1.2',
-// 			1.3:'1.3',
-// 			1.4:'1.4',
-// 			1.5:'1.5',
-// 			1.6:'1.6',
-// 			1.7:'1.7',
-// 			1.8:'1.8',
-// 			1.9:'1.9',
-// 			2.0:'2.0',
-// 		}
-// 	}
-// }
-
 /**
  * 加载单位数据
  */
@@ -233,10 +184,9 @@ const deleteGoodsItems = (index: number) => {
 // 打开弹窗
 const openDialog = (row: any) => {
 	loadUnitData();
-	// handleSliderMark();
 	ruleForm.value = other.deepClone(row);
-	if (row.productItems) {
-		row.productItems.forEach((item: any) => {
+	if (ruleForm.value.productItems) {
+		ruleForm.value.productItems.forEach((item: any) => {
 			item.outUnitName = unitObject.value[item.outUnitId];
 		});
 	}

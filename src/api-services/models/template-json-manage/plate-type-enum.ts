@@ -13,13 +13,15 @@
  */
 
 /**
- * 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+ * <br />&nbsp;系统用户 System = 0<br />&nbsp;[用户端]小程序用户 WeChatProgramCustomer = 1<br />&nbsp;[医生端]小程序用户 WeChatProgramDoctor = 2<br />&nbsp;打印机客户端 PrintApp = 3<br />&nbsp;打印机web请求 PrintWeb = 4<br />
  * @export
  * @enum {string}
  */
-export enum FilterLogicEnum {
+export enum PlateTypeEnum {
     NUMBER_0 = 0,
     NUMBER_1 = 1,
-    NUMBER_2 = 2
+    NUMBER_2 = 2,
+    NUMBER_3 = 3,
+    NUMBER_4 = 4
 }
 

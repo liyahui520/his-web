@@ -150,7 +150,7 @@ export function verifyNumberComma(val: string, isF: boolean=false) {
  * @param val 当前值字符串
  * @returns 返回处理后的字符串
  */
-export function verifyNumberCommaNo(val: string, isF: boolean) {
+export function verifyNumberCommaNo(val: string, isF: boolean=false) {
 
     // // 调用小数或整数(不可以负数)方法
     let v:any= verifyNumberIntegerAndFloat(val);

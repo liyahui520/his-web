@@ -75,7 +75,6 @@ import { DeleteFilled } from '@element-plus/icons-vue'
 import { ProductTypeEnums } from '/@/api-services/models/product-manage';;
 import { verifyNumberComma } from '/@/utils/toolsValidate';
 import { useUserInfo } from '/@/stores/userInfo';
-import { formatAge,formatDate } from '/@/utils/formatTime';
 
 const stores = useUserInfo();
 

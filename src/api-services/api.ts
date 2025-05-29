@@ -136,3 +136,4 @@ export * from './apis/sys-template-api';
 export * from './apis/sys-tenant-config-api';
 
 export * from './apis/sys-update-api';
+export * from './apis/template-json-manage/print-setting-api';

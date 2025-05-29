@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * 诊疗内文本模板管理
+ * 病例相关打印
  * <br/><u><b><font color='FF0000'> 内部接口文档</font></b></u>
  *
  * OpenAPI spec version: 1.0.0

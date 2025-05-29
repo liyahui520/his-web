@@ -25,6 +25,7 @@ connection = new SignalR.HubConnectionBuilder()
 connection.keepAliveIntervalInMilliseconds = 15 * 1000; // 心跳检测15s
 connection.serverTimeoutInMilliseconds = 30 * 60 * 1000; // 超时时间30m
 
+
 // 启动连接
 connection.start().then(() => {
 	console.log('启动连接');

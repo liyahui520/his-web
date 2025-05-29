@@ -8,16 +8,18 @@
       <template #customerName="scope">
 				<el-button type="primary" link @click="selectPcu(scope.row)">{{ scope.row.customerName }} </el-button>
       </template>
+      <template #action="scope">
+        
+						<el-button icon="ele-Edit" size="small" text="" type="primary" @click="call(scope.row)" > 叫号 </el-button>
+      </template>
     </Table>
   </el-card>
 </template>
 
 <script lang="ts" setup name="list">
 import {defineAsyncComponent, onMounted, reactive, ref, nextTick} from "vue";
-import {ElMessageBox, ElMessage} from "element-plus";
 import {getAPI} from '/@/utils/axios-utils';
-import {SysEnumApi, RegistersApi, InStorageApi, SysUserApi} from "/@/api-services";
-import {auth} from "/@/utils/authFunction";
+import { RegistersApi,CallNumberApi } from "/@/api-services";
 import {useUserInfo} from '/@/stores/userInfo';
 import {storeToRefs} from 'pinia';
 // 引入组件
@@ -27,6 +29,8 @@ const emit = defineEmits(["selectPcuReload"]);
 const tableRef = ref();
 const stores = useUserInfo();
 const {userList} = storeToRefs(stores);
+
+const roomsList = ref<any>([]);
 const tb = reactive<TableDemoState>({
   isDisabled: false,
   isHidden: false,
@@ -101,6 +105,15 @@ const tb = reactive<TableDemoState>({
         showOverflowTooltip: true
       },
       {
+        prop: 'callNumberText',
+        minWidth: 120,
+        label: '编号',
+        headerAlign: 'center',
+        align: 'center',
+        isCheck: true,
+        showOverflowTooltip: true
+      },
+      {
         prop: 'createTime',
         label: '创建日期',
         minWidth: 140,
@@ -109,16 +122,16 @@ const tb = reactive<TableDemoState>({
         sortable: 'custom',
         showOverflowTooltip: true
       },
-      // {
-      //     prop: 'action',
-      //     width: 180,
-      //     label: '操作',
-      //     type: 'action',
-      //     align: 'center',
-      //     isCheck: true,
-      //     fixed: 'right',
-      //     hideCheck: true
-      // },
+      {
+          prop: 'action',
+          width: 180,
+          label: '操作',
+          type: 'action',
+          align: 'center',
+          isCheck: true,
+          fixed: 'right',
+          hideCheck: true
+      },
     ],
     // 配置项（必传）
     config: {
@@ -142,11 +155,39 @@ const tb = reactive<TableDemoState>({
         options: [],
         optionkey: 'value',
         optionname: 'label'
+      },{
+        label: '诊室', prop: 'roomId', placeholder: '请选择诊室', required: false, type: 'select',
+        options: [],
+        optionkey: 'value',
+        optionname: 'label'
       },
     ],
     param: {name: '', status: 0},
   },
 });
+
+const call=async (row:any)=>{
+  console.log("叫号行",row);
+  await getAPI(CallNumberApi).apiCallNumberCallNumberPost({
+    regId:row.id,
+    id:row.roomId,
+    callNumber:row.callNumber,
+    customerName:row.customerName,
+    petName:row.petName,
+    isRepeat:false
+  });
+}
+
+/**
+ * 加载可选诊室
+ */
+const loadRooms = async () => {
+	var r = await getAPI(CallNumberApi).apiCallNumberGetCallRoomUseListGet();
+	roomsList.value = r.data.result ?? [];
+  roomsList.value.forEach((itme: any) => {
+    tb.tableData.search[2].options?.push({ value: itme.id, label: itme.name });
+  })
+};
 
 /**
  * 选择用户
@@ -176,7 +217,7 @@ const onSortHeader = (data: object[]) => {
 };
 
 onMounted(async () => {
-
+  await loadRooms();
   let userArray = userList.value;
   userArray?.forEach((itme: any) => {
     tb.tableData.search[1].options?.push({ value: itme.id, label: itme.realName });

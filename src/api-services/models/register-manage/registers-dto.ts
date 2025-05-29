@@ -116,6 +116,12 @@ export interface RegistersDto {
      */
     callNumber?: number;
     /**
+     * 叫号编码
+     * @type {string}
+     * @memberof RegistersDto
+     */
+    callNumberText?: string | null;
+    /**
      * 
      * @type {RegistersStatusEnum}
      * @memberof RegistersDto

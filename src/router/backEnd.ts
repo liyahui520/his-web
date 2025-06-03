@@ -50,6 +50,7 @@ export async function initBackEndControlRoutes() {
 	await useUserInfo().reloadProductTypesList();
 	await useUserInfo().reloadSysRegionsList();
 	await useUserInfo().reloadSysOrgExts();
+	await useUserInfo().reloadSysSpecialSettings();
 	await useUserInfo().reloadGetKinds();
 	await useUserInfo().reloadpetVarieties();
 	// 获取路由菜单数据

@@ -30,6 +30,36 @@ export interface CallDeviceProductSettingsInput {
     productId?: number;
 
     /**
+     * 产品类型描述
+     *
+     * @type {string}
+     * @memberof CallDeviceProductSettingsInput
+     */
+    typeText?: string | null;
+
+    /**
+     * @type {string}
+     * @memberof CallDeviceProductSettingsInput
+     */
+    productName?: string | null;
+
+    /**
+     * 销售价格
+     *
+     * @type {number}
+     * @memberof CallDeviceProductSettingsInput
+     */
+    salePrice?: number;
+
+    /**
+     * 出库单位名称
+     *
+     * @type {string}
+     * @memberof CallDeviceProductSettingsInput
+     */
+    outUnitName?: string | null;
+
+    /**
      * @type {ProductTypeEnums}
      * @memberof CallDeviceProductSettingsInput
      */

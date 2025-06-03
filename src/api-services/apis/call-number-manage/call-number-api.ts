@@ -27,55 +27,15 @@ import { CallRoomSettingAddInput } from '../../models/call-number-manage';
 import { CallRoomSettingDeleteInput } from '../../models/call-number-manage';
 import { CallRoomSettingEditInput } from '../../models/call-number-manage';
 import { AdminResultListCallDeviceSettingOutput } from '../../models/call-number-manage';
+import { RegUserListInput } from '../../models/call-number-manage';
+import { AdminResultSqlSugarPagedListRegUserListOutput } from '../../models/call-number-manage';
+
 /**
  * CallNumberApi - axios parameter creator
  * @export
  */
 export const CallNumberApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
-        /**
-         * 
-         * @summary 获取所有可选设备以提供绑定
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiCallNumberGetCallDevicesGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/callNumber/get-call-devices`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
         /**
          * 
          * @summary 新增设备
@@ -180,7 +140,7 @@ export const CallNumberApiAxiosParamCreator = function (configuration?: Configur
          * @throws {RequiredError}
          */
         apiCallNumberCallNumberPost: async (body?: CallNumberInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/callNumber/callNumber`;
+            const localVarPath = `/api/callNumber/call-number`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -457,6 +417,49 @@ export const CallNumberApiAxiosParamCreator = function (configuration?: Configur
         },
         /**
          * 
+         * @summary 获取所有可选设备以提供绑定
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiCallNumberGetCallDevicesGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/callNumber/get-call-devices`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary 获取当前所有诊室
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -541,6 +544,102 @@ export const CallNumberApiAxiosParamCreator = function (configuration?: Configur
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary 获取所有已叫号用户
+         * @param {RegUserListInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiCallNumberGetCompleteCallUserListPost: async (body?: RegUserListInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/callNumber/get-complete-call-user-list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取所有可叫号用户
+         * @param {RegUserListInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiCallNumberGetRegUserListPost: async (body?: RegUserListInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/callNumber/get-reg-user-list`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -550,20 +649,6 @@ export const CallNumberApiAxiosParamCreator = function (configuration?: Configur
  */
 export const CallNumberApiFp = function(configuration?: Configuration) {
     return {
-
-        /**
-         * 
-         * @summary 获取所有可选设备以提供绑定
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiCallNumberGetCallDevicesGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListCallDeviceSettingOutput>>> {
-            const localVarAxiosArgs = await CallNumberApiAxiosParamCreator(configuration).apiCallNumberGetCallDevicesGet(options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
         /**
          * 
          * @summary 新增设备
@@ -677,6 +762,19 @@ export const CallNumberApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary 获取所有可选设备以提供绑定
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiCallNumberGetCallDevicesGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListCallDeviceSettingOutput>>> {
+            const localVarAxiosArgs = await CallNumberApiAxiosParamCreator(configuration).apiCallNumberGetCallDevicesGet(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 获取当前所有诊室
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -701,6 +799,34 @@ export const CallNumberApiFp = function(configuration?: Configuration) {
                 return axios.request(axiosRequestArgs);
             };
         },
+        /**
+         * 
+         * @summary 获取所有已叫号用户
+         * @param {RegUserListInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiCallNumberGetCompleteCallUserListPost(body?: RegUserListInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListRegUserListOutput>>> {
+            const localVarAxiosArgs = await CallNumberApiAxiosParamCreator(configuration).apiCallNumberGetCompleteCallUserListPost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取所有可叫号用户
+         * @param {RegUserListInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiCallNumberGetRegUserListPost(body?: RegUserListInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSqlSugarPagedListRegUserListOutput>>> {
+            const localVarAxiosArgs = await CallNumberApiAxiosParamCreator(configuration).apiCallNumberGetRegUserListPost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
     }
 };
 
@@ -710,16 +836,6 @@ export const CallNumberApiFp = function(configuration?: Configuration) {
  */
 export const CallNumberApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     return {
-
-        /**
-         * 
-         * @summary 获取所有可选设备以提供绑定
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiCallNumberGetCallDevicesGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListCallDeviceSettingOutput>> {
-            return CallNumberApiFp(configuration).apiCallNumberGetCallDevicesGet(options).then((request) => request(axios, basePath));
-        },
         /**
          * 
          * @summary 新增设备
@@ -801,6 +917,15 @@ export const CallNumberApiFactory = function (configuration?: Configuration, bas
         },
         /**
          * 
+         * @summary 获取所有可选设备以提供绑定
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiCallNumberGetCallDevicesGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListCallDeviceSettingOutput>> {
+            return CallNumberApiFp(configuration).apiCallNumberGetCallDevicesGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 获取当前所有诊室
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -817,6 +942,26 @@ export const CallNumberApiFactory = function (configuration?: Configuration, bas
         async apiCallNumberGetCallRoomUseListGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListCallRoomSettingDto>> {
             return CallNumberApiFp(configuration).apiCallNumberGetCallRoomUseListGet(options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @summary 获取所有已叫号用户
+         * @param {RegUserListInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiCallNumberGetCompleteCallUserListPost(body?: RegUserListInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListRegUserListOutput>> {
+            return CallNumberApiFp(configuration).apiCallNumberGetCompleteCallUserListPost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取所有可叫号用户
+         * @param {RegUserListInput} [body] 请求参数
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiCallNumberGetRegUserListPost(body?: RegUserListInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSqlSugarPagedListRegUserListOutput>> {
+            return CallNumberApiFp(configuration).apiCallNumberGetRegUserListPost(body, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -827,17 +972,6 @@ export const CallNumberApiFactory = function (configuration?: Configuration, bas
  * @extends {BaseAPI}
  */
 export class CallNumberApi extends BaseAPI {
-    
-    /**
-     * 
-     * @summary 获取所有可选设备以提供绑定
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CallNumberApi
-     */
-    public async apiCallNumberGetCallDevicesGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListCallDeviceSettingOutput>> {
-        return CallNumberApiFp(this.configuration).apiCallNumberGetCallDevicesGet(options).then((request) => request(this.axios, this.basePath));
-    }
     /**
      * 
      * @summary 新增设备
@@ -927,6 +1061,16 @@ export class CallNumberApi extends BaseAPI {
     }
     /**
      * 
+     * @summary 获取所有可选设备以提供绑定
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CallNumberApi
+     */
+    public async apiCallNumberGetCallDevicesGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListCallDeviceSettingOutput>> {
+        return CallNumberApiFp(this.configuration).apiCallNumberGetCallDevicesGet(options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
      * @summary 获取当前所有诊室
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -945,4 +1089,28 @@ export class CallNumberApi extends BaseAPI {
     public async apiCallNumberGetCallRoomUseListGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListCallRoomSettingDto>> {
         return CallNumberApiFp(this.configuration).apiCallNumberGetCallRoomUseListGet(options).then((request) => request(this.axios, this.basePath));
     }
+    /**
+     * 
+     * @summary 获取所有已叫号用户
+     * @param {RegUserListInput} [body] 请求参数
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CallNumberApi
+     */
+    public async apiCallNumberGetCompleteCallUserListPost(body?: RegUserListInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListRegUserListOutput>> {
+        return CallNumberApiFp(this.configuration).apiCallNumberGetCompleteCallUserListPost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取所有可叫号用户
+     * @param {RegUserListInput} [body] 请求参数
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CallNumberApi
+     */
+    public async apiCallNumberGetRegUserListPost(body?: RegUserListInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSqlSugarPagedListRegUserListOutput>> {
+        return CallNumberApiFp(this.configuration).apiCallNumberGetRegUserListPost(body, options).then((request) => request(this.axios, this.basePath));
+    }
 }
+
+

@@ -4853,10 +4853,10 @@ vue-json-pretty@^2.4.0:
   resolved "https://registry.npmmirror.com/vue-json-pretty/-/vue-json-pretty-2.4.0.tgz"
   integrity sha512-e9bP41DYYIc2tWaB6KuwqFJq5odZ8/GkE6vHQuGcbPn37kGk4a3n1RNw3ZYeDrl66NWXgTlOfS+M6NKkowmkWw==
 
-vue-plugin-hiprint-signalr@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.npmjs.org/vue-plugin-hiprint-signalr/-/vue-plugin-hiprint-signalr-0.0.5.tgz"
-  integrity sha512-OKHR+gCi7TR8Ru2vzPskOBgou0eRv1A6cumT7Hn2g7i+mpIPu/I6QWsk6H7vpILIMivReNbOH6HPgwocEJfJgQ==
+vue-plugin-hiprint-signalr@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.npmjs.org/vue-plugin-hiprint-signalr/-/vue-plugin-hiprint-signalr-0.0.9.tgz"
+  integrity sha512-6IQlJWnfDaBeg4KttH/XZ4w1mAbief0oYIzRuv96HRdTGV01zyHAvrbVJsVhVQNwnxF9LwurKJhI8Hi88CzRGw==
   dependencies:
     "@claviska/jquery-minicolors" "^2.3.6"
     "@microsoft/signalr" "^8.0.7"

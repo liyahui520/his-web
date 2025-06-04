@@ -42,7 +42,7 @@ export const useUserInfo = defineStore('userInfo', {
 		sysOrgInfo:{} as any,
 		petKinds:[] as any,
 		petVarieties:[] as any,
-		sysSpecialSettingInfo:[] as any,
+		sysSpecialSettings:[] as any,
 	}),
 	getters: {
 		// // 获取系统常量列表
@@ -189,14 +189,14 @@ export const useUserInfo = defineStore('userInfo', {
 			}
 		},
 		async reloadSysSpecialSettings() {
-			Session.remove('sysSpecialSettingInfo');
+			Session.remove('sysSpecialSettings');
 			// 存储字典信息到浏览器缓存
-			if (Session.get('sysSpecialSettingInfo')) {
-				this.sysSpecialSettingInfo = Session.get('sysSpecialSettingInfo');
+			if (Session.get('sysSpecialSettings')) {
+				this.sysSpecialSettings = Session.get('sysSpecialSettings');
 			} else {
-				const specialSetting = await this.getSysSpecials();
-				Session.set('sysSpecialSettingInfo', specialSetting);
-				this.sysSpecialSettingInfo = specialSetting;
+				const specialSetting =  await this.getSysSpecials();
+				Session.set('sysSpecialSettings', specialSetting);
+				this.sysSpecialSettings = specialSetting;
 			}
 		},
 		async reloadGetKinds() {
@@ -431,7 +431,7 @@ export const useUserInfo = defineStore('userInfo', {
 			});
 		},
 		/**
-		 * 获取系统产品品牌
+		 * 获取系统产品类型
 		 * @returns
 		 */
 		getProductTypes() {
@@ -448,7 +448,7 @@ export const useUserInfo = defineStore('userInfo', {
 			});
 		},
 		/**
-		 * 获取系统产品品牌
+		 * 获取系统产品地址
 		 * @returns
 		 */
 		getSysRegions() {
@@ -488,13 +488,13 @@ export const useUserInfo = defineStore('userInfo', {
 		 */
 		getSysSpecials() {
 			return new Promise((resolve) => {
-				if (this.sysSpecialSettingInfo && this.sysSpecialSettingInfo.length>0) {
-					resolve(this.sysSpecialSettingInfo);
+				if (this.sysSpecialSettings && this.sysSpecialSettings.length>0) {
+					resolve(this.sysSpecialSettings);
 				} else {
 					getAPI(SysSpecialSettingApi)
 						.apiSysSpecialSettingGetSpecialSettingsGet()
 						.then(async (res: any) => {
-							resolve(res.data.result ?? {});
+							resolve(res.data.result ?? []);
 						});
 				}
 			});

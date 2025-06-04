@@ -8,14 +8,14 @@
 				<el-card shadow="never" :body-style="{ paddingBottom: '0' }">
 					<el-form :model="queryParams" ref="queryForm" :inline="true">
 						<el-form-item label="诊室">
-                            <el-select v-model="queryParams.roomId" filterable placeholder="请选择诊室" @change="handleQuery">
+							<el-select v-model="queryParams.roomId" placeholder="请选择诊室" @change="handleQuery">
 								<el-option v-for="item in roomData" :key="item.id" :label="item.name" :value="item.id"></el-option>
 							</el-select>
 						</el-form-item>
 
 						<el-form-item>
-							<el-button type="primary" icon="ele-ArrowRight" :disabled="tableData.length<=0 || loading" @click="callNumber"> 叫号 </el-button>
-							<el-button type="warning" icon="ele-DArrowRight" :disabled="tableData.length<=1 || loading" @click="skipCallNumber"> 跳过当前 </el-button>
+							<el-button type="primary" icon="ele-ArrowRight" :disabled="tableData.length <= 0 || loading" @click="callNumber"> 叫号 </el-button>
+							<el-button type="warning" icon="ele-DArrowRight" :disabled="tableData.length <= 1 || loading" @click="skipCallNumber"> 跳过当前 </el-button>
 						</el-form-item>
 					</el-form>
 				</el-card>
@@ -38,62 +38,83 @@
 import { ref, computed, defineEmits } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { CallNumberApi } from '/@/api-services';
+import { useUserInfo } from '/@/stores/userInfo';
+import { storeToRefs } from 'pinia';
 
+const stores = useUserInfo();
+const { userInfos } = storeToRefs(stores);
 const isShowDrawer = ref(false);
 const loading = ref(false);
 const queryParams = ref<any>({
-    page: 1,
+	page: 1,
 	pageSize: 500,
 	total: 0,
 });
 const tableData = ref<any>([]);
-const roomData=ref<any>([]);
+const roomData = ref<any>([]);
 // 打开弹窗
 const openDrawer = async () => {
-    await loadCallRoom();
-    tableData.value=[];
+	await loadCallRoom();
+	tableData.value = [];
 	isShowDrawer.value = true;
-    handleQuery();
+	handleQuery();
 };
 /**
  * 加载诊室
  */
-const loadCallRoom=async ()=>{
-    let res=await getAPI(CallNumberApi).apiCallNumberGetCallRoomUseListGet();
-    roomData.value=res.data.result ?? [];
-    if(roomData.value.length>0){
-        queryParams.value.roomId=roomData.value[0].id;
-    }
-}
+const loadCallRoom = async () => {
+	let res = await getAPI(CallNumberApi).apiCallNumberGetCallRoomUseListGet();
+	roomData.value = res.data.result ?? [];
+	if (roomData.value.length > 0) {
+		if (localStorage.getItem(`callRoomId_${userInfos.value.id}`)) {
+			queryParams.value.roomId = localStorage.getItem(`callRoomId_${userInfos.value.id}`);
+		} else {
+			queryParams.value.roomId = roomData.value[0].id;
+		}
+	}
+};
 /**
  * 查询待叫号列表
  */
 const handleQuery = async () => {
-    loading.value=true;
-    await getAPI(CallNumberApi).apiCallNumberGetRegUserListPost(queryParams.value).then((res) => {
-        tableData.value=res.data.result?.items ?? [];
-    }).finally(()=>{
-        loading.value=false;
-    })
+	loading.value = true;
+	if (queryParams.value.roomId) {
+		localStorage.setItem(`callRoomId_${userInfos.value.id}`, queryParams.value.roomId);
+	}
+	await getAPI(CallNumberApi)
+		.apiCallNumberGetRegUserListPost(queryParams.value)
+		.then((res) => {
+			tableData.value = res.data.result?.items ?? [];
+		})
+		.finally(() => {
+			loading.value = false;
+		});
 };
 /**
  * 下一个
  */
 const callNumber = async () => {
 	if (tableData.value.length > 0) {
-        loading.value=true;
-        let row = tableData.value[0];
-		console.log('叫号行', row);
-		await getAPI(CallNumberApi).apiCallNumberCallNumberPost({
-			regId: row.id,
-			id: row.roomId,
-			callNumber: row.callNumber,
-			customerName: row.customerName,
-			petName: row.petName,
-			isRepeat: false,
-		}).finally(()=>{
-		  loading.value=false;  
-		});
+		loading.value = true;
+		let row = tableData.value[0];
+		await getAPI(CallNumberApi)
+			.apiCallNumberCallNumberPost({
+				regId: row.id,
+				id: row.roomId,
+				callNumber: row.callNumber,
+				customerId: row.customerId,
+				customerName: row.customerName,
+				petId: row.petId,
+				petName: row.petName,
+				roomName: row.roomName,
+				isRepeat: false,
+				isSkip: false,
+				nextCall: tableData.value.length > 1 ? tableData.value[1] : null,
+			})
+
+			.finally(() => {
+				loading.value = false;
+			});
 	}
 };
 /**
@@ -101,19 +122,36 @@ const callNumber = async () => {
  */
 const skipCallNumber = async () => {
 	if (tableData.value.length > 1) {
-        loading.value=true;
-        let row = tableData.value[1];
-		console.log('叫号行', row);
-		await getAPI(CallNumberApi).apiCallNumberCallNumberPost({
-			regId: row.id,
-			id: row.roomId,
-			callNumber: row.callNumber,
-			customerName: row.customerName,
-			petName: row.petName,
-			isRepeat: false,
-		}).finally(()=>{
-		  loading.value=false;  
-		});
+		loading.value = true;
+		let row = tableData.value[1];
+		await getAPI(CallNumberApi)
+			.apiCallNumberCallNumberPost({
+				regId: row.id,
+				id: row.roomId,
+				callNumber: row.callNumber,
+				customerId: row.customerId,
+				customerName: row.customerName,
+				petId: row.petId,
+				petName: row.petName,
+				roomName: row.roomName,
+				isRepeat: false,
+				nextCall: tableData.value.length > 2 ? tableData.value[2] : null,
+				isSkip: true,
+				skipCall: {
+					regId: tableData.value[0].id,
+					id: tableData.value[0].roomId,
+					callNumber: tableData.value[0].callNumber,
+					customerId: tableData.value[0].customerId,
+					customerName: tableData.value[0].customerName,
+					petId: tableData.value[0].petId,
+					petName: tableData.value[0].petName,
+					roomName: tableData.value[0].roomName,
+				},
+			})
+			.finally(() => {
+				loading.value = false;
+			});
+		handleQuery();
 	}
 };
 

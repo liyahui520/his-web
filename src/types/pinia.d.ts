@@ -24,7 +24,7 @@ declare interface UserInfosState {
 	productTypes:T[];
 	sysRegions:T[];
 	sysOrgInfo:T,
-	sysSpecialSettingInfo:T[],
+	sysSpecialSettings:T[],
 	petKinds:T[],
 	petVarieties:T[]
 }

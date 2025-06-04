@@ -30,7 +30,6 @@
 						<el-button icon="ele-Monitor" v-if="!scope.row.deviceIdentity" size="small" text="" type="primary" @click="openEditCallRoom(scope.row)" v-auth="'call:bindDevices:bind'">
 							绑定
 						</el-button>
-						<!-- <el-button icon="ele-Monitor" v-else size="small" text="" type="primary" @click="openEditCallRoom(scope.row)" v-auth="'call:bindDevices:bind'"> 绑定 </el-button> -->
 					</template>
 				</el-table-column>
 			</el-table>

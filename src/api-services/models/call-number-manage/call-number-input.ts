@@ -85,10 +85,39 @@ export interface CallNumberInput {
     petName?: string | null;
 
     /**
+     * 诊室名称
+     *
+     * @type {string}
+     * @memberof CallNumberInput
+     */
+    roomName?: string | null;
+
+    /**
      * 是否复诊
      *
      * @type {boolean}
      * @memberof CallNumberInput
      */
     isRepeat?: boolean;
+    /**
+     * 是否跳过
+     *
+     * @type {boolean}
+     * @memberof CallNumberInput
+     */
+    isSkip?: boolean;
+    /**
+     * 下一个叫号人
+     *
+     * @type {CallNumberInput}
+     * @memberof CallNumberInput
+     */
+    nextCall?:CallNumberInput|null;
+    /**
+     * 跳过的叫号信息
+     *
+     * @type {CallNumberInput}
+     * @memberof CallNumberInput
+     */
+    skipCall?:CallNumberInput|null;
 }

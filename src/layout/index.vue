@@ -59,7 +59,7 @@ onBeforeMount(() => {
 	window.addEventListener('resize', onLayoutResize);
 	autoConnect();
 	hiprint.hiwebSocket.socket.on('printSuccess',(e)=>{
-          ElMessage.success(e.msg);
+          ElMessage.success(e);
           // hiprint.hiwebSocket.stop()
         })
         hiprint.hiwebSocket.socket.on('printError', function (e) {

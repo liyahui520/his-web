@@ -139,3 +139,4 @@ export * from './apis/sys-update-api';
 export * from './apis/template-json-manage/print-setting-api';
 
 export * from './apis/call-number-manage/call-number-api'
+export * from './apis/sys-special-setting-api'

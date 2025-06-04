@@ -16,7 +16,8 @@ import { SysAuthApi,
 	SysProductTypeApi,
 	SysRegionApi,
 	SysOrgExtApi,
-	SysPcuPetConfigApi
+	SysPcuPetConfigApi,
+	SysSpecialSettingApi
  } from '/@/api-services/api';
 
 
@@ -40,7 +41,8 @@ export const useUserInfo = defineStore('userInfo', {
 		sysRegions: [] as any,
 		sysOrgInfo:{} as any,
 		petKinds:[] as any,
-		petVarieties:[] as any
+		petVarieties:[] as any,
+		sysSpecialSettingInfo:[] as any,
 	}),
 	getters: {
 		// // 获取系统常量列表
@@ -184,6 +186,17 @@ export const useUserInfo = defineStore('userInfo', {
 				const sysOrgInfo = await this.getSysOrgExts();
 				Session.set('sysOrgInfo', sysOrgInfo);
 				this.sysOrgInfo = sysOrgInfo;
+			}
+		},
+		async reloadSysSpecialSettings() {
+			Session.remove('sysSpecialSettingInfo');
+			// 存储字典信息到浏览器缓存
+			if (Session.get('sysSpecialSettingInfo')) {
+				this.sysSpecialSettingInfo = Session.get('sysSpecialSettingInfo');
+			} else {
+				const specialSetting = await this.getSysSpecials();
+				Session.set('sysSpecialSettingInfo', specialSetting);
+				this.sysSpecialSettingInfo = specialSetting;
 			}
 		},
 		async reloadGetKinds() {
@@ -457,7 +470,7 @@ export const useUserInfo = defineStore('userInfo', {
 		 */
 		getSysOrgExts() {
 			return new Promise((resolve) => {
-				if (this.sysOrgInfo && this.sysOrgInfo.length > 0) {
+				if (this.sysOrgInfo && this.sysOrgInfo.hasOwnProperty('id')) {
 					resolve(this.sysOrgInfo);
 				} else {
 					getAPI(SysOrgExtApi)
@@ -469,6 +482,23 @@ export const useUserInfo = defineStore('userInfo', {
 			});
 		},
 
+		/**
+		 * 获取系统权益信息
+		 * @returns
+		 */
+		getSysSpecials() {
+			return new Promise((resolve) => {
+				if (this.sysSpecialSettingInfo && this.sysSpecialSettingInfo.length>0) {
+					resolve(this.sysSpecialSettingInfo);
+				} else {
+					getAPI(SysSpecialSettingApi)
+						.apiSysSpecialSettingGetSpecialSettingsGet()
+						.then(async (res: any) => {
+							resolve(res.data.result ?? {});
+						});
+				}
+			});
+		},
 		/**
 		 * 获取种类
 		 */

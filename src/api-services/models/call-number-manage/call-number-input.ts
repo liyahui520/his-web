@@ -21,6 +21,14 @@
 export interface CallNumberInput {
 
     /**
+     * 挂号Id
+     *
+     * @type {number}
+     * @memberof CallNumberInput
+     */
+    regId?: number;
+
+    /**
      * 诊室Id
      *
      * @type {number}
@@ -31,8 +39,56 @@ export interface CallNumberInput {
     /**
      * 排队编号
      *
+     * @type {number}
+     * @memberof CallNumberInput
+     */
+    callNumber?: number;
+
+    /**
+     * 排队编号
+     *
      * @type {string}
      * @memberof CallNumberInput
      */
-    callNumber?: string | null;
+    callNumberText?: string | null;
+
+    /**
+     * 用户Id
+     *
+     * @type {number}
+     * @memberof CallNumberInput
+     */
+    customerId?: number;
+
+    /**
+     * 用户名称
+     *
+     * @type {string}
+     * @memberof CallNumberInput
+     */
+    customerName?: string | null;
+
+    /**
+     * 宠物Id
+     *
+     * @type {number}
+     * @memberof CallNumberInput
+     */
+    petId?: number;
+
+    /**
+     * 宠物名称
+     *
+     * @type {string}
+     * @memberof CallNumberInput
+     */
+    petName?: string | null;
+
+    /**
+     * 是否复诊
+     *
+     * @type {boolean}
+     * @memberof CallNumberInput
+     */
+    isRepeat?: boolean;
 }

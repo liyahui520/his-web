@@ -6,13 +6,22 @@
 					<!-- 侧边栏内容 -->
 					<SidebarPet @select-item="selectItem" />
 				</el-card>
-				<el-button @click="toggleSidebar(isSidebarVisible)" :title="isSidebarVisible?'隐藏':'显示'" :icon="isSidebarVisible ? DArrowLeft : DArrowRight" class="side-left"></el-button>
+				<el-button @click="toggleSidebar(isSidebarVisible)" :title="isSidebarVisible ? '隐藏' : '显示'" :icon="isSidebarVisible ? DArrowLeft : DArrowRight" class="side-left"></el-button>
 			</div>
 		</el-aside>
 		<el-container style="padding: 0px; margin: 0px; min-width: 1100px">
 			<SeptIndex :data="rowData" ref="septIndexRef" v-show="isRecord" />
 			<TreatHelp v-show="!isRecord" />
 		</el-container>
+		<div class="affix-container">
+			<el-tooltip class="box-item" effect="light" content="开始叫号" placement="top-start">
+				<el-affix position="bottom" :offset="20">
+					<el-avatar :size="30" style="background-color: white" shape="square" :src="animal" @click="hanleCall" />
+				</el-affix>
+			</el-tooltip>
+		</div>
+		
+		<Call ref="callRef" />
 	</el-container>
 </template>
 
@@ -21,10 +30,12 @@ import { onMounted, ref, defineAsyncComponent, nextTick } from 'vue';
 import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue';
 import { useUserInfo } from '/@/stores/userInfo';
 import { storeToRefs } from 'pinia';
+import animal from '/@/assets/call.png';
 
 const SidebarPet = defineAsyncComponent(() => import('/@/views/treatment/component/sidebarpet.vue'));
 const SeptIndex = defineAsyncComponent(() => import('./components/cem.vue'));
 const TreatHelp = defineAsyncComponent(() => import('./components/nocem.vue'));
+const Call = defineAsyncComponent(() => import('./components/call.vue'));
 
 const isSidebarVisible = ref(true);
 const isRecord = ref(false);
@@ -32,8 +43,16 @@ const pcuload = ref(false);
 const sidebarWidth = ref('280px');
 const rowData = ref<any>({ id: -1 });
 
+const callRef = ref();//叫号组件
 const septIndexRef = ref();
 
+/**
+ * 打开叫号
+ */
+const hanleCall=()=>{
+	//此处弹出右侧弹出抽屉
+	callRef.value.openDrawer();
+}
 const stores1 = useUserInfo();
 const { userInfos } = storeToRefs(stores1);
 const toggleSidebar = (v) => {
@@ -65,7 +84,13 @@ onMounted(async () => {});
 	min-width: 800px;
 	width: 100%;
 	height: 100%;
-
+	.affix-container {
+		position: fixed;
+		right: 50px;
+		bottom: 100px;
+		z-index: 999;
+		cursor: pointer;
+	}
 	.side-left {
 		transition: width 0.5s;
 		cursor: pointer;
@@ -83,7 +108,7 @@ onMounted(async () => {});
 		padding: 4px 10px;
 		border-radius: 0px 18px 18px 0px;
 		border: 1px solid var(--el-color-primary);
-		border-left: 0px; 
+		border-left: 0px;
 	}
 
 	.side-left-close {

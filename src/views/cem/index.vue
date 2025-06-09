@@ -13,15 +13,15 @@
 			<SeptIndex :data="rowData" ref="septIndexRef" v-show="isRecord" />
 			<TreatHelp v-show="!isRecord" />
 		</el-container>
-		<div class="affix-container">
+		<div v-if="loadCall" class="affix-container">
 			<el-tooltip class="box-item" effect="light" content="开始叫号" placement="top-start">
 				<el-affix position="bottom" :offset="20">
 					<el-avatar :size="30" style="background-color: white" shape="square" :src="animal" @click="hanleCall" />
 				</el-affix>
 			</el-tooltip>
 		</div>
-		
-		<Call ref="callRef" />
+
+		<Call v-if="loadCall" ref="callRef" />
 	</el-container>
 </template>
 
@@ -37,32 +37,32 @@ const SeptIndex = defineAsyncComponent(() => import('./components/cem.vue'));
 const TreatHelp = defineAsyncComponent(() => import('./components/nocem.vue'));
 const Call = defineAsyncComponent(() => import('./components/call.vue'));
 
+const stores1 = useUserInfo();
+const { userInfos, sysSpecialSettings } = storeToRefs(stores1);
 const isSidebarVisible = ref(true);
 const isRecord = ref(false);
 const pcuload = ref(false);
 const sidebarWidth = ref('280px');
 const rowData = ref<any>({ id: -1 });
-
-const callRef = ref();//叫号组件
+const loadCall = ref(false);
+const callRef = ref(); //叫号组件
 const septIndexRef = ref();
 
 /**
  * 打开叫号
  */
-const hanleCall=()=>{
+const hanleCall = () => {
 	//此处弹出右侧弹出抽屉
 	callRef.value.openDrawer();
-}
-const stores1 = useUserInfo();
-const { userInfos } = storeToRefs(stores1);
-const toggleSidebar = (v) => {
+};
+const toggleSidebar = (v: any) => {
 	nextTick(() => {
 		isSidebarVisible.value = !v;
 		sidebarWidth.value = !v ? '280px' : '5px';
 	});
 };
 
-const selectItem = async (row) => {
+const selectItem = async (row: any) => {
 	pcuload.value = true;
 	await nextTick(async () => {
 		if (row.recordId) {
@@ -76,7 +76,11 @@ const selectItem = async (row) => {
 	pcuload.value = false;
 };
 
-onMounted(async () => {});
+onMounted(async () => {
+	for (let item of sysSpecialSettings.value) {
+		if (item.type == 1 && item.isOpenSpecial == true) loadCall.value = true;
+	}
+});
 </script>
 <style scoped>
 .cem-index-container {

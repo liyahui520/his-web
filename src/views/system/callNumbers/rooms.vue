@@ -22,6 +22,7 @@
 		<el-card shadow="never" style="overflow: auto; margin-top: 8px">
 			<el-table :data="tableData" style="height: calc(100vh - 235px)" v-loading="loading" tooltip-effect="light" border row-key="id">
 				<el-table-column type="index" label="序号" width="55" align="center" fixed="" />
+				<el-table-column prop="code" label="编码" align="center" show-overflow-tooltip="" />
 				<el-table-column prop="name" label="诊室名称" align="center" show-overflow-tooltip="" />
 				<el-table-column prop="status" label="状态" align="center">
 					<template #default="scope">
@@ -77,13 +78,17 @@ const handleQuery = async () => {
 // 打开新增页面
 const openAddCallRoom = () => {
 	editCallRoomTitle.value = '添加诊室';
-	editDialogRef.value.openDialog({ sortIndex: 0, status: 0 });
+	//查询 tableData 表中的code列集合 
+	var codes = tableData.value.map((item: any) => item.code);
+	editDialogRef.value.openDialog({ sortIndex: 0, status: 0 },codes);
 };
 
 // 打开编辑页面
 const openEditCallRoom = (row: any) => {
 	editCallRoomTitle.value = '编辑诊室';
-	editDialogRef.value.openDialog({ ...row });
+	//查询 tableData 表中的code列集合 
+	var codes = tableData.value.map((item: any) => item.code);
+	editDialogRef.value.openDialog({ ...row },codes);
 };
 
 // 删除

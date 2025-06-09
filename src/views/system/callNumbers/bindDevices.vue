@@ -14,7 +14,7 @@
 			</el-form>
 		</el-card>
 		<el-card shadow="never" style="overflow: auto; margin-top: 8px">
-			<el-table :data="tableData" style="height: calc(100vh - 235px)" v-loading="loading" tooltip-effect="light" border row-key="id">
+			<el-table :data="tableData" v-loading="loading" tooltip-effect="light" border row-key="id">
 				<el-table-column type="index" label="序号" width="55" align="center" fixed="" />
 				<el-table-column prop="name" label="诊室名称" align="center" show-overflow-tooltip="" />
 				<el-table-column prop="deviceIdentity" label="设备" align="center" show-overflow-tooltip="" />
@@ -30,7 +30,6 @@
 						<el-button icon="ele-Monitor" v-if="!scope.row.deviceIdentity" size="small" text="" type="primary" @click="openEditCallRoom(scope.row)" v-auth="'call:bindDevices:bind'">
 							绑定
 						</el-button>
-						<!-- <el-button icon="ele-Monitor" v-else size="small" text="" type="primary" @click="openEditCallRoom(scope.row)" v-auth="'call:bindDevices:bind'"> 绑定 </el-button> -->
 					</template>
 				</el-table-column>
 			</el-table>

@@ -18,6 +18,7 @@
 							<el-button type="warning" icon="ele-DArrowRight" :disabled="tableData.length <= 1 || loading" @click="skipCallNumber"> 跳过当前 </el-button>
 						</el-form-item>
 					</el-form>
+					<el-text type="success" size="large" tag="b">当前呼叫：{{callText}}</el-text>
 				</el-card>
 				<el-card shadow="never" style="overflow: auto; margin-top: 8px">
 					<el-table :data="tableData" v-loading="loading" tooltip-effect="light" row-key="id" border>
@@ -35,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, defineEmits } from 'vue';
+import { ref } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { CallNumberApi } from '/@/api-services';
 import { useUserInfo } from '/@/stores/userInfo';
@@ -50,6 +51,7 @@ const queryParams = ref<any>({
 	pageSize: 500,
 	total: 0,
 });
+const callText= ref('');
 const tableData = ref<any>([]);
 const roomData = ref<any>([]);
 // 打开弹窗
@@ -97,6 +99,7 @@ const callNumber = async () => {
 	if (tableData.value.length > 0) {
 		loading.value = true;
 		let row = tableData.value[0];
+		callText.value = `排队编号：${row.callNumber}，宠物：${row.petName}`;
 		await getAPI(CallNumberApi)
 			.apiCallNumberCallNumberPost({
 				regId: row.id,
@@ -111,7 +114,6 @@ const callNumber = async () => {
 				isSkip: false,
 				nextCall: tableData.value.length > 1 ? tableData.value[1] : null,
 			})
-
 			.finally(() => {
 				loading.value = false;
 			});
@@ -124,6 +126,7 @@ const skipCallNumber = async () => {
 	if (tableData.value.length > 1) {
 		loading.value = true;
 		let row = tableData.value[1];
+		callText.value = `排队编号：${row.callNumber}，宠物：${row.petName}`;
 		await getAPI(CallNumberApi)
 			.apiCallNumberCallNumberPost({
 				regId: row.id,

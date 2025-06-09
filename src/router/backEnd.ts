@@ -48,7 +48,7 @@ export async function initBackEndControlRoutes() {
 	await useUserInfo().reloadProductManufacturerList();
 	await useUserInfo().reloadProductProviderList();
 	await useUserInfo().reloadProductTypesList();
-	await useUserInfo().reloadSysRegionsList();
+	useUserInfo().reloadSysRegionsList();
 	await useUserInfo().reloadSysOrgExts();
 	await useUserInfo().reloadSysSpecialSettings();
 	await useUserInfo().reloadGetKinds();

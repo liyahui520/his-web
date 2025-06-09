@@ -140,7 +140,7 @@ const delRegion = (row: any) => {
 			await handleQuery();
 			// 编辑删除后更新机构数据
 			regionTreeRef.value?.initTreeData();
-			await useUserInfo().reloadSysRegionsList();
+			useUserInfo().reloadSysRegionsList();
 			ElMessage.success('删除成功');
 		})
 		.catch(() => {});
@@ -169,7 +169,7 @@ const handlSync = async () => {
 				position: 'bottom-right',
 			});
 			await getAPI(SysRegionApi).apiSysRegionSyncPost({ timeout: 1000 * 60 * 30 });
-			await useUserInfo().reloadSysRegionsList();
+			useUserInfo().reloadSysRegionsList();
 		})
 		.catch(() => {});
 };
@@ -190,7 +190,7 @@ const handlMapSync = async () => {
 			});
 			await getAPI(SysRegionApi).apiSysRegionSyncGaoDePost({ timeout: 1000 * 60 * 30 });
 
-			await useUserInfo().reloadSysRegionsList();
+			useUserInfo().reloadSysRegionsList();
 		})
 		.catch(() => {});
 };

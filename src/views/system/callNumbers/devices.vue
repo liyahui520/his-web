@@ -25,7 +25,7 @@
 				<el-table-column prop="deviceIdentity" label="设备标识" align="left" show-overflow-tooltip="" />
 				<el-table-column prop="times" label="播放次数" align="center" show-overflow-tooltip="" />
 				<el-table-column prop="rate" label="播放语速" align="center" show-overflow-tooltip="" />
-				<el-table-column prop="pitch" label="播放音调" align="center" show-overflow-tooltip="" />
+				<!-- <el-table-column prop="pitch" label="播放音调" align="center" show-overflow-tooltip="" /> -->
 				<el-table-column prop="createTime" label="创建时间" align="center" show-overflow-tooltip="" />
 				<el-table-column label="操作" width="160" align="center" show-overflow-tooltip="" v-if="auth('call:devices:update') || auth('call:devices:delete')">
 					<template #default="scope">
@@ -66,7 +66,7 @@ const handleQuery = async () => {
 // 打开新增页面
 const openAddCallDevice = () => {
 	editCallDeviceTitle.value = '添加设备';
-	editDialogRef.value.openDialog({ times: 1, rate: 1, pitch: 0 });
+	editDialogRef.value.openDialog({ times: 1, rate: 0.7, pitch: 1 });
 };
 
 // 打开编辑页面

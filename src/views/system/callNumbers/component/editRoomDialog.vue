@@ -13,8 +13,15 @@
 						<el-input v-model="ruleForm.id" />
 					</el-form-item>
 					<el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20" class="mb20">
+						<el-form-item label="诊室编码" prop="code">
+							<el-select v-model="ruleForm.code" placeholder="请选择诊室编码" style="width: 100%" >
+								<el-option v-for="item in codeDataList" :key="item" :label="item" :value="item"></el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+					<el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20" class="mb20">
 						<el-form-item label="诊室名称" prop="name">
-							<el-input v-model="ruleForm.name" placeholder="请输入诊室名称" clearable="" />
+							<el-input v-model="ruleForm.name" placeholder="请输入诊室名称" clearable="" maxlength="6" show-word-limit />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20" class="mb20">
@@ -49,7 +56,6 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
-import { ElMessage } from 'element-plus';
 import type { FormRules } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
 import { CallNumberApi } from '/@/api-services/api';
@@ -68,12 +74,28 @@ const isShowDialog = ref(false);
 const ruleForm = ref<any>({});
 //自行删除非必填规则
 const rules = ref<FormRules>({
+	code: [{ required: true, message: '请选择诊室编码！', trigger: 'change' }],
 	name: [{ required: true, message: '请输入诊室名称！', trigger: 'blur' }],
 	sortIndex: [{ required: true, message: '请输入排序！', trigger: 'blur' }],
 });
+//A-Z 大写 补全codeDataList 数组
+const codeDataList = ref<any>([]);
+
+/**
+ * 编码
+ */
+const loadCodeDataList = (allCode: any) => {
+	// 使用循环填充 A-Z
+	for (let i = 65; i <= 90; i++) {
+		//判断allcode中是否包含 当前字符
+		if (!allCode.includes(String.fromCharCode(i))) codeDataList.value.push(String.fromCharCode(i));
+	}
+};
 
 // 打开弹窗
-const openDialog = (row: any) => {
+const openDialog = (row: any, allCode: any) => {
+	codeDataList.value=[];
+	loadCodeDataList(allCode);
 	ruleForm.value = other.deepClone(row);
 	isShowDialog.value = true;
 };

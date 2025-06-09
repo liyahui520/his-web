@@ -50,6 +50,13 @@ export interface SysSpecialSettingsDto {
      * @memberof SysSpecialSettingsDto
      */
     isOpen?: boolean;
+    /**
+     * 是否开启权益
+     *
+     * @type {boolean}
+     * @memberof SysSpecialSettingsDto
+     */
+    isOpenSpecial?: boolean;
 
     /**
      * 到期时间  默认2099-12-31

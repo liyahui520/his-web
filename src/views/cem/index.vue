@@ -78,7 +78,7 @@ const selectItem = async (row: any) => {
 
 onMounted(async () => {
 	for (let item of sysSpecialSettings.value) {
-		if (item.type == 1 && item.isOpen == true) loadCall.value = true;
+		if (item.type == 1 && item.isOpenSpecial == true) loadCall.value = true;
 	}
 });
 </script>

@@ -30,6 +30,13 @@ export interface CallRoomSettingDto {
     id?: number;
 
     /**
+     * 诊室编码
+     *
+     * @type {string}
+     * @memberof CallRoomSettingDto
+     */
+    code?: string | null;
+    /**
      * 诊室名称
      *
      * @type {string}

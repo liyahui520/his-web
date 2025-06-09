@@ -27,6 +27,13 @@ export interface CallRoomSettingEditInput {
      * @type {string}
      * @memberof CallRoomSettingEditInput
      */
+    code?: string | null;
+    /**
+     * 诊室名称
+     *
+     * @type {string}
+     * @memberof CallRoomSettingEditInput
+     */
     name?: string | null;
 
     /**

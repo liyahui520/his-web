@@ -114,7 +114,7 @@ const submit = () => {
 		} else {
 			await getAPI(SysRegionApi).apiSysRegionAddPost(state.ruleForm);
 		}
-		await useUserInfo().reloadSysRegionsList();
+		useUserInfo().reloadSysRegionsList();
 		closeDialog();
 	});
 };

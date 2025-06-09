@@ -27,11 +27,6 @@
 							<el-slider v-model="ruleForm.rate" :min="0.1" :max="1" :step="0.1" :marks="sliderMark.rate" show-stops />
 						</el-form-item>
 					</el-col>
-					<el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20" class="mb20">
-						<el-form-item label="播放音调" prop="pitch">
-							<el-slider v-model="ruleForm.pitch" :min="0.1" :max="2" :step="0.1" :marks="sliderMark.pitch" show-stops />
-						</el-form-item>
-					</el-col>
 				</el-row>
 				<el-divider content-position="left" style="width: 98%; margin: 15px">
 					<el-button type="primary" :icon="Plus" @click="addGoodsItems" plain size="small">添加推荐商品</el-button>
@@ -112,28 +107,7 @@ const sliderMark = ref({
 		0.9: '0.9',
 		1.0: '1.0',
 	},
-	pitch: {
-		0.1: '0.1',
-		0.2: '0.2',
-		0.3: '0.3',
-		0.4: '0.4',
-		0.5: '0.5',
-		0.6: '0.6',
-		0.7: '0.7',
-		0.8: '0.8',
-		0.9: '0.9',
-		1.0: '1.0',
-		1.1: '1.1',
-		1.2: '1.2',
-		1.3: '1.3',
-		1.4: '1.4',
-		1.5: '1.5',
-		1.6: '1.6',
-		1.7: '1.7',
-		1.8: '1.8',
-		1.9: '1.9',
-		2.0: '2.0',
-	},
+	
 });
 //自行删除非必填规则
 const rules = ref<FormRules>({
@@ -209,7 +183,7 @@ const submit = async () => {
 	ruleFormRef.value.validate(async (isValid: boolean, fields?: any) => {
 		if (isValid) {
 			let values = ruleForm.value;
-			console.log('提交的数据', values);
+			values.pitch=1;
 			if (ruleForm.value.id != undefined && ruleForm.value.id > 0) {
 				await getAPI(CallNumberApi).apiCallNumberEditCallDevicePost(values);
 			} else {

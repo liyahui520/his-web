@@ -10,22 +10,38 @@
 				<el-tab-pane label="宠物品种" name="petConfig">
 					<PetConfig />
 				</el-tab-pane>
-				<el-tab-pane label="打印机设置" name="printConfig">
+				<el-tab-pane v-if="loadPrint" label="打印机设置" name="printConfig">
 					<SysPrintConfig />
+				</el-tab-pane>
+				<el-tab-pane v-if="loadCall" label="大屏设备绑定" name="bindDevicesConfig">
+					<BindDevices />
 				</el-tab-pane>
 			</el-tabs>
 		</div> 
 </template>
 
 <script lang="ts" setup name="syssettingconfig">
-import { ref, defineAsyncComponent } from 'vue';
+import { ref, defineAsyncComponent,onMounted } from 'vue';
+import { useUserInfo } from '/@/stores/userInfo';
+import { storeToRefs } from 'pinia';
 
 const SysOrgConfig = defineAsyncComponent(() => import('./component/orgConfig.vue'));
 const SysPcuPetConfig = defineAsyncComponent(() => import('./component/pcuPetConfig.vue'));
 const SysPrintConfig = defineAsyncComponent(() => import('./component/printConfig.vue'));
 const PetConfig = defineAsyncComponent(() => import('/@/views/system/syspetconfig/index.vue')); 
+const BindDevices = defineAsyncComponent(() => import('/@/views/system/callNumbers/bindDevices.vue')); 
 
+const stores = useUserInfo();
+const { sysSpecialSettings } = storeToRefs(stores);
 const activeName = ref('pcupetConfig');
+const loadCall=ref(false);
+const loadPrint=ref(false);
+onMounted(async () => {
+	for (let item of sysSpecialSettings.value) {
+		if (item.type == 0 && item.isOpenSpecial == true) loadPrint.value = true;
+		if (item.type == 1 && item.isOpenSpecial == true) loadCall.value = true;
+	}
+});
 </script>
 <style lang="scss" scoped>
 .syssettingconfig-container {

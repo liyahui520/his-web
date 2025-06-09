@@ -118,7 +118,7 @@
 								</el-col>
 							</el-row>
 						</el-card>
-						<el-card class="box-card" :body-style="{ padding: '10px', height: '100%', border: '0px' }">
+						<el-card class="box-card" shadow="never" :body-style="{ padding: '10px', height: '100%', border: '0px' }">
 							<el-row class="mb-4">
 								<!--                                <el-input  v-popover="popoverRef" v-model="value" placeholder="请输入项目名称/英文名/简称" style="width: 400px"/>-->
 								<el-popover placement="bottom-start" :width="720" trigger="click" ref="popoverRef" :persistent="false">

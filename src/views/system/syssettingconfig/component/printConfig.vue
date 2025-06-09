@@ -20,22 +20,24 @@
 							<el-button type="primary" style="margin-left: 10px;" @click="btnCon">测试连接</el-button>
 						</el-form-item>
 						<el-form-item label="病例打印机">
-							<el-select placeholder="请选择病例打印机" style="width: 240px">
+							<el-select placeholder="请选择病例打印机" style="width: 240px" v-model="serverform.A4Device">
 								<el-option v-for="item in printDevies" :key="item.name" :label="item.name"
 									:value="item.name" />
-							</el-select> 
-							<el-input
-      v-model="serverform.pageCount"
-      style="max-width: 100px" 
-    >
-      <template #append>份数</template>
-    </el-input>
+							</el-select>
+							<el-input v-model="serverform.pageCount" type="number" min="1"
+								style="max-width: 150px;margin-left: 10px;">
+								<template #append>份数</template>
+							</el-input>
 						</el-form-item>
 						<el-form-item label="小票打印机">
 							<el-select placeholder="请选择小票打印机" style="width: 240px">
 								<el-option v-for="item in printDevies" :key="item.name" :label="item.name"
 									:value="item.name" />
-							</el-select> 
+							</el-select>
+						</el-form-item>
+						<el-form-item>
+							<el-button type="info">{{ '取消修改' }}</el-button>
+							<el-button type="primary">保 存</el-button>
 						</el-form-item>
 					</el-form>
 				</el-row>
@@ -57,7 +59,7 @@ import { autoConnect, disAutoConnect, hiprint, defaultElementTypeProvider } from
 
 const serverform = ref({
 	machineId: '',
-	A4Device:'',
+	A4Device: '',
 	pageCount: 1, // 打印份数
 });
 

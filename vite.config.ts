@@ -18,10 +18,23 @@ const alias: Record<string, string> = {
 	'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
 };
 
-const viteConfig = defineConfig((mode: ConfigEnv) => { 
-	const env = loadEnv(mode.mode, process.cwd()); 
+const viteConfig = defineConfig((mode: ConfigEnv) => {
+	const env = loadEnv(mode.mode, process.cwd());
 	fs.writeFileSync('./public/config.js', `window.__env__ = ${JSON.stringify(env, null, 2)} `);
-	return {
+	// let optimizeDepsElementPlusIncludes = ["element-plus/es"]
+	// fs.readdirSync("node_modules/element-plus/es/components").map((dirname) => {
+	// 	fs.access(
+	// 		`node_modules/element-plus/es/components/${dirname}/style/css.mjs`,
+	// 		(err) => {
+	// 			if (!err) {
+	// 				optimizeDepsElementPlusIncludes.push(
+	// 					`element-plus/es/components/${dirname}/style/css`
+	// 				)
+	// 			}
+	// 		}
+	// 	)
+	// });
+	return { 
 		plugins: [
 			visualizer({ open: false }), // 开启可视化分析页面
 			CodeInspectorPlugin({
@@ -55,7 +68,7 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 		root: process.cwd(),
 		resolve: { alias },
 		base: mode.command === 'serve' ? './' : env.VITE_PUBLIC_PATH,
-		optimizeDeps: { exclude: ['vue-demi'] },
+		optimizeDeps: { exclude: ['vue-demi']},
 		server: {
 			host: '0.0.0.0',
 			port: env.VITE_PORT as unknown as number,

@@ -37,6 +37,7 @@
 		"element-plus": "^2.9.6",
 		"ezuikit": "^1.0.0",
 		"ezuikit-js": "^8.1.7",
+		"fs": "^0.0.1-security",
 		"gm-crypto": "^0.1.12",
 		"js-cookie": "^3.0.5",
 		"js-pinyin": "^0.2.4",

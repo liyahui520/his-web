@@ -1,6 +1,6 @@
 <template>
 	<div class="prescription-drug-drag">
-		<el-dialog v-model="isShowDialog" width="80%" draggable fullscreen :close-on-click-modal="false" :destroy-on-close="true" :before-close="closeBefore">
+		<el-dialog v-model="isShowDialog" width="85%" draggable :close-on-click-modal="false" :before-close="closeBefore">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle">
@@ -9,8 +9,8 @@
 					<span>{{ props.title }}</span>
 				</div>
 			</template>
-			<el-row v-loading="submitLoading" element-loading-text="保存中，请勿关闭此页面！">
-				<el-col :span="4" class="left-container">
+			<el-row v-loading="submitLoading" class="customer-row" element-loading-text="保存中，请勿关闭此页面！">
+				<el-col :span="4" class="left-container" >
 					<el-card shadow="always" style="margin-left: 5px">
 						<el-tabs v-model="tabValue">
 							<el-tab-pane label="药品" name="first" style="overflow: auto">
@@ -810,6 +810,15 @@ defineExpose({ openDialog });
 </script>
 
 <style scoped lang="scss">
+:deep(.el-dialog__body) {
+	min-height: calc(100vh - 255px) !important;
+	background-color: #eef0f7;
+	padding: 3px;
+	.customer-row {
+		min-height: calc(100vh - 265px) !important;
+		//margin-right: -20px !important;
+	}
+}
 .prescription-drug-drag {
 	:deep(.el-overlay .el-overlay-dialog .el-dialog .el-dialog__body) {
 		padding: 5px 0px 0px 0px !important;

@@ -112,17 +112,11 @@ export default {
 };
 </script>
 <script setup lang="ts" name="about">
-import { defineAsyncComponent, nextTick, onMounted, reactive, h } from 'vue';
-import { ElMessageBox, ElMessage, ElDivider } from 'element-plus';
-import { ref } from 'vue';
-import { useTransition } from '@vueuse/core';
-import { Refresh } from '@element-plus/icons-vue';
+import { defineAsyncComponent, nextTick, onMounted, reactive, h } from 'vue'; 
+import { ref } from 'vue'; 
 import { getAPI } from '/@/utils/axios-utils';
 import { OrderSummaryApi } from '/@/api-services';
 import Decimal from 'decimal.js';
-import { addMonthsToDate, formatDate } from '/@/utils/formatTime';
-import { color } from 'echarts';
-import { tr } from 'element-plus/es/locale';
 
 const InfoCard = defineAsyncComponent(() => import('/@/components/cards/infoCard.vue'));
 

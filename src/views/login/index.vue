@@ -119,7 +119,7 @@ const getTenantInfo = async () => {
 .login-container {
 	height: 100%;
 	background: var(--el-color-white);
-	background-image: url('../../assets/bg.png');
+	background-image: url('../../assets/bg.jpg');
 	background-size: cover;// 100% auto;
 		background-position:center;// 50% calc(50% - 15px);
 		// background-attachment: fixed;

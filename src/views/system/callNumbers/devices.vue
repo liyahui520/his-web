@@ -66,7 +66,7 @@ const handleQuery = async () => {
 // 打开新增页面
 const openAddCallDevice = () => {
 	editCallDeviceTitle.value = '添加设备';
-	editDialogRef.value.openDialog({ times: 1, rate: 0.7, pitch: 1 });
+	editDialogRef.value.openDialog({ times: 1, rate: 0.7, pitch: 1, productItems: [] });
 };
 
 // 打开编辑页面
@@ -74,7 +74,6 @@ const openEditCallDevice = (row: any) => {
 	editCallDeviceTitle.value = '编辑设备';
 	editDialogRef.value.openDialog({ ...row });
 };
-
 
 handleQuery();
 </script>

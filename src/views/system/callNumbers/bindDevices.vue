@@ -25,9 +25,9 @@
 					</template>
 				</el-table-column>
 				<el-table-column prop="sortIndex" label="诊室排序" align="center" show-overflow-tooltip="" />
-				<el-table-column label="操作" width="160" align="center" show-overflow-tooltip="" v-if="auth('call:bindDevices:bind')">
+				<el-table-column label="操作" width="160" align="center" show-overflow-tooltip="" >
 					<template #default="scope">
-						<el-button icon="ele-Monitor" v-if="!scope.row.deviceIdentity" size="small" text="" type="primary" @click="openEditCallRoom(scope.row)" v-auth="'call:bindDevices:bind'">
+						<el-button icon="ele-Monitor" v-if="!scope.row.deviceIdentity" size="small" text="" type="primary" @click="openEditCallRoom(scope.row)">
 							绑定
 						</el-button>
 					</template>
@@ -40,7 +40,6 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { auth } from '/@/utils/authFunction';
 import editDialog from './component/bindDeviceDialog.vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { CallNumberApi } from '/@/api-services/api';

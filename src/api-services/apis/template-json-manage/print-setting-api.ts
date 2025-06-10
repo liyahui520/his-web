@@ -19,12 +19,56 @@ import { Configuration } from '../../configuration';
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../../base';
 import { AdminResultSysOnlinePrint } from '../../models/template-json-manage';
 import { SysPrintSettingConfig } from '../../models/template-json-manage';
+import { AdminResultObject } from '../../models/template-json-manage/admin-result-object';
 /**
  * PrintSettingApi - axios parameter creator
  * @export
  */
 export const PrintSettingApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * 
+         * @summary 获取当前打印机配置
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPrintSettingConfigGet: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/get-print-setting-config`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 
          * @summary 删除打印机配置
@@ -132,11 +176,11 @@ export const PrintSettingApiAxiosParamCreator = function (configuration?: Config
          * 
          * @summary 添加打印机配置
          * @param {number} printId 
-         * @param {SysPrintSettingConfig} [body] 
+         * @param {Array<SysPrintSettingConfig>} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        printIdAddPrintSettingPost: async (printId: number, body?: SysPrintSettingConfig, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        printIdAddPrintSettingPost: async (printId: number, body?: Array<SysPrintSettingConfig>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'printId' is not null or undefined
             if (printId === null || printId === undefined) {
                 throw new RequiredError('printId','Required parameter printId was null or undefined when calling printIdAddPrintSettingPost.');
@@ -242,6 +286,19 @@ export const PrintSettingApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary 获取当前打印机配置
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPrintSettingConfigGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultObject>>> {
+            const localVarAxiosArgs = await PrintSettingApiAxiosParamCreator(configuration).getPrintSettingConfigGet(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 删除打印机配置
          * @param {number} id 
          * @param {*} [options] Override http request option.
@@ -273,11 +330,11 @@ export const PrintSettingApiFp = function(configuration?: Configuration) {
          * 
          * @summary 添加打印机配置
          * @param {number} printId 
-         * @param {SysPrintSettingConfig} [body] 
+         * @param {Array<SysPrintSettingConfig>} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async printIdAddPrintSettingPost(printId: number, body?: SysPrintSettingConfig, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async printIdAddPrintSettingPost(printId: number, body?: Array<SysPrintSettingConfig>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
             const localVarAxiosArgs = await PrintSettingApiAxiosParamCreator(configuration).printIdAddPrintSettingPost(printId, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -309,6 +366,15 @@ export const PrintSettingApiFactory = function (configuration?: Configuration, b
     return {
         /**
          * 
+         * @summary 获取当前打印机配置
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPrintSettingConfigGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultObject>> {
+            return PrintSettingApiFp(configuration).getPrintSettingConfigGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 删除打印机配置
          * @param {number} id 
          * @param {*} [options] Override http request option.
@@ -332,11 +398,11 @@ export const PrintSettingApiFactory = function (configuration?: Configuration, b
          * 
          * @summary 添加打印机配置
          * @param {number} printId 
-         * @param {SysPrintSettingConfig} [body] 
+         * @param {Array<SysPrintSettingConfig>} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async printIdAddPrintSettingPost(printId: number, body?: SysPrintSettingConfig, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async printIdAddPrintSettingPost(printId: number, body?: Array<SysPrintSettingConfig>, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
             return PrintSettingApiFp(configuration).printIdAddPrintSettingPost(printId, body, options).then((request) => request(axios, basePath));
         },
         /**
@@ -359,6 +425,16 @@ export const PrintSettingApiFactory = function (configuration?: Configuration, b
  * @extends {BaseAPI}
  */
 export class PrintSettingApi extends BaseAPI {
+    /**
+     * 
+     * @summary 获取当前打印机配置
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PrintSettingApi
+     */
+    public async getPrintSettingConfigGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultObject>> {
+        return PrintSettingApiFp(this.configuration).getPrintSettingConfigGet(options).then((request) => request(this.axios, this.basePath));
+    }
     /**
      * 
      * @summary 删除打印机配置
@@ -386,12 +462,12 @@ export class PrintSettingApi extends BaseAPI {
      * 
      * @summary 添加打印机配置
      * @param {number} printId 
-     * @param {SysPrintSettingConfig} [body] 
+     * @param {Array<SysPrintSettingConfig>} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PrintSettingApi
      */
-    public async printIdAddPrintSettingPost(printId: number, body?: SysPrintSettingConfig, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async printIdAddPrintSettingPost(printId: number, body?: Array<SysPrintSettingConfig>, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
         return PrintSettingApiFp(this.configuration).printIdAddPrintSettingPost(printId, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**

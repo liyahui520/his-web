@@ -10,7 +10,8 @@
 				<el-tab-pane label="宠物品种" name="petConfig">
 					<PetConfig />
 				</el-tab-pane>
-				<el-tab-pane v-if="loadPrint" label="打印机设置" name="printConfig">
+				 <!-- v-if="loadPrint" -->
+				<el-tab-pane label="打印机设置" name="printConfig">
 					<SysPrintConfig />
 				</el-tab-pane>
 				<el-tab-pane v-if="loadCall" label="大屏设备绑定" name="bindDevicesConfig">

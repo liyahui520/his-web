@@ -93,8 +93,6 @@ import { CEMRecordApi, SysAuthApi } from '/@/api-services/api';
 import { useThemeConfig } from '/@/stores/themeConfig';
 import { storeToRefs } from 'pinia'; 
 
-// 旋转图片滑块组件
-// import verifyImg from '/@/assets/logo-mini.svg';
 const DragVerifyImgRotate = defineAsyncComponent(() => import('/@/components/dragVerify/dragVerifyImgRotate.vue'));
 
 const storesThemeConfig = useThemeConfig();

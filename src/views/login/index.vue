@@ -37,11 +37,11 @@
 								</el-tab-pane>
 							</el-tabs>
 						</div> -->
-						<Account  v-if="!state.isScan"/>
-<!--            <div class="block" style="text-align: center">-->
-<!--              <el-button color="#07C160" class="fa fa-wechat" size="large" style="font-size: 18px;text-align: center;padding: 0" circle />-->
-<!--&lt;!&ndash;              fa-wechat&ndash;&gt;-->
-<!--            </div>-->
+						<Account v-if="!state.isScan" />
+						<!--            <div class="block" style="text-align: center">-->
+						<!--              <el-button color="#07C160" class="fa fa-wechat" size="large" style="font-size: 18px;text-align: center;padding: 0" circle />-->
+						<!--&lt;!&ndash;              fa-wechat&ndash;&gt;-->
+						<!--            </div>-->
 						<Scan v-if="state.isScan" />
 						<!-- <div class="login-content-main-scan" @click="state.isScan = !state.isScan">
 							<i class="iconfont" :class="state.isScan ? 'icon-diannao1' : 'icon-barcode-qr'"></i>
@@ -59,28 +59,18 @@
 </template>
 
 <script setup lang="ts" name="loginIndex">
-import { defineAsyncComponent, onMounted, reactive, computed,ref } from 'vue';
+import { defineAsyncComponent, onMounted, reactive, computed, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useThemeConfig } from '/@/stores/themeConfig';
 import { NextLoading } from '/@/utils/loading';
-// import logoMini from '/@/assets/logo-mini.svg';
-import loginIconTwo from '/@/assets/login-icon-two.svg';
-import loginIconTwo1 from '/@/assets/login-icon-two1.svg';
-import loginIconTwo2 from '/@/assets/login-icon-two2.svg';
-import weChat from '/@/assets/WeChat.png';
-import {SignalR} from "/@/views/system/onlineUser/signalRLogin";
-import {ElNotification} from "element-plus";
-import {Local} from "/@/utils/storage";
-import {accessTempTokenKey} from "/@/utils/request";
-import {getAPI} from '/@/utils/axios-utils';
-import {SysTenantApi} from '/@/api-services';
-import commonFunction from "/@/utils/commonFunction";
-const {generateGUID} = commonFunction();
-
+import { getAPI } from '/@/utils/axios-utils';
+import { SysTenantApi } from '/@/api-services';
+// import commonFunction from "/@/utils/commonFunction";
+// const {generateGUID} = commonFunction();
 
 // 引入组件
 const Account = defineAsyncComponent(() => import('/@/views/login/component/account.vue'));
-const Mobile = defineAsyncComponent(() => import('/@/views/login/component/mobile.vue'));
+// const Mobile = defineAsyncComponent(() => import('/@/views/login/component/mobile.vue'));
 const Scan = defineAsyncComponent(() => import('/@/views/login/component/scan.vue'));
 
 const storesThemeConfig = useThemeConfig();
@@ -108,11 +98,13 @@ const getTenantInfo = async () => {
 		return tenantInfo.value;
 	}
 	const host = location.host.toLowerCase();
-	tenantInfo.value.list = await getAPI(SysTenantApi).apiSysTenantListGet().then(res => res.data.result ?? null);
+	tenantInfo.value.list = await getAPI(SysTenantApi)
+		.apiSysTenantListGet()
+		.then((res) => res.data.result ?? null);
 	const tenant = tenantInfo.value.list.find((item: any) => !item.host && item.host === host) as any;
 	if (tenant?.value) tenantInfo.value.id = parseInt(tenant?.value);
 	return tenantInfo.value;
-}
+};
 </script>
 
 <style scoped lang="scss">
@@ -120,10 +112,10 @@ const getTenantInfo = async () => {
 	height: 100%;
 	background: var(--el-color-white);
 	background-image: url('../../assets/bg.jpg');
-	background-size: cover;// 100% auto;
-		background-position:center;// 50% calc(50% - 15px);
-		// background-attachment: fixed;
-		background-repeat: no-repeat;
+	background-size: cover; // 100% auto;
+	background-position: center; // 50% calc(50% - 15px);
+	// background-attachment: fixed;
+	background-repeat: no-repeat;
 	// background-color: rgba(53, 62, 84);
 	.login-left {
 		width: 50%;
@@ -177,8 +169,8 @@ const getTenantInfo = async () => {
 		float: right;
 		// background: var(--el-color-white);
 		// background-image: url('../../assets/bg.svg');
-		background-size: cover;// 100% auto;
-		background-position:center;// 50% calc(50% - 15px);
+		background-size: cover; // 100% auto;
+		background-position: center; // 50% calc(50% - 15px);
 		// background-attachment: fixed;
 		background-repeat: no-repeat;
 		.login-right-warp {

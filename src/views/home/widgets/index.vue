@@ -2,12 +2,12 @@
 	<div style="height: 100vh; overflow: hidden">
 		<div class="noticebar" style="display: flex">
 			<NoticeBar />
-			<div class="editlayout">
+			<!-- <div class="editlayout">
 				<el-tooltip content="编辑/保存布局" placement="bottom">
 					<el-button v-if="customizing" type="warning" icon="ele-Check" circle plain @click="save"></el-button>
 					<el-button v-else type="warning" icon="ele-Edit" circle plain @click="custom"></el-button>
 				</el-tooltip>
-			</div>
+			</div> -->
 		</div>
 
 		<div :class="['widgets-home', customizing ? 'customizing' : '']" ref="main">
@@ -149,7 +149,7 @@ interface Grid {
 	copmsList: string[][];
 }
 const defaultGrid = {
-	layout: [12, 6, 6],
+	layout: [24, 16, 8],
 	copmsList: [
 		[ 'myapp'],
 		['about', 'version'],

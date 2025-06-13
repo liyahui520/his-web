@@ -184,7 +184,6 @@ const beforeClose = async () => {
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
-
 .modItem-add {
 	border: 1px dashed #ddd;
 	cursor: pointer;

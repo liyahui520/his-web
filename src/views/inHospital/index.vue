@@ -7,7 +7,7 @@
 			<el-tab-pane label="留观" name="fosterCare">
 				<fosterCare v-show="activeName === 'fosterCare'" ref="fosterCareRef"></fosterCare>
 			</el-tab-pane>
-			<el-tab-pane label="记录" name="records">
+			<!-- <el-tab-pane label="记录" name="records">
 				<records v-show="activeName === 'records'" ref="recordsRef"></records>
 			</el-tab-pane>
 			<el-tab-pane label="笼位" name="cage">
@@ -15,7 +15,7 @@
 			</el-tab-pane>
 			<el-tab-pane label="护理" name="nurse">
 				<nurse v-show="activeName === 'nurse'" ref="nurseRef"></nurse>
-			</el-tab-pane>
+			</el-tab-pane> -->
 		</el-tabs>
 	</div>
 </template>
@@ -25,17 +25,17 @@ import { ref, onMounted ,defineAsyncComponent} from 'vue';
 
 const inHospital = defineAsyncComponent(() => import('./component/inHospitals/index.vue'));
 const fosterCare = defineAsyncComponent(() => import('./component/fosterCares/index.vue'));
-const cage = defineAsyncComponent(() => import('./component/cages/index.vue'));
-const nurse = defineAsyncComponent(() => import('./component/nurses/index.vue'));
-const records = defineAsyncComponent(() => import('./component/records/index.vue'));
+// const cage = defineAsyncComponent(() => import('./component/cages/index.vue'));
+// const nurse = defineAsyncComponent(() => import('./component/nurses/index.vue'));
+// const records = defineAsyncComponent(() => import('./component/records/index.vue'));
 
 const activeName = ref('inHospital');
 
 const inHospitalRef= ref();
 const fosterCareRef= ref();
-const recordsRef= ref();
-const cageRef= ref();
-const nurseRef= ref();
+// const recordsRef= ref();
+// const cageRef= ref();
+// const nurseRef= ref();
 
 // 页面加载时
 onMounted(async () => {});

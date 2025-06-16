@@ -378,6 +378,7 @@ import other from '/@/utils/other';
 import Decimal from 'decimal.js';
 import { useUserInfo } from '/@/stores/userInfo';
 import { getDictDataList } from '/@/utils/dict-utils';
+import { listProduct } from '/@/api/main/middleware';
 
 const stores = useUserInfo();
 const { generateGUID } = commonFunction();
@@ -824,19 +825,19 @@ const getSingMeal=async ()=>{
 }
 //药品
 const getData = async () => {
-	var a = await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_20001);
+	var a =await listProduct(ProductTypeEnums.NUMBER_20001);// await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_20001);
 	return a.data?.result ?? [];
 };
 
 //处置
 const getDataPaper = async () => {
-	var a = await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_120001);
+	var a =await listProduct(ProductTypeEnums.NUMBER_120001);// await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_120001);
 	return a.data?.result ?? [];
 };
 
 //消耗品
 const getDataMicroscope = async () => {
-	var a = await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_140001);
+	var a =await listProduct(ProductTypeEnums.NUMBER_140001);// await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_140001);
 	return a.data?.result ?? [];
 };
 

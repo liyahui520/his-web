@@ -278,6 +278,7 @@ import { formatAge } from '/@/utils/formatTime';
 import { useUserInfo } from '/@/stores/userInfo';
 import other from '/@/utils/other';
 import Decimal from 'decimal.js';
+import { listProduct } from '/@/api/main/middleware';
 
 const CategroyProducts = defineAsyncComponent(() => import('/@/components/tree/categroyProducts.vue'));
 
@@ -613,7 +614,7 @@ const savePrescription = async () => {
  * 化验
  */
 const getData = async () => {
-	var a = await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_110001);
+	var a =await listProduct(ProductTypeEnums.NUMBER_110001);// await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_110001);
 	return a.data?.result ?? [];
 };
 
@@ -621,7 +622,7 @@ const getData = async () => {
  * 试纸
  */
 const getDataPaper = async () => {
-	var a = await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_150001);
+	var a =await listProduct(ProductTypeEnums.NUMBER_150001);// await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_150001);
 	return a.data?.result ?? [];
 };
 
@@ -629,7 +630,7 @@ const getDataPaper = async () => {
  * 显微镜
  */
 const getDataMicroscope = async () => {
-	var a = await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_130001);
+	var a =await listProduct(ProductTypeEnums.NUMBER_130001);// await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_130001);
 	return a.data?.result ?? [];
 };
 
@@ -637,7 +638,7 @@ const getDataMicroscope = async () => {
  * 摄影检查
  */
 const getDataX = async () => {
-	var a = await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_100001);
+	var a =await listProduct(ProductTypeEnums.NUMBER_100001);// await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_100001);
 	return a.data?.result ?? [];
 };
 
@@ -645,7 +646,7 @@ const getDataX = async () => {
  * 超声检查
  */
 const getDataB = async () => {
-	var a = await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_90001);
+	var a =await listProduct(ProductTypeEnums.NUMBER_90001);// await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_90001);
 	return a.data?.result ?? [];
 };
 

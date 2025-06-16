@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-import { ProductCategorysProductsDto } from './product-categorys-products-dto';
 import { ProductDrugs } from './product-drugs';
  /**
  * 

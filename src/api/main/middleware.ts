@@ -1,12 +1,9 @@
 import request from '/@/utils/request';
-// enum Api {
-// 	MakePayment = '/api/Payment/make-payment',
-// }
-
-
-// export const makePayment = (params?: any) =>
-// 	request({
-// 		url: Api.MakePayment,
-// 		method: 'post',
-// 		data: params,
-// 	});
+enum Api {
+	listProduct = '/api/productCategorys/{categoryType}/list-product',
+}
+export const listProduct = (params:any) =>
+	request({
+		url: Api.listProduct.replace(`{${"categoryType"}}`, encodeURIComponent(String(params))),
+		method: 'get'
+	});

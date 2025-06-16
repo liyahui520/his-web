@@ -353,6 +353,7 @@ import other from '/@/utils/other';
 import Decimal from 'decimal.js';
 import { getDictDataList } from '/@/utils/dict-utils';
 import { useUserInfo } from '/@/stores/userInfo';
+import { listProduct } from '/@/api/main/middleware';
 
 const stores = useUserInfo();
 const CategroyProducts = defineAsyncComponent(() => import('/@/components/tree/categroyProducts.vue'));
@@ -659,7 +660,7 @@ const loadBrandData = () => {
 /**
  * 加载单位数据
  */
-const loadUnitData = async () => {
+const loadUnitData = () => {
 	let productUnits = stores.productUnits;
 	unitData.value = productUnits ?? [];
 	unitData.value.forEach((item: any) => {
@@ -678,13 +679,12 @@ const openDialog = async (row: any) => {
 		row.cemRecordPrescriptionItems = [];
 	}
 	sourceData.value = other.deepClone(row);
-	await loadUnitData();
-	await loadManufacturerData();
-	await loadProviderData();
-	await loadBrandData();
+	loadUnitData();
+	loadManufacturerData();
+	loadProviderData();
+	loadBrandData();
 	isShowDialog.value = true;
 	tableData.value = other.deepClone(row);
-	console.log('表格数据 tableData.value', tableData.value);
 	if (tableData.value.cemRecordPrescriptionItems)
 		tableData.value.cemRecordPrescriptionItems.forEach((item: any) => {
 			item.vKey = generateGUID();
@@ -789,19 +789,19 @@ const savePrescription = async () => {
 
 //药品
 const getData = async () => {
-	var a = await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_20001);
+	var a =await listProduct(ProductTypeEnums.NUMBER_20001);// await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_20001);
 	return a.data?.result ?? [];
 };
 
 //处置
 const getDataPaper = async () => {
-	var a = await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_120001);
+	var a =await listProduct(ProductTypeEnums.NUMBER_120001);// await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_120001);
 	return a.data?.result ?? [];
 };
 
 //消耗品
 const getDataMicroscope = async () => {
-	var a = await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_140001);
+	var a =await listProduct(ProductTypeEnums.NUMBER_140001);// await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(ProductTypeEnums.NUMBER_140001);
 	return a.data?.result ?? [];
 };
 

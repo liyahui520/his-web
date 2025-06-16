@@ -75,6 +75,7 @@ import { DeleteFilled } from '@element-plus/icons-vue'
 import { ProductTypeEnums } from '/@/api-services/models/product-manage';;
 import { verifyNumberComma } from '/@/utils/toolsValidate';
 import { useUserInfo } from '/@/stores/userInfo';
+import { listProduct } from '/@/api/main/middleware';
 
 const stores = useUserInfo();
 
@@ -154,8 +155,12 @@ const handleNodeClick = (data: any) => {
  * 获取产品数据
  */
 const getProductData = async () => {
-    var res = await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(productTypeValue.value);
+    console.log("开始请求，当前时间：" + new Date().getTime());
+    var res =await listProduct(productTypeValue.value);//await getAPI(ProductCategorysApi).apiProductCategorysCategoryTypeListProductGet(productTypeValue.value);
+    console.log("请求结束，当前时间：" + new Date().getTime());
+    console.log("结果为",res)
     return res.data?.result ?? [];
+    // return [];
 }
 // 取消
 const cancel = () => {

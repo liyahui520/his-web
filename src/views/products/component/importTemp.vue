@@ -43,6 +43,8 @@ var props = defineProps({
 		default: '',
 	},
 });
+//父级传递来的函数，用于回调
+const emit = defineEmits(['reloadTable']);
 //定义数据结构
 let PropVirtTableS = reactive({
 	tables: [],
@@ -251,7 +253,9 @@ const submit = async () => {
 				await useUserInfo().reloadProductManufacturerList();
 				await useUserInfo().reloadProductProviderList();
 				cancel();
-			}).finally(()=>{
+				emit('reloadTable');
+			})
+			.finally(() => {
 				submitLoading.value = false;
 			});
 	} else {

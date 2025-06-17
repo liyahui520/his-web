@@ -30,7 +30,7 @@
 			<editDialog ref="editDialogRef" :title="editPcustomerTitle" @reloadTable="handleQuery" />
 			<editSingDialog ref="editSingDialogRef" :title="editPcustomerTitle" @reloadTable="handleQuery" />
 			<petEditDialog ref="petEditDialogRef" :title="editPetTitle" @reloadTable="handleQuery" />
-			<uploadExecl ref="uploadExeclRef" :title="importTempTitle" />
+			<uploadExecl ref="uploadExeclRef" :title="importTempTitle"  @reloadTable="handleQuery"  />
 			<PcuDetails ref="pcuDetailsRef"/>
 		</el-card>
 	</div>

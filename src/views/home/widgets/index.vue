@@ -149,7 +149,7 @@ interface Grid {
 	copmsList: string[][];
 }
 const defaultGrid = {
-	layout: [12, 6, 6],
+	layout: [24, 16, 8],
 	copmsList: [
 		[ 'myapp'],
 		['about', 'version'],

@@ -44,7 +44,7 @@
 				</span>
 			</template>
 		</el-dialog>
-		<importTemp ref="importTempRef" title="数据效验" />
+		<importTemp ref="importTempRef" title="数据效验" @reloadTable="reload" />
 		<error ref="errorRef" title="模板数据异常" :errorMessage="message" />
 	</div>
 </template>
@@ -106,6 +106,11 @@ const handleExceed = (files: any) => {
 const cancel = () => {
 	isShowDialog.value = false;
 };
+const reload=()=>{
+	emit('reloadTable');
+	isShowDialog.value = false;
+
+}
 
 /**
  * 下载产品导入模板

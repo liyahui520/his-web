@@ -20,7 +20,7 @@
 	</Table>
 	<editDialog ref="editDialogRef" :title="editProductconsumablesTitle" @reloadTable="handleQuery" :productCategorysData="props.productCategorysData" />
 	<batchEditDialog ref="batchEditDialogRef" :title="'批量编辑'" @reloadTable="handleQuery" :productCategorysData="props.productCategorysData" />
-	<downloadTemp ref="downloadTempRef" :title="importTempTitle" />
+	<downloadTemp ref="downloadTempRef" :title="importTempTitle" @reloadTable="handleQuery" />
 </template>
 
 <script lang="ts" setup name="productConsumablesVue">

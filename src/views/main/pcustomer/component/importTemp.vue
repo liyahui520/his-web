@@ -40,6 +40,8 @@ var props = defineProps({
 	},
 });
 
+//父级传递来的函数，用于回调
+const emit = defineEmits(['reloadTable']);
 //定义数据结构
 let PropVirtTableS = reactive({
 	tables: [],
@@ -198,7 +200,6 @@ let PropVirtTableS = reactive({
 	},
 });
 
-
 const isShowDialog = ref(false);
 
 // 打开弹窗
@@ -214,7 +215,6 @@ const closeDialog = () => {
 	submitLoading.value = false;
 };
 
-
 // 提交
 const submit = async () => {
 	if (PropVirtTableS.tables.length > 0) {
@@ -223,15 +223,16 @@ const submit = async () => {
 			.apiImportPcuPetUploadServePcuPost(PropVirtTableS.tables)
 			.then(() => {
 				ElMessage.success('导入成功');
+				emit('reloadTable');
 				closeDialog();
-			}).finally(()=>{
+			})
+			.finally(() => {
 				submitLoading.value = false;
 			});
 	} else {
 		ElMessage.warning('未识别到有效数据');
 	}
 };
-
 
 // 页面加载时
 onMounted(async () => {});

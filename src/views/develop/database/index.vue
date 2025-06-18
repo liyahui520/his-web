@@ -81,12 +81,12 @@
 import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';
-import EditTable from '/@/views/system/database/component/editTable.vue';
-import EditColumn from '/@/views/system/database/component/editColumn.vue';
-import AddTable from '/@/views/system/database/component/addTable.vue';
-import AddColumn from '/@/views/system/database/component/addColumn.vue';
-import GenEntity from '/@/views/system/database/component/genEntity.vue';
-import GenSeedData from '/@/views/system/database/component/genSeedData.vue';
+import EditTable from '/@/views/develop/database/component/editTable.vue';
+import EditColumn from '/@/views/develop/database/component/editColumn.vue';
+import AddTable from '/@/views/develop/database/component/addTable.vue';
+import AddColumn from '/@/views/develop/database/component/addColumn.vue';
+import GenEntity from '/@/views/develop/database/component/genEntity.vue';
+import GenSeedData from '/@/views/develop/database/component/genSeedData.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysDatabaseApi, SysCodeGenApi } from '/@/api-services/api';

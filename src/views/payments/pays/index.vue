@@ -199,7 +199,7 @@
 	</div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="pay">
 import { ref, onMounted, computed } from 'vue';
 import { Search, ArrowRight, Select, ArrowDown } from '@element-plus/icons-vue';
 import { getAPI } from '/@/utils/axios-utils';

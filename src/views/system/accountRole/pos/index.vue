@@ -54,7 +54,7 @@
 <script lang="ts" setup name="sysPos">
 import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
-import EditPos from '/@/views/system/pos/component/editPos.vue';
+import EditPos from '/@/views/system/accountRole/pos/component/editPos.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';

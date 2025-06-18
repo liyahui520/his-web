@@ -17,7 +17,7 @@
 <script lang="ts" setup name="productManage">
 import { ref, defineAsyncComponent } from 'vue';
 const ProductDrug = defineAsyncComponent(() => import('./index.vue'));
-const Registers = defineAsyncComponent(() => import('/@/views/system/registers/index.vue'));
+const Registers = defineAsyncComponent(() => import('/@/views/products/registers/index.vue'));
 const activeName = ref('Products');
 </script> 
 <style lang="scss" scoped>

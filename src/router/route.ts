@@ -51,7 +51,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 	{
 		path: '/platform/job/dashboard',
 		name: 'jobDashboard',
-		component: () => import('/@/views/system/job/dashboard.vue'),
+		component: () => import('/@/views/platform/job/dashboard.vue'),
 		meta: {
 			title: '任务看板',
 			isLink: window.__env__.VITE_API_URL + '/schedule',
@@ -65,7 +65,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 	{
 		path: '/develop/database/visual',
 		name: 'databaseVisual',
-		component: () => import('/@/views/system/database/component/visualTable.vue'),
+		component: () => import('/@/views/develop/database/component/visualTable.vue'),
 		meta: {
 			title: '库表可视化',
 			isHide: true,

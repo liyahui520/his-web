@@ -75,7 +75,7 @@
 <script lang="ts" setup name="weChatUser">
 import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
-import EditWeChatUser from '/@/views/system/weChatUser/component/editWeChatUser.vue';
+import EditWeChatUser from '/@/views/bak/weChatUser/component/editWeChatUser.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysWechatUserApi } from '/@/api-services/api';

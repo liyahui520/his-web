@@ -184,7 +184,7 @@
     </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="paymentOrderRecord">
 import { ref, onMounted, defineAsyncComponent } from 'vue';
 import { ElMessage } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';

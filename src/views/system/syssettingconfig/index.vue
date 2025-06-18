@@ -40,12 +40,12 @@ import { storeToRefs } from 'pinia';
 const SysOrgConfig = defineAsyncComponent(() => import('./component/orgConfig.vue'));
 const SysPcuPetConfig = defineAsyncComponent(() => import('./component/pcuPetConfig.vue'));
 const SysPrintConfig = defineAsyncComponent(() => import('./component/printConfig.vue'));
-const PetConfig = defineAsyncComponent(() => import('/@/views/system/syspetconfig/index.vue'));
-const BindDevices = defineAsyncComponent(() => import('/@/views/system/callNumbers/bindDevices.vue'));
-const cage = defineAsyncComponent(() => import('/@/views/inHospital/component/cages/index.vue'));
-const nurse = defineAsyncComponent(() => import('/@/views/inHospital/component/nurses/index.vue'));
-const rooms = defineAsyncComponent(() => import('/@/views/system/callNumbers/rooms.vue'));
-const devices = defineAsyncComponent(() => import('/@/views/system/callNumbers/devices.vue'));
+const PetConfig = defineAsyncComponent(() => import('/@/views/system/syssettingconfig/syspetconfig/index.vue'));
+const BindDevices = defineAsyncComponent(() => import('/@/views/system/syssettingconfig/callNumbers/bindDevices.vue'));
+const cage = defineAsyncComponent(() => import('/@/views/system/syssettingconfig/cages/index.vue'));
+const nurse = defineAsyncComponent(() => import('/@/views/system/syssettingconfig/nurses/index.vue'));
+const rooms = defineAsyncComponent(() => import('/@/views/system/syssettingconfig/callNumbers/rooms.vue'));
+const devices = defineAsyncComponent(() => import('/@/views/system/syssettingconfig/callNumbers/devices.vue'));
 
 const stores = useUserInfo();
 const { sysSpecialSettings } = storeToRefs(stores);

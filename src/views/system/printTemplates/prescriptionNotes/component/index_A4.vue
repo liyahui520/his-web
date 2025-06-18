@@ -104,7 +104,7 @@ import 'vue-json-pretty/lib/styles.css';
 import { Close } from '@element-plus/icons-vue';
 import { hiprint, disAutoConnect } from 'vue-plugin-hiprint-signalr';
 import tempProviders from './datas/PrescriptionProvider';
-import PrintPreview from '/@/views/system/print/component/hiprint/preview.vue';
+import PrintPreview from '/@/views/platform/print/component/hiprint/preview.vue';
 import cEMRecordPrescriptiondata from './datas/RecordPrescriptionData';
 import { getAPI } from '/@/utils/axios-utils';
 import { PrintTemplateApi } from '/@/api-services/api';

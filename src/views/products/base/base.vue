@@ -12,7 +12,7 @@
 	</div>
 </template>
 
-<script lang="ts" setup name="baseType">
+<script lang="ts" setup name="base">
 import { ref, defineAsyncComponent } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import { auth } from '/@/utils/authFunction';

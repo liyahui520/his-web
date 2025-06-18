@@ -93,9 +93,8 @@
 import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import { auth } from '/@/utils/authFunction';
-import EditRole from '/@/views/system/role/component/editRole.vue';
-import GrantData from '/@/views/system/role/component/grantData.vue';
-import ModifyRecord from '/@/components/table/modifyRecord.vue';
+import EditRole from '/@/views/system/accountRole/role/component/editRole.vue';
+import GrantData from '/@/views/system/accountRole/role/component/grantData.vue'; 
 
 
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';

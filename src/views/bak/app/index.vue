@@ -65,7 +65,7 @@
 <script lang="ts" setup name="sysApp">
 import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
-import EditApp from '/@/views/system/app/component/editApp.vue';
+import EditApp from '/@/views/bak/app/component/editApp.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
 import { getAPI } from '/@/utils/axios-utils';

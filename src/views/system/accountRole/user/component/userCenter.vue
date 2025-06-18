@@ -166,7 +166,7 @@ import { ElForm, ElMessageBox, genFileId } from 'element-plus';
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus';
 import { useUserInfo } from '/@/stores/userInfo';
 import { base64ToFile, blobToFile } from '/@/utils/base64Conver';
-import OrgTree from '/@/views/system/user/component/orgTree.vue';
+import OrgTree from '/@/views/system/accountRole/user/component/orgTree.vue';
 import CropperDialog from '/@/components/cropper/index.vue';
 import VueGridLayout from 'vue-grid-layout';
 import { sm2 } from 'sm-crypto-v2';

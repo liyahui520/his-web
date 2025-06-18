@@ -18,8 +18,8 @@
 import { ref, defineAsyncComponent } from 'vue';
 
 const Documents = defineAsyncComponent(() => import('./documents/index.vue'));
-const PrescriptionNotes = defineAsyncComponent(() => import('/@/views/prescriptionNotes/index.vue'));
-const SmsTemplates = defineAsyncComponent(() => import('/@/views/system/smsTemplates/index.vue')); 
+const PrescriptionNotes = defineAsyncComponent(() => import('/@/views/system/printTemplates/prescriptionNotes/index.vue'));
+const SmsTemplates = defineAsyncComponent(() => import('/@/views/system/printTemplates/smsTemplates/index.vue')); 
 
 const activeName = ref('documents');
 </script>

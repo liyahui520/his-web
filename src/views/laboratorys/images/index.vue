@@ -38,7 +38,7 @@
 	</div>
 </template>
 
-<script lang="ts" setup name="laboratorys-noreportImaging">
+<script lang="ts" setup name="laboratoriesReportImage">
 import { ref, onMounted, reactive, defineAsyncComponent, nextTick } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { LaboratoryApi, PrintAndPreviewApi } from '/@/api-services/api';
@@ -48,6 +48,7 @@ import editXray from './component/editXray.vue';
 import editBscan from './component/editBscan.vue';
 import editMicro from './component/editMicro.vue';
 import other from '/@/utils/other';
+import { RefType } from '/@/types/global';
 
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const PrintView = defineAsyncComponent(() => import('/@/components/print/index.vue'));

@@ -68,7 +68,7 @@ import { ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import { auth } from '/@/utils/authFunction';
 
-import editDialog from '/@/views/system/smsTemplates/component/editDialog.vue';
+import editDialog from '/@/views/system/printTemplates/smsTemplates/component/editDialog.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SMSTemplateApi } from '/@/api-services/api';

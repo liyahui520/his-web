@@ -19,9 +19,9 @@ import { ref, defineAsyncComponent, onMounted } from 'vue';
 import { useUserInfo } from '/@/stores/userInfo';
 import { storeToRefs } from 'pinia';
  
-const User = defineAsyncComponent(() => import('/@/views/system/user/index.vue'));
-const Role = defineAsyncComponent(() => import('/@/views/system/role/index.vue')); 
-const Pos = defineAsyncComponent(() => import('/@/views/system/pos/index.vue')); 
+const User = defineAsyncComponent(() => import('/@/views/system/accountRole/user/index.vue'));
+const Role = defineAsyncComponent(() => import('/@/views/system/accountRole/role/index.vue')); 
+const Pos = defineAsyncComponent(() => import('/@/views/system/accountRole/pos/index.vue')); 
 
 const stores = useUserInfo();
 const { sysSpecialSettings } = storeToRefs(stores);

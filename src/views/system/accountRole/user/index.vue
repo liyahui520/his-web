@@ -116,8 +116,8 @@
 import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import other from '/@/utils/other';
-import OrgTree from '/@/views/system/org/component/orgTree.vue';
-import EditUser from '/@/views/system/user/component/editUser.vue';
+import OrgTree from '/@/views/platform/org/component/orgTree.vue';
+import EditUser from '/@/views/system/accountRole/user/component/editUser.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
 import { Splitpanes, Pane } from 'splitpanes';

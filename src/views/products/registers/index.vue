@@ -61,7 +61,7 @@
 import { ref, onMounted, defineAsyncComponent, reactive, nextTick } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import { auth } from '/@/utils/authFunction';
-import editDialog from '/@/views/system/registers/component/editDialog.vue';
+import editDialog from '/@/views/products/registers/component/editDialog.vue';
 const Table = defineAsyncComponent(() => import('/@/components/table/productTable.vue'));
 const Search = defineAsyncComponent(() => import('/@/components/table/search.vue'));
 

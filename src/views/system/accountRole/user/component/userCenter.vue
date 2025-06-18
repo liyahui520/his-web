@@ -107,9 +107,9 @@
 								</el-row>
 							</el-form>
 						</el-tab-pane>
-						<el-tab-pane label="组织机构">
+						<!-- <el-tab-pane label="组织机构">
 							<OrgTree ref="orgTreeRef" />
-						</el-tab-pane>
+						</el-tab-pane> -->
 						<el-tab-pane label="修改密码">
 							<el-form ref="ruleFormPasswordRef" :model="state.ruleFormPassword" label-width="auto">
 								<el-form-item label="当前密码" prop="passwordOld" :rules="[{ required: true, message: '当前密码不能为空', trigger: 'blur' }]">
@@ -166,7 +166,7 @@ import { ElForm, ElMessageBox, genFileId } from 'element-plus';
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus';
 import { useUserInfo } from '/@/stores/userInfo';
 import { base64ToFile, blobToFile } from '/@/utils/base64Conver';
-import OrgTree from '/@/views/system/accountRole/user/component/orgTree.vue';
+// import OrgTree from '/@/views/system/accountRole/user/component/orgTree.vue';
 import CropperDialog from '/@/components/cropper/index.vue';
 import VueGridLayout from 'vue-grid-layout';
 import { sm2 } from 'sm-crypto-v2';

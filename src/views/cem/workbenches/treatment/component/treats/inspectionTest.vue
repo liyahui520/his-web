@@ -81,7 +81,7 @@ import { Delete, Edit, Search, View, Printer, DocumentAdd } from '@element-plus/
 import { verifyNumberComma, verifyNumberCnUppercase } from '/@/utils/toolsValidate';
 import { ProductTypeEnums } from '/@/api-services/models/product-manage';
 
-import { signalR } from '../../../cem/workbenches/signalRCem';
+import { signalR } from '../../../signalRCem';
 
 const PrintView = defineAsyncComponent(() => import('/@/components/print/index.vue'));
 const Table = defineAsyncComponent(() => import('/@/components/table/index.vue'));

@@ -96,7 +96,7 @@ import { ElMessage } from 'element-plus';
 import { CEMRecordApi, PrintAndPreviewApi } from '/@/api-services';
 import { View, Printer, DocumentAdd, QuestionFilled } from '@element-plus/icons-vue';
 import { verifyNumberComma } from '/@/utils/toolsValidate';
-import { signalR } from '../../../cem/workbenches/signalRCem';
+import { signalR } from '../../../signalRCem';
 const PrintView = defineAsyncComponent(() => import('/@/components/print/index.vue'));
 const Table = defineAsyncComponent(() => import('/@/components/table/index.vue'));
 const prescriptionDrug = defineAsyncComponent(() => import('/@/components/treatment/prescriptionDrug.vue'));

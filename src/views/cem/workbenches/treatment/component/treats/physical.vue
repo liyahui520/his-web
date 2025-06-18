@@ -142,7 +142,7 @@
 import { defineAsyncComponent, nextTick, onMounted, reactive, ref, watch } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { CEMRecordApi, PhysicalItemsApi } from '/@/api-services';
-import { signalR } from '../../../cem/workbenches/signalRCem';
+import { signalR } from '../../../signalRCem';
 // 引入组件
 
 const selectionRows = ref([]);

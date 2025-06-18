@@ -99,8 +99,8 @@
 import { ref, onMounted, defineAsyncComponent } from "vue";
 import { getAPI } from '/@/utils/axios-utils';
 import { PcustomerApi, PPetsApi } from '/@/api-services/api';
-import editDialog from '/@/views/main/pcustomer/component/editDialog.vue'
-import EditPet from '/@/views/main/ppets/component/editDialog.vue'
+import editDialog from '/@/views/customers/customer/component/editDialog.vue'
+import EditPet from '/@/views/customers/pet/component/editDialog.vue'
 import CardPet from './medicalPet.vue'
 import {
     verifyNumberComma

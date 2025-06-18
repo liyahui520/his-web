@@ -55,7 +55,7 @@ import { getAPI } from '/@/utils/axios-utils';
 import { ImportPcuPetApi } from '/@/api-services';
 import { UploadFilled } from '@element-plus/icons-vue';
 import type { UploadRawFile } from 'element-plus';
-import importTemp from '/@/views/main/pcustomer/component/importTemp.vue';
+import importTemp from '/@/views/customers/customer/component/importTemp.vue';
 import error from '/@/components/message/error.vue';
 import { downloadByData, getFileName } from '/@/utils/download';
 import { genFileId } from 'element-plus';

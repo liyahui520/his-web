@@ -35,7 +35,7 @@
 
 <script lang="ts" setup name="sysGrantData">
 import { reactive, ref } from 'vue';
-import OrgTree from '/@/views/system/org/component/orgTree.vue';
+import OrgTree from '/@/views/platform/org/component/orgTree.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysRoleApi } from '/@/api-services/api';

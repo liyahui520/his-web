@@ -97,8 +97,8 @@ import { onMounted, onUnmounted, reactive, ref } from 'vue';
 import mittBus from '/@/utils/mitt';
 import { Edit } from '@element-plus/icons-vue';
 
-import fkDialog from '/@/views/system/codeGen/component/fkDialog.vue';
-import treeDialog from '/@/views/system/codeGen/component/treeDialog.vue';
+import fkDialog from '/@/views/develop/codeGen/component/fkDialog.vue';
+import treeDialog from '/@/views/develop/codeGen/component/treeDialog.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysCodeGenConfigApi, SysConstApi, SysDictDataApi, SysDictTypeApi, SysEnumApi } from '/@/api-services/api';

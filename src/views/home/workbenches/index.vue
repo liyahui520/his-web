@@ -130,9 +130,9 @@ import { PcustomerApi } from '/@/api-services/api';
 import commonFunction from '/@/utils/commonFunction';
 
 //新增会员
-const AddPcustomer = defineAsyncComponent(() => import('/@/views/main/pcustomer/component/editDialog.vue'));
+const AddPcustomer = defineAsyncComponent(() => import('/@/views/customers/customer/component/editDialog.vue'));
 //新增会员
-const EditDialogNew = defineAsyncComponent(() => import('/@/views/main/pcustomer/component/editDialogNew.vue'));
+const EditDialogNew = defineAsyncComponent(() => import('/@/views/customers/customer/component/editDialogNew.vue'));
 
 
 const refmedicalPcustomer = ref();

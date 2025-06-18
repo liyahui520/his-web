@@ -150,7 +150,7 @@
 import commonFunction from '/@/utils/commonFunction';
 import { ref, defineAsyncComponent } from 'vue';
 
-const EditPet = defineAsyncComponent(() => import('../../main/ppets/component/editDialog.vue'));
+const EditPet = defineAsyncComponent(() => import('/@/views/customers/pet/component/editDialog.vue'));
 const AddReservation = defineAsyncComponent(() => import('/@/components/reservation/add.vue'));
 const Vaccination = defineAsyncComponent(() => import('/@/components/vaccinations/editVaccinations.vue'));
 const VaccinationPet = defineAsyncComponent(() => import('/@/components/vaccinations/indexPetVaccinations.vue'));

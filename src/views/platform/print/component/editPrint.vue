@@ -92,7 +92,7 @@
 
 <script lang="ts" setup name="sysEditPrint">
 import { onMounted, reactive, ref, nextTick } from 'vue';
-import HiprintDesign from '/@/views/system/print/component/hiprint/index.vue';
+import HiprintDesign from '/@/views/platform/print/component/hiprint/index.vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysPrintApi,SysEnumApi } from '/@/api-services/api';
 import { UpdatePrintInput } from '/@/api-services/models';

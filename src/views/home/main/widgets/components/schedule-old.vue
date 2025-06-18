@@ -64,7 +64,7 @@ import { dayjs, ElMessage, ElMessageBox } from 'element-plus';
 import type { CalendarDateType, CalendarInstance } from 'element-plus';
 import calendarCom from '/@/utils/calendar.js';
 
-import EditSchedule from '/@/views/home/widgets/components/scheduleEdit.vue';
+import EditSchedule from '/@/views/home/main/widgets/components/scheduleEdit.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysScheduleApi } from '/@/api-services/api';

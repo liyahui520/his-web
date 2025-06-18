@@ -67,8 +67,8 @@ import type { CalendarDateType, CalendarInstance } from 'element-plus';
 import calendarCom from '/@/utils/calendar.js';
 import { getAPI } from '/@/utils/axios-utils';
 import { OrderSummaryApi } from '/@/api-services/api';
-import vacciantionDia from '/@/views/home/widgets/components/vacciantionDia.vue';
-import reservationDia from '/@/views/home/widgets/components/reservationDia.vue';
+import vacciantionDia from '/@/views/home/main/widgets/components/vacciantionDia.vue';
+import reservationDia from '/@/views/home/main/widgets/components/reservationDia.vue';
 
 const vacciantionDiaRef = ref();
 const reservationDiaRef = ref();

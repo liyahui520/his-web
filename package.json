@@ -1,5 +1,5 @@
 {
-	"name": "admin.net",
+	"name": "voxa",
 	"type": "module",
 	"version": "2.4.33",
 	"lastBuildTime": "2024.09.08",
@@ -121,7 +121,7 @@
 		"npm": ">= 7.0.0"
 	},
 	"keywords": [
-		"admin.net",
+		"voxa",
 		"vue",
 		"vue3",
 		"vuejs/vue-next",

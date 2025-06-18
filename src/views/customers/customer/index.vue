@@ -40,10 +40,10 @@
 import { defineAsyncComponent, nextTick, onMounted, reactive, ref, h } from 'vue';
 import { ElMessageBox, ElMessage, ElDivider } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
-import editDialog from '/@/views/main/pcustomer/component/editDialogNew.vue';
-import editSingDialog from '/@/views/main/pcustomer/component/editDialog.vue';
-import uploadExecl from '/@/views/main/pcustomer/component/uploadExecl.vue';
-import petEditDialog from '/@/views/main/ppets/component/editDialog.vue';
+import editDialog from './component/editDialogNew.vue';
+import editSingDialog from './component/editDialog.vue';
+import uploadExecl from './component/uploadExecl.vue';
+import petEditDialog from '../pet/component/editDialog.vue';
 import {PcustomerApi,MemberLevelApi } from '/@/api-services/api';
 import { getDictDataItem } from '/@/utils/dict-utils';
 
@@ -66,17 +66,6 @@ const tb = reactive<TableDemoState>({
 	tableData: {
 		// 表头内容（必传，注意格式）
 		columns: [
-			// {
-			// 	prop: 'createOrgName',
-			// 	minWidth: '150',
-			// 	label: '所属机构',
-			// 	headerAlign: 'center',
-			// 	toolTip: true,
-			// 	sortable: 'custom',
-			// 	isCheck: true,
-			// 	fixed: 'left',
-			// 	'show-overflow-tooltip': true,
-			// },
 			{
 				prop: 'cardNumber',
 				minWidth: '150',

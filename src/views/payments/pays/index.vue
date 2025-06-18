@@ -29,7 +29,6 @@
 								<div class="pet-card">
 									<div class="pet-item" v-for="(pItem, pIndex) in item.pets" :key="pIndex">
 										<div class="pet-img" @click="handleCheckedPetChange(pItem.id)">
-											<!-- <img src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" alt="" /> -->
 											<el-avatar   :src="pItem?.petImageUrl" :size="40"> 
 													<img v-if="pItem?.petKind === '1300010000001'" src="https://img.huimopei.com/img/Default/Dog.png" />
 														<img v-else-if="pItem?.petKind === '1300010000002'" src="https://img.huimopei.com/img/Default/Cat.png" />
@@ -66,7 +65,6 @@
 										</el-breadcrumb-item>
 										<el-breadcrumb-item>{{ customerFundData.cardNumber ?? '-' }}</el-breadcrumb-item>
 										<el-breadcrumb-item>{{ customerFundData.cellPhone ?? '-' }}</el-breadcrumb-item>
-										<!-- <el-breadcrumb-item>{{ customerFundData.sexText ?? '' }}</el-breadcrumb-item> -->
 									</el-breadcrumb>
 								</div>
 								<div class="right-info">

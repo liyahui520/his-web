@@ -39,7 +39,7 @@
 import { defineAsyncComponent, onMounted, watch, ref } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { CEMRecordApi } from '/@/api-services';
-import { signalR } from '/@/views/cem/signalRCem';
+import { signalR } from '../../../cem/workbenches/signalRCem';
 
 const emit = defineEmits(['save', 'saveStatus']);
 const form = ref<any>({});

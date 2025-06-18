@@ -63,7 +63,7 @@
 <script lang="ts" setup name="sidebarpet">
 import { defineAsyncComponent, onMounted, ref, shallowRef, watch } from 'vue'; 
 import { IToolbarConfig } from '@wangeditor/editor'; 
-import { signalR } from '/@/views/cem/signalRCem'; 
+import { signalR } from '../../../cem/workbenches/signalRCem'; 
 import { ElMessage } from 'element-plus';
 import other from '/@/utils/other';
 import { json } from 'stream/consumers';

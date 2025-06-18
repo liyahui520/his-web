@@ -32,7 +32,7 @@ import { useUserInfo } from '/@/stores/userInfo';
 import { storeToRefs } from 'pinia';
 import animal from '/@/assets/call.png';
 
-const SidebarPet = defineAsyncComponent(() => import('/@/views/treatment/component/sidebarpet.vue'));
+const SidebarPet = defineAsyncComponent(() => import('./treatment/component/sidebarpet.vue'));
 const SeptIndex = defineAsyncComponent(() => import('./components/cem.vue'));
 const TreatHelp = defineAsyncComponent(() => import('./components/nocem.vue'));
 const Call = defineAsyncComponent(() => import('./components/call.vue'));

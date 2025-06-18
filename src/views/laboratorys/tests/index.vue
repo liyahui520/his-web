@@ -36,7 +36,7 @@
 
 <script lang="ts" setup name="laboratorys-noreport">
 import { ref, onMounted, reactive, defineAsyncComponent, nextTick } from "vue";
-import editResport from '/@/views/laboratorys/component/editResport.vue';
+import editResport from './component/editResport.vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { LaboratoryApi } from '/@/api-services/api';
 import { addDaysToDate } from "/@/utils/formatTime";

@@ -17,7 +17,7 @@
 import { defineAsyncComponent, onMounted, ref } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { RegistersApi } from '/@/api-services';
-import { signalR } from '/@/views/cem/signalRCem';
+import { signalR } from '../../../cem/workbenches/signalRCem';
 const emit = defineEmits(['save', 'saveStatus']);
 // 引入组件
 const form = ref({});

@@ -2,16 +2,8 @@
 	<div class="medical-container" style="min-width: 1400px; overflow: hidden">
 		<el-card shadow="never" :body-style="{ paddingBottom: '0', border: '0' }" style="border-radius: 5px; margin-top: 0; border: 0; min-height: 70px">
 			<el-form :model="queryParams" ref="queryForm" :inline="true">
-				<!-- <el-form-item label="">
-					<el-radio-group v-model="queryParams.type">
-						<el-radio :value="1">手机号</el-radio>
-						<el-radio :value="2">会员名称</el-radio>
-						<el-radio :value="3">宠物名称</el-radio> 
-					</el-radio-group>
-				</el-form-item> -->
 				<el-form-item label="">
-					<!--                    <el-input style="width: 380px" v-model="queryParams.params" clearable placeholder="会员名称/手机号/会员编号"/>-->
-					<el-select 
+					<el-select
 						v-model="queryParams.parmarm"
 						filterable
 						remote
@@ -23,8 +15,7 @@
 						@change="pcuChange"
 					>
 						<el-option
-							v-infinite-scroll="Pcuload"
-							style="height: auto;width: 450px; border: 1px solid #c6e2ff; border-radius: 5px; margin: 5px"
+							style="height: auto; width: 450px; border: 1px solid #c6e2ff; border-radius: 5px; margin: 5px"
 							v-for="item in options"
 							:label="item?.id"
 							:value="item?.id"
@@ -36,16 +27,16 @@
 										<span>{{ item?.name ?? '-' }}</span>
 										<el-divider direction="vertical" />
 										<span>
-											<el-icon style="position: relative;top: 2px;">
-													<ele-Phone />
-												</el-icon>
-												{{ item?.cellPhone ?? '-' }}
+											<el-icon style="position: relative; top: 2px">
+												<ele-Phone />
+											</el-icon>
+											{{ item?.cellPhone ?? '-' }}
 										</span>
 										<el-divider direction="vertical" />
 										<span>{{ item?.cardNumber ?? '-' }}</span>
 									</div>
 								</el-col>
-								<el-col :span="24" style="height: 110px; line-height: 24px; margin-top: 3px" v-if="item?.pPetss.length>0">
+								<el-col :span="24" style="height: 110px; line-height: 24px; margin-top: 3px" v-if="item?.pPetss.length > 0">
 									<el-carousel height="auto" autoplay style="">
 										<el-carousel-item v-if="item?.pPetss == null || item?.pPetss.count <= 0">
 											<div>暂无宠物</div>
@@ -54,17 +45,16 @@
 											<div style="float: left; text-align: center">
 												<div style="text-align: center">
 													<el-avatar :size="60" :src="pet?.petImageUrl" @error="errorHandler">
-														
-											<img v-if="pet?.petKind === '1300010000001'" src="https://img.huimopei.com/img/Default/Dog.png" />
-												<img v-else-if="pet?.petKind === '1300010000002'" src="https://img.huimopei.com/img/Default/Cat.png" />
-												<img v-else src="https://img.huimopei.com/img/Default/default.png" />
+														<img v-if="pet?.petKind === '1300010000001'" src="https://img.huimopei.com/img/Default/Dog.png" />
+														<img v-else-if="pet?.petKind === '1300010000002'" src="https://img.huimopei.com/img/Default/Cat.png" />
+														<img v-else src="https://img.huimopei.com/img/Default/default.png" />
 													</el-avatar>
 												</div>
-												<span style="font-size: 12px; line-height: 12px; color: #8d8d91">{{  dateEntityFormatYMD(pet?.createTime) }}</span>
+												<span style="font-size: 12px; line-height: 12px; color: #8d8d91">{{ dateEntityFormatYMD(pet?.createTime) }}</span>
 											</div>
 											<div style="float: left; margin-left: 10px">
 												<div>
-													<el-link target="_blank" style="font-weight: bold;color: #8d8d91;">{{ pet?.petName }}-({{ pet?.petKindText }}) </el-link>
+													<el-link target="_blank" style="font-weight: bold; color: #8d8d91">{{ pet?.petName }}-({{ pet?.petKindText }}) </el-link>
 												</div>
 												<div style="margin-top: 0px">
 													<el-breadcrumb separator="\">
@@ -114,28 +104,23 @@
 				</el-form-item>
 			</el-form>
 		</el-card>
-		<!--        <el-card shadow="never" :body-style="{ padding: '10px', height: '100%' }"-->
-		<!--            style="height: 100%;width: 100%;overflow:auto;">-->
 		<el-row :gutter="10" style="margin-top: 10px">
 			<el-col :span="11" style="height: 100%">
 				<medicalPcustomer ref="refmedicalPcustomer" />
 			</el-col>
 			<el-col :span="13" style="height: 100%">
-				<medicalDetails @selectPcuReload="selectPcu"  />
+				<medicalDetails @selectPcuReload="selectPcu" />
 			</el-col>
 		</el-row>
 
 		<AddPcustomer ref="petEditDialogRef" :title="editPetTitle" @reloadTable="handleQuery" />
-		<!-- <AddPPet ref="editDialogRef"
-               title="添加宠物"
-               @reloadTable="handlePetQuery"/> -->
 		<EditDialogNew ref="editDialogNewRef" title="登记会员" @reloadTable="handleNewAddSuccess"></EditDialogNew>
 	</div>
 </template>
 
 <script lang="ts" setup name="medicalManagement">
 import { defineAsyncComponent, ref } from 'vue';
-import {debounceRef} from '/@/utils/debounceRef';
+import { debounceRef } from '/@/utils/debounceRef';
 import { getAPI } from '/@/utils/axios-utils';
 import medicalPcustomer from './component/medicalPcustomer.vue';
 import medicalDetails from './component/medicalDetails.vue';
@@ -144,13 +129,11 @@ const { dateEntityFormatYMD, scale2Format } = commonFunction();
 import { PcustomerApi } from '/@/api-services/api';
 import commonFunction from '/@/utils/commonFunction';
 
-const businessTableType=ref('')
 //新增会员
 const AddPcustomer = defineAsyncComponent(() => import('/@/views/main/pcustomer/component/editDialog.vue'));
 //新增会员
-const EditDialogNew= defineAsyncComponent(() => import('/@/views/main/pcustomer/component/editDialogNew.vue'));
-// //新增宠物
-// const AddPPet = defineAsyncComponent(() => import('/@/views/main/ppets/component/editDialog.vue'));
+const EditDialogNew = defineAsyncComponent(() => import('/@/views/main/pcustomer/component/editDialogNew.vue'));
+
 
 const refmedicalPcustomer = ref();
 const pcuParams = ref<number>(0);
@@ -160,14 +143,7 @@ const petEditDialogRef = ref();
 const editDialogNewRef = ref();
 const editPetTitle = ref('新增会员');
 // const editDialogRef = ref();
-const queryParams = debounceRef({ type: 1, parmarm: '' },5000);
-
-/**
- * 刷新对应业务表
- */
-const reloadBusiness=(val:any)=>{
-	
-}
+const queryParams = debounceRef({ type: 1, parmarm: '' }, 5000);
 
 const remoteMethod = async (query: string) => {
 	if (query) {
@@ -186,25 +162,8 @@ const remoteMethod = async (query: string) => {
 	}
 };
 
-const Pcuload = async () => {
-	// queryParams.value.parmarm = '1551';
-	// await getAPI(PcustomerApi).apiPcustomerGetMedicalCustometPetsPost(queryParams.value).then((r) => {
-	//     options.value = options.value.concat(r.data.result)
-	//     console.log('数据', options.value)
-	// });
-};
-
-const handleQuery = async (row:any) => {
+const handleQuery = async (row: any) => {
 	await refmedicalPcustomer.value.initData(row.id);
-	// editDialogRef.value.openDialog({
-	// 	petGender: '-1',
-	// 	petKind: '-1',
-	// 	petVarietie: '-1',
-	// 	petBlood: '-1',
-	// 	petColor: '-1',
-	// 	petStatus: '1',
-	// 	customerId: row.id,
-	// });
 };
 
 //添加会员
@@ -229,14 +188,14 @@ const errorHandler = async () => {
 };
 const handleNewAddSuccess = async (pcustomer: any) => {
 	await refmedicalPcustomer.value.initData(pcustomer.id);
-}
+};
 </script>
 
 <style lang="scss" scoped>
 .medical-container {
-.custom-select{
-	width: 450px !important;
-}
+	.custom-select {
+		width: 450px !important;
+	}
 	.el-card__body {
 		.el-row {
 			height: 100% !important;

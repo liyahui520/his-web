@@ -4735,7 +4735,7 @@ vanilla-picker@^2.12.3:
 
 vcrontab-3@^3.3.22:
   version "3.3.22"
-  resolved "https://registry.npmmirror.com/vcrontab-3/-/vcrontab-3-3.3.22.tgz"
+  resolved "https://registry.npmjs.org/vcrontab-3/-/vcrontab-3-3.3.22.tgz"
   integrity sha512-+0MzE2loqap7hJ2+bTDRJn4nsEXAoxECZodv8N+2DjVDkUGSRPGw76BXZbAUesBtUa6pRboK/d5/tIsSW2HmoA==
   dependencies:
     "@element-plus/icons-vue" "^2.0.9"

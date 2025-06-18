@@ -1,8 +1,8 @@
 <template>
-	<div class="medicineRecords-container">
-		<el-row :gutter="4" style="height: calc(100vh - 160px)">
+	<div :class="isTagsViewCurrenFull ? 'medicineRecords-container tab-cus-full-Content' : 'medicineRecords-container tab-cus-Content'">
+		<el-row :gutter="4" style="height: 100%;overflow: hidden;margin: 0px;">
 			<el-col :span="3">
-				<el-card shadow="never" style="height: calc(100vh - 110px); min-height: 150mm" :body-style="{ padding: '0px' }">
+				<el-card shadow="never" style="height: 100%; min-height: 150mm" :body-style="{ padding: '0px' }">
 					<div slot="header" class="clearfix" style="background-color: var(--el-color-primary); height: 30px; border-radius: 3px 3px 0 0">
 						<p style="line-height: 30px; color: var(--el-color-white); font-size: 16px; font-weight: 800; margin-left: 20px; float: left">I</p>
 						<p style="line-height: 30px; color: var(--el-color-white); font-size: 14px; font-weight: 800; margin-left: 10px; float: left">处方笺模板</p>
@@ -62,6 +62,10 @@ import InspectionTestDataProvider from './component/datas/InspectionTestDataProv
 import InspectionTestDataProviderData from './component/datas/InspectionTestDataProviderData';
 import RecordTestData from './component/datas/RecordTestData';
 import RecordTestProvider from './component/datas/RecordTestProvider';
+import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
+import { storeToRefs } from 'pinia';
+const storesTagsViewRoutes = useTagsViewRoutes();
+const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
 
 import { PrintTypeEnum } from '/@/api-services/models/template-json-manage/print-type-enum';
 

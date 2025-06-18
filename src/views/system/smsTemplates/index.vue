@@ -1,5 +1,5 @@
 <template>
-    <div class="productBrands-container">
+    <div  :class="isTagsViewCurrenFull ? 'productBrands-container tab-cus-full-Content' : 'productBrands-container tab-cus-Content'">
         <el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
             <el-form :model="queryParams" ref="queryForm" :inline="true">
                 <el-form-item label="类型">
@@ -72,6 +72,10 @@ import editDialog from '/@/views/system/smsTemplates/component/editDialog.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SMSTemplateApi } from '/@/api-services/api';
+import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
+import { storeToRefs } from 'pinia';
+const storesTagsViewRoutes = useTagsViewRoutes();
+const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
 
 const editDialogRef = ref();
 const loading = ref(false);

@@ -1,5 +1,5 @@
 <template>
-	<div class="systemCallNumberRooms-container">
+	<div  :class="isTagsViewCurrenFull ? 'systemCallNumberRooms-container tab-cus-full-Content' : 'systemCallNumberRooms-container tab-cus-Content'">
 		<el-card shadow="never" :body-style="{ paddingBottom: '0' }">
 			<el-form :model="queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="诊室名称">
@@ -19,8 +19,8 @@
 				</el-form-item>
 			</el-form>
 		</el-card>
-		<el-card shadow="never" style="overflow: auto; margin-top: 8px">
-			<el-table :data="tableData" style="height: calc(100vh - 235px)" v-loading="loading" tooltip-effect="light" border row-key="id">
+		<el-card shadow="never"  class="full-table"  style="overflow: auto; margin-top: 8px">
+			<el-table :data="tableData"  v-loading="loading" tooltip-effect="light" border row-key="id">
 				<el-table-column type="index" label="序号" width="55" align="center" fixed="" />
 				<el-table-column prop="code" label="编码" align="center" show-overflow-tooltip="" />
 				<el-table-column prop="name" label="诊室名称" align="center" show-overflow-tooltip="" />
@@ -52,6 +52,10 @@ import { auth } from '/@/utils/authFunction';
 import editDialog from './component/editRoomDialog.vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { CallNumberApi } from '/@/api-services/api';
+import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
+import { storeToRefs } from 'pinia';
+const storesTagsViewRoutes = useTagsViewRoutes();
+const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
 
 const editDialogRef = ref();
 const loading = ref(false);

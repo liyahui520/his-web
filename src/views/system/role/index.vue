@@ -1,5 +1,5 @@
 <template>
-	<div class="sys-role-container">
+	<div :class="isTagsViewCurrenFull ? 'sys-role-container tab-cus-full-Content' : 'sys-role-container tab-cus-Content'">
 		<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="角色名称">
@@ -97,6 +97,11 @@ import EditRole from '/@/views/system/role/component/editRole.vue';
 import GrantData from '/@/views/system/role/component/grantData.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
+
+import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
+import { storeToRefs } from 'pinia';
+const storesTagsViewRoutes = useTagsViewRoutes();
+const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
 import { getAPI } from '/@/utils/axios-utils';
 import { SysRoleApi } from '/@/api-services/api';
 import { SysRole } from '/@/api-services/models';

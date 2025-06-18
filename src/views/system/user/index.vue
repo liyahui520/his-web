@@ -1,10 +1,10 @@
 <template>
-	<div class="sys-user-container">
+	<div :class="isTagsViewCurrenFull ? 'sys-user-container tab-cus-full-Content' : 'sys-user-container tab-cus-Content'">
 		<splitpanes>
 			<pane size="20">
 				<OrgTree ref="orgTreeRef" @node-click="nodeClick" />
 			</pane>
-			<pane size="80">
+			<pane size="80" style="margin-left: 10px;">
 				<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
 					<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 						<el-form-item label="账号">
@@ -123,6 +123,10 @@ import ModifyRecord from '/@/components/table/modifyRecord.vue';
 import { Splitpanes, Pane } from 'splitpanes';
 import 'splitpanes/dist/splitpanes.css';
 
+import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
+import { storeToRefs } from 'pinia';
+const storesTagsViewRoutes = useTagsViewRoutes();
+const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
 import { getAPI } from '/@/utils/axios-utils';
 import { SysUserApi, SysOrgApi } from '/@/api-services/api';
 import { SysUser, SysOrg, UpdateUserInput } from '/@/api-services/models';

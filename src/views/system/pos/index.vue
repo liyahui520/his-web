@@ -1,5 +1,5 @@
 <template>
-	<div class="sys-pos-container">
+	<div  :class="isTagsViewCurrenFull ? 'sys-pos-container tab-cus-full-Content' : 'sys-pos-container tab-cus-Content'">
 		<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="职位名称">
@@ -57,6 +57,10 @@ import { ElMessageBox, ElMessage } from 'element-plus';
 import EditPos from '/@/views/system/pos/component/editPos.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
+import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
+import { storeToRefs } from 'pinia';
+const storesTagsViewRoutes = useTagsViewRoutes();
+const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
 import { getAPI } from '/@/utils/axios-utils';
 import { SysPosApi } from '/@/api-services/api';
 import { SysPos, UpdatePosInput } from '/@/api-services/models';

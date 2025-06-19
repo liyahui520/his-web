@@ -36,13 +36,13 @@
 				</el-form-item>
 				<el-form-item>
 					<el-button-group>
-						<el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'products:'+productTypeAuth[productTypesValue]+':query'"> 查询 </el-button>
+						<el-button type="primary" icon="ele-Search" @click="handleQuery" v-if="auth('products:'+productTypeAuth[productTypesValue]+':query')" > 查询 </el-button>
 						<el-button icon="ele-Refresh" @click="() => (queryParams = { canOrder: true, canSale: true, isDiscount: true })"> 重置 </el-button>
 					</el-button-group>
 				</el-form-item>
 				<el-form-item>
 					<el-button-group>
-						<el-button type="primary" icon="ele-Plus" @click="openAddProductInfo" v-auth="'products:'+productTypeAuth[productTypesValue]+':add'"> 新增 </el-button>
+						<el-button type="primary" icon="ele-Plus" @click="openAddProductInfo" v-if="auth('products:'+productTypeAuth[productTypesValue]+':add')"> 新增 </el-button>
 					</el-button-group>
 				</el-form-item>
 			</el-form>
@@ -60,9 +60,10 @@ import { getAPI } from '/@/utils/axios-utils';
 import { ProductCategorysApi } from '/@/api-services/api';
 import mittBus from '/@/utils/newmitt';
 import { useUserInfo } from '/@/stores/userInfo';
-
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
 import { storeToRefs } from 'pinia';
+import { auth } from '/@/utils/authFunction';
+
 const storesTagsViewRoutes = useTagsViewRoutes();
 const stores = useUserInfo();
 const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
@@ -283,6 +284,8 @@ const productTypeChange = async () => {
 	queryParams.value = { name: '', categoryId: -1, canOrder: true, canSale: true };
 	productCategoryLabel.value = '';
 	await loadCategoryData();
+	console.log("productTypesValue",productTypesValue.value)
+	console.log("productTypesValue",productTypeAuth.value[productTypesValue.value])
 };
 const loadProductTypes = async () => {
 	productCategorysData.value = [];

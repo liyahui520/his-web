@@ -37,7 +37,7 @@
 						<el-text>{{ queryParams.createTime }}</el-text>
 					</el-form-item>
 					<el-form-item>
-						<el-button type="primary" icon="ele-Plus" size="small" v-if="!isDisabledValue" @click="openAddProduct" v-auth="'outstorage:add'" round> 选择产品 </el-button>
+						<el-button type="primary" icon="ele-Plus" size="small" v-if="!isDisabledValue" @click="openAddProduct" round> 选择产品 </el-button>
 					</el-form-item>
 					<el-table ref="tableRef" :data="queryParams.outStorageDetails" style="height: calc(100vh - 390px)" tooltip-effect="light">
 						<el-table-column type="index" label="序号" width="55" align="center" fixed="" />
@@ -64,7 +64,7 @@
 								>
 									<el-input-number
 										v-model="scope.row.outPrice"
-										:min="0.01"
+										:min="0.00"
 										:precision="2"
 										:max="999999999.99"
 										@change="changeInPrice(scope.row)"
@@ -148,7 +148,7 @@
 								>
 									<el-input-number
 										v-model="scope.row.amount"
-										:min="0.01"
+										:min="0.00"
 										:precision="2"
 										:max="999999999.99"
 										@change="changeAmount(scope.row)"
@@ -292,10 +292,10 @@ const getProductProviders = async () => {
 const exportOrder = async () => {
 	await getAPI(OutStorageApi)
 		.apiOutStorageIdOutStorageExamineGet(queryParams.value.id)
-		.then(async () => {
+		.then(() => {
 			emits('submit');
-			await cancel();
-			await closeDialog();
+			cancel();
+			closeDialog();
 		});
 };
 
@@ -303,17 +303,17 @@ const exportOrder = async () => {
 const rejectOrder = async () => {
 	await getAPI(OutStorageApi).apiOutStorageIdOutStorageRejectGet(queryParams.value.id);
 	emits('submit');
-	await cancel();
-	await closeDialog();
+	cancel();
+	closeDialog();
 };
 
 /**
  * 关闭窗体销毁数据
  */
-const dialogClosed = async () => {
+const dialogClosed = () => {
 	queryParams.value.inCount = 0;
 	queryParams.value.amount = 0.0;
-	await closeDialog();
+	closeDialog();
 };
 
 /**
@@ -330,8 +330,8 @@ const remove = async (row: any, index: number) => {
  * @param data
  */
 const importProduct = async (data: any) => {
-	data.forEach((v) => {
-		const found = queryParams.value.outStorageDetails.find((obj) => obj.productId === v.id && obj.categoryId === v.categoryId);
+	data.forEach((v:any) => {
+		const found = queryParams.value.outStorageDetails.find((obj:any) => obj.productId === v.id && obj.categoryId === v.categoryId);
 		if (!found)
 			queryParams.value.outStorageDetails.push({
 				productId: v.id,
@@ -346,8 +346,8 @@ const importProduct = async (data: any) => {
 				unitId: v.inUnitId,
 				procureCount: 1,
 				giveCount: 0,
-				amount: 1,
-				outPrice: 1,
+				amount: v.costPrice,
+				outPrice: v.costPrice,
 				remark: '',
 			});
 	});
@@ -379,7 +379,7 @@ const cancel = () => {
  * 总金额计算
  */
 const inStoreTotalAmount = computed((): string => {
-	const totalAmountValue = queryParams.value.outStorageDetails.reduce((pre, item) => {
+	const totalAmountValue = queryParams.value.outStorageDetails.reduce((pre:any, item:any) => {
 		return new Decimal(pre).add(new Decimal(item.amount));
 	}, 0);
 	const result = totalAmountValue.toFixed(2, Decimal.ROUND_DOWN);

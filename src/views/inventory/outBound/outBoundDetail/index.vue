@@ -19,7 +19,7 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button-group>
-                        <el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'instore:query'">
+                        <el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'inventory:outstoreitem'">
                             查询
                         </el-button>
                         <el-button icon="ele-Refresh"
@@ -27,11 +27,11 @@
                             重置</el-button>
                     </el-button-group>
                 </el-form-item>
-                <el-form-item>
+                <!-- <el-form-item>
                     <el-button-group>
                         <el-button type="primary" icon="ele-FolderOpened" @click="handleExport" v-auth="'instore:export'"> 导出 </el-button>
                     </el-button-group>
-                </el-form-item>
+                </el-form-item> -->
             </el-form>
         </el-card>
         <el-card  shadow="never"  class="full-table" style="overflow: auto;margin-top: 8px">
@@ -110,8 +110,8 @@ const getOrderTypes = async () => {
 
 //日期范围值
 const dates = ref<any>([
-    addWeeksToDateReturnDate(new Date(), -1),
-    addWeeksToDateReturnDate(new Date(), 0)
+    //addWeeksToDateReturnDate(new Date(), -1),
+    //addWeeksToDateReturnDate(new Date(), 0)
 ])
 
 const handleExport = async () => {

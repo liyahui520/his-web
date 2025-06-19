@@ -254,7 +254,6 @@ const customProps = {
 	children: 'children', // 自定义当前数组的键名 - children
 	expandTrigger: 'click', // 次级菜单的展开方式 - click/hover
 };
-console.log(" stores.sysRegions", stores.sysRegions)
 const loadRegion = async () => {
 	options.value = stores.sysRegions;
 };

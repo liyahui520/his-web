@@ -14,8 +14,6 @@
 
 <script lang="ts" setup name="base">
 import { ref, defineAsyncComponent } from 'vue';
-import { ElMessageBox, ElMessage } from 'element-plus';
-import { auth } from '/@/utils/authFunction';
 
 const CategoryView = defineAsyncComponent(() => import('/@/views/products/categorys/index.vue'));
 const Units = defineAsyncComponent(() => import('/@/views/products/units/index.vue'));

@@ -31,13 +31,13 @@
 										</el-checkbox-group>
 									</el-form-item>
 								</el-col>
-								<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" v-if="queryParams.showMore">
+								<!-- <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" v-if="queryParams.showMore">
 									<el-form-item label="客户来源">
 										<el-checkbox-group v-model="queryParams.customerSources">
 											<el-checkbox v-for="source in customerSourceData" :key="source.id" :label="source.value" :value="source.code" />
 										</el-checkbox-group>
 									</el-form-item>
-								</el-col>
+								</el-col> -->
 							</el-row>
 						</el-form>
 					</el-card>

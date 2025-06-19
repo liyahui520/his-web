@@ -28,7 +28,7 @@
 			<el-tab-pane v-auth="'settings:devicebind'" v-if="loadCall" label="大屏设备绑定" name="bindDevicesConfig">
 				<BindDevices />
 			</el-tab-pane>
-			<el-tab-pane v-auth="'sysRegisters:register'" label="挂号项目" name="registers">
+			<el-tab-pane v-auth="'settings:register'" label="挂号项目" name="registers">
 				<registers ></registers>
 			</el-tab-pane>
 		</el-tabs>

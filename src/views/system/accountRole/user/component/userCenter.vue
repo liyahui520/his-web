@@ -67,7 +67,7 @@
 										</el-form-item>
 									</el-col>
 									<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-										<el-form-item label="手机号码" prop="phone" :rules="[{ required: true, message: '手机号码不能为空', trigger: 'blur' }]">
+										<el-form-item label="手机号码" >
 											<el-input v-model="state.ruleFormBase.phone" placeholder="手机号码" clearable />
 										</el-form-item>
 									</el-col>
@@ -77,7 +77,7 @@
 										</el-form-item>
 									</el-col>
 									<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-										<el-form-item label="出生日期" prop="birthday" :rules="[{ required: true, message: '出生日期不能为空', trigger: 'blur' }]">
+										<el-form-item label="出生日期" >
 											<el-date-picker v-model="state.ruleFormBase.birthday" type="date" placeholder="出生日期" format="YYYY-MM-DD" value-format="YYYY-MM-DD" class="w100" />
 										</el-form-item>
 									</el-col>

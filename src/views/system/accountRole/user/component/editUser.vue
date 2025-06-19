@@ -1,5 +1,5 @@
 <template>
-	<div class="sys-user-container">
+	<div class="sys-user-container-edit">
 		<el-dialog v-model="state.isShowDialog" draggable :close-on-click-modal="false" width="700px">
 			<template #header>
 				<div style="color: #fff">
@@ -8,7 +8,7 @@
 				</div>
 			</template>
 			<el-tabs v-loading="state.loading" v-model="state.selectedTabName">
-				<el-tab-pane label="基础信息" style="height: 400px; overflow-y: auto; overflow-x: hidden">
+				<el-tab-pane label="基础信息" style="height: 450px; overflow-y: auto; overflow-x: hidden;background-color: #ffffff;" >
 					<el-form :model="state.ruleForm" ref="ruleFormRef" label-width="auto">
 						<el-row :gutter="35">
 							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
@@ -16,15 +16,19 @@
 									<el-input v-model="state.ruleForm.account" placeholder="登录账号" clearable />
 								</el-form-item>
 							</el-col>
-							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-								<el-form-item label="密码" prop="password" :rules="[{ required: state.ruleForm.id == undefined || (state.ruleForm.id != undefined && state.ruleForm.editPassword), message: '密码不能为空', trigger: 'blur' }]">
+							<!-- <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+								<el-form-item
+									label="密码"
+									prop="password"
+									:rules="[{ required: state.ruleForm.id == undefined || (state.ruleForm.id != undefined && state.ruleForm.editPassword), message: '密码不能为空', trigger: 'blur' }]"
+								>
 									<el-input v-model="state.ruleForm.password" type="password" :disabled="!state.ruleForm.editPassword" show-password placeholder="密码" clearable>
 										<template v-if="state.ruleForm.id != undefined" #append>
 											<el-button :icon="Edit" @click="handlePassword" />
 										</template>
 									</el-input>
 								</el-form-item>
-							</el-col>
+							</el-col> -->
 							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 								<el-form-item label="昵称">
 									<el-input v-model="state.ruleForm.nickName" placeholder="昵称" clearable />
@@ -46,12 +50,23 @@
 							</el-col>
 							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 								<el-form-item label="角色集合" prop="roleIdList" :rules="[{ required: true, message: '角色集合不能为空', trigger: 'blur' }]">
-									<el-select :disabled="state.ruleForm.isSystem" v-model="state.ruleForm.roleIdList" multiple value-key="id" clearable placeholder="角色集合" collapse-tags collapse-tags-tooltip class="w100" filterable>
+									<el-select
+										:disabled="state.ruleForm.isSystem"
+										v-model="state.ruleForm.roleIdList"
+										multiple
+										value-key="id"
+										clearable
+										placeholder="角色集合"
+										collapse-tags
+										collapse-tags-tooltip
+										class="w100"
+										filterable
+									>
 										<el-option v-for="item in state.roleData" :key="item.id" :label="item.name" :value="item.id" />
 									</el-select>
 								</el-form-item>
 							</el-col>
-                            <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 								<el-form-item label="手机号码">
 									<el-input v-model="state.ruleForm.phone" placeholder="手机号码" clearable />
 								</el-form-item>
@@ -201,7 +216,7 @@ const submit = () => {
 	ruleFormRef.value.validate(async (valid: boolean) => {
 		if (!valid) return;
 		if (state.ruleForm.id != undefined && state.ruleForm.id > 0) {
-			await getAPI(SysUserApi).apiSysUserUpdatePost(Object.assign({}, state.ruleForm, { editPassword: state.ruleForm.editPassword,password: state.ruleForm.password }));
+			await getAPI(SysUserApi).apiSysUserUpdatePost(Object.assign({}, state.ruleForm, { editPassword: state.ruleForm.editPassword, password: state.ruleForm.password }));
 		} else {
 			await getAPI(SysUserApi).apiSysUserAddPost(Object.assign({}, state.ruleForm, { password: state.ruleForm.password }));
 		}
@@ -213,9 +228,12 @@ const submit = () => {
 defineExpose({ openDialog });
 </script>
 <style lang="scss" scoped>
-.sys-user-container {
-	:deep(.el-input-group__append, .el-input-group__prepend) {
+.sys-user-container-edit {
+	:deep(.el-tabs__content) {
 		background-color: #ffffff !important;
 	}
+	// :deep(.el-input-group__append, .el-input-group__prepend) {
+	// 	background-color: #ffffff !important;
+	// }
 }
 </style>

@@ -38,7 +38,7 @@
 							</el-col>
 							<el-col :xs="24" :sm="20" :md="20" :lg="20" :xl="20" class="mb20">
 								<el-form-item label="Logo" prop="logo">
-									<el-upload list-type="picture-card" :disabled="!isEdit" :show-file-list="false"  :autoUpload="false" :onChange="uploadPetImageUrlHandle">
+									<el-upload list-type="picture-card" :disabled="!isEdit" :show-file-list="false" :autoUpload="false" :onChange="uploadPetImageUrlHandle">
 										<img v-if="ruleForm.logo" :src="ruleForm.logo" style="width: 100%; height: 100%; object-fit: contain" />
 										<el-icon v-else>
 											<Plus />
@@ -92,11 +92,10 @@
 												isEdit = false;
 											}
 										"
-										v-auth="'sysorgext:edit'"
 									>
 										取消编辑
 									</el-button>
-									<el-button icon="ele-Select" v-if="isEdit" type="success" @click="submit" v-auth="'sysorgext:edit'"> 保存 </el-button>
+									<el-button icon="ele-Select" v-if="isEdit" type="success" @click="submit"> 保存 </el-button>
 									<el-button
 										icon="ele-Edit"
 										v-if="!isEdit"
@@ -106,7 +105,6 @@
 												isEdit = true;
 											}
 										"
-										v-auth="'sysorgext:edit'"
 									>
 										编辑
 									</el-button>

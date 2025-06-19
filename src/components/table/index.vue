@@ -107,6 +107,7 @@ import {
     verifyNumberComma, verifyNumberCnUppercase, verifyTextColor
 } from '/@/utils/toolsValidate';
 import other from '/@/utils/other';
+import { EmptyObjectType } from '/@/types/global';
 
 import commonFunction from "/@/utils/commonFunction";
 const { twoFloorNum } = commonFunction();

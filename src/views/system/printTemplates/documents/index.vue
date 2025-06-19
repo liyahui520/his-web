@@ -101,14 +101,14 @@ import { getAPI } from '/@/utils/axios-utils';
 import { DocumentTemplateApi } from '/@/api-services/api';
 import { IToolbarConfig } from '@wangeditor/editor';
 // 推荐设置操作 width 为 200
-import { SysDocumentTemplatesEditInput } from '/@/api-services/models';
+import { SysDocumentTemplatesEditInput } from '/@/api-services/models/template-json-manage';
 import { DArrowLeft, DArrowRight } from '@element-plus/icons-vue';
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
 import { storeToRefs } from 'pinia';
-const storesTagsViewRoutes = useTagsViewRoutes();
-const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
 import other from '/@/utils/other';
 
+const storesTagsViewRoutes = useTagsViewRoutes();
+const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
 // 引入组件
 const Editor = defineAsyncComponent(() => import('/@/components/mention/AutoComplete.vue'));
 const printDialog = defineAsyncComponent(() => import('/@/components/print/index.vue'));
@@ -166,13 +166,13 @@ const onChange = (item: any) => {
 	editorRef.value.insertMention(item.id, `{{${item.label}}}`);
 };
 
-const toggleSidebar = (v) => {
+const toggleSidebar = (v: any) => {
 	nextTick(() => {
 		isSidebarVisible.value = !v;
 		sidebarWidth.value = !v ? '350px' : '10px';
 	});
 };
-const toggleSidebarRight = (v) => {
+const toggleSidebarRight = (v: any) => {
 	nextTick(() => {
 		isSidebarRightVisible.value = !v;
 		sidebarRightWidth.value = !v ? '280px' : '10px';
@@ -195,12 +195,12 @@ const handleQuery = async (row = null) => {
 };
 
 //启用停用
-const update = async (row) => {
+const update = async (row: any) => {
 	await getAPI(DocumentTemplateApi).apiDocumentTemplateEditPut(row);
 	await handleQuery();
 };
 //点击事件
-const rowClick = async (row) => {
+const rowClick = async (row: any) => {
 	from.value = row;
 	activeItem.value = row.id;
 };
@@ -216,9 +216,9 @@ const openPrint = async () => {
 	printDialogRef.value.showDialog(template, json);
 };
 
-const updateAllergyHistoryText = async (val) => { };
+const updateAllergyHistoryText = async (val: any) => { };
 const htmlContent = ref('');
-const updateAllergyHistoryHtml = async (html) => {
+const updateAllergyHistoryHtml = async (html: any) => {
 	htmlContent.value = html;
 };
 
@@ -254,7 +254,7 @@ const add = async () => {
  * 删除文书
  * @param row
  */
-const deleteRow = async (row) => {
+const deleteRow = async (row: any) => {
 	await getAPI(DocumentTemplateApi)
 		.apiDocumentTemplateDeleteDelete(row)
 		.then((_) => {
@@ -271,7 +271,7 @@ const deleteRow = async (row) => {
  * 重命名
  * @param row
  */
-const renameRow = async (row) => {
+const renameRow = async (row: any) => {
 	editNameRef.value.openDialog(row);
 };
 

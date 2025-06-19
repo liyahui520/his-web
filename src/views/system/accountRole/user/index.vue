@@ -89,7 +89,7 @@
 									<el-button icon="ele-CopyDocument" text type="primary" v-auth="'sysUser:add'" @click="openCopyMenu(scope.row)"> </el-button>
 								</el-tooltip>
 								<el-button icon="ele-RefreshLeft" text type="danger" v-auth="'sysUser:resetPwd'" @click="resetUserPwd(scope.row)">重置密码</el-button>
-								<el-button icon="ele-Unlock" text type="primary" v-auth="'sysUser:unlockLogin'" @click="unlockLogin(scope.row)">解除锁定</el-button>
+								<!-- <el-button icon="ele-Unlock" text type="primary" v-auth="'sysUser:unlockLogin'" @click="unlockLogin(scope.row)">解除锁定</el-button> -->
 							</template>
 						</el-table-column>
 					</el-table>

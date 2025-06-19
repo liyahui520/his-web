@@ -14,4 +14,11 @@ export * from './sys-print-setting-config';
 export * from './sys-print-templates-edit-input';
 export * from './sys-print-templates-input';
 export * from './sys-print-templates-output';
-export * from './sys-print-templates-page-input';
+export * from './admin-result-list-smstemplate-type-output'
+export * from './admin-result-cem-template'
+export * from './admin-result-sql-sugar-paged-list-smstemplate-output'
+export * from './smstemplate-edit-input'
+export * from './smstemplate-input'
+export * from './smstemplate-page-input'
+export * from './smstemplate-type-input'
+export * from './sys-document-templates-edit-input'

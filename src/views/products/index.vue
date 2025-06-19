@@ -36,13 +36,13 @@
 				</el-form-item>
 				<el-form-item>
 					<el-button-group>
-						<el-button type="primary" icon="ele-Search" @click="handleQuery" > 查询 </el-button>
+						<el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'products:'+productTypeAuth[productTypesValue]+':query'"> 查询 </el-button>
 						<el-button icon="ele-Refresh" @click="() => (queryParams = { canOrder: true, canSale: true, isDiscount: true })"> 重置 </el-button>
 					</el-button-group>
 				</el-form-item>
 				<el-form-item>
 					<el-button-group>
-						<el-button type="primary" icon="ele-Plus" @click="openAddProductInfo" v-auth="'products:goods:add'"> 新增 </el-button>
+						<el-button type="primary" icon="ele-Plus" @click="openAddProductInfo" v-auth="'products:'+productTypeAuth[productTypesValue]+':add'"> 新增 </el-button>
 					</el-button-group>
 				</el-form-item>
 			</el-form>
@@ -76,7 +76,21 @@ var props = defineProps({
 		default: [] as any,
 	},
 });
-
+const productTypeAuth = ref<any>({
+	'10001': 'goods',
+	'20001': 'drugs',
+	'30001': 'cosmetologys',
+	'40001': 'washs',
+	'50001': 'defaunations',
+	'60001': 'vaccines',
+	'90001': 'bmodes',
+	'100001': 'xrays',
+	'110001': 'tests',
+	'120001': 'disposals',
+	'130001': 'microscopes',
+	'140001': 'consumables',
+	'150001': 'papers'
+});
 const categoryRef = ref();
 const productTypesData = ref<any>([]);
 const productCategorysData = ref<any>([]);
@@ -163,33 +177,6 @@ const componentObject: { [key: string]: { name: any; add: () => void; query: () 
 			mittBus.emit('vaccinesQueryMthods', queryParams.value);
 		},
 	},
-	//移除住院留观内容
-	// "70001": {
-	//     name: defineAsyncComponent(() => import('./hospitals/index.vue')),
-	//     add: () => {
-	//         mittBus.emit("hospitalsAddMthods", {
-	//             categoryName: productCategoryLabel.value,
-	//             categoryId: queryParams.value.categoryId
-	//         });
-	//     },
-	//     query: () => {
-	//         if (!queryParams.value.categoryId) queryParams.value.categoryId = -1;
-	//         mittBus.emit("hospitalsQueryMthods", queryParams.value);
-	//     }
-	// },
-	// "80001": {
-	//     name: defineAsyncComponent(() => import('./fosters/index.vue')),
-	//     add: () => {
-	//         mittBus.emit("fostersAddMthods", {
-	//             categoryName: productCategoryLabel.value,
-	//             categoryId: queryParams.value.categoryId
-	//         });
-	//     },
-	//     query: () => {
-	//         if (!queryParams.value.categoryId) queryParams.value.categoryId = -1;
-	//         mittBus.emit("fostersQueryMthods", queryParams.value);
-	//     }
-	// },
 	'90001': {
 		name: defineAsyncComponent(() => import('./bmodes/index.vue')),
 		add: () => {
@@ -321,10 +308,6 @@ const categoryChange = async (e: any) => {
 	productCategoryLabel.value = checkedNode[0]?.text; //获取当前点击节点的label值
 };
 const openAddProductInfo = async () => {
-	// if (productCategoryLabel.value == null || productCategoryLabel.value == undefined || productCategoryLabel.value == '') {
-	//     ElMessage.warning('请选择目录');
-	//     return;
-	// }
 	(componentObject as any)[(productTypeObject as any)[productTypesValue.value]].add();
 };
 </script>

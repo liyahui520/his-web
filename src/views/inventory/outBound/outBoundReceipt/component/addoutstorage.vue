@@ -187,7 +187,7 @@
 				<span class="dialog-footer">
 					<el-button size="default" @click="cancel">关 闭</el-button>
 					<el-button type="primary" @click="submit" v-if="!isDisabledValue && !isHiddenValue" size="default">确 定</el-button>
-					<el-button type="warning" @click="exportOrder" v-if="isDisabledValue && !isHiddenValue" size="default">审 核</el-button>
+					<el-button type="warning" @click="exportOrder" v-if="isDisabledValue && !isHiddenValue" v-auth="'inventory:outstorage:out-storage-examine'" size="default">审 核</el-button>
 					<el-button type="danger" @click="rejectOrder" v-if="isDisabledValue && !isHiddenValue" size="default">驳 回</el-button>
 				</span>
 			</template>

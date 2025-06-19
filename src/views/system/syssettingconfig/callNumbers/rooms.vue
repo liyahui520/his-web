@@ -8,13 +8,13 @@
 
 				<el-form-item>
 					<el-button-group>
-						<el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'call:rooms:query'"> 查询 </el-button>
+						<el-button type="primary" icon="ele-Search" @click="handleQuery"> 查询 </el-button>
 						<el-button icon="ele-Refresh" @click="() => (queryParams = {})"> 重置</el-button>
 					</el-button-group>
 				</el-form-item>
 				<el-form-item>
 					<el-button-group>
-						<el-button icon="ele-Plus" @click="openAddCallRoom" v-auth="'call:rooms:add'"> 新增 </el-button>
+						<el-button icon="ele-Plus" @click="openAddCallRoom"> 新增 </el-button>
 					</el-button-group>
 				</el-form-item>
 			</el-form>
@@ -33,10 +33,10 @@
 				</el-table-column>
 				<el-table-column prop="sortIndex" label="排序" align="center" show-overflow-tooltip="" />
 				<el-table-column prop="createTime" label="创建时间" align="center" show-overflow-tooltip="" />
-				<el-table-column label="操作" width="160" align="center" show-overflow-tooltip="" v-if="auth('call:rooms:update') || auth('call:rooms:delete')">
+				<el-table-column label="操作" width="160" align="center" show-overflow-tooltip="">
 					<template #default="scope">
-						<el-button icon="ele-Edit" size="small" text="" type="primary" @click="openEditCallRoom(scope.row)" v-auth="'call:rooms:update'"> 编辑 </el-button>
-						<el-button icon="ele-Delete" size="small" text="" type="danger" @click="delCallRoom(scope.row)" v-auth="'call:rooms:delete'"> 删除 </el-button>
+						<el-button icon="ele-Edit" size="small" text="" type="primary" @click="openEditCallRoom(scope.row)"> 编辑 </el-button>
+						<el-button icon="ele-Delete" size="small" text="" type="danger" @click="delCallRoom(scope.row)"> 删除 </el-button>
 					</template>
 				</el-table-column>
 			</el-table>

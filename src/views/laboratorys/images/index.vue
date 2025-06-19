@@ -16,7 +16,7 @@
 				</el-form-item>
 				<el-form-item>
 					<el-button-group>
-						<el-button type="primary" icon="ele-Search" @click="handleQuery"> 查询 </el-button>
+						<el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'laboratorys:images:query'"> 查询 </el-button>
 					</el-button-group>
 				</el-form-item>
 			</el-form>
@@ -27,14 +27,14 @@
 					<el-tag :type="payStatusObject[scope.row.payStatus].type">{{ payStatusObject[scope.row.payStatus].name }}</el-tag>
 				</template>
 				<template #action="scope">
-					<el-button icon="ele-Edit" size="small" text="" type="success" @click="openEditReportResult(scope.row)"> 填写结果 </el-button>
+					<el-button v-auth="'laboratorys:images:edit'" icon="ele-Edit" size="small" text="" type="success" @click="openEditReportResult(scope.row)"> 填写结果 </el-button>
 				</template>
 			</Table>
-			<editXray ref="editXrayRef" :title="'编辑摄影检查影像报告'" @reloadTable="handleQuery" />
-			<editBscan ref="editBscanRef" :title="'编辑超声检查影像报告'" @reloadTable="handleQuery" />
-			<editMicro ref="editMicroRef" :title="'编辑显微镜影像报告'" @reloadTable="handleQuery" />
-			<PrintView ref="printViewRef" />
 		</el-card>
+		<editXray ref="editXrayRef" :title="'编辑摄影检查影像报告'" @reloadTable="handleQuery" />
+		<editBscan ref="editBscanRef" :title="'编辑超声检查影像报告'" @reloadTable="handleQuery" />
+		<editMicro ref="editMicroRef" :title="'编辑显微镜影像报告'" @reloadTable="handleQuery" />
+		<PrintView ref="printViewRef" />
 	</div>
 </template>
 

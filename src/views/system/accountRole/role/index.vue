@@ -53,7 +53,7 @@
 				</el-table-column> -->
 				<el-table-column label="操作" width="240" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
-						<el-button
+						<!-- <el-button
 							icon="ele-OfficeBuilding"
 							size="small"
 							text
@@ -63,7 +63,7 @@
 							v-auth="'sysRole:grantDataScope'"
 						>
 							数据范围
-						</el-button>
+						</el-button> -->
 						<el-button icon="ele-Edit" size="small" text type="primary" v-if="isSuperAdmin || !sysRoleObject[scope.row.code]" @click="openEditRole(scope.row)" v-auth="'sysRole:update'">
 							编辑
 						</el-button>
@@ -106,9 +106,9 @@ import { SysRoleApi } from '/@/api-services/api';
 import { SysRole } from '/@/api-services/models';
 import { useUserInfo } from '/@/stores/userInfo';
 
-const sysRoleObject = {
+const sysRoleObject = ref<any>({
 	sys_admin: true
-};
+});
 const stores = useUserInfo();
 const editRoleRef = ref<InstanceType<typeof EditRole>>();
 const grantDataRef = ref<InstanceType<typeof GrantData>>();

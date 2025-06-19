@@ -15,13 +15,13 @@
 
 				<el-form-item>
 					<el-button-group>
-						<el-button type="primary" icon="ele-Search" @click="handleQuery"> 查询 </el-button>
+						<el-button type="primary" icon="ele-Search" @click="handleQuery" > 查询 </el-button>
 						<el-button icon="ele-Refresh" @click="() => (queryParams = {})"> 重置</el-button>
 					</el-button-group>
 				</el-form-item>
 				<el-form-item>
 					<el-button-group>
-						<el-button type="success" icon="ele-Plus" @click="openAddInHospitalCages"> 新增 </el-button>
+						<el-button type="success" icon="ele-Plus" @click="openAddInHospitalCages" > 新增 </el-button>
 					</el-button-group>
 				</el-form-item>
 			</el-form>
@@ -61,7 +61,7 @@
 						{{ scope.row.createTime }}
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="160" align="center" show-overflow-tooltip="">
+				<el-table-column label="操作" width="160" align="center" show-overflow-tooltip=""  >
 					<template #default="scope">
 						<el-button icon="ele-Edit" size="small" text="" type="primary" @click="openEditInHospitalCages(scope.row)"> 编辑 </el-button>
 						<el-button icon="ele-Delete" size="small" text="" type="danger" @click="delInHospitalCages(scope.row)"> 删除 </el-button>

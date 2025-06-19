@@ -13,9 +13,7 @@
  */
 
 import { SqlSugarPagedListSMSTemplateOutput } from './sql-sugar-paged-list-smstemplate-output';
-import {
-    SqlSugarPagedListSMSTemplateOutput,
-} from ".";
+
 
 /**
  * 全局返回结果

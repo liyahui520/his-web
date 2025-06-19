@@ -12,20 +12,6 @@
 							<span>{{ item.name }}</span>
 						</div>
 					</div>
-					<!-- <el-table ref="singleTableRef" :data="tableData" style="margin: 5px;height: 150px;" highlight-current-row table-layout="fixed" :show-header="false" @current-change="handleCurrentChange"> 
-                    <el-table-column prop="name" label="名称" align="center"/> 
-                </el-table> -->
-					<!-- <el-card shadow="never" :body-style="{ padding: '0px' }">
-						<div slot="header" class="clearfix" style="background-color: var(--el-color-primary); height: 30px; border-radius: 3px 3px 0 0">
-							<p style="line-height: 30px; color: var(--el-color-white); font-size: 16px; font-weight: 800; margin-left: 20px; float: left">I</p>
-							<p style="line-height: 30px; color: var(--el-color-white); font-size: 14px; font-weight: 800; margin-left: 10px; float: left">结果模板</p>
-						</div>
-						<div class="prescript">
-							<div v-for="item in resultTemp" :key="item.name" :class="[activeItem == item.name ? 'active-prescript' : '', 'prescript-list']" @click="handleCurrentChange(item)">
-								<span>{{ item.name }}</span>
-							</div>
-						</div>
-					</el-card> -->
 				</el-card>
 			</el-col>
 			<el-col :span="21">

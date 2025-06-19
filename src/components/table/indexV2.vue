@@ -102,6 +102,7 @@ import {exportExcel} from '/@/utils/exportExcel';
 // import '/@/theme/tableTool.scss';
 import printJs from 'print-js';
 import other from '/@/utils/other';
+import { EmptyObjectType } from '/@/types/global';
 
 // 定义父组件传过来的值
 const props = defineProps({

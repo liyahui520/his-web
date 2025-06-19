@@ -13,9 +13,7 @@
  */
 
 import { SMSTemplateOutput } from './smstemplate-output';
-import {
-    SMSTemplateOutput,
-} from ".";
+
 
 /**
  * 分页泛型集合

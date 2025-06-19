@@ -13,21 +13,21 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button-group>
-                        <el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'smsTemplate:query'"> 查询
+                        <el-button type="primary" icon="ele-Search" @click="handleQuery"> 查询
                         </el-button>
                         <el-button icon="ele-Refresh" @click="() => (queryParams = {})"> 重置</el-button>
                     </el-button-group>
                 </el-form-item>
                 <el-form-item>
                     <el-button-group>
-                        <el-button icon="ele-Plus" @click="openAddProductBrands" v-auth="'smsTemplate:add'"> 新增
+                        <el-button icon="ele-Plus" @click="openAddProductBrands"> 新增
                         </el-button>
                     </el-button-group>
                 </el-form-item>
             </el-form>
         </el-card>
         <el-card class="full-table" shadow="hover" style="margin-top: 8px">
-            <el-table :data="tableData" style="width: 100%" v-loading="loading" tooltip-effect="light" row-key="id">
+            <el-table :data="tableData" style="width: 100%" v-loading="loading" tooltip-effect="light" border row-key="id">
                 <el-table-column type="index" label="序号" width="55" align="center" fixed="" />
                 <el-table-column prop="type" label="类型" width="100">
                     <template #default="scope">
@@ -42,14 +42,13 @@
                     </template>
                     </el-table-column>
                 <el-table-column prop="content" label="短信内容" />
-                <el-table-column label="操作" width="140" align="center" fixed="right" show-overflow-tooltip=""
-                    v-if="auth('smsTemplate:update') || auth('smsTemplate:delete')">
+                <el-table-column label="操作" width="140" align="center" fixed="right" show-overflow-tooltip="">
                     <template #default="scope">
                         <el-button icon="ele-Edit" size="small" text="" type="primary"
-                            @click="openEditProductBrands(scope.row)" v-auth="'smsTemplate:update'"> 编辑
+                            @click="openEditProductBrands(scope.row)"> 编辑
                         </el-button>
                         <el-button icon="ele-Delete" size="small" text="" type="danger"
-                            @click="delProductBrands(scope.row)" v-auth="'smsTemplate:delete'"> 删除
+                            @click="delProductBrands(scope.row)"> 删除
                         </el-button>
                     </template>
                 </el-table-column>
@@ -97,13 +96,13 @@ const sysSMSTemplateEnum = ref<any>([
     { id: 0, name: '疫苗短信' },
     { id: 1, name: '预约短信' },
     { id: 2, name: '推广短信' },
-    { id: 3, name: '系统短信' },
+    // { id: 3, name: '系统短信' },
 ])
 const sysSMSTemplateInfo = ref<any>({
     0: '疫苗短信',
     1: '预约短信',
     2: '推广短信',
-    3: '系统短信',
+    // 3: '系统短信',
 })
 // 查询操作
 const handleQuery = async () => {

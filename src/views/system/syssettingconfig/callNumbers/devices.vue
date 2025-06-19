@@ -8,13 +8,13 @@
 
 				<el-form-item>
 					<el-button-group>
-						<el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'call:devices:query'"> 查询 </el-button>
+						<el-button type="primary" icon="ele-Search" @click="handleQuery"> 查询 </el-button>
 						<el-button icon="ele-Refresh" @click="() => (queryParams = {})"> 重置</el-button>
 					</el-button-group>
 				</el-form-item>
 				<el-form-item>
 					<el-button-group>
-						<el-button icon="ele-Plus" @click="openAddCallDevice" v-auth="'call:devices:add'"> 新增 </el-button>
+						<el-button icon="ele-Plus" @click="openAddCallDevice"> 新增 </el-button>
 					</el-button-group>
 				</el-form-item>
 			</el-form>
@@ -25,12 +25,10 @@
 				<el-table-column prop="deviceIdentity" label="设备标识" align="left" show-overflow-tooltip="" />
 				<el-table-column prop="times" label="播放次数" align="center" show-overflow-tooltip="" />
 				<el-table-column prop="rate" label="播放语速" align="center" show-overflow-tooltip="" />
-				<!-- <el-table-column prop="pitch" label="播放音调" align="center" show-overflow-tooltip="" /> -->
 				<el-table-column prop="createTime" label="创建时间" align="center" show-overflow-tooltip="" />
-				<el-table-column label="操作" width="160" align="center" show-overflow-tooltip="" v-if="auth('call:devices:update') || auth('call:devices:delete')">
+				<el-table-column label="操作" width="160" align="center" show-overflow-tooltip="">
 					<template #default="scope">
-						<el-button icon="ele-Edit" size="small" text="" type="primary" @click="openEditCallDevice(scope.row)" v-auth="'call:devices:update'"> 编辑 </el-button>
-						<!-- <el-button icon="ele-Delete" size="small" text="" type="danger" @click="delCallDevice(scope.row)" v-auth="'call:devices:delete'"> 删除 </el-button> -->
+						<el-button icon="ele-Edit" size="small" text="" type="primary" @click="openEditCallDevice(scope.row)"> 编辑 </el-button>
 					</template>
 				</el-table-column>
 			</el-table>

@@ -2,6 +2,7 @@ import { createI18n } from 'vue-i18n';
 import pinia from '/@/stores/index';
 import { storeToRefs } from 'pinia';
 import { useThemeConfig } from '/@/stores/themeConfig';
+import { EmptyObjectType } from '/@/types/global';
 
 // 定义语言国际化内容
 

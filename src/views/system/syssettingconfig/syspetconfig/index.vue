@@ -11,9 +11,9 @@
                         <el-button icon="ele-Refresh" @click="resetQuery"> 重置 </el-button>
                     </el-button-group>
                 </el-form-item>
-                <el-form-item>
+                <!-- <el-form-item>
                     <el-button type="primary" icon="ele-Plus" @click="openAddKind" > 新增 </el-button>
-                </el-form-item>
+                </el-form-item> -->
             </el-form>
         </el-card>
 
@@ -26,9 +26,9 @@
                 <el-table-column prop="createTime" label="修改时间" align="center" show-overflow-tooltip />
                 <el-table-column label="操作" width="210" fixed="right" align="center" show-overflow-tooltip>
                     <template #default="scope">
-                        <el-button icon="ele-Edit" size="small"  link type="primary" @click="openEditDictType(scope.row)" v-auth="'sysPcuPetConfig:edit-kind'" v-if="!scope.row.isAdmin"> 编辑 </el-button>
+                        <el-button icon="ele-Edit" size="small"  link type="primary" @click="openEditDictType(scope.row)" v-if="!scope.row.isAdmin"> 编辑 </el-button>
                         <el-button icon="ele-Memo" size="small"  link type="primary" @click="openDictDataDialog(scope.row)" > 品种列表 </el-button>
-                        <el-button icon="ele-Delete" size="small"  link type="danger" @click="delDictType(scope.row)" v-auth="'sysPcuPetConfig:delete-kind'" v-if="!scope.row.isAdmin"> 删除 </el-button>
+                        <el-button icon="ele-Delete" size="small"  link type="danger" @click="delDictType(scope.row)" v-if="!scope.row.isAdmin"> 删除 </el-button>
                     </template>
                 </el-table-column>
             </el-table>

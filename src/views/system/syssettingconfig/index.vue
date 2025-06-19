@@ -1,32 +1,35 @@
 <template>
 	<div class="syssettingconfig-container">
 		<el-tabs v-model="activeName" type="border-card" style="height: 100%; border-radius: 5px; overflow: auto; border: 0">
-			<el-tab-pane label="会员宠物" name="pcupetConfig">
+			<el-tab-pane v-auth="'settings:customerbase'" label="会员宠物" name="pcupetConfig">
 				<SysPcuPetConfig />
 			</el-tab-pane>
-			<el-tab-pane label="业务参数" name="sysConfig">
+			<el-tab-pane v-auth="'settings:businessparam'" label="业务参数" name="sysConfig">
 				<SysOrgConfig />
 			</el-tab-pane>
-			<el-tab-pane label="宠物品种" name="petConfig">
+			<el-tab-pane v-auth="'settings:varietie'" label="宠物品种" name="petConfig">
 				<PetConfig />
 			</el-tab-pane>
-			<el-tab-pane label="笼位" name="cage">
-				<cage ref="cageRef"></cage>
+			<el-tab-pane v-auth="'settings:cages'" label="笼位" name="cage">
+				<cage ></cage>
 			</el-tab-pane>
-			<el-tab-pane label="护理" name="nurse">
-				<nurse ref="nurseRef"></nurse>
+			<el-tab-pane v-auth="'settings:nurses'" label="护理" name="nurse">
+				<nurse ></nurse>
 			</el-tab-pane>
-			<el-tab-pane label="打印机设置" name="printConfig">
+			<el-tab-pane v-auth="'settings:print'" label="打印机设置" name="printConfig">
 				<SysPrintConfig />
 			</el-tab-pane>
-			<el-tab-pane label="诊室管理" name="rooms">
-				<rooms ref="roomsRef"></rooms>
+			<el-tab-pane v-auth="'settings:rooms'" label="诊室管理" name="rooms">
+				<rooms ></rooms>
 			</el-tab-pane>
-			<el-tab-pane label="叫号设备" name="devices">
+			<el-tab-pane v-auth="'settings:devices'" label="设备管理" name="devices">
 				<devices ref="devicesRef"></devices>
 			</el-tab-pane>
-			<el-tab-pane v-if="loadCall" label="大屏设备绑定" name="bindDevicesConfig">
+			<el-tab-pane v-auth="'settings:devicebind'" v-if="loadCall" label="大屏设备绑定" name="bindDevicesConfig">
 				<BindDevices />
+			</el-tab-pane>
+			<el-tab-pane v-auth="'sysRegisters:register'" label="挂号项目" name="registers">
+				<registers ></registers>
 			</el-tab-pane>
 		</el-tabs>
 	</div>
@@ -40,12 +43,13 @@ import { storeToRefs } from 'pinia';
 const SysOrgConfig = defineAsyncComponent(() => import('./component/orgConfig.vue'));
 const SysPcuPetConfig = defineAsyncComponent(() => import('./component/pcuPetConfig.vue'));
 const SysPrintConfig = defineAsyncComponent(() => import('./component/printConfig.vue'));
-const PetConfig = defineAsyncComponent(() => import('/@/views/system/syssettingconfig/syspetconfig/index.vue'));
-const BindDevices = defineAsyncComponent(() => import('/@/views/system/syssettingconfig/callNumbers/bindDevices.vue'));
-const cage = defineAsyncComponent(() => import('/@/views/system/syssettingconfig/cages/index.vue'));
-const nurse = defineAsyncComponent(() => import('/@/views/system/syssettingconfig/nurses/index.vue'));
-const rooms = defineAsyncComponent(() => import('/@/views/system/syssettingconfig/callNumbers/rooms.vue'));
-const devices = defineAsyncComponent(() => import('/@/views/system/syssettingconfig/callNumbers/devices.vue'));
+const PetConfig = defineAsyncComponent(() => import('./syspetconfig/index.vue'));
+const BindDevices = defineAsyncComponent(() => import('./callNumbers/bindDevices.vue'));
+const cage = defineAsyncComponent(() => import('./cages/index.vue'));
+const nurse = defineAsyncComponent(() => import('./nurses/index.vue'));
+const rooms = defineAsyncComponent(() => import('./callNumbers/rooms.vue'));
+const devices = defineAsyncComponent(() => import('./callNumbers/devices.vue'));
+const registers = defineAsyncComponent(() => import('./registers/index.vue'));
 
 const stores = useUserInfo();
 const { sysSpecialSettings } = storeToRefs(stores);

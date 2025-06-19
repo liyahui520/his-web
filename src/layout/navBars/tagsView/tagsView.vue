@@ -60,6 +60,7 @@ import { Session } from '/@/utils/storage';
 import { isObjectValueEqual } from '/@/utils/arrayOperation';
 import other from '/@/utils/other';
 import mittBus from '/@/utils/mitt';
+import { RefType,WheelEventType,RouteItem,RouteToFrom } from '/@/types/global';
 
 // 引入组件
 const Contextmenu = defineAsyncComponent(() => import('/@/layout/navBars/tagsView/contextmenu.vue'));

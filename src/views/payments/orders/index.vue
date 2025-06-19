@@ -164,7 +164,7 @@
                             <el-button icon="ele-Printer" size="small" text="" @click="printBillA4(scope.row)"
                                 type="primary">账单</el-button>
                         </el-tooltip>
-                        <el-tooltip effect="light" v-if="scope.row.status != 2" content="退单" placement="top">
+                        <el-tooltip effect="light" v-if="scope.row.status != 2" v-auth="'order:consumption:return'" content="退单" placement="top">
                             <el-button icon="ele-DArrowLeft" @click="handleReturn(scope.row)" size="small" text=""
                                 type="primary">退单</el-button>
                         </el-tooltip>

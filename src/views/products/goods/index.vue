@@ -4,7 +4,7 @@
 			<el-button type="danger" :icon="Delete" @click="batchDelete" plain size="small" v-auth="'products:goods:delete'">批量删除</el-button>
 			<el-button type="primary" :icon="Edit" plain size="small" @click="batchEdit" v-auth="'products:goods:update'">批量编辑</el-button>
 
-			<el-button type="warning" size="small" icon="ele-Upload" round @click="downTemp" v-auth="'products:goods:import'" > 导入产品 </el-button>
+			<el-button type="warning" size="small" icon="ele-Upload" round @click="downTemp" v-auth="'products:goods:import'"> 导入产品 </el-button>
 		</template>
 		<template #isDiscount="scope">
 			<el-tag v-if="scope.row.isDiscount"> 是</el-tag>
@@ -35,8 +35,8 @@
 		</template>
 	</Table>
 	<editDialog ref="editDialogRef" :title="editProductgoodsTitle" @reloadTable="handleQuery" :productCategorysData="props.productCategorysData" />
-	<batchEditDialog ref="batchEditDialogRef" :title="'批量编辑'" @reloadTable="handleQuery" :productCategorysData="props.productCategorysData" />
-	<downloadTemp ref="downloadTempRef" :title="importTempTitle"  @reloadTable="handleQuery" />
+	<batchEditDialog ref="batchEditDialogRef" :title="'批量编辑'" v-auth="'products:goods:update'" @reloadTable="handleQuery" :productCategorysData="props.productCategorysData" />
+	<downloadTemp ref="downloadTempRef" :title="importTempTitle" @reloadTable="handleQuery" />
 </template>
 
 <script lang="ts" setup name="productGoodsVue">
@@ -336,10 +336,9 @@ const batchEdit = () => {
 /**
  * 下载导入模板信息
  */
- const downTemp = async () => {
-	
-	importTempTitle.value = "导入产品信息";
-	downloadTempRef.value?.openDialog(ProductTypeEnums.NUMBER_10001,[],[]);
+const downTemp = async () => {
+	importTempTitle.value = '导入产品信息';
+	downloadTempRef.value?.openDialog(ProductTypeEnums.NUMBER_10001, [], []);
 };
 /**
  * 批量删除
@@ -375,9 +374,9 @@ const batchDelete = () => {
 		.catch(() => {});
 };
 //选中的值
-const selectionChange = async (d:any) => {
+const selectionChange = async (d: any) => {
 	deleteIds.value = [];
-	d.forEach((v:any) => {
+	d.forEach((v: any) => {
 		deleteIds.value.push(v.id);
 	});
 };

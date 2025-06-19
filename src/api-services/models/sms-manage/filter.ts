@@ -12,7 +12,6 @@
  * Do not edit the class manually.
  */
 
-import { Filter } from './filter';
 import { FilterLogicEnum } from './filter-logic-enum';
 import { FilterOperatorEnum } from './filter-operator-enum';
  /**

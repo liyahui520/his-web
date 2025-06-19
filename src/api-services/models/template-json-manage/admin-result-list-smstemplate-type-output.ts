@@ -13,9 +13,7 @@
  */
 
 import { SMSTemplateTypeOutput } from './smstemplate-type-output';
-import {
-    SMSTemplateTypeOutput,
-} from ".";
+
 
 /**
  * 全局返回结果

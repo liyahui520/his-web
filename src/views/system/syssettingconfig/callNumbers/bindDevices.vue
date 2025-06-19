@@ -8,7 +8,7 @@
 
 				<el-form-item>
 					<el-button-group>
-						<el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'call:rooms:query'"> 查询 </el-button>
+						<el-button type="primary" icon="ele-Search" @click="handleQuery"> 查询 </el-button>
 					</el-button-group>
 				</el-form-item>
 			</el-form>

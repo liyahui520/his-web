@@ -13,9 +13,6 @@
  */
 
 import { SysSMSTemplateEnum } from './sys-smstemplate-enum';
-import {
-    SysSMSTemplateEnum,
-} from ".";
 
 /**
  * 

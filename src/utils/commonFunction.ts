@@ -4,6 +4,7 @@ import { ElMessage } from 'element-plus';
 import { formatDate } from '/@/utils/formatTime';
 import { useI18n } from 'vue-i18n';
 import Decimal from 'decimal.js';
+import { EmptyArrayType } from '/@/types/global';
 
 export default function () {
 	const { t } = useI18n();

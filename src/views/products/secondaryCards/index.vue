@@ -6,12 +6,12 @@
 					<div class="can-card-title-left"></div>
 					<el-space alignment="flex-start">
 						可用次卡
-						<el-button circle @click="handleEnabledQuery">
+						<el-button circle v-auth="'products:secondcards:page'" @click="handleEnabledQuery">
 							<el-icon>
 								<RefreshRight />
 							</el-icon>
 						</el-button>
-						<el-button type="primary" @click="openAddSecondaryCards" icon="ele-Plus" style="margin-left: 30px">新增次卡</el-button>
+						<el-button type="primary" @click="openAddSecondaryCards" icon="ele-Plus" style="margin-left: 30px" v-auth="'products:secondcards:add'">新增次卡</el-button>
 					</el-space>
 				</div>
 			</div>
@@ -71,7 +71,7 @@
 					<div class="can-card-title-left"></div>
 					<el-space alignment="flex-start">
 						不可用次卡
-						<el-button circle @click="handleDisableQuery">
+						<el-button circle v-auth="'products:secondcards:page'"  @click="handleDisableQuery">
 							<el-icon>
 								<RefreshRight />
 							</el-icon>

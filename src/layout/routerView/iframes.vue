@@ -24,6 +24,8 @@
 import { computed, watch, ref, nextTick } from 'vue';
 import { useRoute } from 'vue-router';
 import { getToken } from '/@/utils/axios-utils';
+import { RouteItem,RouteItems } from '/@/types/global';
+
 
 // 定义父组件传过来的值
 const props = defineProps({

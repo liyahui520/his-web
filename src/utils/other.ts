@@ -9,6 +9,7 @@ import { i18n } from '/@/i18n/index';
 import { Local } from '/@/utils/storage';
 import { verifyUrl } from '/@/utils/toolsValidate';
 import {StampBadge} from "/@/components/StampBadge";
+import { EmptyObjectType,EmptyArrayType,RouteItem,RouteToFrom } from '/@/types/global';
 
 // 引入组件
 const SvgIcon = defineAsyncComponent(() => import('/@/components/svgIcon/index.vue'));

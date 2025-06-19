@@ -112,6 +112,7 @@ import type { FormInstance } from 'element-plus';
 import { dayjs } from 'element-plus';
 
 import { formatDate } from '/@/utils/formatTime';
+import { EmptyObjectType } from '/@/types/global';
 // 定义父组件传过来的值
 const props = defineProps({
 	// 搜索表单,type-控件类型（input,select,cascader,date）,options-type为selct时需传值，cascaderData,cascaderProps-type为cascader时需传值，属性同elementUI,cascaderProps不传则使用state默认。

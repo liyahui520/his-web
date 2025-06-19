@@ -48,7 +48,7 @@
 				</el-row>
 				<el-row>
 					<el-col :span="24" class="mb20">
-						<el-form-item label="内容" prop="reamrk">
+						<el-form-item label="内容" prop="content">
 							<el-input
 								ref="contentRef"
 								type="textarea"
@@ -114,7 +114,6 @@ const onChange = (item: any) => {
 const items = ref<any>([{ label: '机构名称' }, { label: '机构地址' }, { label: '机构联系方式' }, { label: '宠主姓名' }, { label: '宠物名称' }, { label: '接种时间' }]);
 
 const handleChangeType = (data: any) => {
-    console.log("data",data)
 	if (data == 0) {
 		items.value = [{ label: '机构名称' }, { label: '机构地址' }, { label: '机构联系方式' }, { label: '宠主姓名' }, { label: '宠物名称' }, { label: '接种时间' }];
 	} else if (data == 1) {
@@ -143,7 +142,8 @@ const handleChangeType = (data: any) => {
 //自行删除非必填规则
 const rules = ref<FormRules>({
 	type: [{ required: true, message: '请选择类型！', trigger: 'blur' }],
-	templatName: [{ required: true, message: '请输入模板名称！', trigger: 'blur' }],
+	templateName: [{ required: true, message: '请输入模板名称！', trigger: 'blur' }],
+	content: [{ required: true, message: '请输入模板内容！', trigger: 'blur' }],
 });
 
 const blurEvent = (e: any) => {

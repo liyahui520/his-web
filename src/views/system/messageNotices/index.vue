@@ -10,9 +10,9 @@
 			<el-tab-pane label="已发短信" name="sendNotice">
 				<sendNotice v-if="activeName === 'sendNotice'" ref="sendNoticeRef"></sendNotice>
 			</el-tab-pane>
-			<el-tab-pane label="短信充值" name="smsRecharge">
+			<!-- <el-tab-pane label="短信充值" name="smsRecharge">
 				<smsRecharge v-if="activeName === 'smsRecharge'" ref="smsRechargeRef"></smsRecharge>
-			</el-tab-pane>
+			</el-tab-pane> -->
 		</el-tabs>
 	</div>
 </template>

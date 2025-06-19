@@ -1,13 +1,13 @@
 <template> 
     <div class="printTemp-container">
         <el-tabs v-model="activeName" type="border-card" style="height: 100%; border-radius: 5px; overflow: hidden; border: 0">
-            <el-tab-pane label="文书管理" name="documents">
+            <el-tab-pane v-auth="'templates:paper'" label="文书管理" name="documents">
                 <Documents />
             </el-tab-pane>
-            <el-tab-pane label="打印模板" name="prescriptionNotes">
+            <el-tab-pane v-auth="'templates:print'" label="打印模板" name="prescriptionNotes">
                 <PrescriptionNotes />
             </el-tab-pane>
-            <el-tab-pane label="短信模板" name="smsTemplates">
+            <el-tab-pane v-auth="'templates:sms'" label="短信模板" name="smsTemplates">
                 <SmsTemplates />
             </el-tab-pane>
         </el-tabs>

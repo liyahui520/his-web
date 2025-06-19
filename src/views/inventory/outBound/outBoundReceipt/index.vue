@@ -14,8 +14,8 @@
 				border
 			>
 				<template #command>
-					<el-button type="primary" icon="ele-Plus" size="small" @click="openAddConfig" v-auth="'outstorage:add'" round> 新增出库单 </el-button>
-					<el-button v-if="state.selectlist.length > 0" type="danger" icon="ele-Delete" @click="bacthDelete" v-auth="'outstorage:delete'"> 批量删除 </el-button>
+					<el-button type="primary" icon="ele-Plus" size="small" @click="openAddConfig" v-auth="'inventory:outstorage:add'" round> 新增出库单 </el-button>
+					<el-button v-if="state.selectlist.length > 0" type="danger" icon="ele-Delete" @click="bacthDelete" v-auth="'inventory:outstorage:delete'"> 批量删除 </el-button>
 				</template>
 				<template #amount="scope">
 					<p>{{ verifyNumberComma(scope.row.amount.toFixed(2)) }}</p>
@@ -31,24 +31,24 @@
 					<el-tag class="ml-2" v-if="scope.row.status == 4" type="danger">{{ scope.row.statusName }}</el-tag>
 				</template>
 				<template #action="scope">
-					<el-button icon="ele-Reading" size="small" text type="primary" @click="details(scope.row)" v-if="scope.row.status > 1"> 详情 </el-button>
-					<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditConfig(scope.row)" v-auth="'outstorage:edit'" v-if="scope.row.status == 0 || scope.row.status == 1">
+					<el-button icon="ele-Reading" size="small" text type="primary" @click="details(scope.row)" v-if="scope.row.status > 1"  v-auth="'inventory:outstorage:detail'"> 详情 </el-button>
+					<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditConfig(scope.row)" v-auth="'inventory:outstorage:edit'" v-if="scope.row.status == 0 || scope.row.status == 1">
 						编辑
 					</el-button>
-					<el-button icon="ele-Position" size="small" text type="success" @click="ArraignChangeDataxamine(scope.row)" v-auth="'outstorage:out-storage-arraign'" v-if="scope.row.status == 1">
+					<el-button icon="ele-Position" size="small" text type="success" @click="ArraignChangeDataxamine(scope.row)" v-auth="'inventory:outstorage:out-storage-arraign'" v-if="scope.row.status == 1">
 						提审
 					</el-button>
-					<el-button icon="ele-Select" size="small" text type="success" @click="exportChangeDataxamine(scope.row)" v-auth="'outstorage:out-storage-examine'" v-if="scope.row.status == 2">
+					<el-button icon="ele-Select" size="small" text type="success" @click="exportChangeDataxamine(scope.row)" v-auth="'inventory:outstorage:out-storage-examine'" v-if="scope.row.status == 2">
 						审核
 					</el-button>
-					<!-- <el-button icon="ele-Edit" size="small" text type="warning" @click="openEditConfig(scope.row)" v-auth="'outstorage:edit'" v-if="scope.row.status == 3"> 退货 </el-button> -->
+					<!-- <el-button icon="ele-Edit" size="small" text type="warning" @click="openEditConfig(scope.row)" v-auth="'inventory:outstorage:edit'" v-if="scope.row.status == 3"> 退货 </el-button> -->
 					<el-button
 						icon="ele-Delete"
 						size="small"
 						text
 						type="danger"
 						@click="deloutstorage(scope.row)"
-						v-auth="'outstorage:delete'"
+						v-auth="'inventory:outstorage:delete'"
 						v-if="scope.row.status == 0 || scope.row.status == 1 || scope.row.status == 2"
 					>
 						删除

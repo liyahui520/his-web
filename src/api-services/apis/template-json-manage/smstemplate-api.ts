@@ -17,12 +17,12 @@ import { Configuration } from '../../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../../base';
-import { AdminResultListSMSTemplateTypeOutput } from '../../models';
-import { AdminResultSqlSugarPagedListSMSTemplateOutput } from '../../models';
-import { SMSTemplateEditInput } from '../../models';
-import { SMSTemplateInput } from '../../models';
-import { SMSTemplatePageInput } from '../../models';
-import { SMSTemplateTypeInput } from '../../models';
+import { AdminResultListSMSTemplateTypeOutput } from '../../models/template-json-manage';
+import { AdminResultSqlSugarPagedListSMSTemplateOutput } from '../../models/template-json-manage';
+import { SMSTemplateEditInput } from '../../models/template-json-manage';
+import { SMSTemplateInput } from '../../models/template-json-manage';
+import { SMSTemplatePageInput } from '../../models/template-json-manage';
+import { SMSTemplateTypeInput } from '../../models/template-json-manage';
 /**
  * SMSTemplateApi - axios parameter creator
  * @export

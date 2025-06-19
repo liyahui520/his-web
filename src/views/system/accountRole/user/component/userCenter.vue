@@ -33,7 +33,7 @@
 					<div class="image-signature">
 						<el-image :src="userInfos.signature" fit="contain" alt="电子签名" loading="lazy" style="width: 100%; height: 100%"> </el-image>
 					</div>
-					<el-button icon="ele-Edit" type="primary" @click="openSignDialog" v-auth="'sysFile:uploadSignature'"> 电子签名 </el-button>
+					<el-button icon="ele-Edit" type="primary" @click="openSignDialog" > 电子签名 </el-button>
 					<el-upload
 						ref="uploadSignRef"
 						action=""
@@ -45,7 +45,7 @@
 						:on-exceed="uploadSignFileExceed"
 						style="display: inline-block; margin-left: 12px; position: absolute"
 					>
-						<el-button icon="ele-UploadFilled" v-auth="'sysFile:uploadSignature'">上传手写签名</el-button>
+						<el-button icon="ele-UploadFilled" >上传手写签名</el-button>
 					</el-upload>
 				</el-card>
 			</el-col>
@@ -101,15 +101,15 @@
 									</el-col>
 									<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 										<el-form-item>
-											<el-button icon="ele-SuccessFilled" type="primary" @click="submitUserBase" v-auth="'sysUser:baseInfo'"> 保存基本信息 </el-button>
+											<el-button icon="ele-SuccessFilled" type="primary" @click="submitUserBase" > 保存基本信息 </el-button>
 										</el-form-item>
 									</el-col>
 								</el-row>
 							</el-form>
 						</el-tab-pane>
-						<el-tab-pane label="组织机构">
+						<!-- <el-tab-pane label="组织机构">
 							<OrgTree ref="orgTreeRef" />
-						</el-tab-pane>
+						</el-tab-pane> -->
 						<el-tab-pane label="修改密码">
 							<el-form ref="ruleFormPasswordRef" :model="state.ruleFormPassword" label-width="auto">
 								<el-form-item label="当前密码" prop="passwordOld" :rules="[{ required: true, message: '当前密码不能为空', trigger: 'blur' }]">
@@ -123,7 +123,7 @@
 								</el-form-item>
 								<el-form-item>
 									<el-button icon="ele-Refresh" @click="resetPassword">重 置</el-button>
-									<el-button icon="ele-SuccessFilled" type="primary" @click="submitPassword" v-auth="'sysUser:changePwd'">确 定</el-button>
+									<el-button icon="ele-SuccessFilled" type="primary" @click="submitPassword" >确 定</el-button>
 								</el-form-item>
 							</el-form>
 						</el-tab-pane>
@@ -166,7 +166,7 @@ import { ElForm, ElMessageBox, genFileId } from 'element-plus';
 import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus';
 import { useUserInfo } from '/@/stores/userInfo';
 import { base64ToFile, blobToFile } from '/@/utils/base64Conver';
-import OrgTree from '/@/views/system/accountRole/user/component/orgTree.vue';
+// import OrgTree from '/@/views/system/accountRole/user/component/orgTree.vue';
 import CropperDialog from '/@/components/cropper/index.vue';
 import VueGridLayout from 'vue-grid-layout';
 import { sm2 } from 'sm-crypto-v2';

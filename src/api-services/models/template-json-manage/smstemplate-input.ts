@@ -12,8 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { SysSMSTemplateEnum } from ".";
-
+import { SysSMSTemplateEnum } from './sys-smstemplate-enum';
 /**
  * 
  *

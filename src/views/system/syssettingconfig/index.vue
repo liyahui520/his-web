@@ -18,7 +18,7 @@
 			</el-tab-pane>
 			<el-tab-pane label="打印机设置" name="printConfig">
 				<SysPrintConfig />
-			</el-tab-pane>
+			</el-tab-pane> 
 			<el-tab-pane label="诊室管理" name="rooms">
 				<rooms ref="roomsRef"></rooms>
 			</el-tab-pane>

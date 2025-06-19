@@ -92,9 +92,10 @@ const loadUnitData = async () => {
 	});
 };
 // 打开弹窗
-const openDialog = (row: any) => {
+const openDialog =async (row: any) => {
 	ruleForm.value = other.deepClone(row);
 	isShowDialog.value = true;
+	await loadUnitData();
 };
 
 // 关闭弹窗

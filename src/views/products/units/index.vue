@@ -75,13 +75,13 @@ const handleQuery = async () => {
 };
 
 // 打开新增页面
-const openAddProductUnits = () => {
+const openAddProductUnits =async () => {
 	editProductUnitsTitle.value = '添加单位';
-	editDialogRef.value.openDialog({});
+	editDialogRef.value.openDialog({}); 
 };
 
 // 打开编辑页面
-const openEditProductUnits = (row: any) => {
+const openEditProductUnits =async (row: any) => {
 	editProductUnitsTitle.value = '编辑单位';
 	editDialogRef.value.openDialog({ ...row });
 };

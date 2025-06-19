@@ -1,6 +1,6 @@
 <template>
-	<div class="prescription-drug-drag">
-		<el-dialog v-model="isShowDialog" width="85%" draggable :close-on-click-modal="false" :before-close="closeBefore">
+	<div class="prescription-drug">
+		<el-dialog v-model="isShowDialog" width="80%" draggable :close-on-click-modal="false" :before-close="closeBefore">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle">
@@ -9,10 +9,13 @@
 					<span>{{ props.title }}</span>
 				</div>
 			</template>
-			<el-row v-loading="submitLoading" class="customer-row" element-loading-text="保存中，请勿关闭此页面！">
-				<el-col :span="4" class="left-container" >
-					<el-card shadow="always" style="margin-left: 5px">
-						<el-tabs v-model="tabValue">
+			<div v-loading="submitLoading" class="customer-row" element-loading-text="保存中，请勿关闭此页面！">
+				<!-- <el-col :span="4" class="left-container" > -->
+					<div style="position: absolute">
+					<el-card shadow="always" :style="{ width: isSidebarVisible ? '10px' : '250px', float: 'left', transition: 'width 0.5s', height: screenInfo.height - 255 + 'px' }"
+						:body-style="{ padding: '0px' }"
+						style="border-radius: var(--el-card-border-radius); border: 1px solid var(--el-card-border-color)">
+						<el-tabs v-model="tabValue"  class="demo-tabs">
 							<el-tab-pane label="药品" name="first" style="overflow: auto">
 								<CategroyProducts ref="categroyProductsRef" :getData="getData" :addAuth="false" @handleNodeClick="handleNodeClick" :height="175" :updateAuth="false" :deleteAuth="false" />
 							</el-tab-pane>
@@ -24,11 +27,18 @@
 							</el-tab-pane>
 						</el-tabs>
 					</el-card>
-				</el-col>
-				<el-col :span="20" class="right-container">
-					<el-container>
-						<el-header class="right-container-header">
-							<el-card shadow="always">
+						<el-button
+							@click="toggleSidebar(isSidebarVisible)"
+							:icon="isSidebarVisible ? DArrowRight : DArrowLeft"
+							class="record-aside"
+							style="width: 20px; font-weight: bold; border: 0; padding: 0"
+						></el-button>
+					</div>
+				<!-- </el-col> -->
+				<div :style="{ width: isSidebarVisible ? screenInfo.width - 70 + 'px' : screenInfo.width - 310 + 'px', transition: 'width 0.5s' }" style="float: right; margin-left: 30px">
+			 
+						<el-scrollbar>
+							<el-card class="box-card" :body-style="{ padding: '5px', height: '100%' }" style="min-width: 600px">
 								<el-row :gutter="0" align="middle" justify="space-between">
 									<el-col :span="24">
 										<el-avatar :size="60" style="float: left; text-align: center" :src="props.data?.pPetsInfo?.petImageUrl" />
@@ -94,9 +104,7 @@
 									</el-col>
 								</el-row>
 							</el-card>
-						</el-header>
-						<el-main class="right-container-main">
-							<el-card shadow="always" :body-style="{ padding: '10px 10px 10px 10px', height: '100%', border: '0px' }">
+							<el-card class="box-card" shadow="never" :body-style="{ padding: '10px', height: '100%', border: '0px' }">
 								<el-row class="mb-4">
 									<el-popover placement="bottom-start" :width="840" trigger="click" ref="popoverRef" :persistent="false">
 										<template #reference>
@@ -173,12 +181,12 @@
 									<el-button type="warning" @click="pack">打包</el-button>
 								</el-row>
 							</el-card>
-							<el-card shadow="always" :body-style="{ padding: '10px 10px 0px 10px', height: '100%', border: '0px' }">
-								<el-table
-									height="calc(100vh - 240px)"
+							<div>
+								<el-table 
 									:data="tableData.cemRecordPrescriptionItems"
 									stripe
 									highlight-current-row
+									 :height="screenInfo.height - 380" 
 									:span-method="arraySpanMethod"
 									:tree-props="{ children: 'child' }"
 									row-key="vKey"
@@ -328,21 +336,20 @@
 										</template>
 									</el-table-column>
 								</el-table>
-							</el-card>
-						</el-main>
-					</el-container>
-				</el-col>
-			</el-row>
+							</div>  
+						</el-scrollbar> 
+				</div>
+			</div>
 			<PackDrug ref="packDrugRef" @reloadTable="packLoad" />
 		</el-dialog>
 	</div>
 </template>
 
-<script setup lang="ts" name="prescriptionDrugDrag">
-import { ref, defineAsyncComponent, computed } from 'vue';
-import { ElMessageBox, ElMessage, ElTable } from 'element-plus';
-import { DocumentAdd, DeleteFilled } from '@element-plus/icons-vue';
+<script setup lang="ts" name="prescription-drug">
+import { ref, defineAsyncComponent, computed,nextTick ,reactive,onMounted} from 'vue';
+import { ElMessageBox, ElMessage, ElTable } from 'element-plus'; 
 import { getAPI } from '/@/utils/axios-utils';
+import { DocumentAdd, DArrowLeft, DArrowRight, DeleteFilled, Loading } from '@element-plus/icons-vue';
 import { ProductCategorysApi, CEMRecordApi, ProductDrugsApi } from '/@/api-services/api';
 import { CEMRecordItemGroupTypeEnum } from '/@/api-services/models/cemrecord-manage';
 import { verifyNumberComma, verifyTextColor } from '/@/utils/toolsValidate';
@@ -362,6 +369,8 @@ const PackDrug = defineAsyncComponent(() => import('/@/components/treatment/pack
 const emit = defineEmits(['reloadTable']);
 const { generateGUID } = commonFunction();
 const isShowDialog = ref<boolean>(false);
+const isSidebarVisible = ref(false);
+const sidebarWidth = ref('');
 const orderGroupData = ref<any>([]);
 const orderGroupObject = ref<any>({});
 const unitData = ref<any>([]);
@@ -387,7 +396,14 @@ const dosingWayData = ref<any>([]);
 const packDrugRef = ref();
 const prescriptionItemTableRef = ref();
 const submitLoading = ref<boolean>(false);
-
+const screenInfo = reactive({
+	height: 0,
+	width: 0,
+});
+const handleResize = () => {
+	screenInfo.height = window.innerHeight;
+	screenInfo.width = window.innerWidth * 0.8;
+};
 //父级传递来的参数
 var props = defineProps({
 	title: {
@@ -452,6 +468,13 @@ const totalAmountComputed = computed(() => {
 const deleteRow = (index: number) => {
 	tableData.value.cemRecordPrescriptionItems.splice(index, 1);
 };
+const toggleSidebar = async (v: any) => {
+	await nextTick(() => {
+		isSidebarVisible.value = !v ? true : false;
+		sidebarWidth.value = !v.value ? '' : '0';
+	});
+};
+
 /**
  * 数量变更
  * @param row
@@ -805,11 +828,23 @@ const getDataMicroscope = async () => {
 	return a.data?.result ?? [];
 };
 
+// 页面加载时
+onMounted(async () => {
+	screenInfo.height = window.innerHeight;
+	screenInfo.width = window.innerWidth * 0.8;
+	window.addEventListener('resize', handleResize);
+});
 //将属性或者函数暴露给父组件
 defineExpose({ openDialog });
 </script>
 
 <style scoped lang="scss">
+
+.demo-tabs {
+	.el-tabs__content {
+		height: 100% !important;
+	}
+}
 :deep(.el-dialog__body) {
 	min-height: calc(100vh - 255px) !important;
 	background-color: #eef0f7;
@@ -819,44 +854,44 @@ defineExpose({ openDialog });
 		//margin-right: -20px !important;
 	}
 }
-.prescription-drug-drag {
+.prescription-drug {
+	:deep(.el-table__header) {
+		.cell {
+			text-align: center !important;
+		}
+	}
 	:deep(.el-overlay .el-overlay-dialog .el-dialog .el-dialog__body) {
-		padding: 5px 0px 0px 0px !important;
+		padding: 5px !important;
 	}
-	// :deep(.el-header) {
-	// 	padding: 0px !important;
-	// }
-	.left-container {
-		:deep(.el-card__body) {
-			padding: 20px 20px 0px 20px !important;
-		}
+	.record-aside {
+		cursor: pointer;
+		width: 16px;
+		height: 40px;
+		line-height: 40px;
+		text-align: center;
+		position: absolute;
+		top: 50%;
+		margin-right: -18px;
+		right: 0;
+		//left: -15px;
+		margin-top: -20px;
+		font-size: 16px;
+		color: #0f9bfc;
+		background-color: var(--el-color-white);
+	} 
+	:deep(.el-tabs__header) {
+		padding: 0 0 0 5px !important;
 	}
-	.right-container {
-		.right-container-header {
-			height: 70px;
-		}
 
-		:deep(.el-input-number.is-controls-right .el-input__wrapper) {
-			padding-right: 15px;
-		}
-
-		:deep(.el-table__indent) {
-			display: none;
-		}
-
-		:deep(.el-input-number.is-controls-right .el-input-number__decrease) {
-			display: none;
-		}
-
-		:deep(.el-input-number.is-controls-right .el-input-number__increase) {
-			display: none;
-		}
-		:deep(.el-main) {
-			padding: 20px 20px 0px 20px !important;
-		}
-		.right-container-main {
-			.input-number-width {
-				width: 100% !important;
+	.el-select-v2 {
+		:deep(.el-select-v2__selected-item) {
+			.el-tag {
+				width: 0;
+				opacity: 0;
+				margin: 0;
+				overflow: hidden;
+				border: 0;
+				padding: 0;
 			}
 		}
 	}

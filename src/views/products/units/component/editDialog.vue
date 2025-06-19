@@ -34,7 +34,7 @@ import { ref, onMounted } from 'vue';
 import { ElMessage } from 'element-plus';
 import type { FormRules } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
-import { ProductUnitsApi } from '/@/api-services/api';
+import { ProductUnitsApi } from '/@/api-services/api'; 
 import {useUserInfo} from '/@/stores/userInfo';
 import other from '/@/utils/other';
 //父级传递来的参数

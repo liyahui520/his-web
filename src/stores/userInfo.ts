@@ -111,6 +111,7 @@ export const useUserInfo = defineStore('userInfo', {
 		},
 		async reloadProductUnitList() {
 			Session.remove('productUnits');
+			this.productUnits = [];
 			// 存储字典信息到浏览器缓存
 			if (Session.get('productUnits')) {
 				this.productUnits = Session.get('productUnits');

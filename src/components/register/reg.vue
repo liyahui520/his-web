@@ -132,7 +132,7 @@ const openDialog = async () => {
 	regTypes.value = await getEnums('RegType');
 	getUsersData.value = userList.value;
 	getRegisters.value = await getRegisterProducts();
-	ruleForm.value = { regType: regTypes.value[0].value, doctorId: userList.value[0].id, itemId: getRegisters.value[0].id };
+	ruleForm.value = { regType: regTypes.value[0].value, doctorId: userList.value[0]?.id??'', itemId: getRegisters.value[0]?.id??'' };
 	isShowDialog.value = true;
 
 	ruleForm.value.regType = regTypes.value[0].value;

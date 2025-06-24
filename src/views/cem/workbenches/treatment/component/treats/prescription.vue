@@ -281,7 +281,7 @@ const tb = reactive<TableDemoState>({
 			exportFileName: '处方', //导出报表的文件名，不填写取应用名称
 			hidePrint: true,
 			hidePagination: true,
-			hideExport: true,
+			isDisabled:true
 		},
 		// 搜索表单，动态生成（传空数组时，将不显示搜索，type有3种类型：input,date,select）
 		search: [],

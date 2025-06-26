@@ -90,7 +90,7 @@ import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 // import { auth } from '/@/utils/authFunction';
 
-import printDialog from '/@/views/system/print/component/hiprint/preview.vue';
+import printDialog from '/@/views/platform/print/component/hiprint/preview.vue';
 import editFormDialog from './component/editFormDialog.vue';
 import detailDialog from './component/detailDialog.vue';
 // import editFlowDialog from './component/editFlowDialog.vue';

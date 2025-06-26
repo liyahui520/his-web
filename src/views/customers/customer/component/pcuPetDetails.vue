@@ -56,9 +56,9 @@ import { ref, onMounted, reactive } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { PPetsApi, MemberLevelApi } from '/@/api-services/api';
 import router from '/@/router';
-import CardPet from '/@/views/main/ppets/component/cardPet.vue';
-import CardAdd from '/@/views/main/ppets/component/cardAdd.vue';
-import EditPet from '../../ppets/component/editDialog.vue';
+import CardPet from '../../pet/component/cardPet.vue';
+import CardAdd from '../../pet/component/cardAdd.vue';
+import EditPet from '../../pet/component/editDialog.vue';
 import { Search } from '@element-plus/icons-vue';
 import { getDictDataList } from '/@/utils/dict-utils';
 

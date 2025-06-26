@@ -105,7 +105,7 @@
 import { ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import { auth } from '/@/utils/authFunction';
-import editDialog from '/@/views/main/ppets/component/editDialog.vue';
+import editDialog from './component/editDialog.vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { PPetsApi } from '/@/api-services';
 

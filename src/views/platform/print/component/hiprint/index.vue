@@ -111,10 +111,12 @@ import printData from './print-data';
 import instorePrintData from './instore-print-data';
 import inspectionTestData from './inspection-test-data';
 import cEMRecordPrescriptiondata from './CEM-Record-Prescription-data';
+import cEMTestdata from './CEM-Record-Test-data';
 import CEMREcordData from './cem-record-data';
 import BscanData from './bscan-data';
 import XrayData from './xray-data';
 import MicroData from './micro-data';
+import ChargeData from './charge-data';
 
 let hiprintTemplate = ref();
 
@@ -185,7 +187,9 @@ const curPaperType = computed(() => {
 
 // 选择模板
 const changeMode = () => {
+	console.log('changeMode', state.mode);
 	let provider = providers[state.mode];
+	console.log('provider', provider);
 	hiprint.init({
 		providers: [provider.f],
 	});
@@ -312,7 +316,9 @@ const preView = () => {
 	else if (state.mode == 7) tempData = BscanData;
 	else if (state.mode == 8) tempData = XrayData;
 	else if (state.mode == 9) tempData = MicroData;
-	else tempData = CEMREcordData;
+	else if (state.mode == 10) tempData = ChargeData;
+	else if (state.mode == 11) tempData = cEMTestdata;
+	// else tempData = CEMREcordData;
 
 	preViewRef.value.showDialog(hiprintTemplate.value, tempData, width);
 };
@@ -336,7 +342,7 @@ onMounted(() => {
 	state.modeList = providers.map((e) => {
 		return { type: e.type, name: e.name, value: e.value };
 	});
-	console.log("state.modeList",state.modeList)
+	console.log("state.modeList",state)
 	changeMode();
 	// otherPaper(); // 默认纸张
 });

@@ -106,14 +106,18 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import VueJsonPretty from 'vue-json-pretty';
 import 'vue-json-pretty/lib/styles.css';
 import { Close } from '@element-plus/icons-vue';
-import { hiprint, disAutoConnect } from 'vue-plugin-hiprint-signalr';
-import tempProviders from './datas/PrescriptionProvider';
+import { hiprint, disAutoConnect } from 'vue-plugin-hiprint-signalr'; 
 import PrintPreview from '/@/views/platform/print/component/hiprint/preview.vue';
-import cEMRecordPrescriptiondata from './datas/RecordPrescriptionData';
+import cEMRecordPrescriptiondata from '/@/views/platform/print/component/hiprint/CEM-Record-Prescription-data';
+import tempProviders from '../component/datas/PrescriptionProvider';
+import RecordPrescriptionData from '/@/views/platform/print/component/hiprint/cem-record-data';
+import RecordTestData from '/@/views/platform/print/component/hiprint/CEM-Record-Test-data';
+import ChargeData from '/@/views/platform/print/component/hiprint/charge-data';
 import { getAPI } from '/@/utils/axios-utils';
 import { PrintTemplateApi } from '/@/api-services/api';
 import { PrintTypeEnum } from '/@/api-services/models/template-json-manage/print-type-enum';
 import other from '/@/utils/other';
+import { sw } from 'element-plus/es/locale';
 const emit = defineEmits(['edit']);
 
 let hiprintTemplate = ref();
@@ -204,6 +208,26 @@ watch(
 		state.selectmode = {};
 		changeMode(props.Providers);
 		handleQuery();
+		switch (newValue) {
+			case PrintTypeEnum.NUMBER_1001:
+				props.tempDatas.value = RecordTestData;
+				break;
+			case PrintTypeEnum.NUMBER_1002:
+				props.tempDatas.value = RecordPrescriptionData;
+				break;
+			case PrintTypeEnum.NUMBER_1003:
+				props.tempDatas.value = RecordPrescriptionData;
+				break;
+			case PrintTypeEnum.NUMBER_1004:
+				props.tempDatas.value = RecordPrescriptionData;
+				break;
+			case PrintTypeEnum.NUMBER_1005:
+				props.tempDatas.value = RecordPrescriptionData;
+				break;
+			default:
+				props.tempDatas.value = RecordPrescriptionData;
+				break;
+		}
 	},
 	{ deep: true }
 );
@@ -310,6 +334,7 @@ const setPaper = (type: string, value: { width: number; height: number }) => {
 const preView = () => {
 	let { width } = state.curPaper;
 	let tempData: any = props.tempDatas;
+	console.log("props.tempDatas",props.tempDatas)
 	// if(state.mode==2)
 	// 	tempData =instorePrintData;
 	// if(state.mode==3)

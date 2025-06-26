@@ -1,6 +1,6 @@
 
 export default {
-    title: 'xxxx检查化验单',
+    title: 'xxxx收费清单', 
     customerName: '张三',
     cellPhone: '185xxxxxxxx',
     cardNumber:'C0000000001',
@@ -15,7 +15,7 @@ export default {
     petIdentityNumber:'Q0000001',
     printTime:'2024-10-01 12:00:00',
     createTime:'2024-10-01 12:00:00',
-    createOrgName:'xxxxxx检查化验单',
+    createOrgName:'xxxxxx收费清单',
     diagnose:'大型雪娜瑞犬和苏格兰边境牧羊犬体内选择性维生素B12的不完全吸收',
     totalAmount:'120.00',
     discountAmount:'0.00',
@@ -24,7 +24,7 @@ export default {
     payTime:'2024-01-01 12:00:00',
     doctorIdNumber:'A12345678901',
     doctorName:'张三',
-    testItemDetails: [
+    billDetails: [
         {orderName:'分组1', productName: '测试商品01',unitName: '盒',  specific: '规格', useDose: '口服', useMethods: '一日一次', dayNum: '2',salePrice:'40.00',count:12,totalPrice:480.00,actualPrice:480.00,remark:'111' }, 
         {orderName:'分组1', productName: '测试商品01',unitName: '盒',  specific: '规格', useDose: '口服', useMethods: '一日一次', dayNum: '2',salePrice:'40.00',count:12,totalPrice:480.00,actualPrice:480.00,remark:'111' }, 
         {orderName:'分组1', productName: '测试商品01',unitName: '盒',  specific: '规格', useDose: '口服', useMethods: '一日一次', dayNum: '2',salePrice:'40.00',count:12,totalPrice:480.00,actualPrice:480.00,remark:'111' }, 

@@ -74,7 +74,7 @@ const tb = reactive<TableDemoState>({
 			{ label: '编码', prop: 'code', placeholder: '搜索模板编码', required: false, type: 'input' },
 			{ label: '类型', prop: 'type', placeholder: '搜索模板类型', required: false, type: 'select', dictCode: 'TemplateTypeEnum' },
 		],
-		param: {},
+		param: {printType:-1,page:1, pageSize: 50} as EmptyObjectType, // 请求参数
 		defaultSort: {
 			prop: 'orderNo',
 			order: 'ascending',
@@ -134,7 +134,7 @@ onMounted(async () => {
 // 更新数据
 const updateData = () => {
 	tableRef.value.handleList();
-	getGroupList();
+	// getGroupList();
 };
 
 // 打开新增页面

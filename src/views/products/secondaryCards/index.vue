@@ -20,12 +20,12 @@
 					<template #header>
 						<div class="card-header">
 							<el-row>
-								<el-col :span="18">
+								<el-col :span="12">
 									<el-tooltip :content="card.name" placement="top" effect="light">
 										<el-text tag="b" size="large" truncated>{{ card.name }}</el-text>
 									</el-tooltip>
 								</el-col>
-								<el-col :span="6" style="text-align: end">
+								<el-col :span="12" style="text-align: end;font-size: 18px;font-weight: 800;">
 									<el-text type="primary" size="default">￥{{ twoFloorNum(card.salePrice) }}</el-text>
 								</el-col>
 							</el-row>
@@ -106,7 +106,7 @@
 							</template>
 							<template #default>
 								<div class="card-content">
-									<el-text
+									<el-text  line-clamp="2" truncated
 										>项目：<span v-for="(cardItem, index) in card.secondaryCardItems" :key="index">【{{ cardItem.productName }}】</span></el-text
 									>
 								</div>
@@ -261,12 +261,13 @@ handleDisableQuery();
 				--el-card-bg-color: var(--el-fill-color-blank);
 
 				.card-header {
-					height: 10px;
+					height: 20px;
+					line-height: 20px;
 				}
 
 				.card-content {
 					width: 100%;
-					height: 90px;
+					height: 80px;
 
 					.el-text--small {
 						display: -webkit-box;

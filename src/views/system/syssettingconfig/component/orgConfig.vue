@@ -1,13 +1,21 @@
 <template>
-	<div class="productUnits-container"> 
-		<el-card shadow="never" style=" overflow: auto; ">
+	<div :class="isTagsViewCurrenFull ? 'tab-cus-full-Content' : 'tab-cus-Content'">
+		<el-card shadow="never" class="full-table" style=" overflow: auto; ">
 			<el-table :data="tableData" v-loading="loading" border tooltip-effect="light" row-key="id">
 				<el-table-column type="index" label="序号" width="55" align="center" fixed="" />
 				<el-table-column prop="name" label="参数名称" align="left" width="300" show-overflow-tooltip="" />
 				<el-table-column prop="description" label="描述" align="left" show-overflow-tooltip="" />
+				<el-table-column  label="状态" align="left" show-overflow-tooltip="" width="100">
+					<template #default="scope">
+						<span v-if="scope.row.value" class="el-tag el-tag--success">生效中</span>
+						<span v-else class="el-tag el-tag--danger">未启用</span>
+					</template>
+				</el-table-column>
 				<el-table-column label="设置" align="center" width="300">
 					<template #default="scope">
-						<el-switch v-model="scope.row.value" size="default" :loading="scope.row.loading" @change="editSysOrgConfig(scope.row)" inline-prompt :active-icon="Check" :inactive-icon="Close" />
+						<el-switch v-model="scope.row.value" size="default" :loading="scope.row.loading"
+							@change="editSysOrgConfig(scope.row)" inline-prompt :active-icon="Check"
+							:inactive-icon="Close" />
 					</template>
 				</el-table-column>
 			</el-table>
@@ -23,6 +31,12 @@ import { getAPI } from '/@/utils/axios-utils';
 import { SysOrgConfigApi } from '/@/api-services/api';
 import { Check, Close } from '@element-plus/icons-vue';
 import other from '/@/utils/other';
+import { useUserInfo } from '/@/stores/userInfo';
+import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
+import { storeToRefs } from 'pinia';
+const storesTagsViewRoutes = useTagsViewRoutes();
+const stores = useUserInfo();
+const { isTagsViewCurrenFull } = storeToRefs(storesTagsViewRoutes);
 
 const loading = ref(false);
 const tableData = ref<any>([]);
@@ -43,9 +57,9 @@ const editSysOrgConfig = async (row: any) => {
 
 	return new Promise((resolve, reject) => {
 		if (isSuccess) {
-            return resolve(true);
-        }
-        else return reject(false);
+			return resolve(true);
+		}
+		else return reject(false);
 	});
 };
 // 查询操作

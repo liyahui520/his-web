@@ -1,14 +1,16 @@
 <template>
-	<el-card shadow="never" :body-style="{ paddingBottom: '5px', padding: '0' }">
+	<div  >
+		<el-card shadow="never" :body-style="{ paddingBottom: '5px', padding: '0' }">
 		<TableSearch :search="tb.tableData.search" :param="tb.tableData.param" @search="onSearch" />
 	</el-card>
-	<el-card class="full-table" shadow="never" style="margin-top: 0; height: calc(100vh - 305px); padding: 0" :body-style="{ padding: '0px 0px 10px 0px' }">
+	<el-card class="full-table" shadow="never" style="margin-top: 0; padding: 0;height: calc(100vh - 300px)"  :body-style="{ padding: '0px 0px 10px 0px' }">
 		<Table ref="tableRef" v-bind="tb.tableData" :getData="getData" @sortHeader="onSortHeader" border>
 			<template #customerName="scope">
 				<el-button type="primary" link @click="selectPcu(scope.row)">{{ scope.row.customerName }} </el-button>
 			</template>
 		</Table>
 	</el-card>
+	</div>
 </template>
 
 <script lang="ts" setup name="list">

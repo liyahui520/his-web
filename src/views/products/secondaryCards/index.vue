@@ -1,6 +1,6 @@
 <template>
 	<div class="secondary-cards-container">
-		<el-card shadow="always" style="height: calc(100vh)">
+		<el-card shadow="always" style="height: calc(100vh);overflow: auto;">
 			<div class="secondary-cards-can-title">
 				<div class="can-card-title">
 					<div class="can-card-title-left"></div>
@@ -11,7 +11,8 @@
 								<RefreshRight />
 							</el-icon>
 						</el-button>
-						<el-button type="primary" @click="openAddSecondaryCards" icon="ele-Plus" style="margin-left: 30px" v-auth="'products:secondcards:add'">新增次卡</el-button>
+						<el-button type="primary" @click="openAddSecondaryCards" icon="ele-Plus"
+							style="margin-left: 30px" v-auth="'products:secondcards:add'">新增次卡</el-button>
 					</el-space>
 				</div>
 			</div>
@@ -33,16 +34,16 @@
 					</template>
 					<template #default>
 						<div class="card-content">
-							<el-text
-								>项目：<span v-for="(cardItem, index) in card.secondaryCardItems" :key="index">【{{ cardItem.productName }}】</span></el-text
-							>
+							<el-text>项目：<span v-for="(cardItem, index) in card.secondaryCardItems" :key="index">【{{
+								cardItem.productName }}】</span></el-text>
 						</div>
 					</template>
 					<template #footer>
 						<div class="card-footer">
 							<el-row style="margin-bottom: 5px; margin-top: -5px">
 								<el-col :span="19">
-									<el-text size="default" style="margin-right: 5px">有效期至：{{ formatDate(new Date(card.endTime), 'YYYY-mm-dd') }}</el-text>
+									<el-text size="default" style="margin-right: 5px">有效期至：{{ formatDate(new
+										Date(card.endTime), 'YYYY-mm-dd') }}</el-text>
 								</el-col>
 								<el-col :span="5">
 									<el-text size="default">次数：{{ card.totalCount }}</el-text>
@@ -50,11 +51,12 @@
 							</el-row>
 							<el-row>
 								<el-col :span="19">
-									<el-button v-if="card.haveCustomerCount > 0" type="info" size="default" link @click="handleHaveCardMemberClick(card)"> 持卡客户：{{ card.haveCustomerCount }} </el-button>
-									<el-text size="default" v-else style="margin-right: 5px">持卡客户：0</el-text>
+									<el-button type="info" size="default" link style="border-bottom: 1px solid white;"
+										@click="handleHaveCardMemberClick(card)"> 持卡客户：{{ card.haveCustomerCount }}
+									</el-button> 
 								</el-col>
 								<el-col :span="5">
-									<el-button type="info" link @click="openEditSecondaryCards(card)">
+									<el-button type="info" link @click="openEditSecondaryCards(card)"  style="border-bottom: 1px solid white;">
 										详情
 										<el-icon class="el-icon--right">
 											<ArrowRight />
@@ -71,7 +73,7 @@
 					<div class="can-card-title-left"></div>
 					<el-space alignment="flex-start">
 						不可用次卡
-						<el-button circle v-auth="'products:secondcards:page'"  @click="handleDisableQuery">
+						<el-button circle v-auth="'products:secondcards:page'" @click="handleDisableQuery">
 							<el-icon>
 								<RefreshRight />
 							</el-icon>
@@ -81,14 +83,9 @@
 			</div>
 			<div class="secondary-cards-disable-content" v-loading="disableLoading">
 				<div class="box-card">
-					<el-watermark
-						v-for="(card, index) in disableCards"
-						:key="index"
-						:width="80"
-						:height="80"
+					<el-watermark v-for="(card, index) in disableCards" :key="index" :width="80" :height="80"
 						style="margin-right: 20px"
-						:image="card.status == 1 ? 'src/assets/secondcards/disable.png' : 'src/assets/secondcards/overdue.png'"
-					>
+						:image="card.status == 1 ? 'src/assets/secondcards/disable.png' : 'src/assets/secondcards/overdue.png'">
 						<el-card>
 							<template #header>
 								<div class="card-header">
@@ -99,23 +96,24 @@
 											</el-tooltip>
 										</el-col>
 										<el-col :span="6" style="text-align: end">
-											<el-text type="primary" size="default">￥{{ twoFloorNum(card.salePrice) }}</el-text>
+											<el-text type="primary" size="default">￥{{ twoFloorNum(card.salePrice)
+												}}</el-text>
 										</el-col>
 									</el-row>
 								</div>
 							</template>
 							<template #default>
 								<div class="card-content">
-									<el-text  line-clamp="2" truncated
-										>项目：<span v-for="(cardItem, index) in card.secondaryCardItems" :key="index">【{{ cardItem.productName }}】</span></el-text
-									>
+									<el-text>项目：<span v-for="(cardItem, index) in card.secondaryCardItems"
+											:key="index">【{{ cardItem.productName }}】</span></el-text>
 								</div>
 							</template>
 							<template #footer>
 								<div class="card-footer">
 									<el-row style="margin-bottom: 5px; margin-top: -5px">
 										<el-col :span="19">
-											<el-text size="default" style="margin-right: 5px">有效期至：{{ formatDate(new Date(card.endTime), 'YYYY-mm-dd') }}</el-text>
+											<el-text size="default" style="margin-right: 5px">有效期至：{{ formatDate(new
+												Date(card.endTime), 'YYYY-mm-dd') }}</el-text>
 										</el-col>
 										<el-col :span="5">
 											<el-text size="default">次数：{{ card.totalCount }}</el-text>
@@ -123,11 +121,12 @@
 									</el-row>
 									<el-row>
 										<el-col :span="19">
-											<el-button v-if="card.haveCustomerCount > 0" type="info" size="default" link @click="handleHaveCardMemberClick(card)"> 持卡客户：{{ card.haveCustomerCount }} </el-button>
-											<el-text size="default" v-else style="margin-right: 5px">持卡客户：0</el-text>
+											<el-button type="info" size="default" link  style="border-bottom: 1px solid white;"
+												@click="handleHaveCardMemberClick(card)"> 持卡客户：{{ card.haveCustomerCount
+												}} </el-button> 
 										</el-col>
 										<el-col :span="5">
-											<el-button type="info" link @click="openEditSecondaryCards(card)">
+											<el-button type="info" link @click="openEditSecondaryCards(card)"  style="border-bottom: 1px solid white;">
 												详情
 												<el-icon class="el-icon--right">
 													<ArrowRight />
@@ -253,8 +252,10 @@ handleDisableQuery();
 			flex-wrap: wrap;
 			background-color: transparent;
 			min-height: 300px;
+
 			.box-card {
 				width: 400px;
+				min-width: 400px;
 				height: 240px !important;
 				margin-bottom: 20px;
 				margin-right: 20px;
@@ -268,15 +269,8 @@ handleDisableQuery();
 				.card-content {
 					width: 100%;
 					height: 80px;
-
-					.el-text--small {
-						display: -webkit-box;
-						-webkit-box-orient: vertical;
-						-webkit-line-clamp: 5;
-						line-height: 20px;
-						overflow: hidden;
-						text-overflow: ellipsis;
-					}
+					text-overflow: ellipsis;
+					overflow: hidden;
 				}
 
 				:deep(.el-card__footer) {
@@ -293,7 +287,7 @@ handleDisableQuery();
 							color: aliceblue;
 						}
 
-						.el-button > span {
+						.el-button>span {
 							color: aliceblue;
 						}
 					}
@@ -312,6 +306,7 @@ handleDisableQuery();
 
 				.el-card {
 					width: 400px;
+					min-width: 400px;
 					height: 240px !important;
 				}
 
@@ -347,7 +342,7 @@ handleDisableQuery();
 							color: var(--el-text-color-primary);
 						}
 
-						.el-button > span {
+						.el-button>span {
 							color: var(--el-text-color-primary);
 						}
 					}

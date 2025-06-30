@@ -1,6 +1,6 @@
 <template>
     <div class="have-card-customer-container">
-        <el-dialog v-model="isShowDialog" :title="props.title" width="50%" draggable :close-on-click-modal="false">
+        <el-dialog v-model="isShowDialog" :title="props.title" width="50%" draggable :close-on-click-modal="false" height="600px">
             <template #header>
                 <div style="color: #fff">
                     <el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit />
@@ -8,7 +8,7 @@
                     <span>{{ props.title }}</span>
                 </div>
             </template>
-            <el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
+            <el-card shadow="always" :body-style="{ paddingBottom: '0' }">
                 <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="70px">
                     <el-row :gutter="35">
                         <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6">
@@ -30,8 +30,8 @@
                 </el-form>
             </el-card>
 
-            <el-card class="full-table" shadow="hover" style="margin-top: 8px">
-                <el-table :data="tableData" border style="width: 100%" height="400" v-loading="loading" tooltip-effect="light"
+            <el-card shadow="always" style="margin-top: 8px">
+                <el-table :data="tableData" border style="width: 100%;height: 410px;" v-loading="loading" tooltip-effect="light"
                     row-key="id" default-expand-all>
                     <el-table-column prop="cardNumber" label="会员编号" show-overflow-tooltip="" />
                     <el-table-column prop="customerName" label="名称" show-overflow-tooltip="" />
@@ -47,7 +47,7 @@
                     <el-table-column prop="lastUseTime" label="最后使用" show-overflow-tooltip="" />
                 </el-table>
                 <el-pagination v-model:currentPage="tableParams.page" v-model:page-size="tableParams.pageSize"
-                    :total="tableParams.total" :page-sizes="[10, 20, 50, 100]" background=""
+                    :total="tableParams.total" :page-sizes="[10, 20, 50, 100]" background="" style="margin-bottom: 8px;padding-bottom: 8px;"
                     @size-change="handleSizeChange" @current-change="handleCurrentChange"
                     layout="total, sizes, prev, pager, next, jumper" />
             </el-card>
